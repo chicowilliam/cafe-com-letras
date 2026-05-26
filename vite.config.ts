@@ -9,4 +9,19 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    watch: {
+      ignored: ["**/node_modules/**", "**/dist/**", "**/*.zip", "**/Fotos Livraria Contraponto/**"],
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          lucide: ["lucide-react"],
+        },
+      },
+    },
+  },
 });
