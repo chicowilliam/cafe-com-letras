@@ -40,7 +40,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# local photo sources (committed under src/assets)
-/assets/images/Fotos Livraria Contraponto/
-/assets/images/livraria/
 *.zip

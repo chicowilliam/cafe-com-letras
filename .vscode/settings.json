@@ -1,0 +1,14 @@
+{
+  "files.watcherExclude": {
+    "**/*.zip": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true
+  },
+  "search.exclude": {
+    "**/*.zip": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+  "typescript.tsserver.maxTsServerMemory": 1536,
+  "eslint.workingDirectories": [{ "mode": "auto" }]
+}
