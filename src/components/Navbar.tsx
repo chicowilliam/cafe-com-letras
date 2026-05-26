@@ -1,31 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { NAV_LINKS } from "@/lib/constants";
 
 export function Navbar() {
-  const [visible, setVisible] = useState(true);
+  const visible = useNavbarVisibility();
   const [menuOpen, setMenuOpen] = useState(false);
-  const lastScrollY = useRef(0);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const currentY = window.scrollY;
-
-      if (currentY < 64) {
-        setVisible(true);
-      } else if (currentY > lastScrollY.current + 4) {
-        setVisible(false);
-      } else if (currentY < lastScrollY.current - 4) {
-        setVisible(true);
-      }
-
-      lastScrollY.current = currentY;
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -36,15 +16,10 @@ export function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={false}
-        animate={{ y: visible ? 0 : "-100%" }}
-        transition={{
-          duration: visible ? 0.18 : 0.4,
-          ease: visible ? [0.25, 0.1, 0.25, 1] : [0.4, 0, 0.2, 1],
-        }}
-        style={{ willChange: "transform" }}
-        className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[#12110f]/75 backdrop-blur-xl"
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[#12110f]/90 transition-transform duration-300 ease-out motion-reduce:transition-none ${
+          visible ? "translate-y-0" : "-translate-y-full"
+        }`}
       >
         <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20 md:px-10">
           <a
@@ -83,13 +58,14 @@ export function Navbar() {
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </nav>
-      </motion.header>
+      </header>
 
-      <motion.div
-        initial={false}
-        animate={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}
-        transition={{ duration: 0.25 }}
-        className="fixed inset-0 z-40 bg-[#12110f]/95 backdrop-blur-md md:hidden"
+      <div
+        className={`fixed inset-0 z-40 bg-[#12110f]/95 transition-opacity duration-250 motion-reduce:transition-none md:hidden ${
+          menuOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
       >
         <ul className="flex h-full flex-col items-center justify-center gap-8">
           {NAV_LINKS.map((link) => (
@@ -104,7 +80,7 @@ export function Navbar() {
             </li>
           ))}
         </ul>
-      </motion.div>
+      </div>
     </>
   );
 }

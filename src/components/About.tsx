@@ -1,14 +1,5 @@
-import { motion } from "framer-motion";
+import { FadeIn } from "@/components/FadeIn";
 import { ABOUT_IMAGES, ABOUT_PARAGRAPHS } from "@/lib/constants";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
 
 const STORY_BLOCKS = [
   ABOUT_PARAGRAPHS[0],
@@ -25,8 +16,14 @@ type StoryRowProps = {
 
 function StoryImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="mx-auto w-full max-w-[400px] overflow-hidden rounded-2xl aspect-[4/5] lg:max-w-[500px]">
-      <img src={src} alt={alt} className="h-full w-full object-cover" loading="lazy" />
+    <div className="mx-auto aspect-[4/5] w-full max-w-[400px] overflow-hidden rounded-2xl lg:max-w-[500px]">
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   );
 }
@@ -40,28 +37,18 @@ function StoryText({ children }: { children: string }) {
 }
 
 function StoryRow({ imageSrc, imageAlt, text, imageFirst }: StoryRowProps) {
-  const imageOrder = imageFirst
-    ? "order-1 md:order-1"
-    : "order-1 md:order-2";
-  const textOrder = imageFirst
-    ? "order-2 md:order-2"
-    : "order-2 md:order-1";
+  const imageOrder = imageFirst ? "order-1 md:order-1" : "order-1 md:order-2";
+  const textOrder = imageFirst ? "order-2 md:order-2" : "order-2 md:order-1";
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={fadeInUp}
-      className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 lg:gap-16"
-    >
+    <FadeIn className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 lg:gap-16">
       <div className={imageOrder}>
         <StoryImage src={imageSrc} alt={imageAlt} />
       </div>
       <div className={textOrder}>
         <StoryText>{text}</StoryText>
       </div>
-    </motion.div>
+    </FadeIn>
   );
 }
 
@@ -71,13 +58,7 @@ export function About() {
   return (
     <section id="sobre" className="bg-[#12110f] px-6 md:px-10">
       <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={fadeInUp}
-          className="py-24 pb-12"
-        >
+        <FadeIn className="py-24 pb-12">
           <p className="mb-3 text-[10px] font-light uppercase tracking-[0.35em] text-accent/80">
             A História
           </p>
@@ -85,7 +66,7 @@ export function About() {
             Três amigos, um sonho{" "}
             <span className="italic text-[#f5f0e6]/80">e a Savassi</span>
           </h2>
-        </motion.div>
+        </FadeIn>
 
         <div className="flex flex-col gap-24 py-24 pt-0">
           <StoryRow
@@ -108,17 +89,11 @@ export function About() {
           />
         </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="border-t border-white/5 py-12"
-        >
+        <FadeIn className="border-t border-white/5 py-12" rootMargin="0px">
           <p className="text-[10px] font-light uppercase tracking-[0.25em] text-foreground-muted">
             Rua Antônio de Albuquerque · Savassi · Belo Horizonte
           </p>
-        </motion.div>
+        </FadeIn>
       </div>
     </section>
   );

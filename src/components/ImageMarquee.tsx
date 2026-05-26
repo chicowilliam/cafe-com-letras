@@ -1,35 +1,36 @@
-import { motion } from "framer-motion";
 import { Camera } from "lucide-react";
+import { FadeIn } from "@/components/FadeIn";
+import { useInView } from "@/hooks/useInView";
 import { MARQUEE_IMAGES } from "@/lib/constants";
 
 export function ImageMarquee() {
   const loop = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
+  const [sectionRef, sectionInView] = useInView<HTMLElement>({
+    rootMargin: "200px",
+    threshold: 0,
+  });
 
   return (
-    <section id="galeria" className="overflow-hidden bg-[#1a1614] py-20 md:py-28">
+    <section
+      ref={sectionRef}
+      id="galeria"
+      className="overflow-hidden bg-[#1a1614] py-20 md:py-28"
+    >
       <div className="mx-auto mb-12 max-w-6xl px-6 md:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3"
-        >
+        <FadeIn className="flex items-center gap-3">
           <Camera size={18} className="text-accent" strokeWidth={1.5} />
           <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
             Momentos
           </span>
-        </motion.div>
+        </FadeIn>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.08 }}
+        <FadeIn
+          as="h2"
+          delay={0.08}
           className="mt-4 font-serif text-3xl text-[#f5f0e6] md:text-4xl"
         >
           Café, cultura e encontros
-        </motion.h2>
+        </FadeIn>
       </div>
 
       <div className="relative">
@@ -37,7 +38,9 @@ export function ImageMarquee() {
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#1a1614] to-transparent md:w-32" />
 
         <div className="flex overflow-hidden">
-          <div className="animate-marquee flex shrink-0 gap-4 md:gap-5">
+          <div
+            className={`animate-marquee flex shrink-0 gap-4 md:gap-5${sectionInView ? "" : " marquee-paused"}`}
+          >
             {loop.map((image, index) => (
               <div
                 key={`galeria-${index}`}
@@ -49,6 +52,7 @@ export function ImageMarquee() {
                   className="h-full w-full object-cover"
                   draggable={false}
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             ))}
