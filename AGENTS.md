@@ -1,5 +1,5 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+<!-- BEGIN:vite-agent-rules -->
+# Vite + React project
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+This is a Vite SPA with React, TypeScript and Tailwind CSS v4. Source lives under `src/`. Use `npm run dev` (port 5173) and `npm run build` (output in `dist/`).
+<!-- END:vite-agent-rules -->

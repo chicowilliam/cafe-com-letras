@@ -13,8 +13,9 @@
 # testing
 /coverage
 
-# next.js
+# next.js / vite
 /.next/
+/dist/
 /out/
 
 # production
@@ -38,4 +39,8 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+
+# local photo sources (committed under src/assets)
+/assets/images/Fotos Livraria Contraponto/
+/assets/images/livraria/
+*.zip
