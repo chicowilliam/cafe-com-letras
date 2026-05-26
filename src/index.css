@@ -82,20 +82,4 @@ body {
   html {
     scroll-behavior: auto;
   }
-
-  .product-card,
-  .product-grid-item,
-  .product-grid-list {
-    transition: none !important;
-  }
-}
-
-.product-grid-item {
-  transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease;
-}
-
-.product-grid-list:has(.product-grid-item) {
-  transition: gap 0.3s ease;
 }

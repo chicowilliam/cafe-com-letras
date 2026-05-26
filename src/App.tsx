@@ -11,11 +11,6 @@ const ImageMarquee = lazy(() =>
     default: module.ImageMarquee,
   })),
 );
-const ProductGrid = lazy(() =>
-  import("@/components/ProductGrid").then((module) => ({
-    default: module.ProductGrid,
-  })),
-);
 
 export default function App() {
   return (
@@ -24,7 +19,6 @@ export default function App() {
       <main>
         <Hero />
         <Suspense fallback={null}>
-          <ProductGrid />
           <About />
           <ImageMarquee />
         </Suspense>
