@@ -14,12 +14,12 @@ export function ImageMarquee() {
     <section
       ref={sectionRef}
       id="galeria"
-      className="overflow-hidden bg-[#1a1614] py-20 md:py-28"
+      className="overflow-hidden bg-[#1a1614] py-16 md:py-24"
     >
-      <div className="mx-auto mb-12 max-w-6xl px-6 md:px-10">
-        <FadeIn className="flex items-center gap-3">
-          <Camera size={18} className="text-accent" strokeWidth={1.5} />
-          <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
+      <div className="mx-auto mb-14 max-w-6xl px-8 md:mb-16">
+        <FadeIn className="flex items-center gap-2.5">
+          <Camera size={16} className="text-accent" strokeWidth={1.5} />
+          <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-accent">
             Momentos
           </span>
         </FadeIn>
@@ -27,24 +27,24 @@ export function ImageMarquee() {
         <FadeIn
           as="h2"
           delay={0.08}
-          className="mt-4 font-serif text-3xl text-[#f5f0e6] md:text-4xl"
+          className="mt-3 font-serif text-2xl text-[#f5f0e6] md:text-3xl"
         >
           Café, cultura e encontros
         </FadeIn>
       </div>
 
       <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#1a1614] to-transparent md:w-32" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#1a1614] to-transparent md:w-32" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#1a1614] to-transparent md:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#1a1614] to-transparent md:w-24" />
 
-        <div className="flex overflow-hidden">
+        <div className="flex overflow-hidden px-8">
           <div
-            className={`animate-marquee flex shrink-0 gap-4 md:gap-5${sectionInView ? "" : " marquee-paused"}`}
+            className={`animate-marquee flex shrink-0 gap-8 md:gap-10${sectionInView ? "" : " marquee-paused"}`}
           >
             {loop.map((image, index) => (
               <div
                 key={`galeria-${index}`}
-                className="relative h-36 w-52 shrink-0 overflow-hidden rounded-2xl md:h-44 md:w-64"
+                className="relative h-28 w-40 shrink-0 overflow-hidden rounded-lg md:h-36 md:w-48"
               >
                 <img
                   src={image.src}
