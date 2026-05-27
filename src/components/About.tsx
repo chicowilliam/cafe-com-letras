@@ -33,7 +33,7 @@ function StoryText({ paragraphs }: { paragraphs: readonly string[] }) {
       {paragraphs.map((text, index) => (
         <p
           key={index}
-          className="text-sm leading-snug text-gray-300 md:text-[0.9375rem] md:leading-relaxed"
+          className="text-[0.9375rem] leading-relaxed text-gray-300 md:text-[0.9375rem]"
         >
           {text}
         </p>
@@ -47,7 +47,7 @@ function StoryRow({ imageSrc, imageAlt, paragraphs, imageFirst }: StoryRowProps)
   const textOrder = imageFirst ? "order-2 md:order-2" : "order-2 md:order-1";
 
   return (
-    <FadeIn className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-x-10 lg:gap-x-14">
+    <FadeIn className="grid grid-cols-1 items-center gap-6 sm:gap-8 md:grid-cols-2 md:gap-x-10 lg:gap-x-14">
       <div className={imageOrder}>
         <StoryImage src={imageSrc} alt={imageAlt} />
       </div>
@@ -62,7 +62,7 @@ export function About() {
   const [img1, img2] = ABOUT_IMAGES;
 
   return (
-    <section id="sobre" className="bg-[#12110f] px-8 py-14 md:py-20">
+    <section id="sobre" className="bg-[#12110f] px-5 py-12 sm:px-8 md:py-20">
       <div className="mx-auto max-w-5xl">
         <FadeIn className="pb-8 md:pb-10">
           <p className="mb-2 text-[10px] font-light uppercase tracking-[0.35em] text-accent/80">
@@ -74,7 +74,7 @@ export function About() {
           </h2>
         </FadeIn>
 
-        <div className="flex flex-col gap-16 md:gap-20">
+        <div className="flex flex-col gap-12 sm:gap-16 md:gap-20">
           <StoryRow
             imageSrc={img1}
             imageAlt="Livraria Contraponto — ambiente acolhedor"
