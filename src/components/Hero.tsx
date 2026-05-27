@@ -24,13 +24,13 @@ export function Hero() {
         Agendar experiência
       </a>
 
-      <div className="absolute bottom-8 left-8 md:bottom-16 md:left-16">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
         <p className="fade-in-up is-visible mb-3 text-[10px] font-light uppercase tracking-[0.4em] text-white/60">
           Savassi · Belo Horizonte
         </p>
 
         <h1
-          className="fade-in-up is-visible max-w-2xl font-serif text-4xl leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
+          className="fade-in-up is-visible max-w-3xl font-serif text-4xl leading-tight tracking-tight text-white md:text-5xl lg:text-6xl"
           style={{ transitionDelay: "0.08s" }}
         >
           Onde cultura,{" "}
