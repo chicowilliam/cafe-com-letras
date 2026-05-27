@@ -15,7 +15,7 @@ type StoryRowProps = {
 
 function StoryImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="mx-auto aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-xl md:max-w-[240px]">
+    <div className="mx-auto aspect-[4/5] w-full max-w-[240px] overflow-hidden rounded-xl md:max-w-[280px]">
       <img
         src={src}
         alt={alt}
