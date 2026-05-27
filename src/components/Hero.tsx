@@ -4,7 +4,7 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[72vh] items-end overflow-hidden md:min-h-[78vh] md:items-center"
+      className="relative flex min-h-[58vh] items-end overflow-hidden md:min-h-[62vh] md:items-center"
     >
       <img
         src={HERO_IMAGE}
@@ -17,14 +17,14 @@ export function Hero() {
       <div className="absolute inset-0 bg-[#12110f]/50" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#12110f]/80 via-[#12110f]/30 to-[#12110f]/20" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pb-0 md:pt-0">
-        <div className="max-w-xl">
-          <p className="fade-in-up is-visible mb-4 text-[10px] font-light uppercase tracking-[0.4em] text-[#f5f0e6]/60">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-8 pb-14 pt-24 md:pb-0 md:pt-0">
+        <div className="max-w-md">
+          <p className="fade-in-up is-visible mb-3 text-[10px] font-light uppercase tracking-[0.4em] text-[#f5f0e6]/60">
             Savassi · Belo Horizonte
           </p>
 
           <h1
-            className="fade-in-up is-visible font-serif text-[1.75rem] font-light leading-[1.35] tracking-tight text-[#f5f0e6] md:text-4xl md:leading-[1.3] lg:text-[2.75rem]"
+            className="fade-in-up is-visible font-serif text-xl font-light leading-snug tracking-tight text-[#f5f0e6] md:text-3xl md:leading-snug lg:text-[2rem]"
             style={{ transitionDelay: "0.08s" }}
           >
             Onde cultura,{" "}
@@ -32,10 +32,10 @@ export function Hero() {
             gastronomia se encontram
           </h1>
 
-          <div className="fade-in-up is-visible mt-8 md:mt-10" style={{ transitionDelay: "0.2s" }}>
+          <div className="fade-in-up is-visible mt-6 md:mt-8" style={{ transitionDelay: "0.2s" }}>
             <a
               href="#sobre"
-              className="inline-block border border-[#f5f0e6]/35 px-5 py-2.5 text-[10px] font-light uppercase tracking-[0.25em] text-[#f5f0e6]/90 transition-colors duration-300 hover:border-[#f5f0e6]/70 hover:text-[#f5f0e6]"
+              className="inline-block border border-[#f5f0e6]/35 px-4 py-2 text-[10px] font-light uppercase tracking-[0.25em] text-[#f5f0e6]/90 transition-colors duration-300 hover:border-[#f5f0e6]/70 hover:text-[#f5f0e6]"
             >
               Agendar experiência
             </a>
