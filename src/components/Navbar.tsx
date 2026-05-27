@@ -21,15 +21,15 @@ export function Navbar() {
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20 md:px-10">
+        <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-8 md:h-16">
           <a
             href="#inicio"
-            className="font-serif text-lg tracking-wide text-[#f5f0e6] transition-colors hover:text-accent md:text-xl"
+            className="font-serif text-base tracking-wide text-[#f5f0e6] transition-colors hover:text-accent md:text-lg"
           >
             Café com Letras
           </a>
 
-          <ul className="hidden items-center gap-10 md:flex">
+          <ul className="hidden items-center gap-8 md:flex">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <a
@@ -44,7 +44,7 @@ export function Navbar() {
 
           <a
             href="#inicio"
-            className="hidden rounded-full border border-accent/40 px-5 py-2 text-xs font-medium uppercase tracking-[0.15em] text-accent transition-all hover:border-accent hover:bg-accent/10 md:inline-flex"
+            className="hidden rounded-full border border-accent/40 px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-accent transition-all hover:border-accent hover:bg-accent/10 md:inline-flex"
           >
             Reservar
           </a>
@@ -73,7 +73,7 @@ export function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="font-serif text-3xl text-[#f5f0e6] transition-colors hover:text-accent"
+                className="font-serif text-2xl text-[#f5f0e6] transition-colors hover:text-accent"
               >
                 {link.label}
               </a>
