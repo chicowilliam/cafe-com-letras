@@ -2,11 +2,11 @@ import { MapPin, Phone } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-[#12110f] px-6 py-12 md:px-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+    <footer className="border-t border-white/5 bg-[#12110f] px-8 py-14 md:py-16">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:items-center">
         <div>
-          <p className="font-serif text-xl text-[#f5f0e6]">Café com Letras</p>
-          <p className="mt-2 text-sm text-foreground-muted">
+          <p className="font-serif text-lg text-[#f5f0e6]">Café com Letras</p>
+          <p className="mt-1.5 text-sm leading-snug text-foreground-muted">
             Desde 1996 · Cultura, gastronomia e boa conversa
           </p>
         </div>
