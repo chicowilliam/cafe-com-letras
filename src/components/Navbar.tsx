@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
+import { useReservation } from "@/hooks/useReservation";
 import { NAV_LINKS } from "@/lib/constants";
 
 export function Navbar() {
   const visible = useNavbarVisibility();
+  const { open: openReservation } = useReservation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -42,12 +44,13 @@ export function Navbar() {
             ))}
           </ul>
 
-          <a
-            href="#inicio"
+          <button
+            type="button"
+            onClick={openReservation}
             className="hidden rounded-full border border-accent/40 px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-accent transition-all hover:border-accent hover:bg-accent/10 md:inline-flex"
           >
             Reservar
-          </a>
+          </button>
 
           <button
             type="button"
