@@ -11,9 +11,9 @@ export function useNavbarVisibility() {
 
       if (currentY < 64) {
         setVisible(true);
-      } else if (currentY > lastScrollY.current + 4) {
+      } else if (currentY > lastScrollY.current + 10) {
         setVisible(false);
-      } else if (currentY < lastScrollY.current - 4) {
+      } else if (currentY < lastScrollY.current - 10) {
         setVisible(true);
       }
 

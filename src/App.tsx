@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
+import { ReservationFab } from "@/components/ReservationFab";
 import { ReservationModal } from "@/components/ReservationModal";
 import { ReservationProvider } from "@/hooks/useReservation";
 
@@ -26,6 +27,7 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
+      <ReservationFab />
       <ReservationModal />
     </ReservationProvider>
   );
