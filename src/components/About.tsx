@@ -15,7 +15,7 @@ type StoryRowProps = {
 
 function StoryImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="mx-auto aspect-[4/5] w-full max-w-[240px] overflow-hidden rounded-xl md:max-w-[280px]">
+    <div className="mx-auto aspect-[4/5] w-full max-w-[220px] overflow-hidden rounded-xl sm:max-w-[240px] md:max-w-[300px] lg:max-w-[340px]">
       <img
         src={src}
         alt={alt}
@@ -29,11 +29,11 @@ function StoryImage({ src, alt }: { src: string; alt: string }) {
 
 function StoryText({ paragraphs }: { paragraphs: readonly string[] }) {
   return (
-    <div className="mx-auto flex max-w-sm flex-col justify-center gap-4">
+    <div className="mx-auto flex max-w-[19rem] flex-col justify-center gap-4 text-center sm:max-w-sm md:max-w-md md:text-left lg:max-w-lg lg:gap-5">
       {paragraphs.map((text, index) => (
         <p
           key={index}
-          className="text-[0.9375rem] leading-relaxed text-gray-300 md:text-[0.9375rem]"
+          className="text-[0.9375rem] leading-relaxed text-gray-300 md:text-base md:leading-relaxed"
         >
           {text}
         </p>
@@ -47,7 +47,7 @@ function StoryRow({ imageSrc, imageAlt, paragraphs, imageFirst }: StoryRowProps)
   const textOrder = imageFirst ? "order-2 md:order-2" : "order-2 md:order-1";
 
   return (
-    <FadeIn className="grid grid-cols-1 items-center gap-6 sm:gap-8 md:grid-cols-2 md:gap-x-10 lg:gap-x-14">
+    <FadeIn className="grid grid-cols-1 items-center gap-8 sm:gap-10 md:grid-cols-2 md:gap-x-14 md:gap-y-0 lg:gap-x-20">
       <div className={imageOrder}>
         <StoryImage src={imageSrc} alt={imageAlt} />
       </div>
@@ -62,19 +62,19 @@ export function About() {
   const [img1, img2] = ABOUT_IMAGES;
 
   return (
-    <section id="sobre" className="bg-[#12110f] px-5 py-12 sm:px-8 md:py-20">
-      <div className="mx-auto max-w-5xl">
-        <FadeIn className="pb-8 md:pb-10">
+    <section id="sobre" className="bg-[#12110f] px-5 py-14 sm:px-8 md:px-12 md:py-24 lg:px-16">
+      <div className="mx-auto max-w-6xl">
+        <FadeIn className="pb-10 text-center md:pb-14 md:text-left">
           <p className="mb-2 text-[10px] font-light uppercase tracking-[0.35em] text-accent/80">
             A História
           </p>
-          <h2 className="max-w-sm font-serif text-xl font-light tracking-tight text-[#f5f0e6] md:text-2xl">
+          <h2 className="mx-auto max-w-xs font-serif text-xl font-light tracking-tight text-[#f5f0e6] sm:max-w-sm md:mx-0 md:max-w-md md:text-2xl lg:max-w-lg lg:text-[1.75rem]">
             Três amigos, um sonho{" "}
             <span className="italic text-[#f5f0e6]/80">e a Savassi</span>
           </h2>
         </FadeIn>
 
-        <div className="flex flex-col gap-12 sm:gap-16 md:gap-20">
+        <div className="flex flex-col gap-14 sm:gap-16 md:gap-24">
           <StoryRow
             imageSrc={img1}
             imageAlt="Livraria Contraponto — ambiente acolhedor"
@@ -89,7 +89,7 @@ export function About() {
           />
         </div>
 
-        <FadeIn className="mt-12 border-t border-white/5 pt-8 md:mt-16 md:pt-10" rootMargin="0px">
+        <FadeIn className="mt-14 border-t border-white/5 pt-8 text-center md:mt-20 md:pt-12 md:text-left" rootMargin="0px">
           <p className="text-[10px] font-light uppercase tracking-[0.25em] text-foreground-muted">
             Rua Antônio de Albuquerque · Savassi · Belo Horizonte
           </p>
