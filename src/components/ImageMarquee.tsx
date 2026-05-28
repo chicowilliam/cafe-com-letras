@@ -14,37 +14,35 @@ export function ImageMarquee() {
     <section
       ref={sectionRef}
       id="galeria"
-      className="overflow-hidden bg-[#1a1614] py-12 md:py-24"
+      className="overflow-hidden border-t border-hairline-soft bg-surface py-16 md:py-24"
     >
       <div className="mx-auto mb-10 max-w-6xl px-5 md:mb-16 md:px-8">
         <FadeIn className="flex items-center gap-2.5">
           <Camera size={16} className="text-accent" strokeWidth={1.5} />
-          <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-accent">
-            Momentos
-          </span>
+          <span className="label-caps-wide text-accent">Momentos</span>
         </FadeIn>
 
         <FadeIn
           as="h2"
           delay={0.08}
-          className="mt-3 font-serif text-2xl text-[#f5f0e6] md:text-3xl"
+          className="mt-4 font-serif text-2xl font-normal tracking-[-0.02em] text-foreground md:text-3xl"
         >
           Café, cultura e encontros
         </FadeIn>
       </div>
 
       <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#1a1614] to-transparent md:w-24" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#1a1614] to-transparent md:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-surface to-transparent md:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-surface to-transparent md:w-24" />
 
         <div className="flex overflow-hidden px-5 md:px-8">
           <div
-            className={`animate-marquee flex shrink-0 gap-5 md:gap-10${sectionInView ? "" : " marquee-paused"}`}
+            className={`animate-marquee flex shrink-0 gap-5 md:gap-8${sectionInView ? "" : " marquee-paused"}`}
           >
             {loop.map((image, index) => (
               <div
                 key={`galeria-${index}`}
-                className="relative h-32 w-44 shrink-0 overflow-hidden rounded-lg sm:h-36 sm:w-48 md:h-36 md:w-48"
+                className="relative h-36 w-48 shrink-0 overflow-hidden rounded-xl sm:h-40 sm:w-52 md:h-44 md:w-56"
               >
                 <img
                   src={image.src}

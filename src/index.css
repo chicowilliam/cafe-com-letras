@@ -4,24 +4,54 @@
   --background: #12110f;
   --foreground: #f5f0e6;
   --foreground-muted: #a89f92;
+  --foreground-soft: #8e8b82;
   --accent: #d4a373;
   --accent-hover: #e0b88a;
+  --accent-active: #c49362;
   --surface: #1a1614;
   --surface-elevated: #221e1b;
+  --surface-dark-soft: #1f1e1b;
+  --canvas: #faf9f5;
+  --canvas-soft: #f5f0e8;
+  --ink: #141413;
+  --body: #3d3d3a;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-soft: rgba(255, 255, 255, 0.05);
+  --hairline-dark: rgba(0, 0, 0, 0.08);
   --font-playfair: "Playfair Display", Georgia, serif;
   --font-inter: "Inter", system-ui, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-soft: var(--foreground-soft);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
+  --color-surface-dark-soft: var(--surface-dark-soft);
+  --color-canvas: var(--canvas);
+  --color-canvas-soft: var(--canvas-soft);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-hairline: var(--hairline);
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-inter);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
 }
 
 html {
@@ -39,6 +69,94 @@ body {
 button:not(:disabled),
 [role="button"]:not(:disabled) {
   cursor: pointer;
+}
+
+.label-caps {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.label-caps-wide {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:active {
+  background: var(--accent-active);
+}
+
+.btn-secondary-dark {
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-secondary-dark:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.btn-cinematic {
+  border-radius: 9999px;
+  background: #000000;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: opacity 0.2s ease;
+}
+
+.btn-cinematic:hover {
+  opacity: 0.88;
+}
+
+.prose-editorial {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: rgba(245, 240, 230, 0.82);
+}
+
+@media (min-width: 768px) {
+  .prose-editorial {
+    font-size: 1.25rem;
+    line-height: 1.8;
+  }
+}
+
+.card-experience {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--hairline);
+  background: var(--surface-elevated);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card-experience:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
 }
 
 .fade-in-up {
@@ -97,6 +215,10 @@ button:not(:disabled),
   .navbar-slide {
     transition: none !important;
   }
+
+  .card-experience:hover {
+    transform: none;
+  }
 }
 
 .navbar-slide {
@@ -121,6 +243,26 @@ button:not(:disabled),
 @media (min-width: 768px) {
   .hero-mobile-copy {
     text-shadow: none;
+  }
+}
+
+.hero-cinematic-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(18, 17, 15, 0.2) 0%,
+    rgba(0, 0, 0, 0.15) 45%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .hero-cinematic-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(18, 17, 15, 0.15) 0%,
+      rgba(0, 0, 0, 0.05) 50%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
   }
 }
 

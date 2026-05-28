@@ -29,11 +29,11 @@ function StoryImage({ src, alt }: { src: string; alt: string }) {
 
 function StoryText({ paragraphs }: { paragraphs: readonly string[] }) {
   return (
-    <div className="mx-auto flex max-w-[19rem] flex-col justify-center gap-4 text-center sm:max-w-sm md:max-w-md md:text-left lg:max-w-lg lg:gap-5">
+    <div className="mx-auto flex max-w-[19rem] flex-col justify-center gap-5 text-center sm:max-w-sm md:max-w-md md:text-left lg:max-w-lg">
       {paragraphs.map((text, index) => (
         <p
           key={index}
-          className="text-[0.9375rem] leading-relaxed text-gray-300 md:text-base md:leading-relaxed"
+          className="text-[0.9375rem] leading-[1.75] text-foreground-muted md:text-base"
         >
           {text}
         </p>
@@ -62,15 +62,16 @@ export function About() {
   const [img1, img2] = ABOUT_IMAGES;
 
   return (
-    <section id="sobre" className="bg-[#12110f] px-5 py-14 sm:px-8 md:px-12 md:py-24 lg:px-16">
+    <section
+      id="sobre"
+      className="bg-background px-5 pb-16 pt-24 sm:px-8 md:px-12 md:pb-24 md:pt-32 lg:px-16"
+    >
       <div className="mx-auto max-w-6xl">
         <FadeIn className="pb-10 text-center md:pb-14 md:text-left">
-          <p className="mb-2 text-[10px] font-light uppercase tracking-[0.35em] text-accent/80">
-            A História
-          </p>
-          <h2 className="mx-auto max-w-xs font-serif text-xl font-light tracking-tight text-[#f5f0e6] sm:max-w-sm md:mx-0 md:max-w-md md:text-2xl lg:max-w-lg lg:text-[1.75rem]">
+          <p className="label-caps-wide mb-3 text-accent/80">A História</p>
+          <h2 className="mx-auto max-w-xs font-serif text-2xl font-normal tracking-[-0.02em] text-stone-300 sm:max-w-sm md:mx-0 md:max-w-md md:text-[1.75rem] lg:max-w-lg">
             Três amigos, um sonho{" "}
-            <span className="italic text-[#f5f0e6]/80">e a Savassi</span>
+            <span className="italic text-stone-400">e a Savassi</span>
           </h2>
         </FadeIn>
 
@@ -89,8 +90,11 @@ export function About() {
           />
         </div>
 
-        <FadeIn className="mt-14 border-t border-white/5 pt-8 text-center md:mt-20 md:pt-12 md:text-left" rootMargin="0px">
-          <p className="text-[10px] font-light uppercase tracking-[0.25em] text-foreground-muted">
+        <FadeIn
+          className="mt-14 border-t border-hairline pt-8 text-center md:mt-20 md:pt-12 md:text-left"
+          rootMargin="0px"
+        >
+          <p className="label-caps text-foreground-soft">
             Rua Antônio de Albuquerque · Savassi · Belo Horizonte
           </p>
         </FadeIn>
