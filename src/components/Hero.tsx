@@ -1,11 +1,12 @@
 import { HERO_IMAGE } from "@/lib/gallery-images";
+import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
 
 const ctaPrimaryMobile =
-  "w-full cursor-pointer rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-[#12110f] transition-opacity active:opacity-80";
+  "cursor-pointer rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-[#12110f] transition-opacity active:opacity-80";
 
 const ctaSecondaryMobile =
-  "w-full cursor-pointer rounded-full border border-white/30 bg-black/60 px-8 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors active:bg-black/75";
+  "cursor-pointer rounded-full border border-white/30 bg-black/60 px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors active:bg-black/75";
 
 const ctaPrimaryDesktop =
   "cursor-pointer rounded-full bg-accent px-8 py-3 text-sm font-medium tracking-wide text-[#12110f] transition-opacity hover:opacity-90";
@@ -14,7 +15,8 @@ const ctaSecondaryDesktop =
   "cursor-pointer rounded-full border border-white/30 bg-black/60 px-8 py-3 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:border-white/45 hover:bg-black/65";
 
 export function Hero() {
-  const { open } = useReservation();
+  const { open: openReservation } = useReservation();
+  const { open: openCheckout } = useExperienceCheckout();
 
   return (
     <section
@@ -57,15 +59,15 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mt-7 flex w-full max-w-[18rem] flex-col items-stretch gap-2.5"
+            className="fade-in-up is-visible mt-7 flex items-center justify-center gap-4"
             style={{ transitionDelay: "0.28s" }}
           >
-            <button type="button" onClick={open} className={ctaPrimaryMobile}>
-              Fazer reserva
+            <button type="button" onClick={openCheckout} className={ctaPrimaryMobile}>
+              Comprar Experiência
             </button>
-            <a href="#sobre" className={ctaSecondaryMobile}>
-              Nossa história
-            </a>
+            <button type="button" onClick={openReservation} className={ctaSecondaryMobile}>
+              Fazer Reserva
+            </button>
           </div>
         </div>
       </div>
@@ -94,15 +96,15 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mx-auto mt-10 flex flex-row items-center justify-center gap-3"
+            className="fade-in-up is-visible mx-auto mt-10 flex items-center justify-center gap-4"
             style={{ transitionDelay: "0.28s" }}
           >
-            <button type="button" onClick={open} className={ctaPrimaryDesktop}>
-              Fazer reserva
+            <button type="button" onClick={openCheckout} className={ctaPrimaryDesktop}>
+              Comprar Experiência
             </button>
-            <a href="#sobre" className={ctaSecondaryDesktop}>
-              Nossa história
-            </a>
+            <button type="button" onClick={openReservation} className={ctaSecondaryDesktop}>
+              Fazer Reserva
+            </button>
           </div>
         </div>
       </div>

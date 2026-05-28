@@ -1,13 +1,20 @@
 import { lazy, Suspense } from "react";
+import { ExperienceCheckoutModal } from "@/components/ExperienceCheckoutModal";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { ReservationFab } from "@/components/ReservationFab";
 import { ReservationModal } from "@/components/ReservationModal";
+import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
 
 const About = lazy(() =>
   import("@/components/About").then((module) => ({ default: module.About })),
+);
+const NoiteDosDates = lazy(() =>
+  import("@/components/NoiteDosDates").then((module) => ({
+    default: module.NoiteDosDates,
+  })),
 );
 const ImageMarquee = lazy(() =>
   import("@/components/ImageMarquee").then((module) => ({
@@ -18,17 +25,21 @@ const ImageMarquee = lazy(() =>
 export default function App() {
   return (
     <ReservationProvider>
-      <Navbar />
-      <main>
-        <Hero />
-        <Suspense fallback={null}>
-          <About />
-          <ImageMarquee />
-        </Suspense>
-      </main>
-      <Footer />
-      <ReservationFab />
-      <ReservationModal />
+      <ExperienceCheckoutProvider>
+        <Navbar />
+        <main>
+          <Hero />
+          <Suspense fallback={null}>
+            <About />
+            <NoiteDosDates />
+            <ImageMarquee />
+          </Suspense>
+        </main>
+        <Footer />
+        <ReservationFab />
+        <ReservationModal />
+        <ExperienceCheckoutModal />
+      </ExperienceCheckoutProvider>
     </ReservationProvider>
   );
 }
