@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from "react";
-import { Check, CreditCard, Smartphone, Wallet, X } from "lucide-react";
+import { Check, CreditCard, Heart, Smartphone, Wallet, X } from "lucide-react";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import {
   DATE_PACKAGES,
@@ -49,11 +49,11 @@ export function ExperienceCheckoutModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-md">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4">
       <button
         type="button"
         aria-label="Fechar checkout"
-        className="absolute inset-0"
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
         onClick={close}
       />
 
@@ -61,19 +61,15 @@ export function ExperienceCheckoutModal() {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 w-full max-w-md rounded-2xl bg-zinc-900 p-8 shadow-2xl"
+        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-white/10 bg-surface-elevated shadow-2xl"
       >
-        <div className="mb-5 rounded-lg border border-yellow-500 bg-yellow-500/20 p-3 text-center text-sm font-medium text-yellow-200">
-          ⚠️ Ambiente de Demonstração: Este é um protótipo fictício. Nenhum método de
-          pagamento real está ativo ou será processado.
-        </div>
-
-        <div className="mb-6 flex items-start justify-between gap-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-white/5 px-4 py-3">
           <div>
-            <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.25em] text-accent">
+            <p className="mb-0.5 flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.25em] text-accent">
+              <Heart size={12} />
               Noite dos Dates
             </p>
-            <h2 id={titleId} className="font-serif text-xl text-foreground">
+            <h2 id={titleId} className="font-serif text-base text-foreground">
               Finalizar experiência
             </h2>
           </div>
@@ -83,37 +79,40 @@ export function ExperienceCheckoutModal() {
             className="rounded-full p-1 text-foreground-muted transition-colors hover:bg-white/5 hover:text-foreground"
             aria-label="Fechar"
           >
-            <X size={18} />
+            <X size={16} />
           </button>
         </div>
 
         {confirmed ? (
-          <div className="text-center">
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/15 text-accent">
-              <Check size={22} />
+          <div className="overflow-y-auto px-4 py-6 text-center">
+            <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
+              <Check size={18} />
             </div>
-            <p className="font-serif text-lg text-foreground">Pedido simulado!</p>
-            <p className="mt-2 text-sm text-foreground-muted">
+            <p className="font-serif text-base text-foreground">Pedido simulado!</p>
+            <p className="mt-1 text-xs text-foreground-muted">
               {activePackage?.title} ·{" "}
               {PAYMENT_METHODS.find((m) => m.id === paymentMethod)?.label}
             </p>
-            <p className="mt-4 text-xs leading-relaxed text-foreground-muted">
-              Este fluxo é apenas demonstrativo. Nenhuma cobrança foi realizada.
+            <p className="mt-3 text-[10px] leading-relaxed text-foreground-muted">
+              Fluxo demonstrativo — nenhuma cobrança foi realizada.
             </p>
             <button
               type="button"
               onClick={close}
-              className="mt-6 w-full rounded-full bg-accent py-2.5 text-sm font-medium text-[#12110f] transition-opacity hover:opacity-90"
+              className="mt-5 w-full rounded-full border border-accent/40 py-2 text-xs text-accent transition-colors hover:bg-accent/10"
             >
               Fechar
             </button>
           </div>
         ) : (
-          <div className="space-y-6">
-            <div>
-              <p className="mb-3 text-[10px] uppercase tracking-wider text-foreground-muted">
-                Selecione o pacote
-              </p>
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-3">
+            <div className="mb-3 rounded-lg border border-yellow-500/40 bg-yellow-500/10 px-3 py-2 text-center text-[10px] font-medium leading-relaxed text-yellow-200/90">
+              ⚠️ Ambiente de Demonstração: protótipo fictício. Nenhum pagamento real
+              será processado.
+            </div>
+
+            <div className="space-y-2.5">
+              <SectionLabel>Pacote</SectionLabel>
               <div className="space-y-2">
                 {DATE_PACKAGES.map((pkg) => {
                   const isSelected = selectedPackage === pkg.id;
@@ -122,72 +121,93 @@ export function ExperienceCheckoutModal() {
                       key={pkg.id}
                       type="button"
                       onClick={() => setSelectedPackage(pkg.id)}
-                      className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-colors ${
+                      className={`flex w-full items-center gap-2.5 rounded-md border p-2 text-left transition-colors ${
                         isSelected
-                          ? "border-accent/60 bg-accent/10"
+                          ? "border-accent/50 bg-accent/10"
                           : "border-white/10 bg-black/20 hover:border-white/20"
                       }`}
                     >
-                      <div>
-                        <p className="text-sm font-medium text-foreground">{pkg.title}</p>
-                        <p className="text-xs text-foreground-muted">{pkg.badge}</p>
+                      <img
+                        src={pkg.image}
+                        alt=""
+                        className="h-11 w-11 shrink-0 rounded-md object-cover"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-xs font-medium text-foreground">
+                          {pkg.title}
+                        </p>
+                        <p className="text-[10px] text-foreground-muted">{pkg.badge}</p>
                       </div>
-                      <span className="font-serif text-sm text-accent">{pkg.price}</span>
+                      <span className="shrink-0 font-serif text-xs text-accent">
+                        {pkg.price}
+                      </span>
                     </button>
                   );
                 })}
               </div>
-            </div>
 
-            <div>
-              <p className="mb-3 text-[10px] uppercase tracking-wider text-foreground-muted">
-                Método de pagamento
-              </p>
+              <SectionLabel>Método de pagamento</SectionLabel>
               <div className="grid grid-cols-3 gap-2">
                 <PaymentButton
                   label="PIX"
-                  icon={<Smartphone size={18} />}
+                  icon={<Smartphone size={16} />}
                   active={paymentMethod === "pix"}
                   onClick={() => setPaymentMethod("pix")}
                 />
                 <PaymentButton
                   label="Cartão"
-                  icon={<CreditCard size={18} />}
+                  icon={<CreditCard size={16} />}
                   active={paymentMethod === "credit"}
                   onClick={() => setPaymentMethod("credit")}
                 />
                 <PaymentButton
                   label="Apple Pay"
-                  icon={<Wallet size={18} />}
+                  icon={<Wallet size={16} />}
                   active={paymentMethod === "apple"}
                   onClick={() => setPaymentMethod("apple")}
                 />
               </div>
+
+              {activePackage && (
+                <div className="rounded-md border border-white/10 bg-black/20 px-3 py-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-foreground-muted">Total</span>
+                    <span className="font-serif text-sm text-accent">
+                      {activePackage.price}
+                    </span>
+                  </div>
+                  <p className="mt-0.5 text-right text-[10px] text-foreground-muted">
+                    {activePackage.priceNote}
+                  </p>
+                </div>
+              )}
             </div>
 
-            {activePackage && (
-              <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-foreground-muted">Total</span>
-                  <span className="font-serif text-lg text-accent">
-                    {activePackage.price}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            <button
-              type="button"
-              disabled={!canConfirm}
-              onClick={handleConfirm}
-              className="w-full rounded-full bg-accent py-3 text-sm font-medium text-[#12110f] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Confirmar pagamento
-            </button>
+            <div className="mt-3 shrink-0 space-y-2 border-t border-white/5 pt-3">
+              <p className="text-[10px] text-foreground-muted/80">
+                Demonstrativo — pagamento não processado.
+              </p>
+              <button
+                type="button"
+                disabled={!canConfirm}
+                onClick={handleConfirm}
+                className="w-full rounded-full bg-accent py-2 text-xs font-medium text-[#12110f] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Confirmar pagamento
+              </button>
+            </div>
           </div>
         )}
       </div>
     </div>
+  );
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[10px] uppercase tracking-wider text-foreground-muted">
+      {children}
+    </p>
   );
 }
 
@@ -206,14 +226,14 @@ function PaymentButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex flex-col items-center gap-1.5 rounded-xl border px-2 py-3 text-center transition-colors ${
+      className={`flex flex-col items-center gap-1 rounded-md border px-1.5 py-2.5 text-center transition-colors ${
         active
-          ? "border-accent/60 bg-accent/10 text-accent"
+          ? "border-accent/50 bg-accent/10 text-accent"
           : "border-white/10 bg-black/20 text-foreground-muted hover:border-white/20 hover:text-foreground"
       }`}
     >
       {icon}
-      <span className="text-[10px] font-medium leading-tight">{label}</span>
+      <span className="text-[9px] font-medium leading-tight">{label}</span>
     </button>
   );
 }

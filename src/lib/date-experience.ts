@@ -1,3 +1,5 @@
+import { DATE_PACKAGE_IMAGES } from "@/lib/gallery-images";
+
 export type DatePackageId = "complete" | "vegan";
 
 export const DATE_PACKAGES = [
@@ -5,19 +7,35 @@ export const DATE_PACKAGES = [
     id: "complete" as const,
     title: "Experiência Completa",
     badge: "Não Vegana",
+    subtitle: "Para 2 pessoas · 4 tempos",
     description:
-      "Menu degustação em quatro tempos, harmonização com vinhos selecionados, sobremesa compartilhada e brinde de boas-vindas — pensado para uma noite inesquecível a dois.",
+      "Menu degustação em quatro tempos, harmonização com vinhos, sobremesa compartilhada e brinde de boas-vindas.",
     price: "R$ 289",
-    highlights: ["Entrada & prato principal", "Harmonização com vinhos", "Sobremesa para compartilhar"],
+    priceNote: "por casal",
+    image: DATE_PACKAGE_IMAGES.complete,
+    imageAlt: "Ambiente intimista do Café com Letras à noite",
+    highlights: [
+      "Entrada & prato principal",
+      "Harmonização com vinhos",
+      "Sobremesa para compartilhar",
+    ],
   },
   {
     id: "vegan" as const,
     title: "Experiência Vegana",
     badge: "100% Plant-based",
+    subtitle: "Para 2 pessoas · 4 tempos",
     description:
-      "A mesma poesia da noite, em uma composição totalmente vegetal: ingredientes sazonais, técnicas refinadas e sabores que celebram o encontro sem comprometer a experiência.",
+      "Composição totalmente vegetal com ingredientes sazonais, técnicas refinadas e sabores que celebram o encontro.",
     price: "R$ 269",
-    highlights: ["Menu degustação vegano", "Harmonização sem álcool ou vinho", "Sobremesa artesanal"],
+    priceNote: "por casal",
+    image: DATE_PACKAGE_IMAGES.vegan,
+    imageAlt: "Mesa reservada com livros e café no Café com Letras",
+    highlights: [
+      "Menu degustação vegano",
+      "Harmonização sem álcool ou vinho",
+      "Sobremesa artesanal",
+    ],
   },
 ] as const;
 

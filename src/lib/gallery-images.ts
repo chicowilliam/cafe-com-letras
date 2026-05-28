@@ -33,3 +33,8 @@ export const MARQUEE_IMAGES = MARQUEE_SOURCES.map((src, index) => ({
 export const ABOUT_IMAGES = [grs0207, grs0209, grs0223] as const;
 
 export const HERO_IMAGE = grs0249;
+
+export const DATE_PACKAGE_IMAGES = {
+  complete: grs0223,
+  vegan: grs0209,
+} as const;
