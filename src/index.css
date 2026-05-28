@@ -36,6 +36,11 @@ body {
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+}
+
 .fade-in-up {
   opacity: 0;
   transform: translate3d(0, 16px, 0);
@@ -89,9 +94,7 @@ body {
     transition: none !important;
   }
 
-  .navbar-slide,
-  .fab-expand,
-  .fab-expand-label {
+  .navbar-slide {
     transition: none !important;
   }
 }
@@ -111,26 +114,6 @@ body {
   pointer-events: none;
 }
 
-.fab-expand {
-  transition:
-    width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@media (hover: none) {
-  .fab-expand:active {
-    transform: scale(0.96);
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .fab-expand:hover,
-  .fab-expand:focus-visible {
-    width: 12.75rem;
-  }
-}
-
 .hero-mobile-copy {
   text-shadow: 0 1px 24px rgba(0, 0, 0, 0.45);
 }
@@ -138,28 +121,6 @@ body {
 @media (min-width: 768px) {
   .hero-mobile-copy {
     text-shadow: none;
-  }
-}
-
-.fab-expand-label {
-  max-width: 0;
-  opacity: 0;
-  transition:
-    max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fab-expand:hover .fab-expand-label,
-.fab-expand:focus-visible .fab-expand-label {
-  max-width: 9.5rem;
-  opacity: 1;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .fab-expand:hover .fab-expand-label,
-  .fab-expand:focus-visible .fab-expand-label {
-    max-width: 9.5rem;
-    opacity: 1;
   }
 }
 
