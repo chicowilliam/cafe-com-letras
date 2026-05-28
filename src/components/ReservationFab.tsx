@@ -39,19 +39,15 @@ export function ReservationFab() {
     <button
       type="button"
       onClick={open}
-      aria-label="Fazer uma reserva"
-      className={`fab-expand group fixed z-50 flex h-14 w-14 items-center overflow-hidden rounded-full bg-accent text-[#12110f] shadow-lg shadow-black/40 motion-reduce:transition-none bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] ${
+      className={`fixed z-50 flex !cursor-pointer items-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-medium text-[#12110f] shadow-lg shadow-black/40 transition-[transform,opacity] duration-300 ease-out active:scale-[0.98] hover:opacity-90 motion-reduce:transition-none bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] md:gap-2.5 md:px-5 md:py-3.5 ${
         visible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >
-      <span className="flex h-14 w-14 shrink-0 items-center justify-center">
-        <CalendarDays size={22} strokeWidth={1.5} />
-      </span>
-      <span className="fab-expand-label whitespace-nowrap pr-4 text-sm font-medium">
-        Fazer uma reserva
-      </span>
+      <CalendarDays size={18} strokeWidth={1.75} className="shrink-0 md:hidden" />
+      <CalendarDays size={20} strokeWidth={1.75} className="hidden shrink-0 md:block" />
+      <span className="whitespace-nowrap">Fazer reserva</span>
     </button>
   );
 }
