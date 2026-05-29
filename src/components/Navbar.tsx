@@ -27,7 +27,7 @@ export function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="label-caps text-white/80 transition-colors hover:text-white"
+                  className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/80 transition-colors hover:text-white"
                 >
                   {link.label}
                 </a>
@@ -60,7 +60,7 @@ export function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="block min-h-11 py-2 font-serif text-3xl text-[#f5f0e6] transition-colors active:text-accent"
+                className="block min-h-11 py-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-[#f5f0e6] transition-colors active:text-accent"
               >
                 {link.label}
               </a>

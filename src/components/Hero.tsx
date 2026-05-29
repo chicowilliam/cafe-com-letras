@@ -3,10 +3,10 @@ import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
 
 const ctaDates =
-  "rounded-full bg-accent px-8 py-3.5 font-serif text-sm font-normal italic text-black transition-colors duration-300 hover:bg-accent/80";
+  "rounded-full bg-accent px-8 py-3.5 font-cinzel text-xs font-medium uppercase tracking-[0.2em] text-black transition-colors duration-300 hover:bg-accent/80";
 
 const ctaReserve =
-  "rounded-full border border-white/20 bg-white/5 px-8 py-3.5 font-serif text-sm font-normal italic text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10";
+  "rounded-full border border-white/20 bg-white/5 px-8 py-3.5 font-cinzel text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10";
 
 export function Hero() {
   const { open: openReservation } = useReservation();
@@ -34,23 +34,23 @@ export function Hero() {
 
       {/* Mobile */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(4.5rem,env(safe-area-inset-top))] text-center md:hidden">
-        <div className="hero-mobile-copy flex w-full max-w-[22rem] flex-col items-center">
+        <div className="hero-mobile-copy flex w-full max-w-[28rem] flex-col items-center">
           <p
-            className="fade-in-up is-visible label-caps text-white/70"
+            className="fade-in-up is-visible font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/70"
             style={{ transitionDelay: "0.05s" }}
           >
             Savassi · Belo Horizonte
           </p>
 
           <h1
-            className="fade-in-up is-visible mt-4 w-full text-center font-serif text-[2.75rem] font-normal italic leading-[1.0] tracking-[-0.02em] text-white"
+            className="fade-in-up is-visible mt-4 w-full text-center font-french text-5xl tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] md:text-7xl"
             style={{ transitionDelay: "0.12s" }}
           >
             Café com Letras
           </h1>
 
           <p
-            className="fade-in-up is-visible mx-auto mt-4 max-w-[18rem] text-center text-[0.9375rem] font-light leading-[1.45] tracking-[-0.01em] text-white/80"
+            className="fade-in-up is-visible mx-auto mt-4 max-w-[18rem] text-center font-sans text-[0.9375rem] font-light leading-[1.45] tracking-[-0.01em] text-white/80"
             style={{ transitionDelay: "0.2s" }}
           >
             Onde cultura,{" "}
@@ -76,21 +76,21 @@ export function Hero() {
       <div className="absolute inset-0 z-20 hidden flex-col items-center justify-center px-6 text-center md:flex">
         <div className="w-full max-w-none">
           <p
-            className="fade-in-up is-visible label-caps text-white/70"
+            className="fade-in-up is-visible font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/70"
             style={{ transitionDelay: "0.05s" }}
           >
             Savassi · Belo Horizonte
           </p>
 
           <h1
-            className="fade-in-up is-visible mt-5 font-serif text-7xl font-normal italic leading-[1.0] tracking-[-0.03em] text-white lg:text-[5.5rem]"
+            className="fade-in-up is-visible mt-5 font-french text-5xl tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] md:text-7xl"
             style={{ transitionDelay: "0.12s" }}
           >
             Café com Letras
           </h1>
 
           <p
-            className="fade-in-up is-visible mx-auto mt-6 max-w-lg text-base font-light leading-[1.45] tracking-[-0.01em] text-white/75"
+            className="fade-in-up is-visible mx-auto mt-6 max-w-lg font-sans text-base font-light leading-[1.45] tracking-[-0.01em] text-white/75"
             style={{ transitionDelay: "0.2s" }}
           >
             Onde cultura,{" "}

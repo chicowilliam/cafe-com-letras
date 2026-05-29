@@ -29,11 +29,11 @@ function StoryImage({ src, alt }: { src: string; alt: string }) {
 
 function StoryText({ paragraphs }: { paragraphs: readonly string[] }) {
   return (
-    <div className="mx-auto flex max-w-[19rem] flex-col justify-center gap-5 text-center sm:max-w-sm md:max-w-md md:text-left lg:max-w-lg">
+    <div className="mx-auto flex max-w-2xl flex-col justify-center space-y-6 text-center md:max-w-3xl md:text-left">
       {paragraphs.map((text, index) => (
         <p
           key={index}
-          className="text-[0.9375rem] leading-[1.75] text-foreground-muted md:text-base"
+          className="font-garamond italic text-[1.0625rem] leading-relaxed text-stone-300 md:text-[1.1875rem]"
         >
           {text}
         </p>
@@ -64,7 +64,7 @@ export function About() {
   return (
     <section
       id="sobre"
-      className="bg-background px-5 pb-16 pt-24 sm:px-8 md:px-12 md:pb-24 md:pt-32 lg:px-16"
+      className="bg-background px-5 pb-16 pt-14 sm:px-8 md:px-12 md:pb-24 md:pt-16 lg:px-16"
     >
       <div className="mx-auto max-w-6xl">
         <FadeIn className="pb-10 text-center md:pb-14 md:text-left">
