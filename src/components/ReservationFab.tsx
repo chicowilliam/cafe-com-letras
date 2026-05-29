@@ -9,17 +9,17 @@ export function ReservationFab() {
   useEffect(() => {
     const update = () => {
       const hero = document.getElementById("inicio");
-      const sobre = document.getElementById("sobre");
-      if (!hero || !sobre) {
+      const dates = document.getElementById("noite-dos-dates");
+      if (!hero || !dates) {
         setVisible(false);
         return;
       }
 
       const heroBottom = hero.getBoundingClientRect().bottom;
-      const sobreTop = sobre.getBoundingClientRect().top;
+      const datesTop = dates.getBoundingClientRect().top;
       const leftHero = heroBottom < window.innerHeight * 0.15;
-      const reachedHistory = sobreTop < window.innerHeight * 0.9;
-      setVisible(leftHero && reachedHistory);
+      const reachedContent = datesTop < window.innerHeight * 0.9;
+      setVisible(leftHero && reachedContent);
     };
 
     update();

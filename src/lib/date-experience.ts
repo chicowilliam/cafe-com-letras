@@ -13,7 +13,7 @@ export const DATE_PACKAGES = [
     price: "R$ 289",
     priceNote: "por casal",
     image: DATE_PACKAGE_IMAGES.complete,
-    imageAlt: "Ambiente intimista do Café com Letras à noite",
+    imageAlt: "Prato da experiência completa — menu degustação não vegano da Noite dos Dates",
     highlights: [
       "Entrada & prato principal",
       "Harmonização com vinhos",
@@ -30,7 +30,7 @@ export const DATE_PACKAGES = [
     price: "R$ 269",
     priceNote: "por casal",
     image: DATE_PACKAGE_IMAGES.vegan,
-    imageAlt: "Mesa reservada com livros e café no Café com Letras",
+    imageAlt: "Prato da experiência vegana — menu plant-based da Noite dos Dates",
     highlights: [
       "Menu degustação vegano",
       "Harmonização sem álcool ou vinho",

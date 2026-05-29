@@ -30,8 +30,8 @@ export default function App() {
         <main>
           <Hero />
           <Suspense fallback={null}>
-            <About />
             <NoiteDosDates />
+            <About />
             <ImageMarquee />
           </Suspense>
         </main>
