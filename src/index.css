@@ -102,6 +102,16 @@ button:not(:disabled),
   color: color-mix(in srgb, var(--accent) 85%, transparent);
 }
 
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
 .section-title {
   font-family: var(--font-display);
   font-size: 1.75rem;
@@ -111,7 +121,17 @@ button:not(:disabled),
 }
 
 @media (min-width: 768px) {
-  .section-title {
+  .focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.section-title {
     font-size: 2rem;
   }
 }
@@ -132,6 +152,16 @@ button:not(:disabled),
   color: color-mix(in srgb, var(--accent) 85%, transparent);
 }
 
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
 .section-title {
   font-family: var(--font-display);
   font-size: 1.75rem;
@@ -141,7 +171,17 @@ button:not(:disabled),
 }
 
 @media (min-width: 768px) {
-  .section-title {
+  .focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.section-title {
     font-size: 2rem;
   }
 }
