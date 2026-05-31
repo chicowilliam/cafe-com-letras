@@ -9,14 +9,6 @@
 }
 
 @font-face {
-  font-family: "Cinzel";
-  src: url("./assets/Fontes/Cinzel/Cinzel-VariableFont_wght.ttf") format("truetype");
-  font-weight: 400 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Garamond";
   src: url("./assets/Fontes/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf")
     format("truetype");
