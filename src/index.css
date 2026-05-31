@@ -211,9 +211,14 @@ button:not(:disabled),
   border-radius: 9999px;
   background: var(--accent);
   color: var(--ink);
-  font-size: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
   font-weight: 500;
-  transition: background 0.2s ease, opacity 0.2s ease;
+  letter-spacing: -0.01em;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
@@ -224,6 +229,27 @@ button:not(:disabled),
   background: var(--accent-active);
 }
 
+.btn-ghost {
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+}
 .btn-secondary-dark {
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.25);
