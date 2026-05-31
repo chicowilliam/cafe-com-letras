@@ -64,6 +64,11 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleReserve = () => {
+    setMenuOpen(false);
+    openReservation();
+  };
+
   return (
     <>
       <header
@@ -79,7 +84,7 @@ export function Navbar() {
           }`}
         >
           <a href="#inicio" className={wordmarkClass}>
-            Café com Letras
+            CafÃ© com Letras
           </a>
 
           <div className="hidden items-center gap-8 md:flex">
@@ -123,26 +128,33 @@ export function Navbar() {
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
         }`}
+        aria-hidden={!menuOpen}
       >
-        <ul className="flex h-full flex-col items-center justify-center gap-8 px-6 pb-[env(safe-area-inset-bottom)]">
-          {NAV_LINKS.map((link) => {
-            const isActive = activeHref === link.href;
-            return (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  aria-current={isActive ? "page" : undefined}
-                  className={`focus-ring block min-h-11 py-2 font-sans text-base font-medium tracking-tight text-foreground transition-colors active:text-accent${
-                    isActive ? " text-accent" : ""
-                  }`}
-                >
-                  {link.label}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="flex h-full flex-col px-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))]">
+          <ul className="flex flex-col items-start gap-7">
+            {NAV_LINKS.map((link) => {
+              const isActive = activeHref === link.href;
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
+                      isActive ? " text-accent" : ""
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          <button type="button" onClick={handleReserve} className={`${ctaClass} mt-auto w-full max-w-xs`}>
+            Reservar
+          </button>
+        </div>
       </div>
     </>
   );
