@@ -36,8 +36,8 @@ export function Hero() {
       />
 
       {/* Mobile */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(4.5rem,env(safe-area-inset-top))] text-center md:hidden">
-        <div className="hero-mobile-copy flex w-full max-w-[28rem] flex-col items-center">
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(5rem,env(safe-area-inset-top))] text-center md:hidden">
+        <div className="hero-mobile-copy flex w-full max-w-md flex-col items-center">
           <p
             className="fade-in-up is-visible font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/70"
             style={{ transitionDelay: "0.05s" }}
@@ -46,14 +46,14 @@ export function Hero() {
           </p>
 
           <h1
-            className="fade-in-up is-visible mt-4 w-full text-center font-french text-5xl tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] md:text-7xl"
+            className="fade-in-up is-visible mt-4 w-full text-center font-french text-5xl tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] md:text-7xl"
             style={{ transitionDelay: "0.12s" }}
           >
             Caf+® com Letras
           </h1>
 
           <p
-            className="fade-in-up is-visible mx-auto mt-4 max-w-[18rem] text-center font-sans text-[0.9375rem] font-light leading-[1.45] tracking-[-0.01em] text-white/80"
+            className="fade-in-up is-visible mx-auto mt-4 max-w-xs text-center font-sans text-[0.9375rem] font-light leading-[1.45] tracking-[-0.01em] text-white/80"
             style={{ transitionDelay: "0.2s" }}
           >
             Onde cultura,{" "}
@@ -62,7 +62,7 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mt-8 flex w-full flex-wrap items-center justify-center gap-3"
+            className="fade-in-up is-visible mt-10 flex w-full flex-wrap items-center justify-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
             <button type="button" onClick={openCheckout} className={ctaDates}>
@@ -76,7 +76,7 @@ export function Hero() {
       </div>
 
       {/* Desktop */}
-      <div className="absolute inset-0 z-20 hidden flex-col items-center justify-center px-6 text-center md:flex">
+      <div className="absolute inset-0 z-20 hidden flex-col items-center justify-center px-8 text-center md:flex">
         <div className="w-full max-w-none">
           <p
             className="fade-in-up is-visible font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/70"
@@ -86,7 +86,7 @@ export function Hero() {
           </p>
 
           <h1
-            className="fade-in-up is-visible mt-5 font-french text-5xl tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] md:text-7xl"
+            className="fade-in-up is-visible mt-5 font-french text-5xl tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] md:text-7xl"
             style={{ transitionDelay: "0.12s" }}
           >
             Caf+® com Letras
@@ -102,7 +102,7 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mx-auto mt-10 flex items-center justify-center gap-4"
+            className="fade-in-up is-visible mx-auto mt-12 flex items-center justify-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
             <button type="button" onClick={openCheckout} className={ctaDates}>
