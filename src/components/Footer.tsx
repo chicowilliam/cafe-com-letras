@@ -5,9 +5,7 @@ export function Footer() {
     <footer className="border-t border-hairline bg-background px-5 py-12 pb-[max(3rem,env(safe-area-inset-bottom))] md:px-8 md:py-16">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:items-center">
         <div>
-          <p className="font-serif text-lg font-normal text-foreground">
-            Café com Letras
-          </p>
+          <p className="font-display text-lg text-foreground">Café com Letras</p>
           <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
             Desde 1996 · Cultura, gastronomia e boa conversa
           </p>
