@@ -14,24 +14,20 @@ export function ImageMarquee() {
     <section
       ref={sectionRef}
       id="galeria"
-      className="overflow-hidden border-t border-hairline-soft bg-surface py-16 md:py-24"
+      className="overflow-hidden border-t border-hairline bg-surface section-padding"
     >
-      <div className="mx-auto mb-10 max-w-6xl px-5 md:mb-16 md:px-8">
+      <div className="mx-auto mb-10 max-w-6xl md:mb-14">
         <FadeIn className="flex items-center gap-2.5">
           <Camera size={16} className="text-accent" strokeWidth={1.5} />
-          <span className="label-caps-wide text-accent">Momentos</span>
+          <span className="section-eyebrow mb-0">Momentos</span>
         </FadeIn>
 
-        <FadeIn
-          as="h2"
-          delay={0.08}
-          className="mt-4 font-serif text-2xl font-normal tracking-[-0.02em] text-foreground md:text-3xl"
-        >
+        <FadeIn as="h2" delay={0.08} className="section-title mt-3">
           Café, cultura e encontros
         </FadeIn>
       </div>
 
-      <div className="relative">
+      <div className="relative -mx-5 md:-mx-8">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-surface to-transparent md:w-24" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-surface to-transparent md:w-24" />
 
