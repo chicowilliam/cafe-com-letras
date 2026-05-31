@@ -11,17 +11,17 @@ export function NoiteDosDates() {
   const { openWithPackage } = useExperienceCheckout();
 
   return (
-    <section id="noite-dos-dates" className="bg-background px-5 pb-14 pt-20 md:px-8 md:pb-16 md:pt-24">
+    <section id="noite-dos-dates" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
         <FadeIn className="mb-6 text-center md:mb-7 md:text-left">
-          <p className="label-caps-wide mb-2 text-accent/80">Experiência exclusiva</p>
-          <h2 className="font-serif text-2xl font-normal tracking-[-0.02em] text-foreground md:text-3xl">
+          <p className="section-eyebrow">Experiência exclusiva</p>
+          <h2 className="section-title">
             Noite dos Dates
           </h2>
         </FadeIn>
 
         <FadeIn delay={0.06}>
-          <p className="mb-8 max-w-3xl text-center font-sans text-base font-normal leading-relaxed text-stone-300 md:mb-9 md:text-left md:text-lg">
+          <p className="mb-10 max-w-3xl text-center text-sm leading-relaxed text-foreground-muted md:mb-12 md:text-left md:text-base">
             Conheça a Noite dos Dates, uma experiência imersiva feita para quem busca
             um romance autêntico e sem pressa na Savassi. Enquanto o jazz ao vivo dita
             o ritmo sob luzes baixas, vocês desfrutam de um menu degustação exclusivo
