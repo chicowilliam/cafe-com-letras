@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
+import { useReservation } from "@/hooks/useReservation";
 import { NAV_LINKS } from "@/lib/constants";
 
 const SCROLL_THRESHOLD = 24;
@@ -9,12 +10,20 @@ const wordmarkClass =
   "focus-ring rounded-md font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
 
 const navLinkClass =
-  "focus-ring rounded-md px-1 py-1 font-sans text-sm font-medium tracking-normal text-white/80 transition-colors hover:text-white";
+  "focus-ring relative rounded-md px-1 py-1 font-sans text-sm font-medium tracking-normal text-white/80 transition-colors hover:text-white";
+
+const navLinkActiveClass =
+  "text-white after:absolute after:-bottom-1 after:inset-x-0 after:h-px after:bg-accent after:content-['']";
+
+const ctaClass =
+  "btn-primary focus-ring shrink-0 rounded-full px-4 py-2 text-sm font-medium tracking-normal text-ink";
 
 export function Navbar() {
   const visible = useNavbarVisibility();
+  const { open: openReservation } = useReservation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeHref, setActiveHref] = useState<string>(NAV_LINKS[0].href);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -23,27 +32,78 @@ export function Navbar() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    let ticking = false;
+
+    const update = () => {
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > SCROLL_THRESHOLD);
+
+      const probe = scrollY + 120;
+      let active: string = NAV_LINKS[0].href;
+
+      for (const link of NAV_LINKS) {
+        const section = document.querySelector<HTMLElement>(link.href);
+        if (section && section.offsetTop <= probe) {
+          active = link.href;
+        }
+      }
+
+      setActiveHref(active);
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
       <header
-        className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${ scrolled ? "border-b border-white/10 bg-[#12110f]/70 backdrop-blur-md" : "border-b border-transparent bg-transparent" } ${
-          visible ? "navbar-slide--visible" : "navbar-slide--hidden"
-        }`}
+        className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
+          scrolled
+            ? "border-b border-white/10 bg-[#12110f]/70 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
+        } ${visible ? "navbar-slide--visible" : "navbar-slide--hidden"}`}
       >
-        <nav className="relative mx-auto flex max-w-6xl transition-[height] duration-300 ease-out motion-reduce:transition-none ${ scrolled ? "h-14" : "h-16" } max-w-6xl items-center justify-between px-5 pt-[env(safe-area-inset-top)] md:px-8">
+        <nav
+          className={`relative mx-auto flex max-w-6xl items-center justify-between px-5 pt-[env(safe-area-inset-top)] transition-[height] duration-300 ease-out motion-reduce:transition-none md:px-8 ${
+            scrolled ? "h-14" : "h-16"
+          }`}
+        >
           <a href="#inicio" className={wordmarkClass}>
             Café com Letras
           </a>
 
-          <ul className="hidden items-center gap-7 md:flex">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className={navLinkClass}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="hidden items-center gap-8 md:flex">
+            <ul className="flex items-center gap-7">
+              {NAV_LINKS.map((link) => {
+                const isActive = activeHref === link.href;
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <button type="button" onClick={openReservation} className={ctaClass}>
+              Reservar
+            </button>
+          </div>
 
           <button
             type="button"
@@ -59,21 +119,29 @@ export function Navbar() {
 
       <div
         className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-sm transition-opacity duration-300 motion-reduce:transition-none md:hidden ${
-          menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+          menuOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
       >
         <ul className="flex h-full flex-col items-center justify-center gap-8 px-6 pb-[env(safe-area-inset-bottom)]">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="focus-ring block min-h-11 py-2 font-sans text-base font-medium tracking-tight text-foreground transition-colors active:text-accent"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const isActive = activeHref === link.href;
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`focus-ring block min-h-11 py-2 font-sans text-base font-medium tracking-tight text-foreground transition-colors active:text-accent${
+                    isActive ? " text-accent" : ""
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
