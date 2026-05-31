@@ -61,22 +61,22 @@ export function ExperienceCheckoutModal() {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-white/10 bg-surface-elevated shadow-2xl"
+        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-2xl"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-white/5 px-4 py-3">
           <div>
-            <p className="mb-0.5 flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.25em] text-accent">
+            <p className="section-eyebrow mb-0.5 flex items-center gap-1.5">
               <Heart size={12} />
               Noite dos Dates
             </p>
-            <h2 id={titleId} className="font-serif text-base text-foreground">
+            <h2 id={titleId} className="font-display text-base text-foreground">
               Finalizar experiência
             </h2>
           </div>
           <button
             type="button"
             onClick={close}
-            className="rounded-full p-1 text-foreground-muted transition-colors hover:bg-white/5 hover:text-foreground"
+            className="focus-ring rounded-full p-1 text-foreground-muted transition-colors hover:bg-white/5 hover:text-foreground"
             aria-label="Fechar"
           >
             <X size={16} />
@@ -88,25 +88,25 @@ export function ExperienceCheckoutModal() {
             <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
               <Check size={18} />
             </div>
-            <p className="font-serif text-base text-foreground">Pedido simulado!</p>
+            <p className="font-display text-base text-foreground">Pedido simulado!</p>
             <p className="mt-1 text-xs text-foreground-muted">
               {activePackage?.title} ·{" "}
               {PAYMENT_METHODS.find((m) => m.id === paymentMethod)?.label}
             </p>
-            <p className="mt-3 text-[10px] leading-relaxed text-foreground-muted">
+            <p className="mt-3 text-[11px] leading-relaxed text-foreground-muted">
               Fluxo demonstrativo — nenhuma cobrança foi realizada.
             </p>
             <button
               type="button"
               onClick={close}
-              className="mt-5 w-full rounded-full border border-accent/40 py-2 text-xs text-accent transition-colors hover:bg-accent/10"
+              className="focus-ring mt-5 w-full rounded-full border border-accent/40 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/10"
             >
               Fechar
             </button>
           </div>
         ) : (
           <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-3">
-            <div className="mb-3 rounded-lg border border-yellow-500/40 bg-yellow-500/10 px-3 py-2 text-center text-[10px] font-medium leading-relaxed text-yellow-200/90">
+            <div className="mb-3 rounded-lg border border-yellow-500/40 bg-yellow-500/10 px-3 py-2 text-center text-[11px] font-medium leading-relaxed text-yellow-200/90">
               ⚠️ Ambiente de Demonstração: protótipo fictício. Nenhum pagamento real
               será processado.
             </div>
@@ -121,7 +121,7 @@ export function ExperienceCheckoutModal() {
                       key={pkg.id}
                       type="button"
                       onClick={() => setSelectedPackage(pkg.id)}
-                      className={`flex w-full items-center gap-2.5 rounded-md border p-2 text-left transition-colors ${
+                      className={`focus-ring flex w-full items-center gap-2.5 rounded-md border p-2 text-left transition-colors ${
                         isSelected
                           ? "border-accent/50 bg-accent/10"
                           : "border-white/10 bg-black/20 hover:border-white/20"
@@ -136,9 +136,9 @@ export function ExperienceCheckoutModal() {
                         <p className="truncate text-xs font-medium text-foreground">
                           {pkg.title}
                         </p>
-                        <p className="text-[10px] text-foreground-muted">{pkg.badge}</p>
+                        <p className="text-[11px] text-foreground-muted">{pkg.badge}</p>
                       </div>
-                      <span className="shrink-0 font-serif text-xs text-accent">
+                      <span className="shrink-0 font-display text-xs text-accent">
                         {pkg.price}
                       </span>
                     </button>
@@ -172,11 +172,11 @@ export function ExperienceCheckoutModal() {
                 <div className="rounded-md border border-white/10 bg-black/20 px-3 py-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-foreground-muted">Total</span>
-                    <span className="font-serif text-sm text-accent">
+                    <span className="font-display text-sm text-accent">
                       {activePackage.price}
                     </span>
                   </div>
-                  <p className="mt-0.5 text-right text-[10px] text-foreground-muted">
+                  <p className="mt-0.5 text-right text-[11px] text-foreground-muted">
                     {activePackage.priceNote}
                   </p>
                 </div>
@@ -184,14 +184,14 @@ export function ExperienceCheckoutModal() {
             </div>
 
             <div className="mt-3 shrink-0 space-y-2 border-t border-white/5 pt-3">
-              <p className="text-[10px] text-foreground-muted/80">
+              <p className="text-[11px] text-foreground-muted/80">
                 Demonstrativo — pagamento não processado.
               </p>
               <button
                 type="button"
                 disabled={!canConfirm}
                 onClick={handleConfirm}
-                className="w-full rounded-full bg-accent py-2 text-xs font-medium text-[#12110f] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                className="focus-ring w-full rounded-full bg-accent py-2 text-xs font-medium text-ink transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Confirmar pagamento
               </button>
@@ -205,7 +205,7 @@ export function ExperienceCheckoutModal() {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[10px] uppercase tracking-wider text-foreground-muted">
+    <p className="text-[11px] font-medium text-foreground-muted">
       {children}
     </p>
   );
@@ -226,14 +226,14 @@ function PaymentButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex flex-col items-center gap-1 rounded-md border px-1.5 py-2.5 text-center transition-colors ${
+      className={`focus-ring flex flex-col items-center gap-1 rounded-md border px-1.5 py-2.5 text-center transition-colors ${
         active
           ? "border-accent/50 bg-accent/10 text-accent"
           : "border-white/10 bg-black/20 text-foreground-muted hover:border-white/20 hover:text-foreground"
       }`}
     >
       {icon}
-      <span className="text-[9px] font-medium leading-tight">{label}</span>
+      <span className="text-[11px] font-medium leading-tight">{label}</span>
     </button>
   );
 }
