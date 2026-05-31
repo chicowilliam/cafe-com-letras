@@ -3,6 +3,12 @@ import { Menu, X } from "lucide-react";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { NAV_LINKS } from "@/lib/constants";
 
+const wordmarkClass =
+  "focus-ring rounded-md font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
+
+const navLinkClass =
+  "focus-ring rounded-md px-1 py-1 font-sans text-sm font-medium tracking-normal text-white/80 transition-colors hover:text-white";
+
 export function Navbar() {
   const visible = useNavbarVisibility();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,18 +23,19 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`navbar-slide fixed inset-x-0 top-0 z-50 bg-transparent motion-reduce:transition-none ${
+        className={`navbar-slide fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent motion-reduce:transition-none ${
           visible ? "navbar-slide--visible" : "navbar-slide--hidden"
         }`}
       >
-        <nav className="relative mx-auto flex h-16 max-w-6xl items-center justify-end px-5 pt-[env(safe-area-inset-top)] md:h-16 md:justify-center md:px-8">
-          <ul className="hidden items-center gap-8 md:flex">
+        <nav className="relative mx-auto flex h-16 max-w-6xl items-center justify-between px-5 pt-[env(safe-area-inset-top)] md:px-8">
+          <a href="#inicio" className={wordmarkClass}>
+            Café com Letras
+          </a>
+
+          <ul className="hidden items-center gap-7 md:flex">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/80 transition-colors hover:text-white"
-                >
+                <a href={link.href} className={navLinkClass}>
                   {link.label}
                 </a>
               </li>
@@ -40,27 +47,25 @@ export function Navbar() {
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white transition-colors active:bg-black/50 md:hidden"
+            className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white backdrop-blur-sm transition-colors active:bg-black/55 md:hidden"
           >
-            {menuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+            {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
           </button>
         </nav>
       </header>
 
       <div
-        className={`fixed inset-0 z-40 bg-[#12110f]/95 transition-opacity duration-300 motion-reduce:transition-none md:hidden ${
-          menuOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
+        className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-sm transition-opacity duration-300 motion-reduce:transition-none md:hidden ${
+          menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        <ul className="flex h-full flex-col items-center justify-center gap-10 px-6 pb-[env(safe-area-inset-bottom)]">
+        <ul className="flex h-full flex-col items-center justify-center gap-8 px-6 pb-[env(safe-area-inset-bottom)]">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="block min-h-11 py-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-[#f5f0e6] transition-colors active:text-accent"
+                className="focus-ring block min-h-11 py-2 font-sans text-base font-medium tracking-tight text-foreground transition-colors active:text-accent"
               >
                 {link.label}
               </a>
