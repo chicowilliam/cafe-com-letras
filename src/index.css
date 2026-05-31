@@ -61,19 +61,19 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-foreground-soft: var(--foreground-soft);
+  --color-foreground-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-active: var(--accent-active);
   --color-surface: var(--surface);
+  --color-hairline: var(--hairline);
+  --color-ink: var(--ink);
+  --color-foreground-soft: var(--foreground-soft);
   --color-surface-elevated: var(--surface-elevated);
   --color-surface-dark-soft: var(--surface-dark-soft);
   --color-canvas: var(--canvas);
   --color-canvas-soft: var(--canvas-soft);
-  --color-ink: var(--ink);
   --color-body: var(--body);
-  --color-hairline: var(--hairline);
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-poppins);
   --font-french: var(--font-gloock-family);
