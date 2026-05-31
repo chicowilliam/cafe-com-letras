@@ -92,6 +92,18 @@ button:not(:disabled),
   cursor: pointer;
 }
 
+.section-padding {
+  padding-inline: 1.25rem;
+  padding-block: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-inline: 2rem;
+    padding-block: 7rem;
+  }
+}
+
 .label-caps {
   font-family: var(--font-poppins);
   font-size: 12px;
