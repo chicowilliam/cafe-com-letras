@@ -2,11 +2,11 @@ import { HERO_IMAGE } from "@/lib/gallery-images";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
 
-const ctaDates =
-  "rounded-full bg-accent px-8 py-3.5 font-cinzel text-xs font-medium uppercase tracking-[0.2em] text-black transition-colors duration-300 hover:bg-accent/80";
+const ctaPrimary =
+  "btn-primary focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01] hover:bg-accent/90";
 
-const ctaReserve =
-  "rounded-full border border-white/20 bg-white/5 px-8 py-3.5 font-cinzel text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10";
+const ctaGhost =
+  "btn-ghost focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";
 
 export function Hero() {
   const { open: openReservation } = useReservation();
@@ -65,11 +65,11 @@ export function Hero() {
             className="fade-in-up is-visible mt-10 flex w-full flex-wrap items-center justify-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
-            <button type="button" onClick={openCheckout} className={ctaDates}>
+            <button type="button" onClick={openCheckout} className={ctaPrimary}>
               Noite dos Dates
             </button>
-            <button type="button" onClick={openReservation} className={ctaReserve}>
-              Fazer Reserva
+            <button type="button" onClick={openReservation} className={ctaGhost}>
+              Fazer reserva
             </button>
           </div>
         </div>
@@ -105,11 +105,11 @@ export function Hero() {
             className="fade-in-up is-visible mx-auto mt-12 flex items-center justify-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
-            <button type="button" onClick={openCheckout} className={ctaDates}>
+            <button type="button" onClick={openCheckout} className={ctaPrimary}>
               Noite dos Dates
             </button>
-            <button type="button" onClick={openReservation} className={ctaReserve}>
-              Fazer Reserva
+            <button type="button" onClick={openReservation} className={ctaGhost}>
+              Fazer reserva
             </button>
           </div>
         </div>
