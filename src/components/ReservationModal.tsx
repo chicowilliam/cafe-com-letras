@@ -81,22 +81,22 @@ export function ReservationModal() {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-white/10 bg-surface-elevated shadow-2xl"
+        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-hairline bg-surface shadow-2xl"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-white/5 px-4 py-3">
           <div>
-            <p className="mb-0.5 flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.25em] text-accent">
+            <p className="section-eyebrow mb-0.5 flex items-center gap-1.5">
               <CalendarDays size={12} />
               Reservas
             </p>
-            <h2 id={titleId} className="font-serif text-base text-foreground">
+            <h2 id={titleId} className="font-display text-base text-foreground">
               Agendar experiência
             </h2>
           </div>
           <button
             type="button"
             onClick={close}
-            className="rounded-full p-1 text-foreground-muted transition-colors hover:bg-white/5 hover:text-foreground"
+            className="focus-ring rounded-full p-1 text-foreground-muted transition-colors hover:bg-white/5 hover:text-foreground"
             aria-label="Fechar"
           >
             <X size={16} />
@@ -108,7 +108,7 @@ export function ReservationModal() {
             <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
               <Check size={18} />
             </div>
-            <p className="font-serif text-base text-foreground">Reserva confirmada!</p>
+            <p className="font-display text-base text-foreground">Reserva confirmada!</p>
             {confirmedArea && (
               <p className="mt-1 text-xs text-foreground-muted">
                 {AREA_LABELS[confirmedArea]}
@@ -118,13 +118,13 @@ export function ReservationModal() {
             <p className="mt-1 font-mono text-base tracking-wider text-accent">
               {confirmationCode}
             </p>
-            <p className="mt-3 text-[10px] leading-relaxed text-foreground-muted">
+            <p className="mt-3 text-[11px] leading-relaxed text-foreground-muted">
               Fluxo demonstrativo — nenhuma reserva real foi registrada.
             </p>
             <button
               type="button"
               onClick={close}
-              className="mt-5 w-full rounded-full border border-accent/40 py-2 text-xs text-accent transition-colors hover:bg-accent/10"
+              className="focus-ring mt-5 w-full rounded-full border border-accent/40 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/10"
             >
               Fechar
             </button>
@@ -202,13 +202,13 @@ export function ReservationModal() {
             </div>
 
             <div className="mt-3 shrink-0 space-y-2 border-t border-white/5 pt-3">
-              <p className="text-[10px] text-foreground-muted/80">
+              <p className="text-[11px] text-foreground-muted/80">
                 Demonstrativo — dados não enviados.
               </p>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-full bg-accent py-2 text-xs font-medium text-[#12110f] transition-opacity hover:opacity-90 disabled:opacity-60"
+                className="focus-ring w-full rounded-full bg-accent py-2 text-xs font-medium text-ink transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Confirmando..." : "Confirmar reserva"}
               </button>
@@ -221,7 +221,7 @@ export function ReservationModal() {
 }
 
 const inputClass =
-  "w-full rounded-md border border-white/10 bg-black/20 px-2.5 py-1.5 text-xs text-foreground outline-none transition-colors placeholder:text-foreground-muted/50 focus:border-accent/50";
+  "focus-ring w-full rounded-md border border-white/10 bg-black/20 px-2.5 py-1.5 text-xs text-foreground outline-none transition-colors placeholder:text-foreground-muted/50 focus:border-accent/50";
 
 function Field({
   label,
@@ -236,7 +236,7 @@ function Field({
 }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-0.5 block text-[10px] uppercase tracking-wider text-foreground-muted">
+      <span className="mb-0.5 block text-[11px] font-medium text-foreground-muted">
         {label}
       </span>
       {children}
