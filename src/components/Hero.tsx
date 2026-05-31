@@ -8,6 +8,15 @@ const ctaPrimary =
 const ctaGhost =
   "btn-ghost focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";
 
+const locationBadgeClass =
+  "mb-5 inline-flex items-center rounded-full border border-white/10 bg-black/45 px-3 py-1 font-sans text-xs font-medium tracking-tight text-accent backdrop-blur-sm";
+
+const taglineClass =
+  "font-sans text-sm leading-relaxed text-foreground-muted md:text-base";
+
+const taglineHighlightClass =
+  "mx-1 font-display text-base italic text-foreground md:text-lg";
+
 export function Hero() {
   const { open: openReservation } = useReservation();
   const { open: openCheckout } = useExperienceCheckout();
@@ -19,7 +28,7 @@ export function Hero() {
     >
       <img
         src={HERO_IMAGE}
-        alt="Livraria Contraponto ÔÇö Caf+® com Letras"
+        alt="Livraria Contraponto â€” CafÃ© com Letras"
         className="absolute inset-0 h-full w-full scale-[1.06] object-cover object-[50%_62%] md:scale-100 md:object-center"
         fetchPriority="high"
         decoding="async"
@@ -37,27 +46,27 @@ export function Hero() {
 
       {/* Mobile */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(5rem,env(safe-area-inset-top))] text-center md:hidden">
-        <div className="hero-mobile-copy flex w-full max-w-md flex-col items-center">
-          <p
-            className="fade-in-up is-visible font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/70"
+        <div className="hero-mobile-copy flex w-full max-w-md flex-col items-center gap-1">
+          <span
+            className={`fade-in-up is-visible ${locationBadgeClass}`}
             style={{ transitionDelay: "0.05s" }}
           >
-            Savassi -À Belo Horizonte
-          </p>
+            Savassi Â· Belo Horizonte
+          </span>
 
           <h1
-            className="fade-in-up is-visible mt-4 w-full text-center font-french text-5xl tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] md:text-7xl"
+            className="fade-in-up is-visible w-full text-center font-display text-[2.75rem] leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
             style={{ transitionDelay: "0.12s" }}
           >
-            Caf+® com Letras
+            CafÃ© com Letras
           </h1>
 
           <p
-            className="fade-in-up is-visible mx-auto mt-4 max-w-xs text-center font-sans text-[0.9375rem] font-light leading-[1.45] tracking-[-0.01em] text-white/80"
+            className={`fade-in-up is-visible mt-5 max-w-xs ${taglineClass}`}
             style={{ transitionDelay: "0.2s" }}
           >
             Onde cultura,{" "}
-            <span className="italic text-white">literatura</span> e gastronomia se
+            <span className={taglineHighlightClass}>literatura</span> e gastronomia se
             encontram
           </p>
 
@@ -77,32 +86,32 @@ export function Hero() {
 
       {/* Desktop */}
       <div className="absolute inset-0 z-20 hidden flex-col items-center justify-center px-8 text-center md:flex">
-        <div className="w-full max-w-none">
-          <p
-            className="fade-in-up is-visible font-sans text-xs font-medium uppercase tracking-[0.2em] text-white/70"
+        <div className="flex w-full max-w-2xl flex-col items-center gap-1">
+          <span
+            className={`fade-in-up is-visible ${locationBadgeClass}`}
             style={{ transitionDelay: "0.05s" }}
           >
-            Savassi -À Belo Horizonte
-          </p>
+            Savassi Â· Belo Horizonte
+          </span>
 
           <h1
-            className="fade-in-up is-visible mt-5 font-french text-5xl tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] md:text-7xl"
+            className="fade-in-up is-visible font-display text-6xl leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] lg:text-7xl"
             style={{ transitionDelay: "0.12s" }}
           >
-            Caf+® com Letras
+            CafÃ© com Letras
           </h1>
 
           <p
-            className="fade-in-up is-visible mx-auto mt-6 max-w-lg font-sans text-base font-light leading-[1.45] tracking-[-0.01em] text-white/75"
+            className={`fade-in-up is-visible mt-6 max-w-md ${taglineClass}`}
             style={{ transitionDelay: "0.2s" }}
           >
             Onde cultura,{" "}
-            <span className="italic text-white">literatura</span> e gastronomia se
+            <span className={taglineHighlightClass}>literatura</span> e gastronomia se
             encontram
           </p>
 
           <div
-            className="fade-in-up is-visible mx-auto mt-12 flex items-center justify-center gap-3"
+            className="fade-in-up is-visible mt-12 flex items-center justify-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
             <button type="button" onClick={openCheckout} className={ctaPrimary}>
