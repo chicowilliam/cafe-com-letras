@@ -298,7 +298,7 @@ button:not(:disabled),
   overflow: hidden;
   border-radius: var(--radius-md);
   border: 1px solid var(--hairline);
-  background: var(--surface-elevated);
+  background: var(--surface);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
