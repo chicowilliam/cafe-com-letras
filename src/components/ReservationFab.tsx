@@ -39,7 +39,7 @@ export function ReservationFab() {
     <button
       type="button"
       onClick={open}
-      className={`fixed z-50 flex !cursor-pointer items-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-medium text-[#12110f] shadow-lg shadow-black/40 transition-[transform,opacity] duration-300 ease-out active:scale-[0.98] hover:opacity-90 motion-reduce:transition-none bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] md:gap-2.5 md:px-5 md:py-3.5 ${
+      className={`focus-ring fixed z-50 flex !cursor-pointer items-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-medium text-ink shadow-lg shadow-black/40 transition-[transform,opacity] duration-300 ease-out active:scale-[0.98] hover:opacity-90 motion-reduce:transition-none bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] md:gap-2.5 md:px-5 md:py-3.5 ${
         visible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-4 opacity-0"

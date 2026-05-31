@@ -23,7 +23,7 @@ type ReservationAreaFieldProps = {
 export function ReservationAreaField({ control, error }: ReservationAreaFieldProps) {
   return (
     <fieldset>
-      <legend className="mb-1 block text-[10px] uppercase tracking-wider text-foreground-muted">
+      <legend className="mb-1 block text-[11px] font-medium text-foreground-muted">
         Área
       </legend>
 
@@ -47,7 +47,7 @@ export function ReservationAreaField({ control, error }: ReservationAreaFieldPro
                   key={value}
                   type="button"
                   onClick={() => field.onChange(value)}
-                  className={`relative z-10 flex items-center justify-center gap-1.5 rounded-md px-2 py-2 text-center transition-colors duration-300 ${
+                  className={`focus-ring relative z-10 flex items-center justify-center gap-1.5 rounded-md px-2 py-2 text-center transition-colors duration-300 ${
                     selected ? "text-foreground" : "text-foreground-muted hover:text-foreground/80"
                   }`}
                   aria-pressed={selected}
