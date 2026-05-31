@@ -13,11 +13,9 @@ export function NoiteDosDates() {
   return (
     <section id="noite-dos-dates" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-6 text-center md:mb-7 md:text-left">
+        <FadeIn className="mb-8 text-center md:mb-10 md:text-left">
           <p className="section-eyebrow">Experiência exclusiva</p>
-          <h2 className="section-title">
-            Noite dos Dates
-          </h2>
+          <h2 className="section-title">Noite dos Dates</h2>
         </FadeIn>
 
         <FadeIn delay={0.06}>
@@ -33,39 +31,35 @@ export function NoiteDosDates() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
           {DATE_PACKAGES.map((pkg, index) => (
             <FadeIn key={pkg.id} delay={0.1 + index * 0.06}>
-              <article className="card-experience group flex h-full overflow-hidden md:flex-row">
-                <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden md:aspect-auto md:h-auto md:w-[34%] md:min-h-[168px]">
+              <article className="card-experience group flex h-full flex-col overflow-hidden md:flex-row">
+                <div className="relative h-48 w-full shrink-0 overflow-hidden md:h-auto md:w-1/3 md:min-h-[168px]">
                   <img
                     src={pkg.image}
                     alt={pkg.imageAlt}
-                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    className="h-48 w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] md:h-full md:w-full"
                     loading="lazy"
                     decoding="async"
                   />
                   <span
-                    className={`absolute left-2.5 top-2.5 rounded-full border px-2 py-0.5 text-[9px] font-medium uppercase tracking-wide backdrop-blur-md ${BADGE_STYLES[pkg.id]}`}
+                    className={`absolute left-2.5 top-2.5 rounded-full border px-2 py-0.5 text-[11px] font-medium tracking-tight backdrop-blur-md ${BADGE_STYLES[pkg.id]}`}
                   >
                     {pkg.badge}
                   </span>
                 </div>
 
-                <div className="flex min-w-0 flex-1 flex-col p-3.5 md:p-4">
+                <div className="flex min-w-0 w-full flex-1 flex-col p-3.5 md:p-4">
                   <div className="mb-2 flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <h3 className="font-serif text-base font-normal text-foreground">
-                        {pkg.title}
-                      </h3>
+                      <h3 className="font-display text-base text-foreground">{pkg.title}</h3>
                       <p className="mt-0.5 text-[11px] text-foreground-muted">{pkg.subtitle}</p>
                     </div>
                     <div className="shrink-0 text-right">
-                      <p className="font-serif text-base leading-none text-accent">{pkg.price}</p>
-                      <p className="mt-0.5 text-[9px] uppercase tracking-wide text-foreground-soft">
-                        {pkg.priceNote}
-                      </p>
+                      <p className="font-display text-base leading-none text-accent">{pkg.price}</p>
+                      <p className="mt-0.5 text-[11px] text-foreground-muted">{pkg.priceNote}</p>
                     </div>
                   </div>
 
-                  <p className="mb-2.5 line-clamp-2 text-xs leading-relaxed text-foreground-muted">
+                  <p className="mb-2.5 line-clamp-2 text-[13px] leading-relaxed text-foreground-muted">
                     {pkg.description}
                   </p>
 
@@ -73,7 +67,7 @@ export function NoiteDosDates() {
                     {pkg.highlights.map((item) => (
                       <li
                         key={item}
-                        className="flex items-center gap-1 text-[10px] text-foreground-soft"
+                        className="flex items-center gap-1 text-[11px] text-foreground-muted"
                       >
                         <span className="h-1 w-1 shrink-0 rounded-full bg-accent" />
                         {item}
@@ -84,9 +78,9 @@ export function NoiteDosDates() {
                   <button
                     type="button"
                     onClick={() => openWithPackage(pkg.id)}
-                    className="btn-primary mt-auto w-full py-2 text-[11px] font-medium uppercase tracking-[0.1em]"
+                    className="btn-primary focus-ring mt-auto w-full py-2.5 text-[13px]"
                   >
-                    Selecionar Pacote
+                    Selecionar pacote
                   </button>
                 </div>
               </article>
