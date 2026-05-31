@@ -3,6 +3,8 @@ import { Menu, X } from "lucide-react";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { NAV_LINKS } from "@/lib/constants";
 
+const SCROLL_THRESHOLD = 24;
+
 const wordmarkClass =
   "focus-ring rounded-md font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
 
@@ -12,6 +14,7 @@ const navLinkClass =
 export function Navbar() {
   const visible = useNavbarVisibility();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -23,11 +26,11 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`navbar-slide fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent motion-reduce:transition-none ${
+        className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${ scrolled ? "border-b border-white/10 bg-[#12110f]/70 backdrop-blur-md" : "border-b border-transparent bg-transparent" } ${
           visible ? "navbar-slide--visible" : "navbar-slide--hidden"
         }`}
       >
-        <nav className="relative mx-auto flex h-16 max-w-6xl items-center justify-between px-5 pt-[env(safe-area-inset-top)] md:px-8">
+        <nav className="relative mx-auto flex max-w-6xl transition-[height] duration-300 ease-out motion-reduce:transition-none ${ scrolled ? "h-14" : "h-16" } max-w-6xl items-center justify-between px-5 pt-[env(safe-area-inset-top)] md:px-8">
           <a href="#inicio" className={wordmarkClass}>
             Café com Letras
           </a>
