@@ -33,7 +33,7 @@ function StoryText({ paragraphs }: { paragraphs: readonly string[] }) {
       {paragraphs.map((text, index) => (
         <p
           key={index}
-          className="font-garamond italic text-[1.0625rem] leading-relaxed text-stone-300 md:text-[1.1875rem]"
+          className="font-garamond italic text-[1.0625rem] leading-relaxed text-foreground-muted md:text-[1.1875rem]"
         >
           {text}
         </p>
@@ -62,16 +62,13 @@ export function About() {
   const [img1, img2] = ABOUT_IMAGES;
 
   return (
-    <section
-      id="sobre"
-      className="bg-background px-5 pb-16 pt-14 sm:px-8 md:px-12 md:pb-24 md:pt-16 lg:px-16"
-    >
+    <section id="sobre" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
         <FadeIn className="pb-10 text-center md:pb-14 md:text-left">
-          <p className="label-caps-wide mb-3 text-accent/80">A História</p>
-          <h2 className="mx-auto max-w-xs font-serif text-2xl font-normal tracking-[-0.02em] text-stone-300 sm:max-w-sm md:mx-0 md:max-w-md md:text-[1.75rem] lg:max-w-lg">
+          <p className="section-eyebrow">A História</p>
+          <h2 className="section-title mx-auto max-w-xs sm:max-w-sm md:mx-0 md:max-w-md lg:max-w-lg">
             Três amigos, um sonho{" "}
-            <span className="italic text-stone-400">e a Savassi</span>
+            <span className="italic text-foreground-muted">e a Savassi</span>
           </h2>
         </FadeIn>
 
@@ -94,7 +91,7 @@ export function About() {
           className="mt-14 border-t border-hairline pt-8 text-center md:mt-20 md:pt-12 md:text-left"
           rootMargin="0px"
         >
-          <p className="label-caps text-foreground-soft">
+          <p className="section-eyebrow mb-0 text-foreground-muted">
             Rua Antônio de Albuquerque · Savassi · Belo Horizonte
           </p>
         </FadeIn>
