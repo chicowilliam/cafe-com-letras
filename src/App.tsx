@@ -16,6 +16,11 @@ const NoiteDosDates = lazy(() =>
     default: module.NoiteDosDates,
   })),
 );
+const CuradoriaSemanal = lazy(() =>
+  import("@/components/CuradoriaSemanal").then((module) => ({
+    default: module.CuradoriaSemanal,
+  })),
+);
 const ImageMarquee = lazy(() =>
   import("@/components/ImageMarquee").then((module) => ({
     default: module.ImageMarquee,
@@ -31,6 +36,7 @@ export default function App() {
           <Hero />
           <Suspense fallback={null}>
             <NoiteDosDates />
+            <CuradoriaSemanal />
             <About />
             <ImageMarquee />
           </Suspense>
