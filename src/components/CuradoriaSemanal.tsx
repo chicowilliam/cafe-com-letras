@@ -6,7 +6,8 @@ import {
   PRATOS_DA_SEMANA,
 } from "@/lib/curadoria-semanal";
 
-const VISIBILITY_THRESHOLD = 0.35;
+// Only decode videos when cards enter the viewport.
+ = 0.35;
 const OBSERVER_ROOT_MARGIN = "120px 0px";
 
 type CuradoriaVideoProps = {
