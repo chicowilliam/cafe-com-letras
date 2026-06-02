@@ -5,13 +5,14 @@ import { cloudinaryVideoPoster, cloudinaryVideoUrl, PRATOS_DA_SEMANA } from "@/l
 function CuradoriaVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [nearViewport, setNearViewport] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting && entry.intersectionRatio >= 0.35),
+      ([entry]) => { setNearViewport(entry.isIntersecting); setIsVisible(entry.isIntersecting && entry.isIntersecting && entry.intersectionRatio >= 0.35); }
       { threshold: [0, 0.35, 0.6] },
     );
     observer.observe(container);
@@ -26,8 +27,7 @@ function CuradoriaVideo({ src, poster, label }: { src: string; poster: string; l
   }, [isVisible]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0">
-      <video
+    <div ref={containerRef} className="absolute inset-0 bg-surface">{nearViewport && (<video
         ref={videoRef}
         loop
         muted
@@ -38,8 +38,7 @@ function CuradoriaVideo({ src, poster, label }: { src: string; poster: string; l
         className="h-full w-full object-cover"
       >
         <source src={src} type="video/mp4" />
-      </video>
-    </div>
+      </video>)}</div>
   );
 }
 
