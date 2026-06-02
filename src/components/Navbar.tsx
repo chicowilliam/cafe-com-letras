@@ -6,8 +6,7 @@ import { NAV_LINKS } from "@/lib/constants";
 
 const HERO_INTERSECTION_THRESHOLD = 0.1;
 
-const wordmarkClass =
-  "focus-ring rounded-md font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
+const wordmarkClass =`n  "focus-ring block whitespace-nowrap rounded-md font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
 
 const navLinkClass =
   "focus-ring relative rounded-md px-1 py-1 font-sans text-sm font-medium tracking-normal text-white/80 transition-colors hover:text-white";
@@ -81,12 +80,13 @@ export function Navbar() {
             pastHero ? "h-14" : "h-16"
           }`}
         >
-          <a href="#inicio" className={wordmarkClass}>
-            Caf+® com Letras
-          </a>
+          <div className={`shrink-0 overflow-hidden transition-[max-width,opacity] duration-300 ease-out motion-reduce:transition-none ${ pastHero ? "max-w-[11rem] opacity-100" : "max-w-0 opacity-0" }`}>
+            <a href="#inicio" className={wordmarkClass} aria-hidden={!pastHero} tabIndex={pastHero ? 0 : -1}>
+              Café com Letras
+            </a>
+          </div>
 
-          <div className="hidden items-center gap-8 md:flex">
-            <ul className="flex items-center gap-7">
+          <ul className="hidden items-center gap-7 md:flex"> className="flex items-center gap-7">
               {NAV_LINKS.map((link) => {
                 const isActive = activeHref === link.href;
                 return (
@@ -102,11 +102,6 @@ export function Navbar() {
                 );
               })}
             </ul>
-
-            <button type="button" onClick={openReservation} className={ctaClass}>
-              Reservar
-            </button>
-          </div>
 
           <button
             type="button"
