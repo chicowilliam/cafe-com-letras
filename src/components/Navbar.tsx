@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
-import { useReservation } from "@/hooks/useReservation";
 import { NAV_LINKS } from "@/lib/constants";
 
 const HERO_INTERSECTION_THRESHOLD = 0.1;
@@ -19,7 +18,6 @@ const ctaClass =
 
 export function Navbar() {
   const visible = useNavbarVisibility();
-  const { open: openReservation } = useReservation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [activeHref, setActiveHref] = useState<string>(NAV_LINKS[0].href);
@@ -61,10 +59,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleReserve = () => {
-    setMenuOpen(false);
-    openReservation();
-  };
 
   return (
     <>
