@@ -6,8 +6,7 @@ import {
   PRATOS_DA_SEMANA,
 } from "@/lib/curadoria-semanal";
 
-// Only decode videos when cards enter the viewport.
- = 0.35;
+const VISIBILITY_THRESHOLD = 0.35;
 const OBSERVER_ROOT_MARGIN = "120px 0px";
 
 type CuradoriaVideoProps = {
@@ -104,7 +103,6 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
   );
 });
 
-/** Section anchor: #curadoria-da-semana */
 export function CuradoriaSemanal() {
   return (
     <section id="curadoria-da-semana" className="section-padding bg-background">
