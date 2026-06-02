@@ -104,6 +104,7 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
   );
 });
 
+/** Section anchor: #curadoria-da-semana */
 export function CuradoriaSemanal() {
   return (
     <section id="curadoria-da-semana" className="section-padding bg-background">
