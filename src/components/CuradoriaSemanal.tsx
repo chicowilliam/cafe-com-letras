@@ -15,10 +15,16 @@ export function CuradoriaSemanal() {
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
           {PRATOS_DA_SEMANA.map((prato, index) => (
             <FadeIn key={prato.id} delay={0.08 + index * 0.06}>
-              <article className="relative aspect-[9/16] overflow-hidden rounded-2xl border border-hairline bg-surface">
+              <article className="group relative aspect-[9/16] overflow-hidden rounded-2xl border border-hairline bg-surface transition-all duration-500 hover:scale-[1.015] hover:shadow-xl">
                 <video autoPlay loop muted playsInline className="h-full w-full object-cover">
                   <source src={cloudinaryVideoUrl(prato.cloudinaryPublicId)} type="video/mp4" />
                 </video>
+                <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                  <p className="mb-2 font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-accent/90">{prato.tag}</p>
+                  <h3 className="font-display text-xl text-white">{prato.nome}</h3>
+                  <p className="mt-2 text-sm text-stone-300">{prato.descricao}</p>
+                </div>
               </article>
             </FadeIn>
           ))}
