@@ -4,7 +4,7 @@ import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
 import { NAV_LINKS } from "@/lib/constants";
 
-const SCROLL_THRESHOLD = 24;
+const HERO_INTERSECTION_THRESHOLD = 0.1;
 
 const wordmarkClass =
   "focus-ring rounded-md font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
@@ -22,7 +22,7 @@ export function Navbar() {
   const visible = useNavbarVisibility();
   const { open: openReservation } = useReservation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [activeHref, setActiveHref] = useState<string>(NAV_LINKS[0].href);
 
   useEffect(() => {
@@ -37,8 +37,6 @@ export function Navbar() {
 
     const update = () => {
       const scrollY = window.scrollY;
-      setScrolled(scrollY > SCROLL_THRESHOLD);
-
       const probe = scrollY + 120;
       let active: string = NAV_LINKS[0].href;
 
@@ -73,18 +71,18 @@ export function Navbar() {
     <>
       <header
         className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
-          scrolled
+          pastHero
             ? "border-b border-white/10 bg-[#12110f]/70 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
         } ${visible ? "navbar-slide--visible" : "navbar-slide--hidden"}`}
       >
         <nav
           className={`relative mx-auto flex max-w-6xl items-center justify-between px-5 pt-[env(safe-area-inset-top)] transition-[height] duration-300 ease-out motion-reduce:transition-none md:px-8 ${
-            scrolled ? "h-14" : "h-16"
+            pastHero ? "h-14" : "h-16"
           }`}
         >
           <a href="#inicio" className={wordmarkClass}>
-            Caf√© com Letras
+            Caf+Æ com Letras
           </a>
 
           <div className="hidden items-center gap-8 md:flex">
