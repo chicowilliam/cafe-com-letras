@@ -1,3 +1,4 @@
+/** Weekly curadoria � swap cloudinaryPublicId values to update the menu. */
 export const CLOUDINARY_CLOUD_NAME = "dmqa0cxay";
 
 /** Entrega em mp4 sem q_auto — preserva bitrate/resolução originais do upload. */
