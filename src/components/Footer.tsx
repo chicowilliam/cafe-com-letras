@@ -2,7 +2,7 @@ import { MapPin, Phone } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-hairline bg-background px-5 py-12 pb-[max(3rem,env(safe-area-inset-bottom))] md:px-8 md:py-16">
+    <footer className="section-padding border-t border-hairline bg-background !pb-[max(var(--section-space),env(safe-area-inset-bottom))]">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:items-center">
         <div>
           <p className="font-display text-lg text-foreground">Café com Letras</p>
