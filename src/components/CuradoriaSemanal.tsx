@@ -6,7 +6,7 @@ import {
   PRATOS_DA_SEMANA,
 } from "@/lib/curadoria-semanal";
 
-const VISIBILITY_THRESHOLD = 0.35;
+const VISIBILITY_THRESHOLD = 0.2;
 const OBSERVER_ROOT_MARGIN = "120px 0px";
 
 type CuradoriaVideoProps = {
@@ -22,7 +22,7 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
 }: CuradoriaVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [nearViewport, setNearViewport] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(
     () =>
@@ -43,15 +43,15 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setNearViewport(entry.isIntersecting);
-        setIsPlaying(
+        const active =
           entry.isIntersecting &&
-            entry.intersectionRatio >= VISIBILITY_THRESHOLD,
-        );
+          entry.intersectionRatio >= VISIBILITY_THRESHOLD;
+        setIsActive(active);
+        if (!active) setIsPlaying(false);
       },
       {
         rootMargin: OBSERVER_ROOT_MARGIN,
-        threshold: [0, VISIBILITY_THRESHOLD, 0.6],
+        threshold: [0, VISIBILITY_THRESHOLD, 0.5],
       },
     );
 
@@ -61,14 +61,10 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !nearViewport || reduceMotion) return;
+    if (!video || !isActive || reduceMotion) return;
 
-    if (isPlaying) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
-  }, [isPlaying, nearViewport, reduceMotion]);
+    video.play().catch(() => {});
+  }, [isActive, reduceMotion, src]);
 
   return (
     <div ref={containerRef} className="absolute inset-0 bg-surface">
@@ -77,24 +73,29 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
         alt=""
         aria-hidden
         decoding="async"
-        className={`h-full w-full object-cover transition-opacity duration-300 ${
-          isPlaying && nearViewport && !reduceMotion ? "opacity-0" : "opacity-100"
+        className={`h-full w-full object-cover transition-opacity duration-500 ${
+          isPlaying ? "opacity-0" : "opacity-100"
         }`}
       />
 
-      {nearViewport && !reduceMotion && (
+      {isActive && !reduceMotion && (
         <video
           ref={videoRef}
+          key={src}
           muted
           loop
           playsInline
-          preload="none"
+          preload="auto"
           poster={poster}
           disablePictureInPicture
           controls={false}
           controlsList="nodownload noplaybackrate noremoteplayback"
           aria-label={`Vídeo do prato ${label}`}
-          className="absolute inset-0 h-full w-full object-cover"
+          onPlaying={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+            isPlaying ? "opacity-100" : "opacity-0"
+          }`}
         >
           <source src={src} type="video/mp4" />
         </video>
@@ -121,6 +122,7 @@ export function CuradoriaSemanal() {
             <FadeIn
               key={prato.id}
               delay={0.08 + index * 0.06}
+              rootMargin="0px"
               className="w-full max-w-[280px] sm:max-w-[260px] lg:max-w-[240px]"
             >
               <article className="group relative aspect-[9/16] w-full overflow-hidden rounded-2xl border border-hairline bg-surface transition-all duration-500 hover:scale-[1.015] hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:scale-100">
@@ -135,7 +137,7 @@ export function CuradoriaSemanal() {
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"
                 />
 
-                <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
+                <div className="absolute inset-x-0 bottom-0 z-10 p-4 md:p-5">
                   <p className="mb-1.5 font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-accent/90">
                     {prato.tag}
                   </p>
