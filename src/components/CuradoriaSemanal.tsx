@@ -6,7 +6,6 @@ import {
   useEffect,
   useRef,
   useState,
-  type CSSProperties,
   type KeyboardEvent,
 } from "react";
 import { FadeIn } from "@/components/FadeIn";
@@ -17,9 +16,33 @@ import {
   type PratoDaSemana,
 } from "@/lib/curadoria-semanal";
 
-const VISIBILITY_THRESHOLD = 0.35;
+const PREMIUM_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const TWEEN_FACTOR_BASE = 0.52;
-const MOBILE_SLIDE_SIZE = "82%";
+const REEL_ASPECT = 9 / 16;
+const TRIPTYCH_HEIGHT = "clamp(420px, 60vh, 560px)";
+const INACTIVE_PANEL_PX = 52;
+const SECTION_IO_THRESHOLD = 0.15;
+function useTriptychMetrics() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeReelWidth, setActiveReelWidth] = useState(270);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const update = () => {
+      const height = node.getBoundingClientRect().height;
+      if (height > 0) setActiveReelWidth(height * REEL_ASPECT);
+    };
+
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return { containerRef, activeReelWidth };
+}
 
 function usePrefersReducedMotion() {
   const [reduceMotion, setReduceMotion] = useState(
@@ -38,6 +61,25 @@ function usePrefersReducedMotion() {
   return reduceMotion;
 }
 
+function useSectionInView(threshold = SECTION_IO_THRESHOLD) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting && entry.intersectionRatio >= threshold),
+      { threshold: [0, threshold, 0.5] },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return { ref, inView };
+}
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
@@ -47,6 +89,9 @@ type CuradoriaVideoProps = {
   poster: string;
   label: string;
   active: boolean;
+  reduceMotion: boolean;
+  parallax?: boolean;
+  onProgress?: (progress: number) => void;
 };
 
 const CuradoriaVideo = memo(function CuradoriaVideo({
@@ -54,10 +99,12 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
   poster,
   label,
   active,
+  reduceMotion,
+  parallax = false,
+  onProgress,
 }: CuradoriaVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -65,18 +112,35 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
     video.play().catch(() => {});
   }, [active, reduceMotion, src]);
 
-  const showPoster = !active || !isPlaying;
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !active || !onProgress) return;
+
+    const handleTimeUpdate = () => {
+      if (video.duration > 0) {
+        onProgress(video.currentTime / video.duration);
+      }
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, [active, onProgress]);
+
+  const showForegroundPoster = !active || !isPlaying || reduceMotion;
 
   return (
-    <div className="absolute inset-0 bg-surface">
-      {showPoster && (
+    <div className="absolute inset-0 overflow-hidden bg-black">
+      {showForegroundPoster && (
         <img
           src={poster}
           alt=""
           aria-hidden
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover"
+          className={`h-full w-full object-cover transition-transform duration-700 motion-reduce:transition-none motion-reduce:transform-none ${
+            parallax && active && !reduceMotion ? "scale-[1.03]" : "scale-100"
+          }`}
+          style={{ transitionTimingFunction: PREMIUM_EASE }}
         />
       )}
 
@@ -94,60 +158,213 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
           aria-label={`Vídeo do prato ${label}`}
           onPlaying={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-500 motion-reduce:transition-none motion-reduce:transform-none ${
             isPlaying ? "opacity-100" : "opacity-0"
-          }`}
+          } ${parallax && isPlaying ? "scale-[1.03]" : "scale-100"}`}
+          style={{ transitionTimingFunction: PREMIUM_EASE }}
         />
       )}
     </div>
   );
 });
 
-type CuradoriaCardProps = {
+type TriptychPanelProps = {
   prato: PratoDaSemana;
-  active: boolean;
-  className?: string;
-  style?: CSSProperties;
-  slideLabel?: string;
+  index: number;
+  isActive: boolean;
+  reduceMotion: boolean;
+  sectionInView: boolean;
+  showDivider: boolean;
+  activeReelWidth: number;
+  onActivate: () => void;
 };
 
-function CuradoriaCard({
+function TriptychPanel({
   prato,
-  active,
-  className = "",
-  style,
-  slideLabel,
-}: CuradoriaCardProps) {
+  index,
+  isActive,
+  reduceMotion,
+  sectionInView,
+  showDivider,
+  activeReelWidth,
+  onActivate,
+}: TriptychPanelProps) {
+  const showExpanded = reduceMotion || isActive;
+  const videoActive = sectionInView && isActive;
+  const panelWidth = isActive ? activeReelWidth : INACTIVE_PANEL_PX;
+
   return (
-    <article
-      className={`group relative aspect-[9/16] w-full overflow-hidden rounded-2xl border border-hairline bg-surface will-change-transform motion-reduce:transform-none motion-reduce:opacity-100 md:transition-all md:duration-500 md:hover:scale-[1.015] md:hover:shadow-xl md:motion-reduce:transition-none md:motion-reduce:hover:scale-100${className ? ` ${className}` : ""}`}
-      style={style}
-      aria-label={slideLabel}
+    <button
+      type="button"
+      role="tab"
+      id={`curadoria-tab-${prato.id}`}
+      aria-selected={isActive}
+      aria-controls={`curadoria-panel-${prato.id}`}
+      aria-label={`${prato.nome} — ${prato.tag}`}
+      onMouseEnter={reduceMotion ? undefined : onActivate}
+      onFocus={onActivate}
+      onClick={onActivate}
+      className="focus-ring group/panel relative h-full shrink-0 cursor-pointer overflow-hidden border-0 bg-black text-left outline-none motion-reduce:transition-none"
+      style={{
+        width: panelWidth,
+        transition: reduceMotion ? undefined : `width 700ms ${PREMIUM_EASE}`,
+      }}
     >
-      <CuradoriaVideo
-        src={cloudinaryVideoUrl(prato.cloudinaryPublicId)}
-        poster={cloudinaryVideoPoster(prato.cloudinaryPublicId)}
-        label={prato.nome}
-        active={active}
-      />
-
       <div
+        id={`curadoria-panel-${prato.id}`}
+        role="tabpanel"
+        aria-labelledby={`curadoria-tab-${prato.id}`}
+        className={`relative h-full w-full ${
+          reduceMotion
+            ? isActive
+              ? "brightness-100 saturate-100"
+              : "brightness-[0.85] saturate-90"
+            : `transition-[filter] duration-700 motion-reduce:transition-none ${
+                isActive ? "brightness-100 saturate-100" : "brightness-[0.55] saturate-[0.65]"
+              }`
+        }`}
+        style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
+      >
+        <CuradoriaVideo
+          src={cloudinaryVideoUrl(prato.cloudinaryPublicId)}
+          poster={cloudinaryVideoPoster(prato.cloudinaryPublicId)}
+          label={prato.nome}
+          active={videoActive}
+          reduceMotion={reduceMotion}
+          parallax={isActive}
+        />
+
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${
+            isActive
+              ? "bg-gradient-to-t from-black/92 via-black/45 to-black/15 opacity-100"
+              : "bg-black/55 opacity-100"
+          }`}
+          style={{ transitionTimingFunction: PREMIUM_EASE }}
+        />
+
+        {/* Collapsed — vertical category + compact title */}
+        <div
+          className={`absolute inset-0 z-10 flex flex-col items-center justify-between px-1.5 py-3 md:py-4 ${
+            showExpanded
+              ? "pointer-events-none opacity-0"
+              : "opacity-100 motion-reduce:opacity-0"
+          } ${reduceMotion ? "hidden" : "transition-opacity duration-500 motion-reduce:transition-none"}`}
+          aria-hidden={showExpanded}
+        >
+          <span
+            className="font-sans text-[9px] font-medium uppercase tracking-[0.16em] text-accent/80 [writing-mode:vertical-rl] rotate-180"
+          >
+            {prato.tag}
+          </span>
+          <span className="font-display max-w-[3.75rem] text-center text-[10px] leading-tight tracking-tight text-white/90 [writing-mode:vertical-rl] rotate-180 lg:text-[11px]">
+            {prato.nome}
+          </span>
+        </div>
+
+        <div
+          className={`absolute inset-x-0 bottom-0 z-10 p-4 lg:p-5 ${
+            showExpanded
+              ? "opacity-100 motion-reduce:translate-y-0"
+              : "pointer-events-none translate-y-3 opacity-0 motion-reduce:opacity-100 motion-reduce:translate-y-0"
+          } ${reduceMotion ? "" : "transition-all duration-700 motion-reduce:transition-none"}`}
+          style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
+          aria-hidden={!showExpanded}
+        >
+          <p className="section-eyebrow mb-1.5 !text-accent">{prato.tag}</p>
+          <span aria-hidden className="mb-2 block h-px w-7 bg-accent/80" />
+          <h3 className="font-display text-lg leading-tight tracking-tight text-white lg:text-xl">
+            {prato.nome}
+          </h3>
+          <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-stone-300 lg:text-[13px]">
+            {prato.descricao}
+          </p>
+        </div>
+      </div>
+
+      {/* Active accent indicator */}
+      <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"
+        className={`absolute inset-x-0 bottom-0 z-20 h-[2px] origin-left bg-accent transition-transform duration-700 motion-reduce:transition-none ${
+          isActive ? "scale-x-100" : "scale-x-0"
+        }`}
+        style={{ transitionTimingFunction: PREMIUM_EASE }}
       />
 
-      <div className="absolute inset-x-0 bottom-0 z-10 p-4 md:p-5">
-        <p className="mb-1.5 font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-accent/90">
-          {prato.tag}
-        </p>
-        <h3 className="font-display text-lg leading-tight tracking-tight text-white md:text-xl">
-          {prato.nome}
-        </h3>
-        <p className="mt-1.5 line-clamp-3 text-[13px] leading-relaxed text-stone-300">
-          {prato.descricao}
-        </p>
+      {showDivider && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 z-30 w-px bg-white/10"
+        />
+      )}
+
+      <span className="sr-only">
+        Painel {index + 1}: {prato.nome}
+      </span>
+    </button>
+  );
+}
+
+function CuradoriaDesktopTriptych({
+  reduceMotion,
+  sectionInView,
+}: {
+  reduceMotion: boolean;
+  sectionInView: boolean;
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { containerRef, activeReelWidth } = useTriptychMetrics();
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setActiveIndex((i) => Math.max(0, i - 1));
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setActiveIndex((i) => Math.min(PRATOS_DA_SEMANA.length - 1, i + 1));
+      }
+      if (event.key === "Home") {
+        event.preventDefault();
+        setActiveIndex(0);
+      }
+      if (event.key === "End") {
+        event.preventDefault();
+        setActiveIndex(PRATOS_DA_SEMANA.length - 1);
+      }
+    },
+    [],
+  );
+
+  return (
+    <div
+      className="hidden md:flex md:justify-center"
+      role="tablist"
+      aria-label="Curadoria da semana — tríptico interativo"
+      onKeyDown={handleKeyDown}
+    >
+      <div
+        ref={containerRef}
+        className="mx-auto flex w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_12px_36px_rgba(0,0,0,0.4)]"
+        style={{ height: TRIPTYCH_HEIGHT }}
+      >
+        {PRATOS_DA_SEMANA.map((prato, index) => (
+          <TriptychPanel
+            key={prato.id}
+            prato={prato}
+            index={index}
+            isActive={activeIndex === index}
+            reduceMotion={reduceMotion}
+            sectionInView={sectionInView}
+            showDivider={index < PRATOS_DA_SEMANA.length - 1}
+            activeReelWidth={activeReelWidth}
+            onActivate={() => setActiveIndex(index)}
+          />
+        ))}
       </div>
-    </article>
+    </div>
   );
 }
 
@@ -171,8 +388,8 @@ function useEmblaSlideTween(
       emblaApi.slideNodes().forEach((slideNode, slideIndex) => {
         const diffToTarget = snapList[slideIndex] - scrollProgress;
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-        const scale = clamp(0.94 + tweenValue * 0.06, 0.94, 1);
-        const opacity = clamp(0.72 + tweenValue * 0.28, 0.72, 1);
+        const scale = clamp(0.96 + tweenValue * 0.04, 0.96, 1);
+        const opacity = clamp(0.78 + tweenValue * 0.22, 0.78, 1);
         slideNode.style.transform = `scale(${scale})`;
         slideNode.style.opacity = `${opacity}`;
       });
@@ -196,8 +413,72 @@ function useEmblaSlideTween(
   }, [emblaApi, reduceMotion]);
 }
 
-function CuradoriaMobileCarousel() {
-  const reduceMotion = usePrefersReducedMotion();
+type MobileSlideProps = {
+  prato: PratoDaSemana;
+  isActive: boolean;
+  reduceMotion: boolean;
+  sectionInView: boolean;
+  index: number;
+  total: number;
+};
+
+function MobileTriptychSlide({
+  prato,
+  isActive,
+  reduceMotion,
+  sectionInView,
+  index,
+  total,
+}: MobileSlideProps) {
+  const videoActive = sectionInView && isActive;
+
+  return (
+    <div
+      role="group"
+      aria-roledescription="slide"
+      aria-label={`${index + 1} de ${total}: ${prato.nome}`}
+      aria-hidden={!isActive}
+      className="relative aspect-[9/16] w-[min(78vw,300px)] shrink-0 overflow-hidden bg-black"
+    >
+      <div
+        className={`relative h-full w-full transition-[filter] duration-500 ${
+          isActive ? "brightness-100" : "brightness-90"
+        }`}
+      >
+        <CuradoriaVideo
+          src={cloudinaryVideoUrl(prato.cloudinaryPublicId)}
+          poster={cloudinaryVideoPoster(prato.cloudinaryPublicId)}
+          label={prato.nome}
+          active={videoActive}
+          reduceMotion={reduceMotion}
+          parallax={isActive}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/92 via-black/40 to-transparent"
+        />
+        <div className="absolute inset-x-0 bottom-0 z-10 p-3.5">
+          <p className="section-eyebrow mb-1 !text-accent">{prato.tag}</p>
+          <span aria-hidden className="mb-2 block h-px w-7 bg-accent/80" />
+          <h3 className="font-display text-base leading-tight tracking-tight text-white">
+            {prato.nome}
+          </h3>
+          <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-stone-300">
+            {prato.descricao}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CuradoriaMobileTriptych({
+  reduceMotion,
+  sectionInView,
+}: {
+  reduceMotion: boolean;
+  sectionInView: boolean;
+}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -260,29 +541,24 @@ function CuradoriaMobileCarousel() {
   return (
     <div className="md:hidden">
       <div
-        className="focus-ring rounded-xl outline-none"
+        className="focus-ring mx-auto w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_10px_28px_rgba(0,0,0,0.35)] outline-none"
         role="region"
         aria-roledescription="carousel"
-        aria-label="Pratos em destaque da curadoria da semana"
+        aria-label="Curadoria da semana — tríptico deslizante"
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        <div ref={emblaRef} className="overflow-hidden pl-5">
+        <div ref={emblaRef} className="overflow-hidden">
           <div className="flex touch-pan-y">
             {PRATOS_DA_SEMANA.map((prato, index) => (
-              <div
-                key={prato.id}
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`${index + 1} de ${PRATOS_DA_SEMANA.length}: ${prato.nome}`}
-                aria-hidden={selectedIndex !== index}
-                className="min-w-0 shrink-0 pr-3 last:pr-5"
-                style={{ flex: `0 0 ${MOBILE_SLIDE_SIZE}` }}
-              >
-                <CuradoriaCard
+              <div key={prato.id} className="shrink-0 pl-4 last:pr-4">
+                <MobileTriptychSlide
                   prato={prato}
-                  active={selectedIndex === index}
-                  slideLabel={`${prato.nome}, ${prato.tag}`}
+                  index={index}
+                  total={PRATOS_DA_SEMANA.length}
+                  isActive={selectedIndex === index}
+                  reduceMotion={reduceMotion}
+                  sectionInView={sectionInView}
                 />
               </div>
             ))}
@@ -290,21 +566,24 @@ function CuradoriaMobileCarousel() {
         </div>
       </div>
 
-      <div className="mx-auto mt-6 max-w-[280px] px-5">
+      <div className="mx-auto mt-5 max-w-[240px] px-4">
         <div
           className="mb-4 h-px overflow-hidden rounded-full bg-white/10"
           aria-hidden
         >
           <div
-            className="h-full rounded-full bg-accent transition-[width] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-            style={{ width: progressWidth }}
+            className="h-full rounded-full bg-accent transition-[width] duration-150 motion-reduce:transition-none"
+            style={{
+              width: progressWidth,
+              transitionTimingFunction: PREMIUM_EASE,
+            }}
           />
         </div>
 
         <div
           className="flex items-center justify-center gap-2"
           role="tablist"
-          aria-label="Navegação do carrossel de pratos"
+          aria-label="Navegação do tríptico"
         >
           {PRATOS_DA_SEMANA.map((prato, index) => (
             <button
@@ -314,14 +593,16 @@ function CuradoriaMobileCarousel() {
               aria-selected={selectedIndex === index}
               aria-label={`Ir para ${prato.nome}`}
               onClick={() => scrollTo(index)}
-              className="focus-ring rounded-full p-2 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              className="focus-ring rounded-full p-2 transition-transform duration-300 motion-reduce:transition-none"
+              style={{ transitionTimingFunction: PREMIUM_EASE }}
             >
               <span
-                className={`block h-1.5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                className={`block h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
                   selectedIndex === index
                     ? "w-5 bg-accent"
                     : "w-1.5 bg-white/25 hover:bg-white/40"
                 }`}
+                style={{ transitionTimingFunction: PREMIUM_EASE }}
               />
             </button>
           ))}
@@ -331,74 +612,10 @@ function CuradoriaMobileCarousel() {
   );
 }
 
-function CuradoriaDesktopGrid() {
-  const [activeVideoId, setActiveVideoId] = useState<number | null>(null);
-
-  const handleActive = useCallback((id: number) => {
-    setActiveVideoId(id);
-  }, []);
-
-  return (
-    <div className="hidden md:grid md:grid-cols-2 md:justify-items-center md:gap-5 lg:grid-cols-3">
-      {PRATOS_DA_SEMANA.map((prato, index) => (
-        <FadeIn
-          key={prato.id}
-          delay={0.08 + index * 0.06}
-          rootMargin="0px"
-          className="w-full max-w-[260px] lg:max-w-[240px]"
-        >
-          <DesktopGridCard
-            prato={prato}
-            canPlay={activeVideoId === prato.id}
-            onActive={() => handleActive(prato.id)}
-          />
-        </FadeIn>
-      ))}
-    </div>
-  );
-}
-
-type DesktopGridCardProps = {
-  prato: PratoDaSemana;
-  canPlay: boolean;
-  onActive: () => void;
-};
-
-function DesktopGridCard({ prato, canPlay, onActive }: DesktopGridCardProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const active =
-          entry.isIntersecting &&
-          entry.intersectionRatio >= VISIBILITY_THRESHOLD;
-        setInView(active);
-        if (active) onActive();
-      },
-      { threshold: [0, VISIBILITY_THRESHOLD, 0.6] },
-    );
-
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, [onActive]);
-
-  return (
-    <div ref={containerRef}>
-      <CuradoriaCard
-        prato={prato}
-        active={inView && canPlay}
-        className="max-w-none"
-      />
-    </div>
-  );
-}
-
 export function CuradoriaSemanal() {
+  const reduceMotion = usePrefersReducedMotion();
+  const { ref: triptychRef, inView: sectionInView } = useSectionInView();
+
   return (
     <section id="curadoria-da-semana" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
@@ -411,8 +628,16 @@ export function CuradoriaSemanal() {
           </p>
         </FadeIn>
 
-        <CuradoriaMobileCarousel />
-        <CuradoriaDesktopGrid />
+        <div ref={triptychRef}>
+          <CuradoriaMobileTriptych
+            reduceMotion={reduceMotion}
+            sectionInView={sectionInView}
+          />
+          <CuradoriaDesktopTriptych
+            reduceMotion={reduceMotion}
+            sectionInView={sectionInView}
+          />
+        </div>
       </div>
     </section>
   );
