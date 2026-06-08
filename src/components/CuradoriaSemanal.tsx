@@ -14,6 +14,8 @@ import {
   cloudinaryVideoPoster,
   cloudinaryVideoSources,
   PRATOS_DA_SEMANA,
+  REEL_POSTER_HEIGHT,
+  REEL_POSTER_WIDTH,
   type PratoDaSemana,
 } from "@/lib/curadoria-semanal";
 import { loadVideoSources } from "@/lib/video-utils";
@@ -200,6 +202,50 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
+type ReelPosterProps = {
+  publicId: string;
+  visible: boolean;
+  parallax?: boolean;
+  active?: boolean;
+  reduceMotion: boolean;
+};
+
+const ReelPoster = memo(function ReelPoster({
+  publicId,
+  visible,
+  parallax = false,
+  active = false,
+  reduceMotion,
+}: ReelPosterProps) {
+  if (!visible) return null;
+
+  const avif = cloudinaryVideoPoster(publicId, "avif");
+  const webp = cloudinaryVideoPoster(publicId, "webp");
+  const jpg = cloudinaryVideoPoster(publicId, "jpg");
+
+  return (
+    <picture
+      className={`absolute inset-0 block transition-transform duration-700 motion-reduce:transition-none motion-reduce:transform-none ${
+        parallax && active && !reduceMotion ? "scale-[1.03]" : "scale-100"
+      }`}
+      style={{ transitionTimingFunction: PREMIUM_EASE }}
+    >
+      <source type="image/avif" srcSet={avif} />
+      <source type="image/webp" srcSet={webp} />
+      <img
+        src={jpg}
+        alt=""
+        aria-hidden
+        width={REEL_POSTER_WIDTH}
+        height={REEL_POSTER_HEIGHT}
+        loading="lazy"
+        decoding="async"
+        className="h-full w-full object-cover"
+      />
+    </picture>
+  );
+});
+
 type CuradoriaVideoProps = {
   publicId: string;
   label: string;
@@ -219,7 +265,6 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
 }: CuradoriaVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const poster = cloudinaryVideoPoster(publicId, "jpg");
 
   useEffect(() => {
     const video = videoRef.current;
@@ -255,19 +300,13 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
-      {showPoster && (
-        <img
-          src={poster}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          decoding="async"
-          className={`h-full w-full object-cover transition-transform duration-700 motion-reduce:transition-none motion-reduce:transform-none ${
-            parallax && shouldPlay && !reduceMotion ? "scale-[1.03]" : "scale-100"
-          }`}
-          style={{ transitionTimingFunction: PREMIUM_EASE }}
-        />
-      )}
+      <ReelPoster
+        publicId={publicId}
+        visible={showPoster}
+        parallax={parallax}
+        active={shouldPlay}
+        reduceMotion={reduceMotion}
+      />
 
       {shouldPlay && (
         <video
