@@ -972,7 +972,8 @@ function CuradoriaMobileCarousel({
 
 export function CuradoriaSemanal() {
   const reduceMotion = usePrefersReducedMotion();
-  const { ref: triptychRef, inView: sectionInView } = useSectionInView();
+  const isDesktopLayout = useIsDesktopLayout();
+  const { ref: sectionRef, inView: sectionInView } = useSectionInView();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const goToIndex = useCallback((index: number) => {
@@ -990,51 +991,70 @@ export function CuradoriaSemanal() {
   return (
     <section id="curadoria-da-semana" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
-        <div className="lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-x-12 xl:gap-x-16">
-          <aside className="relative mb-10 text-center lg:sticky lg:top-24 lg:mb-0 lg:self-start lg:pr-8 lg:text-left xl:pr-10">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -right-0 top-6 bottom-6 hidden w-px bg-accent/35 lg:block xl:-right-2"
-            />
+        {isDesktopLayout ? (
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] items-start gap-x-12 xl:gap-x-16">
+            <aside className="relative mb-0 self-start pr-8 text-left xl:pr-10 lg:sticky lg:top-24">
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -right-0 top-6 bottom-6 w-px bg-accent/35 xl:-right-2"
+              />
 
-            <FadeIn>
+              <FadeIn>
+                <p className="section-eyebrow">Menu em movimento</p>
+                <h2 className="section-title">Curadoria da Semana</h2>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground-muted lg:text-base">
+                  Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
+                  semanal do que há de mais refinado no Café com Letras.
+                </p>
+              </FadeIn>
+
+              <CuradoriaControlPanel
+                activeIndex={activeIndex}
+                onSelect={goToIndex}
+                onPrev={goPrev}
+                onNext={goNext}
+                reduceMotion={reduceMotion}
+              />
+
+              <p className="section-eyebrow mt-8 !text-[10px] !tracking-[0.14em] text-foreground-muted/60">
+                Atualizado semanalmente
+              </p>
+            </aside>
+
+            <div ref={sectionRef} className="min-w-0">
+              <CuradoriaDesktopTriptych
+                reduceMotion={reduceMotion}
+                sectionInView={sectionInView}
+                activeIndex={activeIndex}
+                onActiveIndexChange={goToIndex}
+              />
+            </div>
+          </div>
+        ) : (
+          <div ref={sectionRef}>
+            <FadeIn className="mb-8 text-center">
               <p className="section-eyebrow">Menu em movimento</p>
               <h2 className="section-title">Curadoria da Semana</h2>
-              <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground-muted lg:mx-0 lg:max-w-sm lg:text-base">
+              <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground-muted">
                 Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                 semanal do que há de mais refinado no Café com Letras.
               </p>
             </FadeIn>
 
-            <CuradoriaControlPanel
+            <CuradoriaMobileControls
               activeIndex={activeIndex}
               onSelect={goToIndex}
-              onPrev={goPrev}
-              onNext={goNext}
               reduceMotion={reduceMotion}
-              className="mx-auto max-w-md lg:mx-0"
             />
 
-            <p className="section-eyebrow mt-8 hidden !text-[10px] !tracking-[0.14em] text-foreground-muted/60 lg:block">
-              Atualizado semanalmente
-            </p>
-          </aside>
-
-          <div ref={triptychRef} className="min-w-0">
-            <CuradoriaMobileTriptych
-              reduceMotion={reduceMotion}
-              sectionInView={sectionInView}
-              activeIndex={activeIndex}
-              onActiveIndexChange={goToIndex}
-            />
-            <CuradoriaDesktopTriptych
+            <CuradoriaMobileCarousel
               reduceMotion={reduceMotion}
               sectionInView={sectionInView}
               activeIndex={activeIndex}
               onActiveIndexChange={goToIndex}
             />
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
