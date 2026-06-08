@@ -22,7 +22,7 @@ const TWEEN_FACTOR_BASE = 0.52;
 const REEL_ASPECT = 9 / 16;
 const TRIPTYCH_HEIGHT = "clamp(420px, 60vh, 560px)";
 const INACTIVE_PANEL_PX = 52;
-const SECTION_IO_THRESHOLD = 0.15;
+const SECTION_IO_ROOT_MARGIN = "240px 0px";
 const CURADORIA_TOTAL = PRATOS_DA_SEMANA.length;
 
 function padIndex(value: number) {
@@ -176,7 +176,7 @@ function usePrefersReducedMotion() {
   return reduceMotion;
 }
 
-function useSectionInView(threshold = SECTION_IO_THRESHOLD) {
+function useSectionInView(rootMargin = SECTION_IO_ROOT_MARGIN) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -185,12 +185,12 @@ function useSectionInView(threshold = SECTION_IO_THRESHOLD) {
     if (!node) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting && entry.intersectionRatio >= threshold),
-      { threshold: [0, threshold, 0.5] },
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin, threshold: 0 },
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [rootMargin]);
 
   return { ref, inView };
 }
