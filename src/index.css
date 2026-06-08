@@ -36,6 +36,11 @@
   --shadow-card-hover: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.08),
     0 8px 24px rgba(0, 0, 0, 0.12);
   --section-space: 2rem;
+  --selection-bg: rgba(255, 255, 255, 0.18);
+  --selection-color: var(--foreground);
+  --selection-bg-on-accent: rgba(20, 20, 19, 0.16);
+  --selection-color-on-accent: var(--ink);
+  --tap-highlight: rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 768px) {
@@ -63,6 +68,29 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: var(--tap-highlight);
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+::-moz-selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+.btn-primary::selection,
+.bg-accent ::selection {
+  background-color: var(--selection-bg-on-accent);
+  color: var(--selection-color-on-accent);
+}
+
+.btn-primary::-moz-selection,
+.bg-accent ::-moz-selection {
+  background-color: var(--selection-bg-on-accent);
+  color: var(--selection-color-on-accent);
 }
 
 body {
@@ -78,7 +106,7 @@ button:not(:disabled),
   cursor: pointer;
 }
 
-/* Cada se+º+úo contribui com --section-space; gap entre duas = 2+ù (4rem mobile, 6rem desktop). */
+/* Cada seÃ§Ã£o contribui com --section-space; gap entre duas = 2Ã— (4rem mobile, 6rem desktop). */
 .section-padding {
   padding-inline: 1.25rem;
   padding-block: var(--section-space);
