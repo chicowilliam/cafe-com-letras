@@ -222,7 +222,7 @@ function CuradoriaMobileControls({
   reduceMotion,
 }: CuradoriaMobileControlsProps) {
   return (
-    <div className="mx-auto mb-6 max-w-md">
+    <div className="mx-auto mb-3 max-w-md">
       <p
         className="font-display text-center text-4xl leading-none tracking-tight text-foreground tabular-nums"
         aria-live="polite"
@@ -250,7 +250,7 @@ function CuradoriaMobileControls({
       </p>
 
       <div
-        className="mt-4 flex items-center justify-center gap-2"
+        className="mt-3 flex items-center justify-center gap-2"
         role="tablist"
         aria-label="Navegação do carrossel de reels"
       >
@@ -1102,14 +1102,18 @@ export function CuradoriaSemanal() {
             />
             <div
               aria-hidden
+              className="curadoria-mobile-grain pointer-events-none absolute inset-0 z-[1]"
+            />
+            <div
+              aria-hidden
               className="pointer-events-none absolute left-1/2 top-[58%] z-[1] h-64 w-[min(92vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/14 blur-[72px] motion-reduce:opacity-50"
             />
 
             <div className="relative z-10">
-              <FadeIn className="mb-8 text-center">
-                <p className="section-eyebrow">Menu em movimento</p>
-                <h2 className="section-title">Curadoria da Semana</h2>
-                <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground-muted">
+              <FadeIn className="mb-4 text-center">
+                <p className="section-eyebrow drop-shadow-sm">Menu em movimento</p>
+                <h2 className="section-title drop-shadow-sm">Curadoria da Semana</h2>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-foreground-muted drop-shadow-sm">
                   Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                   semanal do que há de mais refinado no Café com Letras.
                 </p>
