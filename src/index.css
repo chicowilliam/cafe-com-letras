@@ -78,7 +78,7 @@ button:not(:disabled),
   cursor: pointer;
 }
 
-/* Cada seÃ§Ã£o contribui com --section-space; gap entre duas = 2Ã— (4rem mobile, 6rem desktop). */
+/* Cada se+º+úo contribui com --section-space; gap entre duas = 2+ù (4rem mobile, 6rem desktop). */
 .section-padding {
   padding-inline: 1.25rem;
   padding-block: var(--section-space);
@@ -205,8 +205,11 @@ button:not(:disabled),
 
 .animate-marquee {
   animation: marquee 45s linear infinite;
-  will-change: transform;
   backface-visibility: hidden;
+}
+
+.marquee-running {
+  will-change: transform;
 }
 
 .marquee-paused {
