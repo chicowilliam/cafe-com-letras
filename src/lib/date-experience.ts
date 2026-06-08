@@ -1,4 +1,4 @@
-import { DATE_PACKAGE_IMAGES } from "@/lib/gallery-images";
+import { DATE_PACKAGE_IMAGES } from "@/lib/date-package-images";
 
 export type DatePackageId = "complete" | "vegan";
 
