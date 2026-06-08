@@ -1,5 +1,3 @@
-export { MARQUEE_IMAGES, ABOUT_IMAGES } from "@/lib/gallery-images";
-
 export const NAV_LINKS = [
   { label: "Início", href: "#inicio" },
   { label: "Noite dos Dates", href: "#noite-dos-dates" },
