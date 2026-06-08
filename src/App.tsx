@@ -35,8 +35,14 @@ export default function App() {
           <Hero />
           <Suspense fallback={null}>
             <NoiteDosDates />
+          </Suspense>
+          <Suspense fallback={null}>
             <CuradoriaSemanal />
+          </Suspense>
+          <Suspense fallback={null}>
             <About />
+          </Suspense>
+          <Suspense fallback={null}>
             <ImageMarquee />
           </Suspense>
         </main>
