@@ -249,6 +249,7 @@ const ReelPoster = memo(function ReelPoster({
 type CuradoriaVideoProps = {
   publicId: string;
   label: string;
+  /** Único painel autorizado a decodificar vídeo (seção visível + reels ativo). */
   shouldPlay: boolean;
   reduceMotion: boolean;
   parallax?: boolean;
@@ -265,7 +266,6 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
 }: CuradoriaVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !shouldPlay) return;
@@ -450,7 +450,7 @@ type TriptychPanelProps = {
   onActivate: () => void;
 };
 
-function TriptychPanel({
+const TriptychPanel = memo(function TriptychPanel({
   prato,
   index,
   isActive,
@@ -507,14 +507,24 @@ function TriptychPanel({
         }`}
         style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
       >
-        <CuradoriaVideo
-          publicId={prato.cloudinaryPublicId}
-          label={prato.nome}
-          shouldPlay={shouldPlay}
-          reduceMotion={reduceMotion}
-          parallax={isActive}
-          onProgress={shouldPlay ? handleProgress : undefined}
-        />
+        {shouldPlay ? (
+          <CuradoriaVideo
+            publicId={prato.cloudinaryPublicId}
+            label={prato.nome}
+            shouldPlay
+            reduceMotion={reduceMotion}
+            parallax={isActive}
+            onProgress={handleProgress}
+          />
+        ) : (
+          <div className="absolute inset-0 overflow-hidden bg-black">
+            <ReelPoster
+              publicId={prato.cloudinaryPublicId}
+              visible
+              reduceMotion={reduceMotion}
+            />
+          </div>
+        )}
 
         {!isActive && (
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-black/55" />
@@ -568,7 +578,7 @@ function TriptychPanel({
       </span>
     </button>
   );
-}
+});
 
 function CuradoriaDesktopTriptych({
   reduceMotion,
@@ -689,7 +699,7 @@ type MobileSlideProps = {
   total: number;
 };
 
-function MobileTriptychSlide({
+const MobileTriptychSlide = memo(function MobileTriptychSlide({
   prato,
   isActive,
   reduceMotion,
@@ -723,14 +733,24 @@ function MobileTriptychSlide({
           isActive ? "brightness-100" : "brightness-90"
         }`}
       >
-        <CuradoriaVideo
-          publicId={prato.cloudinaryPublicId}
-          label={prato.nome}
-          shouldPlay={shouldPlay}
-          reduceMotion={reduceMotion}
-          parallax={isActive}
-          onProgress={shouldPlay ? handleProgress : undefined}
-        />
+        {shouldPlay ? (
+          <CuradoriaVideo
+            publicId={prato.cloudinaryPublicId}
+            label={prato.nome}
+            shouldPlay
+            reduceMotion={reduceMotion}
+            parallax={isActive}
+            onProgress={handleProgress}
+          />
+        ) : (
+          <div className="absolute inset-0 overflow-hidden bg-black">
+            <ReelPoster
+              publicId={prato.cloudinaryPublicId}
+              visible
+              reduceMotion={reduceMotion}
+            />
+          </div>
+        )}
         <ReelFrostedCaption
           prato={prato}
           visible={isActive}
@@ -740,7 +760,7 @@ function MobileTriptychSlide({
       </div>
     </div>
   );
-}
+});
 
 function CuradoriaMobileTriptych({
   reduceMotion,
