@@ -12,10 +12,11 @@ import {
 import { FadeIn } from "@/components/FadeIn";
 import {
   cloudinaryVideoPoster,
-  cloudinaryVideoUrl,
+  cloudinaryVideoSources,
   PRATOS_DA_SEMANA,
   type PratoDaSemana,
 } from "@/lib/curadoria-semanal";
+import { loadVideoSources } from "@/lib/video-utils";
 
 const PREMIUM_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const TWEEN_FACTOR_BASE = 0.52;
@@ -200,36 +201,45 @@ function clamp(value: number, min: number, max: number) {
 }
 
 type CuradoriaVideoProps = {
-  src: string;
-  poster: string;
+  publicId: string;
   label: string;
-  active: boolean;
+  shouldPlay: boolean;
   reduceMotion: boolean;
   parallax?: boolean;
   onProgress?: (progress: number) => void;
 };
 
 const CuradoriaVideo = memo(function CuradoriaVideo({
-  src,
-  poster,
+  publicId,
   label,
-  active,
+  shouldPlay,
   reduceMotion,
   parallax = false,
   onProgress,
 }: CuradoriaVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const poster = cloudinaryVideoPoster(publicId, "jpg");
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !active || reduceMotion) return;
+    if (!video || !shouldPlay) return;
+
+    const cleanup = loadVideoSources(
+      video,
+      cloudinaryVideoSources(publicId).map(({ src, type }) => ({ src, type })),
+    );
     video.play().catch(() => {});
-  }, [active, reduceMotion, src]);
+
+    return () => {
+      cleanup();
+      setIsPlaying(false);
+    };
+  }, [shouldPlay, publicId]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !active || !onProgress) return;
+    if (!video || !shouldPlay || !onProgress) return;
 
     const handleTimeUpdate = () => {
       if (video.duration > 0) {
@@ -239,13 +249,13 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
 
     video.addEventListener("timeupdate", handleTimeUpdate);
     return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-  }, [active, onProgress]);
+  }, [shouldPlay, onProgress]);
 
-  const showForegroundPoster = !active || !isPlaying || reduceMotion;
+  const showPoster = !shouldPlay || !isPlaying;
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
-      {showForegroundPoster && (
+      {showPoster && (
         <img
           src={poster}
           alt=""
@@ -253,16 +263,15 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
           loading="lazy"
           decoding="async"
           className={`h-full w-full object-cover transition-transform duration-700 motion-reduce:transition-none motion-reduce:transform-none ${
-            parallax && active && !reduceMotion ? "scale-[1.03]" : "scale-100"
+            parallax && shouldPlay && !reduceMotion ? "scale-[1.03]" : "scale-100"
           }`}
           style={{ transitionTimingFunction: PREMIUM_EASE }}
         />
       )}
 
-      {active && !reduceMotion && (
+      {shouldPlay && (
         <video
           ref={videoRef}
-          src={src}
           muted
           loop
           playsInline
@@ -413,14 +422,14 @@ function TriptychPanel({
   onActivate,
 }: TriptychPanelProps) {
   const showExpanded = reduceMotion || isActive;
-  const videoActive = sectionInView && isActive;
+  const shouldPlay = sectionInView && isActive && !reduceMotion;
   const panelWidth = isActive ? activeReelWidth : INACTIVE_PANEL_PX;
   const [videoProgress, setVideoProgress] = useState(0);
-  const [prevVideoActive, setPrevVideoActive] = useState(videoActive);
+  const [prevShouldPlay, setPrevShouldPlay] = useState(shouldPlay);
 
-  if (prevVideoActive !== videoActive) {
-    setPrevVideoActive(videoActive);
-    if (!videoActive) setVideoProgress(0);
+  if (prevShouldPlay !== shouldPlay) {
+    setPrevShouldPlay(shouldPlay);
+    if (!shouldPlay) setVideoProgress(0);
   }
 
   const handleProgress = useCallback((progress: number) => {
@@ -460,13 +469,12 @@ function TriptychPanel({
         style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
       >
         <CuradoriaVideo
-          src={cloudinaryVideoUrl(prato.cloudinaryPublicId)}
-          poster={cloudinaryVideoPoster(prato.cloudinaryPublicId)}
+          publicId={prato.cloudinaryPublicId}
           label={prato.nome}
-          active={videoActive}
+          shouldPlay={shouldPlay}
           reduceMotion={reduceMotion}
           parallax={isActive}
-          onProgress={videoActive ? handleProgress : undefined}
+          onProgress={shouldPlay ? handleProgress : undefined}
         />
 
         {!isActive && (
@@ -496,7 +504,7 @@ function TriptychPanel({
           prato={prato}
           visible={showExpanded}
           reduceMotion={reduceMotion}
-          videoProgress={videoActive ? videoProgress : 0}
+          videoProgress={shouldPlay ? videoProgress : 0}
         />
       </div>
 
@@ -650,13 +658,13 @@ function MobileTriptychSlide({
   index,
   total,
 }: MobileSlideProps) {
-  const videoActive = sectionInView && isActive;
+  const shouldPlay = sectionInView && isActive && !reduceMotion;
   const [videoProgress, setVideoProgress] = useState(0);
-  const [prevVideoActive, setPrevVideoActive] = useState(videoActive);
+  const [prevShouldPlay, setPrevShouldPlay] = useState(shouldPlay);
 
-  if (prevVideoActive !== videoActive) {
-    setPrevVideoActive(videoActive);
-    if (!videoActive) setVideoProgress(0);
+  if (prevShouldPlay !== shouldPlay) {
+    setPrevShouldPlay(shouldPlay);
+    if (!shouldPlay) setVideoProgress(0);
   }
 
   const handleProgress = useCallback((progress: number) => {
@@ -677,19 +685,18 @@ function MobileTriptychSlide({
         }`}
       >
         <CuradoriaVideo
-          src={cloudinaryVideoUrl(prato.cloudinaryPublicId)}
-          poster={cloudinaryVideoPoster(prato.cloudinaryPublicId)}
+          publicId={prato.cloudinaryPublicId}
           label={prato.nome}
-          active={videoActive}
+          shouldPlay={shouldPlay}
           reduceMotion={reduceMotion}
           parallax={isActive}
-          onProgress={videoActive ? handleProgress : undefined}
+          onProgress={shouldPlay ? handleProgress : undefined}
         />
         <ReelFrostedCaption
           prato={prato}
           visible={isActive}
           reduceMotion={reduceMotion}
-          videoProgress={videoActive ? videoProgress : 0}
+          videoProgress={shouldPlay ? videoProgress : 0}
         />
       </div>
     </div>
