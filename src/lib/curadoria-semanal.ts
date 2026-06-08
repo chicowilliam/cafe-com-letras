@@ -1,8 +1,38 @@
 export const CLOUDINARY_CLOUD_NAME = "dmqa0cxay";
 
-/** Entrega em mp4 sem q_auto — preserva bitrate/resolução originais do upload. */
+/** Largura máxima de exibição do reels ativo (~315px) — entrega Cloudinary dimensionada. */
+const REEL_DELIVERY_WIDTH = 720;
+
+function cloudinaryVideoBase(publicId: string, transforms: string) {
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/${transforms}/${publicId}`;
+}
+
+/** MP4 dimensionado — qualidade perceptual mantida no frame ~9:16 do site. */
+export function cloudinaryVideoMp4(publicId: string) {
+  return cloudinaryVideoBase(
+    publicId,
+    `q_auto:good,w_${REEL_DELIVERY_WIDTH},c_limit,f_mp4`,
+  );
+}
+
+/** WebM alternativo (menor em rede quando suportado). */
+export function cloudinaryVideoWebm(publicId: string) {
+  return cloudinaryVideoBase(
+    publicId,
+    `q_auto:good,w_${REEL_DELIVERY_WIDTH},c_limit,f_webm,vc_vp9`,
+  );
+}
+
+/** @deprecated Use cloudinaryVideoMp4 — alias para compatibilidade. */
 export function cloudinaryVideoUrl(publicId: string) {
-  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/f_mp4/${publicId}`;
+  return cloudinaryVideoMp4(publicId);
+}
+
+export function cloudinaryVideoSources(publicId: string) {
+  return [
+    { src: cloudinaryVideoWebm(publicId), type: "video/webm" },
+    { src: cloudinaryVideoMp4(publicId), type: "video/mp4" },
+  ] as const;
 }
 
 /** Poster leve (primeiro frame) enquanto o vídeo não carrega ou está fora da viewport. */
