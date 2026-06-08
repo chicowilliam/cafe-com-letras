@@ -1,4 +1,4 @@
-import { HERO_IMAGE } from "@/lib/gallery-images";
+import { HERO_IMAGE } from "@/lib/hero-image";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
 
