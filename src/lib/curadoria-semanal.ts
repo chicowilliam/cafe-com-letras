@@ -10,11 +10,15 @@ export function cloudinaryVideoPoster(publicId: string) {
   return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto,f_auto,w_720,c_limit,so_0/${publicId}.jpg`;
 }
 
+export type CaptionPosition = "bottom" | "top";
+
 export type PratoDaSemana = {
   id: number;
   nome: string;
   tag: string;
   descricao: string;
+  /** Posição do card de legenda sobre o reels (default: bottom). */
+  captionPosition?: CaptionPosition;
   /** public_id no Cloudinary (ex.: CARPACCIO_rvqql0) */
   cloudinaryPublicId: string;
 };
