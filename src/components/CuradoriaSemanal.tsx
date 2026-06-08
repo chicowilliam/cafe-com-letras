@@ -868,7 +868,11 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
       aria-label={`${index + 1} de ${total}: ${prato.nome}`}
       id={`curadoria-mobile-slide-${prato.id}`}
       aria-hidden={!isActive}
-      className="relative aspect-[9/16] w-[min(78vw,300px)] shrink-0 overflow-hidden rounded-xl bg-black will-change-transform"
+      className={`relative aspect-[9/16] w-[min(88vw,360px)] shrink-0 overflow-hidden rounded-xl bg-black will-change-transform ${
+        isActive
+          ? "ring-1 ring-accent/30 shadow-[0_0_52px_rgba(212,163,115,0.24)]"
+          : "shadow-[0_10px_28px_rgba(0,0,0,0.42)]"
+      }`}
     >
       <div
         className={`relative h-full w-full transition-[filter] duration-500 ${
@@ -918,7 +922,7 @@ function CuradoriaMobileCarousel({
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
+    align: "center",
     containScroll: "trimSnaps",
     dragFree: false,
     skipSnaps: false,
@@ -979,17 +983,22 @@ function CuradoriaMobileCarousel({
   return (
     <>
       <div
-        className="focus-ring mx-auto w-full max-w-[min(100%,340px)] overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_10px_28px_rgba(0,0,0,0.35)] outline-none"
+        className="focus-ring relative mx-auto w-full outline-none"
         role="region"
         aria-roledescription="carousel"
         aria-label="Curadoria da semana — carrossel de reels"
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        <div ref={emblaRef} className="overflow-hidden pl-[max(1rem,6vw)]">
-          <div className="flex touch-pan-y">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(72vw,320px)] w-[min(88vw,360px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/16 blur-[64px] motion-reduce:opacity-50"
+        />
+
+        <div ref={emblaRef} className="relative z-[1] overflow-hidden">
+          <div className="flex touch-pan-y gap-3 px-[max(6vw,1rem)]">
             {PRATOS_DA_SEMANA.map((prato, index) => (
-              <div key={prato.id} className="shrink-0 pr-[max(0.75rem,3vw)] last:pr-[max(1rem,6vw)]">
+              <div key={prato.id} className="shrink-0">
                 <MobileTriptychSlide
                   prato={prato}
                   index={index}
@@ -1004,9 +1013,9 @@ function CuradoriaMobileCarousel({
         </div>
       </div>
 
-      <div className="mx-auto mt-5 max-w-[240px] px-4">
+      <div className="mx-auto mt-4 max-w-[min(88vw,360px)] px-2">
         <div
-          className="mb-4 h-px overflow-hidden rounded-full bg-white/10"
+          className="h-px overflow-hidden rounded-full bg-white/12"
           aria-hidden
         >
           <div
@@ -1090,6 +1099,10 @@ export function CuradoriaSemanal() {
             <CuradoriaMobileAmbientBackground
               activeIndex={activeIndex}
               reduceMotion={reduceMotion}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-[58%] z-[1] h-64 w-[min(92vw,400px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/14 blur-[72px] motion-reduce:opacity-50"
             />
 
             <div className="relative z-10">
