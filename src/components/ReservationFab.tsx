@@ -2,36 +2,66 @@ import { useEffect, useState } from "react";
 import { CalendarDays } from "lucide-react";
 import { useReservation } from "@/hooks/useReservation";
 
+function observeDatesSection(
+  onChange: (reached: boolean) => void,
+): () => void {
+  let observer: IntersectionObserver | null = null;
+
+  const attach = () => {
+    const dates = document.getElementById("noite-dos-dates");
+    if (!dates || observer) return true;
+
+    observer = new IntersectionObserver(
+      ([entry]) => onChange(entry.isIntersecting),
+      { rootMargin: "0px 0px -10% 0px", threshold: 0 },
+    );
+    observer.observe(dates);
+    return true;
+  };
+
+  if (attach()) return () => observer?.disconnect();
+
+  const mutation = new MutationObserver(() => {
+    if (attach()) mutation.disconnect();
+  });
+  mutation.observe(document.body, { childList: true, subtree: true });
+
+  return () => {
+    mutation.disconnect();
+    observer?.disconnect();
+  };
+}
+
 export function ReservationFab() {
   const { open } = useReservation();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const update = () => {
-      const hero = document.getElementById("inicio");
-      const dates = document.getElementById("noite-dos-dates");
-      if (!hero || !dates) {
-        setVisible(false);
-        return;
-      }
+    const hero = document.getElementById("inicio");
+    if (!hero) return;
 
-      const heroBottom = hero.getBoundingClientRect().bottom;
-      const datesTop = dates.getBoundingClientRect().top;
-      const leftHero = heroBottom < window.innerHeight * 0.15;
-      const reachedContent = datesTop < window.innerHeight * 0.9;
-      setVisible(leftHero && reachedContent);
-    };
+    let pastHero = false;
+    let reachedDates = false;
 
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    const sync = () => setVisible(pastHero && reachedDates);
 
-    const poll = window.setInterval(update, 250);
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        pastHero = !entry.isIntersecting || entry.intersectionRatio < 0.15;
+        sync();
+      },
+      { threshold: [0, 0.15, 0.5, 1] },
+    );
+    heroObserver.observe(hero);
+
+    const detachDates = observeDatesSection((reached) => {
+      reachedDates = reached;
+      sync();
+    });
 
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-      window.clearInterval(poll);
+      heroObserver.disconnect();
+      detachDates();
     };
   }, []);
 
