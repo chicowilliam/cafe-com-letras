@@ -1,7 +1,7 @@
 import { Camera } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { useInView } from "@/hooks/useInView";
-import { MARQUEE_IMAGES } from "@/lib/constants";
+import { MARQUEE_IMAGES } from "@/lib/marquee-images";
 
 export function ImageMarquee() {
   const loop = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
