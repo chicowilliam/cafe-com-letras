@@ -168,6 +168,114 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
   );
 });
 
+type ReelFrostedCaptionProps = {
+  prato: PratoDaSemana;
+  visible: boolean;
+  reduceMotion: boolean;
+  videoProgress: number;
+};
+
+function ReelFrostedCaption({
+  prato,
+  visible,
+  reduceMotion,
+  videoProgress,
+}: ReelFrostedCaptionProps) {
+  const anchor = prato.captionPosition ?? "bottom";
+  const isBottom = anchor === "bottom";
+
+  const stagger = (delayMs: number) =>
+    reduceMotion
+      ? undefined
+      : {
+          transitionTimingFunction: PREMIUM_EASE,
+          transitionDelay: visible ? `${delayMs}ms` : "0ms",
+        };
+
+  return (
+    <div
+      className={`pointer-events-none absolute inset-x-0 z-10 ${isBottom ? "bottom-0" : "top-0"}`}
+      aria-hidden={!visible}
+    >
+      <div
+        aria-hidden
+        className={`absolute inset-x-0 ${
+          isBottom
+            ? "bottom-0 h-[48%] bg-gradient-to-t from-black/70 via-black/30 to-transparent"
+            : "top-0 h-[42%] bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+        }`}
+      />
+
+      <div
+        className={`relative max-w-[88%] rounded-[var(--radius-md)] border border-white/12 bg-[rgba(18,17,15,0.55)] p-3.5 shadow-[0_4px_24px_rgba(0,0,0,0.28)] backdrop-blur-md motion-reduce:transition-none ${
+          isBottom ? "mb-3 ml-3" : "ml-3 mt-3"
+        } ${
+          reduceMotion
+            ? visible
+              ? "opacity-100"
+              : "opacity-0"
+            : visible
+              ? "-translate-y-1 opacity-100"
+              : "translate-y-4 opacity-0"
+        } transition-[opacity,transform,box-shadow] duration-700 ${
+          visible && !reduceMotion
+            ? "shadow-[0_10px_36px_rgba(0,0,0,0.42)]"
+            : ""
+        }`}
+        style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-[2px] overflow-hidden rounded-b-[var(--radius-md)] bg-white/10"
+        >
+          <div
+            className="h-full origin-left bg-accent transition-[width] duration-150 motion-reduce:transition-none"
+            style={{
+              width: `${clamp(videoProgress, 0, 1) * 100}%`,
+              transitionTimingFunction: PREMIUM_EASE,
+            }}
+          />
+        </div>
+
+        <p
+          className={`section-eyebrow mb-0 !text-accent transition-opacity duration-500 motion-reduce:transition-none ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+          style={stagger(60)}
+        >
+          {prato.tag}
+        </p>
+
+        <span
+          aria-hidden
+          className={`mt-2 mb-2 block h-px w-7 bg-accent/80 transition-opacity duration-500 motion-reduce:transition-none ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+          style={stagger(120)}
+        />
+
+        <h3
+          className={`font-display text-base leading-tight tracking-tight text-white transition-opacity duration-500 motion-reduce:transition-none md:text-lg ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+          style={stagger(160)}
+        >
+          {prato.nome}
+        </h3>
+
+        <p
+          className={`mt-1.5 line-clamp-2 text-[12px] leading-relaxed text-stone-300 transition-opacity duration-500 motion-reduce:transition-none ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+          style={stagger(220)}
+        >
+          {prato.descricao}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 type TriptychPanelProps = {
   prato: PratoDaSemana;
   index: number;
@@ -192,6 +300,17 @@ function TriptychPanel({
   const showExpanded = reduceMotion || isActive;
   const videoActive = sectionInView && isActive;
   const panelWidth = isActive ? activeReelWidth : INACTIVE_PANEL_PX;
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [prevVideoActive, setPrevVideoActive] = useState(videoActive);
+
+  if (prevVideoActive !== videoActive) {
+    setPrevVideoActive(videoActive);
+    if (!videoActive) setVideoProgress(0);
+  }
+
+  const handleProgress = useCallback((progress: number) => {
+    setVideoProgress(progress);
+  }, []);
 
   return (
     <button
@@ -232,17 +351,12 @@ function TriptychPanel({
           active={videoActive}
           reduceMotion={reduceMotion}
           parallax={isActive}
+          onProgress={videoActive ? handleProgress : undefined}
         />
 
-        <div
-          aria-hidden
-          className={`pointer-events-none absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${
-            isActive
-              ? "bg-gradient-to-t from-black/92 via-black/45 to-black/15 opacity-100"
-              : "bg-black/55 opacity-100"
-          }`}
-          style={{ transitionTimingFunction: PREMIUM_EASE }}
-        />
+        {!isActive && (
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-black/55" />
+        )}
 
         {/* Collapsed — vertical category + compact title */}
         <div
@@ -263,24 +377,12 @@ function TriptychPanel({
           </span>
         </div>
 
-        <div
-          className={`absolute inset-x-0 bottom-0 z-10 p-4 lg:p-5 ${
-            showExpanded
-              ? "opacity-100 motion-reduce:translate-y-0"
-              : "pointer-events-none translate-y-3 opacity-0 motion-reduce:opacity-100 motion-reduce:translate-y-0"
-          } ${reduceMotion ? "" : "transition-all duration-700 motion-reduce:transition-none"}`}
-          style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
-          aria-hidden={!showExpanded}
-        >
-          <p className="section-eyebrow mb-1.5 !text-accent">{prato.tag}</p>
-          <span aria-hidden className="mb-2 block h-px w-7 bg-accent/80" />
-          <h3 className="font-display text-lg leading-tight tracking-tight text-white lg:text-xl">
-            {prato.nome}
-          </h3>
-          <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-stone-300 lg:text-[13px]">
-            {prato.descricao}
-          </p>
-        </div>
+        <ReelFrostedCaption
+          prato={prato}
+          visible={showExpanded}
+          reduceMotion={reduceMotion}
+          videoProgress={videoActive ? videoProgress : 0}
+        />
       </div>
 
       {/* Active accent indicator */}
@@ -431,6 +533,17 @@ function MobileTriptychSlide({
   total,
 }: MobileSlideProps) {
   const videoActive = sectionInView && isActive;
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [prevVideoActive, setPrevVideoActive] = useState(videoActive);
+
+  if (prevVideoActive !== videoActive) {
+    setPrevVideoActive(videoActive);
+    if (!videoActive) setVideoProgress(0);
+  }
+
+  const handleProgress = useCallback((progress: number) => {
+    setVideoProgress(progress);
+  }, []);
 
   return (
     <div
@@ -452,21 +565,14 @@ function MobileTriptychSlide({
           active={videoActive}
           reduceMotion={reduceMotion}
           parallax={isActive}
+          onProgress={videoActive ? handleProgress : undefined}
         />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/92 via-black/40 to-transparent"
+        <ReelFrostedCaption
+          prato={prato}
+          visible={isActive}
+          reduceMotion={reduceMotion}
+          videoProgress={videoActive ? videoProgress : 0}
         />
-        <div className="absolute inset-x-0 bottom-0 z-10 p-3.5">
-          <p className="section-eyebrow mb-1 !text-accent">{prato.tag}</p>
-          <span aria-hidden className="mb-2 block h-px w-7 bg-accent/80" />
-          <h3 className="font-display text-base leading-tight tracking-tight text-white">
-            {prato.nome}
-          </h3>
-          <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-stone-300">
-            {prato.descricao}
-          </p>
-        </div>
       </div>
     </div>
   );
