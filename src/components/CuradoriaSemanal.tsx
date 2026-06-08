@@ -706,7 +706,7 @@ function CuradoriaDesktopTriptych({
 
   return (
     <div
-      className="hidden md:flex md:justify-center lg:justify-end"
+      className="flex justify-center lg:justify-end"
       role="tablist"
       aria-label="Curadoria da semana — tríptico interativo"
       onKeyDown={handleKeyDown}
@@ -814,8 +814,9 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
       role="group"
       aria-roledescription="slide"
       aria-label={`${index + 1} de ${total}: ${prato.nome}`}
+      id={`curadoria-mobile-slide-${prato.id}`}
       aria-hidden={!isActive}
-      className="relative aspect-[9/16] w-[min(78vw,300px)] shrink-0 overflow-hidden bg-black"
+      className="relative aspect-[9/16] w-[min(78vw,300px)] shrink-0 overflow-hidden rounded-xl bg-black will-change-transform"
     >
       <div
         className={`relative h-full w-full transition-[filter] duration-500 ${
@@ -851,7 +852,7 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
   );
 });
 
-function CuradoriaMobileTriptych({
+function CuradoriaMobileCarousel({
   reduceMotion,
   sectionInView,
   activeIndex,
@@ -869,6 +870,7 @@ function CuradoriaMobileTriptych({
     containScroll: "trimSnaps",
     dragFree: false,
     skipSnaps: false,
+    slidesToScroll: 1,
   });
 
   useEmblaSlideTween(emblaApi, reduceMotion);
@@ -923,19 +925,19 @@ function CuradoriaMobileTriptych({
       : "100%";
 
   return (
-    <div className="md:hidden">
+    <>
       <div
-        className="focus-ring mx-auto w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_10px_28px_rgba(0,0,0,0.35)] outline-none"
+        className="focus-ring mx-auto w-full max-w-[min(100%,340px)] overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_10px_28px_rgba(0,0,0,0.35)] outline-none"
         role="region"
         aria-roledescription="carousel"
-        aria-label="Curadoria da semana — tríptico deslizante"
+        aria-label="Curadoria da semana — carrossel de reels"
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        <div ref={emblaRef} className="overflow-hidden">
+        <div ref={emblaRef} className="overflow-hidden pl-[max(1rem,6vw)]">
           <div className="flex touch-pan-y">
             {PRATOS_DA_SEMANA.map((prato, index) => (
-              <div key={prato.id} className="shrink-0 pl-4 last:pr-4">
+              <div key={prato.id} className="shrink-0 pr-[max(0.75rem,3vw)] last:pr-[max(1rem,6vw)]">
                 <MobileTriptychSlide
                   prato={prato}
                   index={index}
@@ -950,8 +952,11 @@ function CuradoriaMobileTriptych({
         </div>
       </div>
 
-      <div className="mx-auto mt-5 max-w-[240px] px-4" aria-hidden>
-        <div className="h-px overflow-hidden rounded-full bg-white/10">
+      <div className="mx-auto mt-5 max-w-[240px] px-4">
+        <div
+          className="mb-4 h-px overflow-hidden rounded-full bg-white/10"
+          aria-hidden
+        >
           <div
             className="h-full rounded-full bg-accent transition-[width] duration-150 motion-reduce:transition-none"
             style={{
@@ -961,7 +966,7 @@ function CuradoriaMobileTriptych({
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
