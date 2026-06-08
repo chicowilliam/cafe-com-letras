@@ -1,5 +1,6 @@
 import useEmblaCarousel from "embla-carousel-react";
 import type { EmblaCarouselType } from "embla-carousel";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   memo,
   useCallback,
@@ -22,6 +23,120 @@ const REEL_ASPECT = 9 / 16;
 const TRIPTYCH_HEIGHT = "clamp(420px, 60vh, 560px)";
 const INACTIVE_PANEL_PX = 52;
 const SECTION_IO_THRESHOLD = 0.15;
+const CURADORIA_TOTAL = PRATOS_DA_SEMANA.length;
+
+function padIndex(value: number) {
+  return String(value).padStart(2, "0");
+}
+
+type CuradoriaControlPanelProps = {
+  activeIndex: number;
+  onSelect: (index: number) => void;
+  onPrev: () => void;
+  onNext: () => void;
+  reduceMotion: boolean;
+  className?: string;
+};
+
+function CuradoriaControlPanel({
+  activeIndex,
+  onSelect,
+  onPrev,
+  onNext,
+  reduceMotion,
+  className = "",
+}: CuradoriaControlPanelProps) {
+  const atStart = activeIndex === 0;
+  const atEnd = activeIndex === CURADORIA_TOTAL - 1;
+
+  return (
+    <div className={`mt-8 lg:mt-10 ${className}`}>
+      <div className="flex items-end justify-between gap-4">
+        <p
+          className="font-display text-4xl leading-none tracking-tight text-foreground tabular-nums lg:text-[2.75rem]"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span
+            key={activeIndex}
+            className={`inline-block text-accent ${
+              reduceMotion
+                ? ""
+                : "motion-safe:animate-[curadoria-counter_0.45s_cubic-bezier(0.22,1,0.36,1)_both]"
+            }`}
+          >
+            {padIndex(activeIndex + 1)}
+          </span>
+          <span className="mx-2 text-2xl text-foreground-muted/45 lg:text-[1.75rem]">
+            —
+          </span>
+          <span className="text-2xl text-foreground-muted/55 lg:text-[1.75rem]">
+            {padIndex(CURADORIA_TOTAL)}
+          </span>
+          <span className="sr-only">
+            {" "}
+            — reels {activeIndex + 1} de {CURADORIA_TOTAL}:{" "}
+            {PRATOS_DA_SEMANA[activeIndex].nome}
+          </span>
+        </p>
+
+        <div className="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            onClick={onPrev}
+            disabled={atStart}
+            aria-label="Reels anterior"
+            className="focus-ring flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] text-foreground transition-[color,border-color,background-color,transform] duration-300 hover:border-accent/35 hover:bg-accent/10 hover:text-accent disabled:pointer-events-none disabled:opacity-30 motion-reduce:transition-none"
+            style={{ transitionTimingFunction: PREMIUM_EASE }}
+          >
+            <ChevronLeft className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+          </button>
+          <button
+            type="button"
+            onClick={onNext}
+            disabled={atEnd}
+            aria-label="Próximo reels"
+            className="focus-ring flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] text-foreground transition-[color,border-color,background-color,transform] duration-300 hover:border-accent/35 hover:bg-accent/10 hover:text-accent disabled:pointer-events-none disabled:opacity-30 motion-reduce:transition-none"
+            style={{ transitionTimingFunction: PREMIUM_EASE }}
+          >
+            <ChevronRight className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+          </button>
+        </div>
+      </div>
+
+      <div
+        className="mt-5 flex flex-wrap items-center gap-2"
+        role="tablist"
+        aria-label="Seleção de reels da curadoria"
+      >
+        {PRATOS_DA_SEMANA.map((prato, index) => (
+          <button
+            key={prato.id}
+            type="button"
+            role="tab"
+            id={`curadoria-control-tab-${prato.id}`}
+            aria-selected={activeIndex === index}
+            aria-controls={`curadoria-panel-${prato.id}`}
+            aria-label={`Ir para ${prato.nome}`}
+            onClick={() => onSelect(index)}
+            className="focus-ring rounded-full p-2 transition-transform duration-300 motion-reduce:transition-none"
+            style={{ transitionTimingFunction: PREMIUM_EASE }}
+          >
+            <span
+              className={`block h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
+                activeIndex === index
+                  ? "w-5 bg-accent"
+                  : "w-1.5 bg-white/25 hover:bg-white/40"
+              }`}
+              style={{ transitionTimingFunction: PREMIUM_EASE }}
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function useTriptychMetrics() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeReelWidth, setActiveReelWidth] = useState(270);
@@ -411,33 +526,36 @@ function TriptychPanel({
 function CuradoriaDesktopTriptych({
   reduceMotion,
   sectionInView,
+  activeIndex,
+  onActiveIndexChange,
 }: {
   reduceMotion: boolean;
   sectionInView: boolean;
+  activeIndex: number;
+  onActiveIndexChange: (index: number) => void;
 }) {
-  const [activeIndex, setActiveIndex] = useState(0);
   const { containerRef, activeReelWidth } = useTriptychMetrics();
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowLeft") {
         event.preventDefault();
-        setActiveIndex((i) => Math.max(0, i - 1));
+        onActiveIndexChange(Math.max(0, activeIndex - 1));
       }
       if (event.key === "ArrowRight") {
         event.preventDefault();
-        setActiveIndex((i) => Math.min(PRATOS_DA_SEMANA.length - 1, i + 1));
+        onActiveIndexChange(Math.min(CURADORIA_TOTAL - 1, activeIndex + 1));
       }
       if (event.key === "Home") {
         event.preventDefault();
-        setActiveIndex(0);
+        onActiveIndexChange(0);
       }
       if (event.key === "End") {
         event.preventDefault();
-        setActiveIndex(PRATOS_DA_SEMANA.length - 1);
+        onActiveIndexChange(CURADORIA_TOTAL - 1);
       }
     },
-    [],
+    [activeIndex, onActiveIndexChange],
   );
 
   return (
@@ -462,7 +580,7 @@ function CuradoriaDesktopTriptych({
             sectionInView={sectionInView}
             showDivider={index < PRATOS_DA_SEMANA.length - 1}
             activeReelWidth={activeReelWidth}
-            onActivate={() => setActiveIndex(index)}
+            onActivate={() => onActiveIndexChange(index)}
           />
         ))}
       </div>
@@ -581,11 +699,14 @@ function MobileTriptychSlide({
 function CuradoriaMobileTriptych({
   reduceMotion,
   sectionInView,
+  activeIndex,
+  onActiveIndexChange,
 }: {
   reduceMotion: boolean;
   sectionInView: boolean;
+  activeIndex: number;
+  onActiveIndexChange: (index: number) => void;
 }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -599,8 +720,8 @@ function CuradoriaMobileTriptych({
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
+    onActiveIndexChange(emblaApi.selectedScrollSnap());
+  }, [emblaApi, onActiveIndexChange]);
 
   const onScroll = useCallback(() => {
     if (!emblaApi) return;
@@ -619,10 +740,12 @@ function CuradoriaMobileTriptych({
     };
   }, [emblaApi, onSelect, onScroll]);
 
-  const scrollTo = useCallback(
-    (index: number) => emblaApi?.scrollTo(index),
-    [emblaApi],
-  );
+  useEffect(() => {
+    if (!emblaApi) return;
+    if (emblaApi.selectedScrollSnap() !== activeIndex) {
+      emblaApi.scrollTo(activeIndex);
+    }
+  }, [emblaApi, activeIndex]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
@@ -640,8 +763,8 @@ function CuradoriaMobileTriptych({
   );
 
   const progressWidth =
-    PRATOS_DA_SEMANA.length > 1
-      ? `${(scrollProgress / (PRATOS_DA_SEMANA.length - 1)) * 100}%`
+    CURADORIA_TOTAL > 1
+      ? `${(scrollProgress / (CURADORIA_TOTAL - 1)) * 100}%`
       : "100%";
 
   return (
@@ -661,8 +784,8 @@ function CuradoriaMobileTriptych({
                 <MobileTriptychSlide
                   prato={prato}
                   index={index}
-                  total={PRATOS_DA_SEMANA.length}
-                  isActive={selectedIndex === index}
+                  total={CURADORIA_TOTAL}
+                  isActive={activeIndex === index}
                   reduceMotion={reduceMotion}
                   sectionInView={sectionInView}
                 />
@@ -672,11 +795,8 @@ function CuradoriaMobileTriptych({
         </div>
       </div>
 
-      <div className="mx-auto mt-5 max-w-[240px] px-4">
-        <div
-          className="mb-4 h-px overflow-hidden rounded-full bg-white/10"
-          aria-hidden
-        >
+      <div className="mx-auto mt-5 max-w-[240px] px-4" aria-hidden>
+        <div className="h-px overflow-hidden rounded-full bg-white/10">
           <div
             className="h-full rounded-full bg-accent transition-[width] duration-150 motion-reduce:transition-none"
             style={{
@@ -684,34 +804,6 @@ function CuradoriaMobileTriptych({
               transitionTimingFunction: PREMIUM_EASE,
             }}
           />
-        </div>
-
-        <div
-          className="flex items-center justify-center gap-2"
-          role="tablist"
-          aria-label="Navegação do tríptico"
-        >
-          {PRATOS_DA_SEMANA.map((prato, index) => (
-            <button
-              key={prato.id}
-              type="button"
-              role="tab"
-              aria-selected={selectedIndex === index}
-              aria-label={`Ir para ${prato.nome}`}
-              onClick={() => scrollTo(index)}
-              className="focus-ring rounded-full p-2 transition-transform duration-300 motion-reduce:transition-none"
-              style={{ transitionTimingFunction: PREMIUM_EASE }}
-            >
-              <span
-                className={`block h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
-                  selectedIndex === index
-                    ? "w-5 bg-accent"
-                    : "w-1.5 bg-white/25 hover:bg-white/40"
-                }`}
-                style={{ transitionTimingFunction: PREMIUM_EASE }}
-              />
-            </button>
-          ))}
         </div>
       </div>
     </div>
@@ -721,6 +813,19 @@ function CuradoriaMobileTriptych({
 export function CuradoriaSemanal() {
   const reduceMotion = usePrefersReducedMotion();
   const { ref: triptychRef, inView: sectionInView } = useSectionInView();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goToIndex = useCallback((index: number) => {
+    setActiveIndex(clamp(index, 0, CURADORIA_TOTAL - 1));
+  }, []);
+
+  const goPrev = useCallback(() => {
+    setActiveIndex((current) => Math.max(0, current - 1));
+  }, []);
+
+  const goNext = useCallback(() => {
+    setActiveIndex((current) => Math.min(CURADORIA_TOTAL - 1, current + 1));
+  }, []);
 
   return (
     <section id="curadoria-da-semana" className="section-padding bg-background">
@@ -734,14 +839,27 @@ export function CuradoriaSemanal() {
           </p>
         </FadeIn>
 
+        <CuradoriaControlPanel
+          activeIndex={activeIndex}
+          onSelect={goToIndex}
+          onPrev={goPrev}
+          onNext={goNext}
+          reduceMotion={reduceMotion}
+          className="mx-auto mb-8 max-w-md md:mx-0"
+        />
+
         <div ref={triptychRef}>
           <CuradoriaMobileTriptych
             reduceMotion={reduceMotion}
             sectionInView={sectionInView}
+            activeIndex={activeIndex}
+            onActiveIndexChange={goToIndex}
           />
           <CuradoriaDesktopTriptych
             reduceMotion={reduceMotion}
             sectionInView={sectionInView}
+            activeIndex={activeIndex}
+            onActiveIndexChange={goToIndex}
           />
         </div>
       </div>
