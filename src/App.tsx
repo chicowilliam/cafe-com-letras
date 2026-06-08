@@ -1,10 +1,9 @@
 import { lazy, Suspense } from "react";
-import { ExperienceCheckoutModal } from "@/components/ExperienceCheckoutModal";
+import { DeferredModals } from "@/components/DeferredModals";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { ReservationFab } from "@/components/ReservationFab";
-import { ReservationModal } from "@/components/ReservationModal";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
 
@@ -43,8 +42,7 @@ export default function App() {
         </main>
         <Footer />
         <ReservationFab />
-        <ReservationModal />
-        <ExperienceCheckoutModal />
+        <DeferredModals />
       </ExperienceCheckoutProvider>
     </ReservationProvider>
   );
