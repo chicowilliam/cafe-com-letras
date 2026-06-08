@@ -2,6 +2,10 @@ export const CLOUDINARY_CLOUD_NAME = "dmqa0cxay";
 
 /** Largura máxima de exibição do reels ativo (~315px) — entrega Cloudinary dimensionada. */
 const REEL_DELIVERY_WIDTH = 720;
+/** Poster dimensionado para o frame 9:16 (evita baixar frame full-res). */
+const POSTER_DELIVERY_WIDTH = 480;
+
+export type PosterFormat = "auto" | "avif" | "webp" | "jpg";
 
 function cloudinaryVideoBase(publicId: string, transforms: string) {
   return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/${transforms}/${publicId}`;
@@ -35,10 +39,26 @@ export function cloudinaryVideoSources(publicId: string) {
   ] as const;
 }
 
-/** Poster leve (primeiro frame) enquanto o vídeo não carrega ou está fora da viewport. */
-export function cloudinaryVideoPoster(publicId: string) {
-  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto,f_auto,w_720,c_limit,so_0/${publicId}.jpg`;
+/** Poster leve (primeiro frame) — f_auto entrega AVIF/WebP quando o browser aceita. */
+export function cloudinaryVideoPoster(
+  publicId: string,
+  format: PosterFormat = "auto",
+) {
+  const fmt =
+    format === "auto"
+      ? "f_auto"
+      : format === "jpg"
+        ? "f_jpg"
+        : `f_${format}`;
+  return cloudinaryVideoBase(
+    publicId,
+    `q_auto,${fmt},w_${POSTER_DELIVERY_WIDTH},c_limit,so_0`,
+  );
 }
+
+/** Dimensões intrínsecas do poster (9:16) para evitar reflow. */
+export const REEL_POSTER_WIDTH = 480;
+export const REEL_POSTER_HEIGHT = Math.round((REEL_POSTER_WIDTH * 16) / 9);
 
 export type CaptionPosition = "bottom" | "top";
 
