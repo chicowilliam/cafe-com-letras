@@ -164,6 +164,58 @@ type CuradoriaMobileControlsProps = {
   reduceMotion: boolean;
 };
 
+function CuradoriaMobileAmbientBackground({
+  activeIndex,
+  reduceMotion,
+}: {
+  activeIndex: number;
+  reduceMotion: boolean;
+}) {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+    >
+      {PRATOS_DA_SEMANA.map((prato, index) => {
+        const isActive = index === activeIndex;
+        const jpg = cloudinaryVideoPoster(prato.cloudinaryPublicId, "jpg");
+
+        return (
+          <div
+            key={prato.id}
+            className={`absolute inset-0 ${
+              reduceMotion
+                ? isActive
+                  ? "opacity-100"
+                  : "opacity-0"
+                : `transition-opacity duration-700 motion-reduce:transition-none ${
+                    isActive ? "opacity-100" : "opacity-0"
+                  }`
+            }`}
+            style={
+              reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }
+            }
+          >
+            <img
+              src={jpg}
+              alt=""
+              width={REEL_POSTER_WIDTH}
+              height={REEL_POSTER_HEIGHT}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={isActive ? "high" : "low"}
+              className="absolute inset-0 h-full w-full scale-110 object-cover blur-3xl motion-reduce:scale-105 motion-reduce:blur-2xl"
+            />
+            <div className="absolute inset-0 bg-black/72" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/55 to-background/92" />
+            <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function CuradoriaMobileControls({
   activeIndex,
   onSelect,
@@ -1031,28 +1083,38 @@ export function CuradoriaSemanal() {
             </div>
           </div>
         ) : (
-          <div ref={sectionRef}>
-            <FadeIn className="mb-8 text-center">
-              <p className="section-eyebrow">Menu em movimento</p>
-              <h2 className="section-title">Curadoria da Semana</h2>
-              <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground-muted">
-                Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
-                semanal do que há de mais refinado no Café com Letras.
-              </p>
-            </FadeIn>
-
-            <CuradoriaMobileControls
+          <div
+            ref={sectionRef}
+            className="curadoria-mobile-shell relative -mx-5 overflow-hidden rounded-2xl px-5 py-7 sm:-mx-8 sm:px-8"
+          >
+            <CuradoriaMobileAmbientBackground
               activeIndex={activeIndex}
-              onSelect={goToIndex}
               reduceMotion={reduceMotion}
             />
 
-            <CuradoriaMobileCarousel
-              reduceMotion={reduceMotion}
-              sectionInView={sectionInView}
-              activeIndex={activeIndex}
-              onActiveIndexChange={goToIndex}
-            />
+            <div className="relative z-10">
+              <FadeIn className="mb-8 text-center">
+                <p className="section-eyebrow">Menu em movimento</p>
+                <h2 className="section-title">Curadoria da Semana</h2>
+                <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground-muted">
+                  Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
+                  semanal do que há de mais refinado no Café com Letras.
+                </p>
+              </FadeIn>
+
+              <CuradoriaMobileControls
+                activeIndex={activeIndex}
+                onSelect={goToIndex}
+                reduceMotion={reduceMotion}
+              />
+
+              <CuradoriaMobileCarousel
+                reduceMotion={reduceMotion}
+                sectionInView={sectionInView}
+                activeIndex={activeIndex}
+                onActiveIndexChange={goToIndex}
+              />
+            </div>
           </div>
         )}
       </div>
