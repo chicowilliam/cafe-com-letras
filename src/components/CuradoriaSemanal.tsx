@@ -27,6 +27,24 @@ const TRIPTYCH_HEIGHT = "clamp(420px, 60vh, 560px)";
 const INACTIVE_PANEL_PX = 52;
 const SECTION_IO_ROOT_MARGIN = "240px 0px";
 const CURADORIA_TOTAL = PRATOS_DA_SEMANA.length;
+const DESKTOP_BP = "(min-width: 1024px)";
+
+function useIsDesktopLayout() {
+  const [isDesktop, setIsDesktop] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia(DESKTOP_BP).matches,
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia(DESKTOP_BP);
+    const onChange = () => setIsDesktop(media.matches);
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
+  return isDesktop;
+}
 
 function padIndex(value: number) {
   return String(value).padStart(2, "0");
@@ -120,6 +138,77 @@ function CuradoriaControlPanel({
             id={`curadoria-control-tab-${prato.id}`}
             aria-selected={activeIndex === index}
             aria-controls={`curadoria-panel-${prato.id}`}
+            aria-label={`Ir para ${prato.nome}`}
+            onClick={() => onSelect(index)}
+            className="focus-ring rounded-full p-2 transition-transform duration-300 motion-reduce:transition-none"
+            style={{ transitionTimingFunction: PREMIUM_EASE }}
+          >
+            <span
+              className={`block h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
+                activeIndex === index
+                  ? "w-5 bg-accent"
+                  : "w-1.5 bg-white/25 hover:bg-white/40"
+              }`}
+              style={{ transitionTimingFunction: PREMIUM_EASE }}
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+type CuradoriaMobileControlsProps = {
+  activeIndex: number;
+  onSelect: (index: number) => void;
+  reduceMotion: boolean;
+};
+
+function CuradoriaMobileControls({
+  activeIndex,
+  onSelect,
+  reduceMotion,
+}: CuradoriaMobileControlsProps) {
+  return (
+    <div className="mx-auto mb-6 max-w-md">
+      <p
+        className="font-display text-center text-4xl leading-none tracking-tight text-foreground tabular-nums"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <span
+          key={activeIndex}
+          className={`inline-block text-accent ${
+            reduceMotion
+              ? ""
+              : "motion-safe:animate-[curadoria-counter_0.45s_cubic-bezier(0.22,1,0.36,1)_both]"
+          }`}
+        >
+          {padIndex(activeIndex + 1)}
+        </span>
+        <span className="mx-2 text-2xl text-foreground-muted/45">—</span>
+        <span className="text-2xl text-foreground-muted/55">
+          {padIndex(CURADORIA_TOTAL)}
+        </span>
+        <span className="sr-only">
+          {" "}
+          — reels {activeIndex + 1} de {CURADORIA_TOTAL}:{" "}
+          {PRATOS_DA_SEMANA[activeIndex].nome}
+        </span>
+      </p>
+
+      <div
+        className="mt-4 flex items-center justify-center gap-2"
+        role="tablist"
+        aria-label="Navegação do carrossel de reels"
+      >
+        {PRATOS_DA_SEMANA.map((prato, index) => (
+          <button
+            key={prato.id}
+            type="button"
+            role="tab"
+            aria-selected={activeIndex === index}
+            aria-controls={`curadoria-mobile-slide-${prato.id}`}
             aria-label={`Ir para ${prato.nome}`}
             onClick={() => onSelect(index)}
             className="focus-ring rounded-full p-2 transition-transform duration-300 motion-reduce:transition-none"
