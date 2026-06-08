@@ -6,7 +6,7 @@ import { MARQUEE_IMAGES } from "@/lib/marquee-images";
 export function ImageMarquee() {
   const loop = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
   const [sectionRef, sectionInView] = useInView<HTMLElement>({
-    rootMargin: "200px",
+    rootMargin: "120px",
     threshold: 0,
   });
 
@@ -31,26 +31,30 @@ export function ImageMarquee() {
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-surface to-transparent md:w-24" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-surface to-transparent md:w-24" />
 
-        <div className="flex overflow-hidden px-5 md:px-8">
-          <div
-            className={`animate-marquee flex shrink-0 gap-5 md:gap-8${sectionInView ? "" : " marquee-paused"}`}
-          >
-            {loop.map((image, index) => (
-              <div
-                key={`galeria-${index}`}
-                className="relative h-36 w-48 shrink-0 overflow-hidden rounded-xl sm:h-40 sm:w-52 md:h-44 md:w-56"
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="h-full w-full object-cover"
-                  draggable={false}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="flex min-h-36 overflow-hidden px-5 sm:min-h-40 md:min-h-44 md:px-8">
+          {sectionInView ? (
+            <div
+              className={`animate-marquee flex shrink-0 gap-5 md:gap-8${sectionInView ? " marquee-running" : ""}`}
+            >
+              {loop.map((image, index) => (
+                <div
+                  key={`galeria-${index}`}
+                  className="relative h-36 w-48 shrink-0 overflow-hidden rounded-xl sm:h-40 sm:w-52 md:h-44 md:w-56"
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    width={224}
+                    height={176}
+                    className="h-full w-full object-cover"
+                    draggable={false}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>
