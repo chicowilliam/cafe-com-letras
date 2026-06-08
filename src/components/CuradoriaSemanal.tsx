@@ -560,14 +560,14 @@ function CuradoriaDesktopTriptych({
 
   return (
     <div
-      className="hidden md:flex md:justify-center"
+      className="hidden md:flex md:justify-center lg:justify-end"
       role="tablist"
       aria-label="Curadoria da semana — tríptico interativo"
       onKeyDown={handleKeyDown}
     >
       <div
         ref={containerRef}
-        className="mx-auto flex w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_12px_36px_rgba(0,0,0,0.4)]"
+        className="mx-auto flex w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_12px_36px_rgba(0,0,0,0.4)] lg:mx-0"
         style={{ height: TRIPTYCH_HEIGHT }}
       >
         {PRATOS_DA_SEMANA.map((prato, index) => (
@@ -830,37 +830,50 @@ export function CuradoriaSemanal() {
   return (
     <section id="curadoria-da-semana" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-10 text-center md:mb-14 md:text-left">
-          <p className="section-eyebrow">Menu em movimento</p>
-          <h2 className="section-title">Curadoria da Semana</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-foreground-muted md:mx-0 md:text-base">
-            Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
-            semanal do que há de mais refinado no Café com Letras.
-          </p>
-        </FadeIn>
+        <div className="lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-x-12 xl:gap-x-16">
+          <aside className="relative mb-10 text-center lg:sticky lg:top-24 lg:mb-0 lg:self-start lg:pr-8 lg:text-left xl:pr-10">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -right-0 top-6 bottom-6 hidden w-px bg-accent/35 lg:block xl:-right-2"
+            />
 
-        <CuradoriaControlPanel
-          activeIndex={activeIndex}
-          onSelect={goToIndex}
-          onPrev={goPrev}
-          onNext={goNext}
-          reduceMotion={reduceMotion}
-          className="mx-auto mb-8 max-w-md md:mx-0"
-        />
+            <FadeIn>
+              <p className="section-eyebrow">Menu em movimento</p>
+              <h2 className="section-title">Curadoria da Semana</h2>
+              <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-foreground-muted lg:mx-0 lg:max-w-sm lg:text-base">
+                Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
+                semanal do que há de mais refinado no Café com Letras.
+              </p>
+            </FadeIn>
 
-        <div ref={triptychRef}>
-          <CuradoriaMobileTriptych
-            reduceMotion={reduceMotion}
-            sectionInView={sectionInView}
-            activeIndex={activeIndex}
-            onActiveIndexChange={goToIndex}
-          />
-          <CuradoriaDesktopTriptych
-            reduceMotion={reduceMotion}
-            sectionInView={sectionInView}
-            activeIndex={activeIndex}
-            onActiveIndexChange={goToIndex}
-          />
+            <CuradoriaControlPanel
+              activeIndex={activeIndex}
+              onSelect={goToIndex}
+              onPrev={goPrev}
+              onNext={goNext}
+              reduceMotion={reduceMotion}
+              className="mx-auto max-w-md lg:mx-0"
+            />
+
+            <p className="section-eyebrow mt-8 hidden !text-[10px] !tracking-[0.14em] text-foreground-muted/60 lg:block">
+              Atualizado semanalmente
+            </p>
+          </aside>
+
+          <div ref={triptychRef} className="min-w-0">
+            <CuradoriaMobileTriptych
+              reduceMotion={reduceMotion}
+              sectionInView={sectionInView}
+              activeIndex={activeIndex}
+              onActiveIndexChange={goToIndex}
+            />
+            <CuradoriaDesktopTriptych
+              reduceMotion={reduceMotion}
+              sectionInView={sectionInView}
+              activeIndex={activeIndex}
+              onActiveIndexChange={goToIndex}
+            />
+          </div>
         </div>
       </div>
     </section>
