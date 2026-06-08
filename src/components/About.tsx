@@ -1,5 +1,6 @@
 import { FadeIn } from "@/components/FadeIn";
-import { ABOUT_IMAGES, ABOUT_PARAGRAPHS } from "@/lib/constants";
+import { ABOUT_IMAGES } from "@/lib/about-images";
+import { ABOUT_PARAGRAPHS } from "@/lib/constants";
 
 const STORY_BLOCKS = [
   [ABOUT_PARAGRAPHS[0], ABOUT_PARAGRAPHS[1]],
