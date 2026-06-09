@@ -165,13 +165,13 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
   return (
     <FadeIn>
       <article className="mx-auto w-full max-w-4xl overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_12px_32px_rgba(0,0,0,0.28)]">
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-stretch">
           {event.image ? (
-            <div className="relative aspect-[2/1] overflow-hidden md:aspect-auto md:h-[200px]">
+            <div className="relative aspect-[2/1] overflow-hidden md:aspect-auto md:h-full md:min-h-0">
               <img
                 src={event.image}
-                alt=""
-                className="h-full w-full object-cover"
+                alt={event.title}
+                className="h-full w-full object-cover object-center"
                 loading="lazy"
                 decoding="async"
               />
@@ -186,7 +186,7 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
           ) : (
             <div
               aria-hidden
-              className="flex aspect-[2/1] items-end bg-gradient-to-br from-accent/10 to-surface p-3 md:aspect-auto md:h-[200px]"
+              className="flex aspect-[2/1] items-end bg-gradient-to-br from-accent/10 to-surface p-3 md:aspect-auto md:h-full md:min-h-0"
             >
               <CategoryTag category={event.category} />
             </div>
