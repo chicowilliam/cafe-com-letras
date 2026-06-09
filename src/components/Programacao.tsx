@@ -119,7 +119,7 @@ type EventCtaProps = {
 function EventCta({ event, onReserve, variant = "list" }: EventCtaProps) {
   const baseClass =
     variant === "featured"
-      ? "focus-ring inline-flex min-h-10 items-center justify-center rounded-full px-5 text-sm font-medium transition-[color,background-color,border-color] duration-300 motion-reduce:transition-none"
+      ? "focus-ring inline-flex min-h-9 items-center justify-center rounded-full px-4 text-sm font-medium transition-[color,background-color,border-color] duration-300 motion-reduce:transition-none"
       : "focus-ring shrink-0 text-xs font-medium tracking-wide transition-colors duration-300 motion-reduce:transition-none";
 
   if (event.href) {
@@ -164,10 +164,10 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
 
   return (
     <FadeIn>
-      <article className="overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_12px_32px_rgba(0,0,0,0.28)]">
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+      <article className="mx-auto w-full max-w-4xl overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_12px_32px_rgba(0,0,0,0.28)]">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
           {event.image ? (
-            <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[280px]">
+            <div className="relative aspect-[2/1] overflow-hidden md:aspect-auto md:h-[200px]">
               <img
                 src={event.image}
                 alt=""
@@ -179,33 +179,33 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-surface/40"
               />
-              <span className="absolute left-3 top-3">
+              <span className="absolute left-2.5 top-2.5">
                 <CategoryTag category={event.category} />
               </span>
             </div>
           ) : (
             <div
               aria-hidden
-              className="flex aspect-[16/10] items-end bg-gradient-to-br from-accent/10 to-surface p-4 md:aspect-auto md:min-h-[280px]"
+              className="flex aspect-[2/1] items-end bg-gradient-to-br from-accent/10 to-surface p-3 md:aspect-auto md:h-[200px]"
             >
               <CategoryTag category={event.category} />
             </div>
           )}
 
-          <div className="flex flex-col justify-center p-5 md:p-7">
-            <p className="section-eyebrow mb-2 !text-[10px]">Destaque do mês</p>
-            <h3 className="font-display text-2xl leading-tight tracking-tight text-foreground md:text-[1.75rem]">
+          <div className="flex flex-col justify-center p-4 md:p-5">
+            <p className="section-eyebrow mb-1.5 !text-[10px]">Destaque do mês</p>
+            <h3 className="font-display text-xl leading-tight tracking-tight text-foreground md:text-[1.375rem]">
               {event.title}
             </h3>
-            <p className="mt-2 text-sm text-foreground-muted">
+            <p className="mt-1.5 text-[13px] text-foreground-muted">
               <time dateTime={`${event.date}T${event.time}`}>{dateTimeLabel}</time>
             </p>
             {event.description ? (
-              <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-foreground-muted">
+              <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-foreground-muted">
                 {event.description}
               </p>
             ) : null}
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-3.5 flex items-center gap-3">
               <EventCta event={event} onReserve={onReserve} variant="featured" />
             </div>
           </div>
