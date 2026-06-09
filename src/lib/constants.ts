@@ -2,6 +2,7 @@ export const NAV_LINKS = [
   { label: "Início", href: "#inicio" },
   { label: "Noite dos Dates", href: "#noite-dos-dates" },
   { label: "Curadoria da Semana", href: "#curadoria-da-semana" },
+  { label: "Programação", href: "#programacao" },
   { label: "História", href: "#sobre" },
   { label: "Galeria", href: "#galeria" },
 ] as const;

@@ -20,6 +20,11 @@ const CuradoriaSemanal = lazy(() =>
     default: module.CuradoriaSemanal,
   })),
 );
+const Programacao = lazy(() =>
+  import("@/components/Programacao").then((module) => ({
+    default: module.Programacao,
+  })),
+);
 const ImageMarquee = lazy(() =>
   import("@/components/ImageMarquee").then((module) => ({
     default: module.ImageMarquee,
@@ -38,6 +43,9 @@ export default function App() {
           </Suspense>
           <Suspense fallback={null}>
             <CuradoriaSemanal />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Programacao />
           </Suspense>
           <Suspense fallback={null}>
             <About />
