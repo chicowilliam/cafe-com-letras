@@ -206,9 +206,9 @@ function CuradoriaMobileAmbientBackground({
               fetchPriority={isActive ? "high" : "low"}
               className="absolute inset-0 h-full w-full scale-110 object-cover blur-3xl motion-reduce:scale-105 motion-reduce:blur-2xl"
             />
-            <div className="absolute inset-0 bg-black/72" />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/55 to-background/92" />
-            <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-background via-background/60 to-transparent" />
+            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/55" />
+            <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-background/70 to-transparent" />
           </div>
         );
       })}
@@ -395,6 +395,8 @@ type CuradoriaVideoProps = {
   reduceMotion: boolean;
   parallax?: boolean;
   onProgress?: (progress: number) => void;
+  /** Mobile: evita flash preto (#000) antes do poster/vídeo. Desktop mantém bg-black. */
+  surfaceClassName?: string;
 };
 
 const CuradoriaVideo = memo(function CuradoriaVideo({
@@ -404,6 +406,7 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
   reduceMotion,
   parallax = false,
   onProgress,
+  surfaceClassName = "bg-black",
 }: CuradoriaVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -440,7 +443,7 @@ const CuradoriaVideo = memo(function CuradoriaVideo({
   const showPoster = !shouldPlay || !isPlaying;
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-black">
+    <div className={`absolute inset-0 overflow-hidden ${surfaceClassName}`}>
       <ReelPoster
         publicId={publicId}
         visible={showPoster}
@@ -477,6 +480,8 @@ type ReelFrostedCaptionProps = {
   visible: boolean;
   reduceMotion: boolean;
   videoProgress: number;
+  /** Mobile: scrim um pouco mais forte sobre fundo ambiente clareado. */
+  denseScrim?: boolean;
 };
 
 function ReelFrostedCaption({
@@ -484,6 +489,7 @@ function ReelFrostedCaption({
   visible,
   reduceMotion,
   videoProgress,
+  denseScrim = false,
 }: ReelFrostedCaptionProps) {
   const anchor = prato.captionPosition ?? "bottom";
   const isBottom = anchor === "bottom";
@@ -505,8 +511,16 @@ function ReelFrostedCaption({
         aria-hidden
         className={`absolute inset-x-0 ${
           isBottom
-            ? "bottom-0 h-[48%] bg-gradient-to-t from-black/70 via-black/30 to-transparent"
-            : "top-0 h-[42%] bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+            ? `bottom-0 h-[48%] bg-gradient-to-t ${
+                denseScrim
+                  ? "from-black/80 via-black/40 to-transparent"
+                  : "from-black/70 via-black/30 to-transparent"
+              }`
+            : `top-0 h-[42%] bg-gradient-to-b ${
+                denseScrim
+                  ? "from-black/80 via-black/40 to-transparent"
+                  : "from-black/70 via-black/30 to-transparent"
+              }`
         }`}
       />
 
@@ -868,7 +882,7 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
       aria-label={`${index + 1} de ${total}: ${prato.nome}`}
       id={`curadoria-mobile-slide-${prato.id}`}
       aria-hidden={!isActive}
-      className={`relative aspect-[9/16] w-[min(88vw,360px)] shrink-0 overflow-hidden rounded-xl bg-black will-change-transform ${
+      className={`relative aspect-[9/16] w-[min(88vw,360px)] shrink-0 overflow-hidden rounded-xl bg-background will-change-transform ${
         isActive
           ? "ring-1 ring-accent/30 shadow-[0_0_52px_rgba(212,163,115,0.24)]"
           : "shadow-[0_10px_28px_rgba(0,0,0,0.42)]"
@@ -887,9 +901,10 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
             reduceMotion={reduceMotion}
             parallax={isActive}
             onProgress={handleProgress}
+            surfaceClassName="bg-background"
           />
         ) : (
-          <div className="absolute inset-0 overflow-hidden bg-black">
+          <div className="absolute inset-0 overflow-hidden bg-background">
             <ReelPoster
               publicId={prato.cloudinaryPublicId}
               visible
@@ -902,6 +917,7 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
           visible={isActive}
           reduceMotion={reduceMotion}
           videoProgress={shouldPlay ? videoProgress : 0}
+          denseScrim
         />
       </div>
     </div>
