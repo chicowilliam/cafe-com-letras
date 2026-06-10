@@ -32,20 +32,20 @@ export const CATEGORY_CONFIG: Record<
   "piano-bar": {
     label: "Piano Bar",
     chipClass:
-      "border-amber-200/25 bg-amber-200/8 text-amber-100/90 hover:border-amber-200/40 hover:bg-amber-200/12",
-    tagClass: "border-amber-200/25 bg-amber-200/8 text-amber-100/90",
+      "border-accent-2/35 bg-accent-2/10 text-accent-2 hover:border-accent-2/50 hover:bg-accent-2/15 hover:text-accent-2-hover",
+    tagClass: "border-accent-2/30 bg-accent-2/10 text-accent-2",
   },
   literatura: {
     label: "Literatura",
     chipClass:
-      "border-stone-400/25 bg-stone-400/8 text-stone-200 hover:border-stone-400/40 hover:bg-stone-400/12",
+      "border-stone-400/25 bg-stone-400/8 text-stone-200 hover:border-accent-2/35 hover:bg-accent-2/10 hover:text-accent-2",
     tagClass: "border-stone-400/25 bg-stone-400/8 text-stone-200",
   },
   sarau: {
     label: "Sarau",
     chipClass:
-      "border-emerald-400/25 bg-emerald-400/8 text-emerald-100/85 hover:border-emerald-400/40 hover:bg-emerald-400/12",
-    tagClass: "border-emerald-400/25 bg-emerald-400/8 text-emerald-100/85",
+      "border-accent-2/35 bg-accent-2/10 text-accent-2 hover:border-accent-2/50 hover:bg-accent-2/15 hover:text-accent-2-hover",
+    tagClass: "border-accent-2/30 bg-accent-2/10 text-accent-2",
   },
   outro: {
     label: "Outro",

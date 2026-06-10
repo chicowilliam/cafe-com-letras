@@ -18,15 +18,20 @@
 }
 
 :root {
-  --background: #12110f;
-  --foreground: #f5f0e6;
-  --muted: #a89f92;
+  --background: #15160f;
+  --foreground: #f2efe2;
+  --foreground-muted: #b3b09c;
+  --muted: var(--foreground-muted);
   --accent: #d4a373;
   --accent-hover: #e0b88a;
   --accent-active: #c49362;
-  --surface: #1a1614;
+  --accent-2: #8a9a5b;
+  --accent-2-hover: #9cad6d;
+  --accent-2-active: #748048;
+  --surface: #1e1f16;
+  --surface-elevated: #26271c;
   --hairline: rgba(255, 255, 255, 0.08);
-  --ink: #141413;
+  --ink: #15160f;
   --font-display: "Gloock", serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-garamond: "Garamond", serif;
@@ -56,7 +61,11 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-active: var(--accent-active);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-hover: var(--accent-2-hover);
+  --color-accent-2-active: var(--accent-2-active);
   --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-hairline: var(--hairline);
   --color-ink: var(--ink);
   --font-sans: var(--font-sans);
@@ -201,10 +210,11 @@ button:not(:disabled),
   border-radius: var(--radius-md);
   border: 1px solid var(--hairline);
   background: var(--surface);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
 
 .card-experience:hover {
+  background: var(--surface-elevated);
   box-shadow: var(--shadow-card-hover);
   transform: translateY(-2px);
 }

@@ -525,7 +525,7 @@ function ReelFrostedCaption({
       />
 
       <div
-        className={`relative max-w-[88%] rounded-[var(--radius-md)] border border-white/12 bg-[rgba(18,17,15,0.55)] p-3.5 shadow-[0_4px_24px_rgba(0,0,0,0.28)] backdrop-blur-md motion-reduce:transition-none ${
+        className={`relative max-w-[88%] rounded-[var(--radius-md)] border border-white/12 bg-[color-mix(in_srgb,var(--surface)_88%,transparent)] p-3.5 shadow-[0_4px_24px_rgba(0,0,0,0.28)] backdrop-blur-md motion-reduce:transition-none ${
           isBottom ? "mb-3 ml-3" : "ml-3 mt-3"
         } ${
           reduceMotion
@@ -884,7 +884,7 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
       aria-hidden={!isActive}
       className={`relative aspect-[9/16] w-[min(88vw,360px)] shrink-0 overflow-hidden rounded-xl bg-background will-change-transform ${
         isActive
-          ? "ring-1 ring-accent/30 shadow-[0_0_52px_rgba(212,163,115,0.24)]"
+          ? "ring-1 ring-accent/30 shadow-[0_0_52px_color-mix(in_srgb,var(--accent)_24%,transparent)]"
           : "shadow-[0_10px_28px_rgba(0,0,0,0.42)]"
       }`}
     >

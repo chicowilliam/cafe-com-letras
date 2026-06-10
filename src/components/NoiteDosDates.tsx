@@ -4,7 +4,7 @@ import { DATE_PACKAGES, type DatePackageId } from "@/lib/date-experience";
 
 const BADGE_STYLES: Record<DatePackageId, string> = {
   complete: "border-accent/30 bg-black/65 text-accent",
-  vegan: "border-emerald-400/30 bg-black/65 text-emerald-200",
+  vegan: "border-accent-2/30 bg-black/65 text-accent-2",
 };
 
 export function NoiteDosDates() {
