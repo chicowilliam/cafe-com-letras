@@ -3,6 +3,7 @@ import { DeferredModals } from "@/components/DeferredModals";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
+import { PaletteSwitcher } from "@/components/PaletteSwitcher";
 import { ReservationFab } from "@/components/ReservationFab";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
@@ -56,6 +57,7 @@ export default function App() {
         </main>
         <Footer />
         <ReservationFab />
+        <PaletteSwitcher />
         <DeferredModals />
       </ExperienceCheckoutProvider>
     </ReservationProvider>
