@@ -396,17 +396,17 @@ button:not(:disabled),
   animation: area-icon-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Café Papel (claro): hero independente do tema + logo escura só na navbar sólida */
-[data-palette="cafe-papel"] {
+/* Paletas claras: hero independente do tema + logo escura só na navbar sólida */
+[data-palette-light] {
   --hero-overlay-bottom: #15160f;
   --hero-foreground: #f2efe2;
   --hero-foreground-muted: #b3b09c;
 }
 
-[data-palette="cafe-papel"] .navbar--solid .brand-wordmark {
+[data-palette-light] .navbar--solid .brand-wordmark {
   color: var(--ink);
 }
 
-[data-palette="cafe-papel"] .navbar--solid .brand-wordmark:hover {
+[data-palette-light] .navbar--solid .brand-wordmark:hover {
   color: color-mix(in srgb, var(--ink) 82%, transparent);
 }
