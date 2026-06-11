@@ -25,6 +25,7 @@
   --accent: #d4a373;
   --accent-hover: #e0b88a;
   --accent-active: #c49362;
+  --accent-foreground: var(--ink);
   --accent-2: #8a9a5b;
   --accent-2-hover: #9cad6d;
   --accent-2-active: #748048;
@@ -44,7 +45,7 @@
   --selection-bg: rgba(255, 255, 255, 0.18);
   --selection-color: var(--foreground);
   --selection-bg-on-accent: rgba(20, 20, 19, 0.16);
-  --selection-color-on-accent: var(--ink);
+  --selection-color-on-accent: var(--accent-foreground);
   --tap-highlight: rgba(255, 255, 255, 0.1);
   --hero-overlay-bottom: var(--background);
   --hero-foreground: var(--foreground);
@@ -64,6 +65,7 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-active: var(--accent-active);
+  --color-accent-foreground: var(--accent-foreground);
   --color-accent-2: var(--accent-2);
   --color-accent-2-hover: var(--accent-2-hover);
   --color-accent-2-active: var(--accent-2-active);
@@ -167,7 +169,7 @@ button:not(:disabled),
 .btn-primary {
   border-radius: 9999px;
   background: var(--accent);
-  color: var(--ink);
+  color: var(--accent-foreground);
   font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 500;
@@ -183,6 +185,23 @@ button:not(:disabled),
 }
 
 .btn-primary:active {
+  background: var(--accent-active);
+}
+
+.btn-accent-solid {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-accent-solid:hover {
+  background: var(--accent-hover);
+}
+
+.btn-accent-solid:active {
   background: var(--accent-active);
 }
 
@@ -396,17 +415,17 @@ button:not(:disabled),
   animation: area-icon-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Paletas claras: hero independente do tema + logo escura só na navbar sólida */
-[data-palette-light] {
+/* Temas claros: hero independente do tema + logo escura só na navbar sólida */
+[data-theme="light"] {
   --hero-overlay-bottom: #15160f;
   --hero-foreground: #f2efe2;
   --hero-foreground-muted: #b3b09c;
 }
 
-[data-palette-light] .navbar--solid .brand-wordmark {
+[data-theme="light"] .navbar--solid .brand-wordmark {
   color: var(--ink);
 }
 
-[data-palette-light] .navbar--solid .brand-wordmark:hover {
+[data-theme="light"] .navbar--solid .brand-wordmark:hover {
   color: color-mix(in srgb, var(--ink) 82%, transparent);
 }

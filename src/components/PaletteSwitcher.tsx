@@ -6,18 +6,20 @@
 import { Check, Palette, RotateCcw, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import {
-  PALETTES,
+  DARK_PALETTES,
+  LIGHT_PALETTES,
   applyPalette,
   getPaletteById,
   readStoredPaletteId,
   resetPaletteOverrides,
+  type PaletteDefinition,
   type PaletteId,
 } from "@/lib/palette-switcher";
 
 const SWATCH_KEYS = [
   { key: "--background", label: "Fundo" },
-  { key: "--foreground", label: "Texto" },
   { key: "--accent", label: "Accent" },
+  { key: "--accent-foreground", label: "Texto accent" },
   { key: "--accent-2", label: "Accent 2" },
 ] as const;
 
@@ -32,6 +34,36 @@ function SwatchRow({ tokens }: { tokens: Record<string, string> }) {
         />
       ))}
     </div>
+  );
+}
+
+type PaletteOptionProps = {
+  palette: PaletteDefinition;
+  activeId: PaletteId;
+  onSelect: (id: PaletteId) => void;
+};
+
+function PaletteOption({ palette, activeId, onSelect }: PaletteOptionProps) {
+  return (
+    <li>
+      <button
+        type="button"
+        role="option"
+        aria-selected={activeId === palette.id}
+        onClick={() => onSelect(palette.id)}
+        className="focus-ring flex w-full items-center justify-between gap-3 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-white/[0.04]"
+      >
+        <div className="min-w-0">
+          <p className="truncate text-sm text-foreground">{palette.name}</p>
+          <div className="mt-1.5">
+            <SwatchRow tokens={palette.tokens} />
+          </div>
+        </div>
+        {activeId === palette.id ? (
+          <Check className="h-4 w-4 shrink-0 text-accent" aria-hidden />
+        ) : null}
+      </button>
+    </li>
   );
 }
 
@@ -126,26 +158,32 @@ export function PaletteSwitcher() {
               </button>
             </li>
 
-            {PALETTES.map((palette) => (
-              <li key={palette.id}>
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={activeId === palette.id}
-                  onClick={() => selectPalette(palette.id)}
-                  className="focus-ring flex w-full items-center justify-between gap-3 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-white/[0.04]"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm text-foreground">{palette.name}</p>
-                    <div className="mt-1.5">
-                      <SwatchRow tokens={palette.tokens} />
-                    </div>
-                  </div>
-                  {activeId === palette.id ? (
-                    <Check className="h-4 w-4 shrink-0 text-accent" aria-hidden />
-                  ) : null}
-                </button>
-              </li>
+            <li className="px-2.5 pb-1 pt-2">
+              <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-foreground-muted">
+                Escuras
+              </p>
+            </li>
+            {DARK_PALETTES.map((palette) => (
+              <PaletteOption
+                key={palette.id}
+                palette={palette}
+                activeId={activeId}
+                onSelect={selectPalette}
+              />
+            ))}
+
+            <li className="px-2.5 pb-1 pt-3">
+              <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-foreground-muted">
+                Claras
+              </p>
+            </li>
+            {LIGHT_PALETTES.map((palette) => (
+              <PaletteOption
+                key={palette.id}
+                palette={palette}
+                activeId={activeId}
+                onSelect={selectPalette}
+              />
             ))}
           </ul>
 

@@ -144,7 +144,7 @@ function EventCta({ event, onReserve, variant = "list" }: EventCtaProps) {
       onClick={onReserve}
       className={`${baseClass} ${
         variant === "featured"
-          ? "border border-accent/40 bg-accent text-ink hover:bg-accent-hover"
+          ? "border border-accent/40 bg-accent text-accent-foreground hover:bg-accent-hover active:bg-accent-active"
           : "rounded-md px-2 py-1 text-accent hover:text-accent-hover"
       }`}
       style={{ transitionTimingFunction: PREMIUM_EASE }}

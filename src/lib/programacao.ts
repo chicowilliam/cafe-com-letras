@@ -38,8 +38,8 @@ export const CATEGORY_CONFIG: Record<
   literatura: {
     label: "Literatura",
     chipClass:
-      "border-stone-400/25 bg-stone-400/8 text-stone-200 hover:border-accent-2/35 hover:bg-accent-2/10 hover:text-accent-2",
-    tagClass: "border-stone-400/25 bg-stone-400/8 text-stone-200",
+      "border-foreground-muted/30 bg-foreground-muted/10 text-foreground-muted hover:border-accent-2/35 hover:bg-accent-2/10 hover:text-accent-2",
+    tagClass: "border-foreground-muted/25 bg-foreground-muted/10 text-foreground-muted",
   },
   sarau: {
     label: "Sarau",

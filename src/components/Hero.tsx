@@ -3,7 +3,7 @@ import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
 
 const ctaPrimary =
-  "btn-primary focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01] hover:bg-accent/90";
+  "btn-primary focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";
 
 const ctaGhost =
   "btn-ghost focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";

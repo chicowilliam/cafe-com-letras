@@ -208,7 +208,7 @@ export function ReservationModal() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="focus-ring w-full rounded-full bg-accent py-2 text-xs font-medium text-ink transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                className="btn-accent-solid focus-ring w-full rounded-full py-2 text-xs font-medium disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Confirmando..." : "Confirmar reserva"}
               </button>

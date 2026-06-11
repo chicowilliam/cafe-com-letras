@@ -191,7 +191,7 @@ export function ExperienceCheckoutModal() {
                 type="button"
                 disabled={!canConfirm}
                 onClick={handleConfirm}
-                className="focus-ring w-full rounded-full bg-accent py-2 text-xs font-medium text-ink transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                className="btn-accent-solid focus-ring w-full rounded-full py-2 text-xs font-medium disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Confirmar pagamento
               </button>
