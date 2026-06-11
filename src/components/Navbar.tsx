@@ -94,7 +94,7 @@ export function Navbar() {
           >
             <a
               href="#inicio"
-              className={wordmarkClass}
+              className={`brand-wordmark ${wordmarkClass}`}
               aria-hidden={!pastHero}
               tabIndex={pastHero ? 0 : -1}
             >

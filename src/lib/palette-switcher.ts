@@ -98,11 +98,21 @@ export const PALETTES: PaletteDefinition[] = [
   },
 ];
 
+function syncPaletteDataset(id: PaletteId) {
+  const root = document.documentElement;
+  if (id === "cafe-papel") {
+    root.dataset.palette = "cafe-papel";
+  } else {
+    delete root.dataset.palette;
+  }
+}
+
 export function resetPaletteOverrides() {
   const root = document.documentElement;
   for (const key of OVERRIDE_KEYS) {
     root.style.removeProperty(key);
   }
+  syncPaletteDataset("default");
 }
 
 export function applyPalette(id: PaletteId) {
@@ -123,6 +133,8 @@ export function applyPalette(id: PaletteId) {
   for (const [key, value] of Object.entries(palette.tokens)) {
     root.style.setProperty(key, value);
   }
+
+  syncPaletteDataset(id);
 
   try {
     localStorage.setItem(PALETTE_STORAGE_KEY, id);
@@ -151,7 +163,11 @@ export function readStoredPaletteId(): PaletteId {
 /** Chamar antes do primeiro paint do React para evitar flash de tema. */
 export function hydrateStoredPalette(): PaletteId {
   const id = readStoredPaletteId();
-  if (id !== "default") applyPalette(id);
+  if (id !== "default") {
+    applyPalette(id);
+  } else {
+    syncPaletteDataset("default");
+  }
   return id;
 }
 

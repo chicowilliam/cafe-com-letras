@@ -55,7 +55,7 @@ export function Hero() {
           </span>
 
           <h1
-            className="fade-in-up is-visible w-full text-center font-display text-[2.75rem] leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
+            className="hero-symbol fade-in-up is-visible w-full text-center font-display text-[2.75rem] leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
             style={{ transitionDelay: "0.12s" }}
           >
             Café com Letras
@@ -95,7 +95,7 @@ export function Hero() {
           </span>
 
           <h1
-            className="fade-in-up is-visible font-display text-6xl leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] lg:text-7xl"
+            className="hero-symbol fade-in-up is-visible font-display text-6xl leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] lg:text-7xl"
             style={{ transitionDelay: "0.12s" }}
           >
             Café com Letras

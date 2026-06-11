@@ -367,3 +367,22 @@ button:not(:disabled),
 .area-icon-pop {
   animation: area-icon-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* Café Papel (claro): logo e wordmark do hero legíveis sobre fundo papel */
+[data-palette="cafe-papel"] .brand-wordmark {
+  color: var(--ink);
+}
+
+[data-palette="cafe-papel"] .brand-wordmark:hover {
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+[data-palette="cafe-papel"] .hero-symbol {
+  color: var(--ink);
+  --tw-drop-shadow: ;
+  filter: drop-shadow(0 2px 10px rgba(36, 28, 22, 0.14));
+}
+
+[data-palette="cafe-papel"] .hero-mobile-copy .hero-symbol {
+  text-shadow: none;
+}
