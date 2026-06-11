@@ -46,6 +46,9 @@
   --selection-bg-on-accent: rgba(20, 20, 19, 0.16);
   --selection-color-on-accent: var(--ink);
   --tap-highlight: rgba(255, 255, 255, 0.1);
+  --hero-overlay-bottom: var(--background);
+  --hero-foreground: var(--foreground);
+  --hero-foreground-muted: var(--foreground-muted);
 }
 
 @media (min-width: 768px) {
@@ -338,6 +341,31 @@ button:not(:disabled),
   text-shadow: 0 1px 16px rgba(0, 0, 0, 0.35);
 }
 
+.hero-cinematic-overlay {
+  background: radial-gradient(
+    circle at center,
+    rgba(8, 8, 8, 0.72) 0%,
+    rgba(8, 8, 8, 0.35) 42%,
+    rgba(8, 8, 8, 0.88) 100%
+  );
+}
+
+.hero-bottom-fade {
+  background: linear-gradient(to top, var(--hero-overlay-bottom), transparent);
+}
+
+.hero-title {
+  color: var(--hero-foreground);
+}
+
+.hero-tagline {
+  color: var(--hero-foreground-muted);
+}
+
+.hero-tagline-highlight {
+  color: var(--hero-foreground);
+}
+
 @media (min-width: 768px) {
   .hero-mobile-copy {
     text-shadow: none;
@@ -368,21 +396,17 @@ button:not(:disabled),
   animation: area-icon-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Café Papel (claro): logo e wordmark do hero legíveis sobre fundo papel */
-[data-palette="cafe-papel"] .brand-wordmark {
+/* Café Papel (claro): hero independente do tema + logo escura só na navbar sólida */
+[data-palette="cafe-papel"] {
+  --hero-overlay-bottom: #15160f;
+  --hero-foreground: #f2efe2;
+  --hero-foreground-muted: #b3b09c;
+}
+
+[data-palette="cafe-papel"] .navbar--solid .brand-wordmark {
   color: var(--ink);
 }
 
-[data-palette="cafe-papel"] .brand-wordmark:hover {
+[data-palette="cafe-papel"] .navbar--solid .brand-wordmark:hover {
   color: color-mix(in srgb, var(--ink) 82%, transparent);
-}
-
-[data-palette="cafe-papel"] .hero-symbol {
-  color: var(--ink);
-  --tw-drop-shadow: ;
-  filter: drop-shadow(0 2px 10px rgba(36, 28, 22, 0.14));
-}
-
-[data-palette="cafe-papel"] .hero-mobile-copy .hero-symbol {
-  text-shadow: none;
 }

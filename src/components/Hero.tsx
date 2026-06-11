@@ -12,10 +12,10 @@ const locationBadgeClass =
   "mb-5 inline-flex items-center rounded-full border border-white/10 bg-black/45 px-3 py-1 font-sans text-xs font-medium tracking-tight text-accent backdrop-blur-sm";
 
 const taglineClass =
-  "font-sans text-sm leading-relaxed text-foreground-muted md:text-base";
+  "hero-tagline font-sans text-sm leading-relaxed md:text-base";
 
 const taglineHighlightClass =
-  "mx-1 font-display text-base italic text-foreground md:text-lg";
+  "hero-tagline-highlight mx-1 font-display text-base italic md:text-lg";
 
 export function Hero() {
   const { open: openReservation } = useReservation();
@@ -24,7 +24,7 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-[100dvh] w-full overflow-hidden bg-background"
+      className="relative min-h-[100dvh] w-full overflow-hidden bg-[var(--hero-overlay-bottom)]"
     >
       <img
         src={HERO_IMAGE}
@@ -34,14 +34,11 @@ export function Hero() {
         decoding="async"
       />
 
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(8,8,8,0.72)_0%,rgba(8,8,8,0.35)_42%,rgba(8,8,8,0.88)_100%)]"
-      />
+      <div aria-hidden className="hero-cinematic-overlay absolute inset-0" />
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 bg-gradient-to-t from-background to-transparent md:h-56"
+        className="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 md:h-56"
       />
 
       {/* Mobile */}
@@ -55,7 +52,7 @@ export function Hero() {
           </span>
 
           <h1
-            className="hero-symbol fade-in-up is-visible w-full text-center font-display text-[2.75rem] leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
+            className="hero-title fade-in-up is-visible w-full text-center font-display text-[2.75rem] leading-[1.05] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
             style={{ transitionDelay: "0.12s" }}
           >
             Café com Letras
@@ -95,7 +92,7 @@ export function Hero() {
           </span>
 
           <h1
-            className="hero-symbol fade-in-up is-visible font-display text-6xl leading-[1.05] tracking-tight text-foreground drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] lg:text-7xl"
+            className="hero-title fade-in-up is-visible font-display text-6xl leading-[1.05] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] lg:text-7xl"
             style={{ transitionDelay: "0.12s" }}
           >
             Café com Letras

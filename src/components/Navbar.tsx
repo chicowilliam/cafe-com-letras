@@ -78,7 +78,7 @@ export function Navbar() {
       <header
         className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
           pastHero
-            ? "border-b border-white/10 bg-background/70 backdrop-blur-md"
+            ? "navbar--solid border-b border-white/10 bg-background/70 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
         } ${visible ? "navbar-slide--visible" : "navbar-slide--hidden"}`}
       >
