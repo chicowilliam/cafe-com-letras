@@ -1,4 +1,4 @@
-import { HERO_IMAGE } from "@/lib/hero-image";
+import { HeroBackgroundVideo } from "@/components/HeroBackgroundVideo";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
 
@@ -26,13 +26,7 @@ export function Hero() {
       id="inicio"
       className="relative min-h-[100dvh] w-full overflow-hidden bg-[var(--hero-overlay-bottom)]"
     >
-      <img
-        src={HERO_IMAGE}
-        alt="Livraria Contraponto — Café com Letras"
-        className="absolute inset-0 h-full w-full scale-[1.06] object-cover object-[50%_62%] md:scale-100 md:object-center"
-        fetchPriority="high"
-        decoding="async"
-      />
+      <HeroBackgroundVideo />
 
       <div aria-hidden className="hero-cinematic-overlay absolute inset-0" />
 
