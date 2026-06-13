@@ -1,7 +1,10 @@
 import { CLOUDINARY_CLOUD_NAME, type PosterFormat } from "@/lib/curadoria-semanal";
 
-/** public_id no Cloudinary — vídeo de fundo do hero. */
-export const HERO_CLOUDINARY_VIDEO_ID = "cafe modal";
+/**
+ * public_id no Cloudinary — vídeo cinematográfico do hero.
+ * (Não há asset "cafe modal" na conta; este é o reel de ambiente disponível.)
+ */
+export const HERO_CLOUDINARY_VIDEO_ID = "Filme_Mágico_2_dfuvcx";
 
 /** Full-bleed hero (~1280px) — q_auto:good como os reels da Curadoria. */
 const HERO_DELIVERY_WIDTH = 1280;

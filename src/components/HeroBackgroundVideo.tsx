@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef, useState } from "react";
+import { HERO_IMAGE } from "@/lib/hero-image";
 import {
   HERO_CLOUDINARY_VIDEO_ID,
   heroVideoMp4,
@@ -13,6 +14,7 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [useFallbackImage, setUseFallbackImage] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -23,19 +25,31 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
   }, []);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion || useFallbackImage) return;
     const video = videoRef.current;
     if (!video) return;
 
     const play = () => {
-      video.play().catch(() => {});
+      video.play().catch(() => setUseFallbackImage(true));
     };
 
     video.addEventListener("loadeddata", play);
     play();
 
     return () => video.removeEventListener("loadeddata", play);
-  }, [reduceMotion]);
+  }, [reduceMotion, useFallbackImage]);
+
+  if (useFallbackImage || reduceMotion) {
+    return (
+      <img
+        src={HERO_IMAGE}
+        alt="Livraria Contraponto — Café com Letras"
+        className={videoClassName}
+        fetchPriority="high"
+        decoding="async"
+      />
+    );
+  }
 
   const posterAvif = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "avif");
   const posterWebp = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "webp");
@@ -52,34 +66,34 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
           aria-hidden
           decoding="async"
           fetchPriority="high"
+          onError={() => setUseFallbackImage(true)}
           className={`${videoClassName} transition-opacity duration-700 motion-reduce:transition-none ${
-            !reduceMotion && videoReady ? "opacity-0" : "opacity-100"
+            videoReady ? "opacity-0" : "opacity-100"
           }`}
         />
       </picture>
 
-      {!reduceMotion ? (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          disablePictureInPicture
-          controls={false}
-          controlsList="nodownload noplaybackrate noremoteplayback"
-          aria-hidden
-          poster={posterJpg}
-          onPlaying={() => setVideoReady(true)}
-          className={`${videoClassName} transition-opacity duration-700 motion-reduce:transition-none ${
-            videoReady ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <source src={heroVideoWebm()} type="video/webm" />
-          <source src={heroVideoMp4()} type="video/mp4" />
-        </video>
-      ) : null}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        disablePictureInPicture
+        controls={false}
+        controlsList="nodownload noplaybackrate noremoteplayback"
+        aria-hidden
+        poster={posterJpg}
+        onPlaying={() => setVideoReady(true)}
+        onError={() => setUseFallbackImage(true)}
+        className={`${videoClassName} transition-opacity duration-700 motion-reduce:transition-none ${
+          videoReady ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <source src={heroVideoWebm()} type="video/webm" />
+        <source src={heroVideoMp4()} type="video/mp4" />
+      </video>
     </>
   );
 });
