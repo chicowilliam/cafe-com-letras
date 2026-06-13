@@ -370,7 +370,12 @@ button:not(:disabled),
 }
 
 .hero-bottom-fade {
-  background: linear-gradient(to top, var(--hero-overlay-bottom), transparent);
+  background: linear-gradient(
+    to top,
+    var(--hero-overlay-bottom) 0%,
+    color-mix(in srgb, var(--hero-overlay-bottom) 60%, transparent) 42%,
+    transparent 100%
+  );
 }
 
 .hero-title {
@@ -415,9 +420,45 @@ button:not(:disabled),
   animation: area-icon-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Temas claros: hero independente do tema + logo escura só na navbar sólida */
+@keyframes hero-scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+.hero-scroll-cue {
+  animation: hero-scroll-cue 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-cue {
+    animation: none;
+  }
+}
+
+/* Hero é sempre escuro: botão fantasma usa o foreground do hero (não o do tema)
+   para não sumir em paletas claras. */
+#inicio .btn-ghost {
+  color: var(--hero-foreground);
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+#inicio .btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Temas claros: copy do hero permanece clara sobre o vídeo escuro, mas a base
+   do fade acompanha o fundo da página (--background) para o vídeo se dissolver
+   naturalmente na próxima seção, sem a "barra" dura. */
 [data-theme="light"] {
-  --hero-overlay-bottom: #15160f;
   --hero-foreground: #f2efe2;
   --hero-foreground-muted: #b3b09c;
 }

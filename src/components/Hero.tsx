@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import { HeroBackgroundVideo } from "@/components/HeroBackgroundVideo";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
@@ -114,6 +115,17 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      <a
+        href="#noite-dos-dates"
+        aria-label="Rolar para a próxima seção"
+        className="focus-ring absolute inset-x-0 bottom-5 z-20 mx-auto flex w-fit flex-col items-center gap-1 text-foreground-muted transition-colors duration-300 hover:text-accent md:bottom-7"
+      >
+        <span className="font-sans text-[0.625rem] font-medium uppercase tracking-[0.2em]">
+          Explore
+        </span>
+        <ChevronDown className="hero-scroll-cue h-5 w-5" strokeWidth={1.5} />
+      </a>
     </section>
   );
 }
