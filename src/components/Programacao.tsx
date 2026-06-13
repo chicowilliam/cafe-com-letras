@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { useReservation } from "@/hooks/useReservation";
@@ -200,7 +200,11 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
             <p className="mt-1.5 text-[13px] text-foreground-muted">
               <time dateTime={`${event.date}T${event.time}`}>{dateTimeLabel}</time>
             </p>
-            {event.description ? (
+            {event.artist ? (
+              <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-foreground-muted">
+                {event.artist}
+              </p>
+            ) : event.description ? (
               <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-foreground-muted">
                 {event.description}
               </p>
@@ -222,47 +226,96 @@ type EventRowProps = {
 };
 
 function EventRow({ event, onReserve, showDivider }: EventRowProps) {
+  const [open, setOpen] = useState(false);
+  const expandable = Boolean(event.artist);
+  const panelId = `event-panel-${event.id}`;
+
+  const titleBlock = (
+    <>
+      <div className="flex flex-wrap items-center gap-2 gap-y-1">
+        <h4 className="font-display text-base leading-snug tracking-tight text-foreground md:text-lg">
+          {event.title}
+        </h4>
+        <CategoryTag category={event.category} />
+        {expandable ? (
+          <ChevronDown
+            aria-hidden
+            className={`h-4 w-4 text-foreground-muted transition-transform duration-300 motion-reduce:transition-none ${
+              open ? "rotate-180 text-accent" : ""
+            }`}
+            strokeWidth={1.75}
+          />
+        ) : null}
+      </div>
+      {event.description ? (
+        <p className="mt-1.5 line-clamp-2 text-sm text-foreground-muted">
+          {event.description}
+        </p>
+      ) : null}
+    </>
+  );
+
   return (
     <article
-      className={`group grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3 py-5 sm:grid-cols-[4.5rem_minmax(0,1fr)_auto] sm:gap-4 ${
-        showDivider ? "border-b border-hairline" : ""
-      }`}
+      className={`group py-5 ${showDivider ? "border-b border-hairline" : ""}`}
     >
-      <time
-        dateTime={`${event.date}T${event.time}`}
-        className="pt-0.5 font-sans text-sm tabular-nums text-accent sm:text-base"
-      >
-        {event.time}
-      </time>
+      <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3 sm:grid-cols-[4.5rem_minmax(0,1fr)_auto] sm:gap-4">
+        <time
+          dateTime={`${event.date}T${event.time}`}
+          className="pt-0.5 font-sans text-sm tabular-nums text-accent sm:text-base"
+        >
+          {event.time}
+        </time>
 
-      <div className="min-w-0">
-        <div className="flex flex-wrap items-center gap-2 gap-y-1">
-          <h4 className="font-display text-base leading-snug tracking-tight text-foreground md:text-lg">
-            {event.title}
-          </h4>
-          <CategoryTag category={event.category} />
+        {expandable ? (
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls={panelId}
+            className="focus-ring min-w-0 rounded-md text-left"
+          >
+            {titleBlock}
+          </button>
+        ) : (
+          <div className="min-w-0">{titleBlock}</div>
+        )}
+
+        <div className="flex items-center gap-3 self-center">
+          {event.image ? (
+            <div className="hidden h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-hairline sm:block">
+              <img
+                src={event.image}
+                alt=""
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:transform-none"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ) : null}
+          <EventCta event={event} onReserve={onReserve} />
         </div>
-        {event.description ? (
-          <p className="mt-1.5 line-clamp-1 text-sm text-foreground-muted">
-            {event.description}
-          </p>
-        ) : null}
       </div>
 
-      <div className="flex items-center gap-3 self-center">
-        {event.image ? (
-          <div className="hidden h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-hairline sm:block">
-            <img
-              src={event.image}
-              alt=""
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:transform-none"
-              loading="lazy"
-              decoding="async"
-            />
+      {expandable ? (
+        <div
+          id={panelId}
+          role="region"
+          className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${
+            open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          }`}
+          style={{ transitionTimingFunction: PREMIUM_EASE }}
+        >
+          <div className="overflow-hidden">
+            <div className="pt-3 sm:pl-[5.5rem]">
+              <p className="section-eyebrow !mb-1 !text-[10px]">A atração</p>
+              <p className="max-w-2xl text-sm leading-relaxed text-foreground-muted">
+                {event.artist}
+              </p>
+            </div>
           </div>
-        ) : null}
-        <EventCta event={event} onReserve={onReserve} />
-      </div>
+        </div>
+      ) : null}
     </article>
   );
 }

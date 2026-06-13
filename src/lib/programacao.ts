@@ -12,6 +12,8 @@ export type ProgramacaoEvento = {
   title: string;
   category: EventCategory;
   description?: string;
+  /** Mini-bio da atração/artista, exibida ao expandir o evento. */
+  artist?: string;
   image?: string;
   href?: string;
   featured?: boolean;
@@ -72,6 +74,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     category: "jazz",
     description:
       "Noite especial de jazz ao vivo com quartet residente, repertório de standards e composições brasileiras sob luz baixa.",
+    artist:
+      "Projeto autoral da casa que reúne o quarteto residente — piano, contrabaixo, bateria e sopros — a músicos convidados da cena mineira, transitando entre standards do jazz e a tradição do samba-jazz brasileiro.",
     image: imgJazz,
     featured: true,
   },
@@ -82,6 +86,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Piano Bar — Quinta Clássica",
     category: "piano-bar",
     description: "Coquetelaria autoral e piano ao vivo toda quinta, do entardecer à meia-noite.",
+    artist:
+      "Pianistas convidados em rodízio semanal, do repertório erudito ao popular brasileiro, acompanhando a carta de drinks autorais do bar.",
     image: imgPiano,
   },
   {
@@ -91,6 +97,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Quarteto Savassi",
     category: "jazz",
     description: "Improvisos e arranjos contemporâneos no salão principal.",
+    artist:
+      "Grupo instrumental mineiro dedicado ao jazz contemporâneo, com arranjos autorais e diálogo aberto com a música brasileira.",
   },
   {
     id: "piano-bar-12-jun",
@@ -99,6 +107,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Piano Bar — Quinta Clássica",
     category: "piano-bar",
     description: "Repertório de bossa, MPB e clássicos internacionais ao piano.",
+    artist:
+      "Edição dedicada à bossa nova e à MPB, com releituras de Tom Jobim, Johnny Alf e clássicos do cancioneiro internacional.",
     image: imgPiano,
   },
   {
@@ -108,6 +118,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Lançamento — Cartografias da Memória",
     category: "literatura",
     description: "Encontro com a autora, leitura de trechos e sessão de autógrafos na livraria.",
+    artist:
+      "Conversa com a autora sobre memória urbana e processo de escrita, seguida de leitura de trechos e sessão de autógrafos na livraria do Café.",
     image: imgLiteratura,
     href: "#sobre",
   },
@@ -118,6 +130,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Piano Bar — Quinta Clássica",
     category: "piano-bar",
     description: "Ambiente intimista, carta de drinks da casa e piano ao vivo.",
+    artist:
+      "Noite intimista de piano solo, com repertório que passeia entre o jazz, o choro e canções da MPB a pedido do público.",
   },
   {
     id: "sarau-poesia-jun",
@@ -126,6 +140,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Sarau da Poesia Mineira",
     category: "sarau",
     description: "Poetas convidados, microfone aberto e conversa com o público após as leituras.",
+    artist:
+      "Encontro com curadoria rotativa que reúne poetas da cena mineira e microfone aberto ao público, encerrando com conversa entre autores e plateia.",
     image: imgSarau,
   },
   {
@@ -135,6 +151,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Voz & Baixo — Jazz Brasileiro",
     category: "jazz",
     description: "Duo explorando Jobim, Lo Borges e composições autorais.",
+    artist:
+      "Duo de voz e contrabaixo acústico que explora a delicadeza do jazz brasileiro, de Tom Jobim ao Clube da Esquina, com composições autorais.",
   },
   {
     id: "piano-bar-26-jun",
@@ -143,6 +161,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Piano Bar — Quinta Clássica",
     category: "piano-bar",
     description: "Última quinta do mês: repertório especial com homenagem ao samba-jazz.",
+    artist:
+      "Edição de encerramento do mês com repertório especial em homenagem ao samba-jazz e aos grandes pianistas brasileiros.",
     image: imgPiano,
   },
   {
@@ -152,6 +172,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Mesa Literária — Belo Horizonte em Prosa",
     category: "literatura",
     description: "Autores locais debatem a cidade como personagem na literatura contemporânea.",
+    artist:
+      "Mesa de debate com autores locais sobre Belo Horizonte como personagem na literatura contemporânea, com mediação e perguntas do público.",
     image: imgLiteratura,
   },
   {
@@ -161,6 +183,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Sunset Jazz Sessions",
     category: "jazz",
     description: "Jazz ao entardecer no pátio, com carta especial de aperitivos.",
+    artist:
+      "Sessões de jazz ao entardecer no pátio, com banda convidada e carta especial de aperitivos para acompanhar o pôr do sol na Savassi.",
     image: imgJazz,
   },
   {
@@ -170,6 +194,8 @@ export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
     title: "Sarau Choro & Letras",
     category: "sarau",
     description: "Rodas de choro intercaladas com leituras de crônicas e poesia.",
+    artist:
+      "Roda de choro com instrumentistas convidados intercalada por leituras de crônicas e poesia, celebrando o encontro entre música e literatura.",
     image: imgSarau,
   },
 ];
