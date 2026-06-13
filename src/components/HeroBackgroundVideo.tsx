@@ -2,9 +2,11 @@ import { memo, useEffect, useRef, useState } from "react";
 import { HERO_IMAGE } from "@/lib/hero-image";
 import {
   HERO_CLOUDINARY_VIDEO_ID,
+  getHeroVideoDelivery,
   heroVideoMp4,
   heroVideoPoster,
   heroVideoWebm,
+  type HeroVideoDelivery,
 } from "@/lib/hero-video";
 
 const videoClassName =
@@ -12,6 +14,7 @@ const videoClassName =
 
 export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [delivery] = useState<HeroVideoDelivery>(() => getHeroVideoDelivery());
   const [reduceMotion, setReduceMotion] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [useFallbackImage, setUseFallbackImage] = useState(false);
@@ -51,9 +54,11 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
     );
   }
 
-  const posterAvif = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "avif");
-  const posterWebp = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "webp");
-  const posterJpg = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "jpg");
+  const posterAvif = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "avif", delivery.posterWidth);
+  const posterWebp = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "webp", delivery.posterWidth);
+  const posterJpg = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "jpg", delivery.posterWidth);
+  const mp4Src = heroVideoMp4(HERO_CLOUDINARY_VIDEO_ID, delivery);
+  const webmSrc = heroVideoWebm(HERO_CLOUDINARY_VIDEO_ID, delivery);
 
   return (
     <>
@@ -91,8 +96,8 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
           videoReady ? "opacity-100" : "opacity-0"
         }`}
       >
-        <source src={heroVideoWebm()} type="video/webm" />
-        <source src={heroVideoMp4()} type="video/mp4" />
+        <source src={webmSrc} type="video/webm" />
+        <source src={mp4Src} type="video/mp4" />
       </video>
     </>
   );
