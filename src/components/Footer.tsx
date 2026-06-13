@@ -1,9 +1,10 @@
 import { MapPin, Phone } from "lucide-react";
+import { FadeIn } from "@/components/FadeIn";
 
 export function Footer() {
   return (
     <footer className="section-padding border-t border-hairline bg-background !pb-[max(var(--section-space),env(safe-area-inset-bottom))]">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:items-center">
+      <FadeIn className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:items-center">
         <div>
           <p className="font-display text-lg text-foreground">Café com Letras</p>
           <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
@@ -21,7 +22,7 @@ export function Footer() {
             (31) 3214-8900
           </span>
         </div>
-      </div>
+      </FadeIn>
     </footer>
   );
 }
