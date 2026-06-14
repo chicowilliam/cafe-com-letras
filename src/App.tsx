@@ -5,6 +5,7 @@ import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { PaletteSwitcher } from "@/components/PaletteSwitcher";
 import { ReservationPopup } from "@/components/ReservationPopup";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
 
@@ -31,13 +32,30 @@ const ImageMarquee = lazy(() =>
     default: module.ImageMarquee,
   })),
 );
+const Quotes = lazy(() =>
+  import("@/components/Quotes").then((module) => ({ default: module.Quotes })),
+);
+const Visite = lazy(() =>
+  import("@/components/Visite").then((module) => ({ default: module.Visite })),
+);
+const Newsletter = lazy(() =>
+  import("@/components/Newsletter").then((module) => ({
+    default: module.Newsletter,
+  })),
+);
 
 export default function App() {
   return (
     <ReservationProvider>
       <ExperienceCheckoutProvider>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-surface-elevated focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent"
+        >
+          Pular para o conteúdo
+        </a>
         <Navbar />
-        <main>
+        <main id="main">
           <Hero />
           <Suspense fallback={null}>
             <NoiteDosDates />
@@ -52,11 +70,21 @@ export default function App() {
             <About />
           </Suspense>
           <Suspense fallback={null}>
+            <Quotes />
+          </Suspense>
+          <Suspense fallback={null}>
             <ImageMarquee />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Visite />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Newsletter />
           </Suspense>
         </main>
         <Footer />
         <ReservationPopup />
+        <WhatsAppButton />
         <PaletteSwitcher />
         <DeferredModals />
       </ExperienceCheckoutProvider>
