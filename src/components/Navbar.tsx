@@ -9,10 +9,9 @@ const wordmarkClass =
   "focus-ring block whitespace-nowrap font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
 
 const navLinkClass =
-  "focus-ring relative rounded-md px-1 py-1 font-sans text-sm font-medium tracking-normal text-white/80 transition-colors hover:text-white";
+  "focus-ring relative rounded-md px-1 py-1 font-sans text-sm font-medium tracking-normal text-white/80 transition-colors hover:text-white after:pointer-events-none after:absolute after:-bottom-1 after:inset-x-0 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-out after:content-[''] hover:after:scale-x-100 motion-reduce:after:transition-none";
 
-const navLinkActiveClass =
-  "text-white after:absolute after:-bottom-1 after:inset-x-0 after:h-px after:bg-accent after:content-['']";
+const navLinkActiveClass = "text-white after:scale-x-100";
 
 export function Navbar() {
   const visible = useNavbarVisibility();
