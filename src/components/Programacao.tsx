@@ -1,6 +1,7 @@
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
+import { SectionHeading } from "@/components/SectionHeading";
 import { useReservation } from "@/hooks/useReservation";
 import {
   CATEGORY_CONFIG,
@@ -433,10 +434,13 @@ export function Programacao() {
   return (
     <section id="programacao" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-8 text-center md:mb-10 md:text-left">
-          <p className="section-eyebrow">Agenda cultural</p>
-          <h2 className="section-title">Programação</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-foreground-muted md:mx-0 md:text-base">
+        <FadeIn className="mb-8 md:mb-10">
+          <SectionHeading
+            index="03"
+            eyebrow="Agenda cultural"
+            title="Programação"
+          />
+          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-foreground-muted md:mx-0 md:text-left md:text-base">
             Jazz, piano bar, lançamentos e saraus — a programação viva do Café com
             Letras, curada mês a mês na Savassi.
           </p>

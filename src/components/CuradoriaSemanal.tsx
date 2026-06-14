@@ -10,6 +10,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { FadeIn } from "@/components/FadeIn";
+import { SectionHeading } from "@/components/SectionHeading";
 import {
   cloudinaryVideoPoster,
   cloudinaryVideoSources,
@@ -1077,8 +1078,12 @@ export function CuradoriaSemanal() {
               />
 
               <FadeIn>
-                <p className="section-eyebrow">Menu em movimento</p>
-                <h2 className="section-title">Curadoria da Semana</h2>
+                <SectionHeading
+                  index="02"
+                  eyebrow="Menu em movimento"
+                  title="Curadoria da Semana"
+                  align="left"
+                />
                 <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground-muted lg:text-base">
                   Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                   semanal do que há de mais refinado no Café com Letras.
@@ -1126,10 +1131,16 @@ export function CuradoriaSemanal() {
             />
 
             <div className="relative z-10">
-              <FadeIn className="mb-4 text-center">
-                <p className="section-eyebrow drop-shadow-sm">Menu em movimento</p>
-                <h2 className="section-title drop-shadow-sm">Curadoria da Semana</h2>
-                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-foreground-muted drop-shadow-sm">
+              <FadeIn className="mb-4">
+                <SectionHeading
+                  index="02"
+                  eyebrow="Menu em movimento"
+                  title="Curadoria da Semana"
+                  align="center"
+                  eyebrowClassName="drop-shadow-sm"
+                  titleClassName="drop-shadow-sm"
+                />
+                <p className="mx-auto mt-2 max-w-md text-center text-sm leading-relaxed text-foreground-muted drop-shadow-sm">
                   Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                   semanal do que há de mais refinado no Café com Letras.
                 </p>

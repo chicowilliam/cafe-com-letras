@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/FadeIn";
+import { SectionHeading } from "@/components/SectionHeading";
 import { HISTORIA_IMAGE } from "@/lib/about-images";
 import { ABOUT_PARAGRAPHS } from "@/lib/constants";
 
@@ -31,12 +32,18 @@ export function About() {
         className="flex w-full flex-col justify-center p-8 md:w-[56%] md:p-12 lg:w-[60%] lg:p-20"
         delay={0.08}
       >
-        <p className="section-eyebrow">A História</p>
-
-        <h2 className="section-title max-w-xl text-foreground">
-          Três amigos, um sonho{" "}
-          <span className="italic text-foreground-muted">e a Savassi</span>
-        </h2>
+        <SectionHeading
+          index="04"
+          eyebrow="A História"
+          align="left"
+          titleClassName="max-w-xl text-foreground"
+          title={
+            <>
+              Três amigos, um sonho{" "}
+              <span className="italic text-foreground-muted">e a Savassi</span>
+            </>
+          }
+        />
 
         <div
           className="mt-7 mb-7 h-px w-16 bg-accent/60 md:mt-8 md:mb-8"
@@ -47,7 +54,9 @@ export function About() {
           {ABOUT_PARAGRAPHS.map((text, index) => (
             <p
               key={index}
-              className="font-garamond text-[1.0625rem] leading-relaxed text-foreground-muted md:text-[1.1875rem]"
+              className={`font-garamond text-[1.0625rem] leading-relaxed text-foreground-muted md:text-[1.1875rem] ${
+                index === 0 ? "story-lead" : ""
+              }`}
             >
               {text}
             </p>

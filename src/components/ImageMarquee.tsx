@@ -1,10 +1,13 @@
 import { Camera } from "lucide-react";
+import { useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
+import { SectionHeading } from "@/components/SectionHeading";
 import { useInView } from "@/hooks/useInView";
 import { MARQUEE_IMAGES } from "@/lib/marquee-images";
 
 export function ImageMarquee() {
   const loop = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
+  const [paused, setPaused] = useState(false);
   const [sectionRef, sectionInView] = useInView<HTMLElement>({
     rootMargin: "120px",
     threshold: 0,
@@ -17,13 +20,17 @@ export function ImageMarquee() {
       className="overflow-hidden border-t border-hairline bg-surface section-padding"
     >
       <div className="mx-auto mb-10 max-w-6xl md:mb-14">
-        <FadeIn className="flex items-center gap-2.5">
-          <Camera size={16} className="text-accent" strokeWidth={1.5} />
-          <span className="section-eyebrow mb-0">Momentos</span>
-        </FadeIn>
-
-        <FadeIn as="h2" delay={0.08} className="section-title mt-3">
-          Café, cultura e encontros
+        <FadeIn>
+          <SectionHeading
+            index="05"
+            eyebrow="Momentos"
+            title="Café, cultura e encontros"
+            align="left"
+            kicker="instantes do café, da cozinha e da cena cultural"
+            leading={
+              <Camera size={16} className="text-accent" strokeWidth={1.5} aria-hidden />
+            }
+          />
         </FadeIn>
       </div>
 
@@ -31,10 +38,16 @@ export function ImageMarquee() {
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-surface to-transparent md:w-24" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-surface to-transparent md:w-24" />
 
-        <div className="flex min-h-36 overflow-hidden px-5 sm:min-h-40 md:min-h-44 md:px-8">
+        <div
+          className="flex min-h-36 cursor-grab overflow-hidden px-5 sm:min-h-40 md:min-h-44 md:px-8"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+        >
           {sectionInView ? (
             <div
-              className={`animate-marquee flex shrink-0 gap-5 md:gap-8${sectionInView ? " marquee-running" : ""}`}
+              className={`animate-marquee flex shrink-0 gap-5 md:gap-8 marquee-running${paused ? " marquee-paused" : ""}`}
             >
               {loop.map((image, index) => (
                 <div

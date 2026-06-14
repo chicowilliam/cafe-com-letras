@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/FadeIn";
+import { SectionHeading } from "@/components/SectionHeading";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { DATE_PACKAGES, type DatePackageId } from "@/lib/date-experience";
 
@@ -13,9 +14,12 @@ export function NoiteDosDates() {
   return (
     <section id="noite-dos-dates" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-8 text-center md:mb-10 md:text-left">
-          <p className="section-eyebrow">Experiência exclusiva</p>
-          <h2 className="section-title">Noite dos Dates</h2>
+        <FadeIn className="mb-8 md:mb-10">
+          <SectionHeading
+            index="01"
+            eyebrow="Experiência exclusiva"
+            title="Noite dos Dates"
+          />
         </FadeIn>
 
         <FadeIn delay={0.06}>
@@ -36,7 +40,7 @@ export function NoiteDosDates() {
                   <img
                     src={pkg.image}
                     alt={pkg.imageAlt}
-                    className="h-48 w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] md:h-full md:w-full"
+                    className="h-48 w-full object-cover object-center transition-[transform,filter] duration-700 ease-out group-hover:scale-[1.03] group-hover:brightness-105 motion-reduce:transition-none md:h-full md:w-full"
                     loading="lazy"
                     decoding="async"
                   />
