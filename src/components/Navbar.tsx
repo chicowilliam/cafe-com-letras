@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
+import { useReservation } from "@/hooks/useReservation";
 import { NAV_LINKS } from "@/lib/constants";
 
 const HERO_INTERSECTION_THRESHOLD = 0.1;
@@ -15,6 +16,7 @@ const navLinkActiveClass = "text-white after:scale-x-100";
 
 export function Navbar() {
   const visible = useNavbarVisibility();
+  const { open: openReservation } = useReservation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [activeHref, setActiveHref] = useState<string>(NAV_LINKS[0].href);
@@ -101,32 +103,42 @@ export function Navbar() {
             </a>
           </div>
 
-          <ul className="hidden items-center gap-7 md:flex">
-            {NAV_LINKS.map((link) => {
-              const isActive = activeHref === link.href;
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    aria-current={isActive ? "page" : undefined}
-                    className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="flex items-center gap-6">
+            <ul className="hidden items-center gap-7 md:flex">
+              {NAV_LINKS.map((link) => {
+                const isActive = activeHref === link.href;
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
 
-          <button
-            type="button"
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((open) => !open)}
-            className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white backdrop-blur-sm transition-colors active:bg-black/55 md:hidden"
-          >
-            {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
-          </button>
+            <button
+              type="button"
+              onClick={openReservation}
+              className="btn-primary focus-ring hidden rounded-full px-4 py-1.5 text-sm font-medium md:inline-flex"
+            >
+              Reservar
+            </button>
+
+            <button
+              type="button"
+              aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((open) => !open)}
+              className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white backdrop-blur-sm transition-colors active:bg-black/55 md:hidden"
+            >
+              {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+            </button>
+          </div>
         </nav>
       </header>
 

@@ -1,7 +1,15 @@
 import { ChevronDown } from "lucide-react";
 import { HeroBackgroundVideo } from "@/components/HeroBackgroundVideo";
-import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
+
+function scrollToDates() {
+  const target = document.getElementById("noite-dos-dates");
+  if (!target) return;
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  target.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth" });
+}
 
 const ctaPrimary =
   "btn-primary focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";
@@ -20,7 +28,6 @@ const taglineHighlightClass =
 
 export function Hero() {
   const { open: openReservation } = useReservation();
-  const { open: openCheckout } = useExperienceCheckout();
 
   return (
     <section
@@ -66,7 +73,7 @@ export function Hero() {
             className="fade-in-up is-visible mt-10 flex w-full flex-wrap items-center justify-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
-            <button type="button" onClick={openCheckout} className={ctaPrimary}>
+            <button type="button" onClick={scrollToDates} className={ctaPrimary}>
               Noite dos Dates
             </button>
             <button type="button" onClick={openReservation} className={ctaGhost}>
@@ -106,7 +113,7 @@ export function Hero() {
             className="fade-in-up is-visible mt-12 flex items-center justify-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
-            <button type="button" onClick={openCheckout} className={ctaPrimary}>
+            <button type="button" onClick={scrollToDates} className={ctaPrimary}>
               Noite dos Dates
             </button>
             <button type="button" onClick={openReservation} className={ctaGhost}>
