@@ -1,4 +1,4 @@
-import { MapPin, Phone } from "lucide-react";
+import { Clock, MapPin, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -19,6 +19,14 @@ export function Footer() {
           <span className="inline-flex items-center gap-2.5">
             <Phone size={15} className="text-accent" />
             (31) 3214-8900
+          </span>
+          <span className="inline-flex items-start gap-2.5">
+            <Clock size={15} className="mt-0.5 shrink-0 text-accent" />
+            <span>
+              Dom–Qui: 12h às 22h
+              <br />
+              Sex &amp; Sáb: 12h às 23h
+            </span>
           </span>
         </div>
       </div>

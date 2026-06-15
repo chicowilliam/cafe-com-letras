@@ -437,6 +437,15 @@ export function Programacao() {
             </div>
           )}
         </div>
+
+        <FadeIn
+          className="mt-14 border-t border-hairline pt-8 text-center md:mt-20 md:pt-12 md:text-left"
+          rootMargin="0px"
+        >
+          <p className="section-eyebrow mb-0 text-foreground-muted">
+            Aberto todos os dias · Dom–Qui: 12h às 22h · Sex &amp; Sáb: 12h às 23h
+          </p>
+        </FadeIn>
       </div>
     </section>
   );
