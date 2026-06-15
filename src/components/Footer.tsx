@@ -3,7 +3,7 @@ import { FadeIn } from "@/components/FadeIn";
 import { InstagramIcon } from "@/components/InstagramIcon";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
-const INSTAGRAM_URL = "https://www.instagram.com/cafecomletras/";
+const INSTAGRAM_URL = "https://www.instagram.com/cafe_com_letras/";
 const WHATSAPP_URL = "https://wa.me/553184244285";
 
 /** Aberto Ter–Dom, 12h–00h (segunda fechado). Calculado no carregamento. */
