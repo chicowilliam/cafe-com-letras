@@ -33,7 +33,7 @@ export function About() {
         delay={0.08}
       >
         <SectionHeading
-          index="04"
+          index="05"
           eyebrow="A História"
           align="left"
           titleClassName="max-w-xl text-foreground"

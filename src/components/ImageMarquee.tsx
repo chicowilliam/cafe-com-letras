@@ -22,7 +22,7 @@ export function ImageMarquee() {
       <div className="mx-auto mb-10 max-w-6xl md:mb-14">
         <FadeIn>
           <SectionHeading
-            index="05"
+            index="06"
             eyebrow="Momentos"
             title="Café, cultura e encontros"
             align="left"

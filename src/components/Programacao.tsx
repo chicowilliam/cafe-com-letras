@@ -436,7 +436,7 @@ export function Programacao() {
       <div className="mx-auto max-w-6xl">
         <FadeIn className="mb-8 md:mb-10">
           <SectionHeading
-            index="03"
+            index="04"
             eyebrow="Agenda cultural"
             title="Programação"
           />

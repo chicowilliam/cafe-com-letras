@@ -1079,7 +1079,7 @@ export function CuradoriaSemanal() {
 
               <FadeIn>
                 <SectionHeading
-                  index="02"
+                  index="03"
                   eyebrow="Menu em movimento"
                   title="Curadoria da Semana"
                   align="left"
@@ -1133,7 +1133,7 @@ export function CuradoriaSemanal() {
             <div className="relative z-10">
               <FadeIn className="mb-4">
                 <SectionHeading
-                  index="02"
+                  index="03"
                   eyebrow="Menu em movimento"
                   title="Curadoria da Semana"
                   align="center"

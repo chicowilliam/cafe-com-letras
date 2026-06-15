@@ -20,6 +20,9 @@ const NoiteDosDates = lazy(() =>
     default: module.NoiteDosDates,
   })),
 );
+const Cardapio = lazy(() =>
+  import("@/components/Cardapio").then((module) => ({ default: module.Cardapio })),
+);
 const CuradoriaSemanal = lazy(() =>
   import("@/components/CuradoriaSemanal").then((module) => ({
     default: module.CuradoriaSemanal,
@@ -62,6 +65,9 @@ export default function App() {
           <Hero />
           <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
             <NoiteDosDates />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
+            <Cardapio />
           </Suspense>
           <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
             <CuradoriaSemanal />

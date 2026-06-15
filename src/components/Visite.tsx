@@ -87,7 +87,7 @@ export function Visite() {
       <div className="mx-auto max-w-6xl">
         <FadeIn className="mb-8 md:mb-10">
           <SectionHeading
-            index="06"
+            index="07"
             eyebrow="Visite"
             title="Onde nos encontrar"
           />
