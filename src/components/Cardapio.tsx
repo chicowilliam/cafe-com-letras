@@ -49,7 +49,7 @@ export function Cardapio() {
         </div>
 
         <p className="mt-10 text-xs text-foreground-muted/70">
-          Valores e itens sujeitos a alteração. Consulte o cardápio completo no café.
+          Uma seleção da casa. Cardápio completo e valores sujeitos a alteração — consulte no café.
         </p>
       </div>
     </section>
