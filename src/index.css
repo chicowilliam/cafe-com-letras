@@ -494,6 +494,14 @@ button:not(:disabled),
   color: color-mix(in srgb, var(--ink) 82%, transparent);
 }
 
+.map-iframe {
+  filter: grayscale(1) invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9);
+}
+
+[data-theme="light"] .map-iframe {
+  filter: grayscale(0.4) contrast(0.95);
+}
+
 @media print {
   .navbar-slide,
   .btn-primary,
