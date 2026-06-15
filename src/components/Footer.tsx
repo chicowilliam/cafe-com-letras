@@ -6,12 +6,16 @@ import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 const INSTAGRAM_URL = "https://www.instagram.com/cafe_com_letras/";
 const WHATSAPP_URL = "https://wa.me/553184244285";
 
-/** Aberto Ter–Dom, 12h–00h (segunda fechado). Calculado no carregamento. */
+/**
+ * Aberto todos os dias a partir das 12h. Fecha 22h (dom–qui) ou 23h (sex–sáb).
+ * Calculado no carregamento.
+ */
 function isOpenNow(now = new Date()): boolean {
   const day = now.getDay();
   const hour = now.getHours();
-  const isMonday = day === 1;
-  return !isMonday && hour >= 12;
+  const isWeekend = day === 5 || day === 6;
+  const closingHour = isWeekend ? 23 : 22;
+  return hour >= 12 && hour < closingHour;
 }
 
 export function Footer() {
@@ -65,11 +69,18 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 text-sm text-foreground-muted">
-          <span className="inline-flex items-center gap-2.5">
-            <Clock size={15} className="text-accent" aria-hidden />
-            Ter–Dom · 12h às 00h
+          <span className="inline-flex items-start gap-2.5">
+            <Clock size={15} className="mt-0.5 shrink-0 text-accent" aria-hidden />
+            <span className="flex flex-col gap-0.5">
+              <span>Aberto todos os dias</span>
+              <span className="text-xs text-foreground-muted/80">
+                Dom–Qui · 12h às 22h
+              </span>
+              <span className="text-xs text-foreground-muted/80">
+                Sex–Sáb · 12h às 23h
+              </span>
+            </span>
           </span>
-          <span className="text-xs text-foreground-muted/70">Segunda-feira fechado</span>
           <span
             className="inline-flex items-center gap-2 text-xs font-medium"
             aria-live="polite"
