@@ -5,6 +5,7 @@ import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { PaletteSwitcher } from "@/components/PaletteSwitcher";
 import { ReservationPopup } from "@/components/ReservationPopup";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
 
@@ -57,6 +58,7 @@ export default function App() {
         </main>
         <Footer />
         <ReservationPopup />
+        <WhatsAppButton />
         <PaletteSwitcher />
         <DeferredModals />
       </ExperienceCheckoutProvider>
