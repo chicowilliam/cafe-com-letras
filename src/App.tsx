@@ -1,10 +1,13 @@
 import { lazy, Suspense } from "react";
+import { BackToTop } from "@/components/BackToTop";
+import { CookieConsent } from "@/components/CookieConsent";
 import { DeferredModals } from "@/components/DeferredModals";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { PaletteSwitcher } from "@/components/PaletteSwitcher";
 import { ReservationPopup } from "@/components/ReservationPopup";
+import { SectionSkeleton } from "@/components/SectionSkeleton";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
@@ -57,35 +60,37 @@ export default function App() {
         <Navbar />
         <main id="main">
           <Hero />
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
             <NoiteDosDates />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
             <CuradoriaSemanal />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
             <Programacao />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
             <About />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
             <Quotes />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
             <ImageMarquee />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
             <Visite />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<SectionSkeleton className="min-h-[30vh]" />}>
             <Newsletter />
           </Suspense>
         </main>
         <Footer />
         <ReservationPopup />
         <WhatsAppButton />
+        <BackToTop />
         <PaletteSwitcher />
+        <CookieConsent />
         <DeferredModals />
       </ExperienceCheckoutProvider>
     </ReservationProvider>
