@@ -493,3 +493,21 @@ button:not(:disabled),
 [data-theme="light"] .navbar--solid .brand-wordmark:hover {
   color: color-mix(in srgb, var(--ink) 82%, transparent);
 }
+
+@media print {
+  .navbar-slide,
+  .btn-primary,
+  .btn-ghost,
+  .animate-marquee {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .section-title {
+    color: black;
+  }
+}
