@@ -10,8 +10,8 @@
 
 @font-face {
   font-family: "Garamond";
-  src: url("./assets/Fontes/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("./assets/Fontes/EB_Garamond/EBGaramond-Italic.subset.woff2")
+    format("woff2");
   font-weight: 400 800;
   font-style: italic;
   font-display: swap;
@@ -88,10 +88,12 @@ html {
 /* Compensa a navbar fixa ao navegar por âncora. */
 #inicio,
 #noite-dos-dates,
+#cardapio,
 #curadoria-da-semana,
 #programacao,
 #sobre,
-#galeria {
+#galeria,
+#visite {
   scroll-margin-top: 4rem;
 }
 
