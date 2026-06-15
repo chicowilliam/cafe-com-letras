@@ -1,25 +1,15 @@
-import { ChevronDown, MapPin, Navigation } from "lucide-react";
+import { ChevronDown, ExternalLink, MapPin } from "lucide-react";
 import { useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
-
-/**
- * Token público do Mapbox (opcional). Se preenchido, exibe um mapa estático
- * dark; caso contrário, mostra um cartão de localização estilizado.
- */
-const MAPBOX_TOKEN = "";
-
-/** Savassi, Belo Horizonte. */
-const COORDS = { lng: -43.9333, lat: -19.9386 };
 
 const ADDRESS = "Rua Antônio de Albuquerque, Savassi · Belo Horizonte — MG";
 
 const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20com%20Letras%20Savassi%20Belo%20Horizonte";
 
-const mapSrc = MAPBOX_TOKEN
-  ? `https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/pin-l+d4a373(${COORDS.lng},${COORDS.lat})/${COORDS.lng},${COORDS.lat},15,0/640x440@2x?access_token=${MAPBOX_TOKEN}`
-  : null;
+const MAPS_EMBED_URL =
+  "https://maps.google.com/maps?q=Caf%C3%A9+com+Letras+Savassi+Belo+Horizonte&output=embed&hl=pt-BR&z=16";
 
 type FaqItem = { question: string; answer: string };
 
@@ -106,22 +96,14 @@ export function Visite() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
           <FadeIn className="flex flex-col">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-md)] border border-hairline">
-              {mapSrc ? (
-                <img
-                  src={mapSrc}
-                  alt="Mapa da localização do Café com Letras na Savassi"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <div
-                  aria-hidden
-                  className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_30%,color-mix(in_srgb,var(--accent)_14%,transparent),transparent_60%),radial-gradient(circle_at_70%_70%,color-mix(in_srgb,var(--accent-2)_12%,transparent),transparent_55%)] bg-surface-elevated"
-                >
-                  <MapPin className="h-10 w-10 text-accent" strokeWidth={1.5} />
-                </div>
-              )}
+              <iframe
+                src={MAPS_EMBED_URL}
+                title="Localização do Café com Letras na Savassi, Belo Horizonte"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+                className="map-iframe h-full w-full border-0"
+              />
             </div>
 
             <div className="mt-5">
@@ -135,8 +117,8 @@ export function Visite() {
                 rel="noopener noreferrer"
                 className="btn-primary focus-ring mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-transform duration-300 hover:scale-[1.01] motion-reduce:transition-none"
               >
-                <Navigation size={16} strokeWidth={1.75} aria-hidden />
-                Como chegar
+                <ExternalLink size={16} strokeWidth={1.75} aria-hidden />
+                Abrir no Google Maps
               </a>
             </div>
           </FadeIn>
