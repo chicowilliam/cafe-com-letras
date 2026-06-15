@@ -1,10 +1,14 @@
+import { track } from "@vercel/analytics/react";
 import { Clock, MapPin, Phone } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { InstagramIcon } from "@/components/InstagramIcon";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
-
-const INSTAGRAM_URL = "https://www.instagram.com/cafe_com_letras/";
-const WHATSAPP_URL = "https://wa.me/553184244285";
+import {
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_TEL,
+  INSTAGRAM_URL,
+  buildWhatsAppUrl,
+} from "@/lib/contact";
 
 /**
  * Aberto todos os dias a partir das 12h. Fecha 22h (dom–qui) ou 23h (sex–sáb).
@@ -41,10 +45,11 @@ export function Footer() {
               <InstagramIcon size={16} />
             </a>
             <a
-              href={WHATSAPP_URL}
+              href={buildWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Conversar no WhatsApp"
+              onClick={() => track("whatsapp_clicado", { origem: "footer" })}
               className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline text-foreground-muted transition-colors hover:border-accent-2/40 hover:text-accent-2"
             >
               <WhatsAppIcon size={16} />
@@ -60,10 +65,10 @@ export function Footer() {
           <span className="inline-flex items-center gap-2.5">
             <Phone size={15} className="text-accent" aria-hidden />
             <a
-              href="tel:+553132148900"
+              href={`tel:${CONTACT_PHONE_TEL}`}
               className="focus-ring rounded-sm transition-colors hover:text-accent"
             >
-              (31) 3214-8900
+              {CONTACT_PHONE_DISPLAY}
             </a>
           </span>
         </div>

@@ -6,6 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { track } from "@vercel/analytics/react";
 import type { DatePackageId } from "@/lib/date-experience";
 
 type ExperienceCheckoutContextValue = {
@@ -25,11 +26,13 @@ export function ExperienceCheckoutProvider({ children }: { children: ReactNode }
   const [selectedPackage, setSelectedPackage] = useState<DatePackageId | null>(null);
 
   const open = useCallback(() => {
+    track("noite_dates_aberta");
     setSelectedPackage(null);
     setIsOpen(true);
   }, []);
 
   const openWithPackage = useCallback((pkg: DatePackageId) => {
+    track("noite_dates_aberta", { pacote: pkg });
     setSelectedPackage(pkg);
     setIsOpen(true);
   }, []);

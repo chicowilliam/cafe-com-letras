@@ -6,6 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { track } from "@vercel/analytics/react";
 
 type ReservationContextValue = {
   isOpen: boolean;
@@ -18,7 +19,10 @@ const ReservationContext = createContext<ReservationContextValue | null>(null);
 export function ReservationProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const open = useCallback(() => setIsOpen(true), []);
+  const open = useCallback(() => {
+    track("reserva_aberta");
+    setIsOpen(true);
+  }, []);
   const close = useCallback(() => setIsOpen(false), []);
 
   const value = useMemo(

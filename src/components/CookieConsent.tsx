@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const STORAGE_KEY = "cl-cookie-consent";
 
-export function CookieConsent() {
-  const [visible, setVisible] = useState(false);
+function shouldShowInitially() {
+  try {
+    return !localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return true;
+  }
+}
 
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
-    } catch {
-      setVisible(true);
-    }
-  }, []);
+export function CookieConsent() {
+  const [visible, setVisible] = useState(shouldShowInitially);
 
   const accept = () => {
     try {

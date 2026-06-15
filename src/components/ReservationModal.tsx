@@ -1,9 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
-import { CalendarDays, Check, X } from "lucide-react";
+import { track } from "@vercel/analytics/react";
+import { CalendarDays, X } from "lucide-react";
 import { ReservationAreaField } from "@/components/ReservationAreaField";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useReservation } from "@/hooks/useReservation";
+import { buildWhatsAppUrl } from "@/lib/contact";
 import {
   AREA_LABELS,
   RESERVATION_DEFAULTS,
@@ -13,17 +17,27 @@ import {
 
 const TIME_SLOTS = ["12:00", "13:00", "19:00", "20:00", "21:00"] as const;
 
-function generateConfirmationCode() {
-  return `CCL-${Math.floor(1000 + Math.random() * 9000)}`;
+function buildReservationMessage(data: ReservationFormValues): string {
+  const lines = [
+    "Olá! Gostaria de fazer uma reserva no Café com Letras:",
+    `• Nome: ${data.name}`,
+    `• Data: ${data.date}`,
+    `• Horário: ${data.time}`,
+    `• Pessoas: ${data.guests}`,
+    `• Área: ${AREA_LABELS[data.area]}`,
+    `• Telefone: ${data.phone}`,
+    `• E-mail: ${data.email}`,
+  ];
+  if (data.notes?.trim()) lines.push(`• Observações: ${data.notes.trim()}`);
+  return lines.join("\n");
 }
 
 export function ReservationModal() {
   const titleId = useId();
   const { isOpen, close } = useReservation();
-  const [confirmationCode, setConfirmationCode] = useState<string | null>(null);
-  const [confirmedArea, setConfirmedArea] = useState<ReservationFormValues["area"] | null>(
-    null,
-  );
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap(dialogRef, isOpen);
 
   const {
     register,
@@ -53,19 +67,19 @@ export function ReservationModal() {
   }, [isOpen, close]);
 
   useEffect(() => {
-    if (!isOpen) {
-      reset(RESERVATION_DEFAULTS);
-      setConfirmationCode(null);
-      setConfirmedArea(null);
-    }
+    if (!isOpen) reset(RESERVATION_DEFAULTS);
   }, [isOpen, reset]);
 
   if (!isOpen) return null;
 
-  const onSubmit = async (data: ReservationFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setConfirmedArea(data.area);
-    setConfirmationCode(generateConfirmationCode());
+  const onSubmit = (data: ReservationFormValues) => {
+    track("reserva_enviada", { area: data.area, guests: data.guests });
+    window.open(
+      buildWhatsAppUrl(buildReservationMessage(data)),
+      "_blank",
+      "noopener,noreferrer",
+    );
+    close();
   };
 
   return (
@@ -78,10 +92,12 @@ export function ReservationModal() {
       />
 
       <div
+        ref={dialogRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-hairline bg-surface-elevated shadow-2xl"
+        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-hairline bg-surface-elevated shadow-2xl outline-none"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-white/5 px-4 py-3">
           <div>
@@ -103,38 +119,11 @@ export function ReservationModal() {
           </button>
         </div>
 
-        {confirmationCode ? (
-          <div className="overflow-y-auto px-4 py-6 text-center">
-            <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
-              <Check size={18} />
-            </div>
-            <p className="font-display text-base text-foreground">Reserva confirmada!</p>
-            {confirmedArea && (
-              <p className="mt-1 text-xs text-foreground-muted">
-                {AREA_LABELS[confirmedArea]}
-              </p>
-            )}
-            <p className="mt-2 text-xs text-foreground-muted">Código fictício:</p>
-            <p className="mt-1 font-mono text-base tracking-wider text-accent">
-              {confirmationCode}
-            </p>
-            <p className="mt-3 text-[11px] leading-relaxed text-foreground-muted">
-              Fluxo demonstrativo — nenhuma reserva real foi registrada.
-            </p>
-            <button
-              type="button"
-              onClick={close}
-              className="focus-ring mt-5 w-full rounded-full border border-accent/40 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/10"
-            >
-              Fechar
-            </button>
-          </div>
-        ) : (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-3"
-            noValidate
-          >
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-3"
+          noValidate
+        >
             <div className="space-y-2.5">
               <ReservationAreaField control={control} error={errors.area} />
 
@@ -201,20 +190,20 @@ export function ReservationModal() {
               </Field>
             </div>
 
-            <div className="mt-3 shrink-0 space-y-2 border-t border-white/5 pt-3">
-              <p className="text-[11px] text-foreground-muted/80">
-                Demonstrativo — dados não enviados.
-              </p>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-accent-solid focus-ring w-full rounded-full py-2 text-xs font-medium disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isSubmitting ? "Confirmando..." : "Confirmar reserva"}
-              </button>
-            </div>
-          </form>
-        )}
+          <div className="mt-3 shrink-0 space-y-2 border-t border-white/5 pt-3">
+            <p className="text-[11px] text-foreground-muted/80">
+              Ao confirmar, abrimos o WhatsApp com seus dados para finalizar a reserva.
+            </p>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="btn-accent-solid focus-ring flex w-full items-center justify-center gap-2 rounded-full py-2 text-xs font-medium disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <WhatsAppIcon size={15} />
+              Enviar pelo WhatsApp
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
