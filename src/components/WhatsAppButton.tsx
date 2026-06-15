@@ -1,6 +1,6 @@
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
-const WHATSAPP_URL = "https://wa.me/5531321489900";
+const WHATSAPP_URL = "https://wa.me/553184244285";
 
 export function WhatsAppButton() {
   return (

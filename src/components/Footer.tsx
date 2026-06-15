@@ -4,7 +4,7 @@ import { InstagramIcon } from "@/components/InstagramIcon";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const INSTAGRAM_URL = "https://www.instagram.com/cafecomletras/";
-const WHATSAPP_URL = "https://wa.me/5531321489900";
+const WHATSAPP_URL = "https://wa.me/553184244285";
 
 /** Aberto Ter–Dom, 12h–00h (segunda fechado). Calculado no carregamento. */
 function isOpenNow(now = new Date()): boolean {
@@ -55,7 +55,12 @@ export function Footer() {
           </span>
           <span className="inline-flex items-center gap-2.5">
             <Phone size={15} className="text-accent" aria-hidden />
-            (31) 3214-8900
+            <a
+              href="tel:+553132148900"
+              className="focus-ring rounded-sm transition-colors hover:text-accent"
+            >
+              (31) 3214-8900
+            </a>
           </span>
         </div>
 
