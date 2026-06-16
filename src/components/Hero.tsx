@@ -40,7 +40,7 @@ export function Hero() {
 
       <div
         aria-hidden
-        className="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 md:h-56"
+        className="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 sm:h-64 md:h-56 lg:h-72"
       />
 
       {/* Mobile */}
