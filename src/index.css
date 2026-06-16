@@ -403,22 +403,22 @@ button:not(:disabled),
   );
 }
 
-/* Temas claros: suaviza a borda do vídeo com preto semitransparente em vez de
-   uma faixa sólida de --background sobre o hero escuro. */
+/* Temas claros: overlay mais leve para preservar as cores do vídeo. */
 [data-theme="light"] .hero-cinematic-overlay {
   background: radial-gradient(
     circle at center,
-    rgba(8, 8, 8, 0.5) 0%,
-    rgba(8, 8, 8, 0.18) 42%,
-    rgba(8, 8, 8, 0.65) 100%
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.2) 42%,
+    rgba(0, 0, 0, 0.7) 100%
   );
 }
 
 [data-theme="light"] .hero-bottom-fade {
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
+    var(--background) 0%,
+    color-mix(in srgb, var(--background) 60%, transparent) 35%,
+    color-mix(in srgb, var(--background) 15%, transparent) 65%,
     transparent 100%
   );
 }
@@ -500,9 +500,10 @@ button:not(:disabled),
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Temas claros: copy do hero permanece clara sobre o vídeo escuro. Overlay e fade
-   inferior usam opacidades reduzidas (ver .hero-cinematic-overlay, .hero-bottom-fade). */
+/* Temas claros: copy do hero permanece clara sobre o vídeo. Fade inferior usa
+   --background do tema para fundir suavemente com a seção abaixo. */
 [data-theme="light"] {
+  --hero-overlay-bottom: var(--background);
   --hero-foreground: #f2efe2;
   --hero-foreground-muted: #b3b09c;
 }
