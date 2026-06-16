@@ -403,6 +403,24 @@ button:not(:disabled),
   );
 }
 
+/* Temas claros: suaviza a borda do vídeo com preto semitransparente em vez de
+   uma faixa sólida de --background sobre o hero escuro. */
+[data-theme="light"] .hero-bottom-fade {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    transparent 100%
+  );
+  height: 14rem;
+}
+
+@media (min-width: 768px) {
+  [data-theme="light"] .hero-bottom-fade {
+    height: 18rem;
+  }
+}
+
 .hero-title {
   color: var(--hero-foreground);
 }
@@ -480,9 +498,8 @@ button:not(:disabled),
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Temas claros: copy do hero permanece clara sobre o vídeo escuro, mas a base
-   do fade acompanha o fundo da página (--background) para o vídeo se dissolver
-   naturalmente na próxima seção, sem a "barra" dura. */
+/* Temas claros: copy do hero permanece clara sobre o vídeo escuro. O fade inferior
+   usa gradiente semitransparente (ver .hero-bottom-fade) em vez de cor sólida. */
 [data-theme="light"] {
   --hero-foreground: #f2efe2;
   --hero-foreground-muted: #b3b09c;
