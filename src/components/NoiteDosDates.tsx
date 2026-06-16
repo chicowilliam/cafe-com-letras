@@ -1,25 +1,16 @@
-import { Music, Star } from "lucide-react";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
-import { useReservation } from "@/hooks/useReservation";
 import { DATE_PACKAGES, type DatePackageId } from "@/lib/date-experience";
-import { JAZZ_EXPERIENCES } from "@/lib/jazz-experiences";
 
 const BADGE_STYLES: Record<DatePackageId, string> = {
   complete: "border-accent/30 bg-black/65 text-accent",
   vegan: "border-accent-2/30 bg-black/65 text-accent-2",
 };
 
-const JAZZ_BADGE_ICONS = {
-  "jazz-experience": Music,
-  "jazz-lovers": Star,
-} as const;
-
 export function NoiteDosDates() {
   const { openWithPackage } = useExperienceCheckout();
-  const { open: openReservation } = useReservation();
 
   return (
     <section id="noite-dos-dates" className="section-padding bg-background">
@@ -61,32 +52,6 @@ export function NoiteDosDates() {
               />
             </FadeIn>
           ))}
-
-          {JAZZ_EXPERIENCES.map((experience, index) => {
-            const Icon = JAZZ_BADGE_ICONS[experience.id];
-            const cardIndex = DATE_PACKAGES.length + index;
-
-            return (
-              <FadeIn key={experience.id} delay={0.1 + cardIndex * 0.06}>
-                <ExperienceCard
-                  image={experience.image}
-                  imageAlt={experience.imageAlt}
-                  badge={
-                    <>
-                      <Icon size={11} strokeWidth={2} aria-hidden />
-                      {experience.badge}
-                    </>
-                  }
-                  title={experience.title}
-                  subtitle={experience.subtitle}
-                  description={experience.description}
-                  highlights={experience.highlights}
-                  ctaLabel="Reservar lugar"
-                  onCta={openReservation}
-                />
-              </FadeIn>
-            );
-          })}
         </div>
       </div>
     </section>
