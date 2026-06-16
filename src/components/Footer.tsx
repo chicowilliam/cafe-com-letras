@@ -1,5 +1,5 @@
 import { track } from "@vercel/analytics/react";
-import { Clock, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { InstagramIcon } from "@/components/InstagramIcon";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -71,6 +71,13 @@ export function Footer() {
               {CONTACT_PHONE_DISPLAY}
             </a>
           </span>
+          <a
+            href="mailto:contato@cafecomletras.com.br"
+            className="inline-flex items-center gap-2.5 text-sm text-foreground-muted transition-colors duration-200 hover:text-accent"
+          >
+            <Mail size={15} className="text-accent" aria-hidden />
+            contato@cafecomletras.com.br
+          </a>
         </div>
 
         <div className="flex flex-col gap-3 text-sm text-foreground-muted">

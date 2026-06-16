@@ -17,6 +17,9 @@ const ctaPrimary =
 const ctaGhost =
   "btn-ghost focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";
 
+const cardapioLinkClass =
+  "focus-ring font-sans text-sm text-foreground-muted underline-offset-4 transition-colors duration-200 hover:text-accent hover:underline";
+
 const locationBadgeClass =
   "mb-5 inline-flex items-center rounded-full border border-white/10 bg-black/45 px-3 py-1 font-sans text-xs font-medium tracking-tight text-accent backdrop-blur-sm";
 
@@ -70,15 +73,20 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mt-10 flex w-full flex-wrap items-center justify-center gap-3"
+            className="fade-in-up is-visible mt-10 flex w-full flex-col items-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
-            <button type="button" onClick={scrollToDates} className={ctaPrimary}>
-              Noite dos Dates
-            </button>
-            <button type="button" onClick={openReservation} className={ctaGhost}>
-              Fazer reserva
-            </button>
+            <div className="flex w-full flex-wrap items-center justify-center gap-3">
+              <button type="button" onClick={scrollToDates} className={ctaPrimary}>
+                Noite dos Dates
+              </button>
+              <button type="button" onClick={openReservation} className={ctaGhost}>
+                Fazer reserva
+              </button>
+            </div>
+            <a href="#cardapio" className={cardapioLinkClass}>
+              Ver cardápio →
+            </a>
           </div>
         </div>
       </div>
@@ -110,15 +118,20 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mt-12 flex items-center justify-center gap-3"
+            className="fade-in-up is-visible mt-12 flex flex-col items-center gap-3"
             style={{ transitionDelay: "0.3s" }}
           >
-            <button type="button" onClick={scrollToDates} className={ctaPrimary}>
-              Noite dos Dates
-            </button>
-            <button type="button" onClick={openReservation} className={ctaGhost}>
-              Fazer reserva
-            </button>
+            <div className="flex items-center justify-center gap-3">
+              <button type="button" onClick={scrollToDates} className={ctaPrimary}>
+                Noite dos Dates
+              </button>
+              <button type="button" onClick={openReservation} className={ctaGhost}>
+                Fazer reserva
+              </button>
+            </div>
+            <a href="#cardapio" className={cardapioLinkClass}>
+              Ver cardápio →
+            </a>
           </div>
         </div>
       </div>

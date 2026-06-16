@@ -34,6 +34,13 @@ export function ImageMarquee() {
         </FadeIn>
       </div>
 
+      <FadeIn delay={0.04} className="mx-auto mb-8 max-w-2xl text-center md:mb-10">
+        <p className="section-eyebrow">Galeria</p>
+        <p className="mt-2 text-center font-garamond text-lg italic text-foreground-muted">
+          Artistas locais e nacionais. Fotografia, pintura e o melhor da cultura de BH.
+        </p>
+      </FadeIn>
+
       <div className="relative -mx-5 md:-mx-8">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-surface to-transparent md:w-24" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-surface to-transparent md:w-24" />
