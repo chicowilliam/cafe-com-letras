@@ -12,13 +12,13 @@ function scrollToDates() {
 }
 
 const ctaPrimary =
-  "btn-primary focus-ring rounded-full px-8 py-3.5 transition-all duration-300 hover:scale-[1.01]";
+  "btn-primary focus-ring rounded-md px-8 py-3.5 transition-all duration-300 hover:scale-[1.01]";
 
 const ctaGhost =
-  "btn-ghost focus-ring rounded-full px-6 py-3 opacity-85 transition-all duration-300 hover:scale-[1.01]";
+  "btn-ghost-minimal focus-ring rounded-md px-6 py-3 transition-all duration-300 hover:scale-[1.01]";
 
 const cardapioLinkClass =
-  "focus-ring font-sans text-sm text-foreground-muted underline-offset-4 transition-colors duration-200 hover:text-accent hover:underline";
+  "focus-ring hero-cardapio-link font-garamond text-base italic text-foreground-muted/70 transition-colors duration-300 hover:text-accent";
 
 const locationBadgeClass =
   "mb-5 inline-flex items-center rounded-full border border-white/10 bg-black/45 px-3 py-1 font-sans text-xs font-medium tracking-tight text-accent backdrop-blur-sm";
@@ -73,7 +73,7 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mt-10 flex w-full flex-col items-center gap-3"
+            className="fade-in-up is-visible mt-10 flex w-full flex-col items-center gap-5"
             style={{ transitionDelay: "0.3s" }}
           >
             <div className="flex w-full flex-wrap items-center justify-center gap-3">
@@ -84,9 +84,13 @@ export function Hero() {
                 Fazer reserva
               </button>
             </div>
-            <a href="#cardapio" className={cardapioLinkClass}>
-              Ver cardápio →
-            </a>
+            <div className="flex items-center gap-4">
+              <span aria-hidden className="h-px w-8 bg-white/15" />
+              <a href="#cardapio" className={cardapioLinkClass}>
+                Ver cardápio
+              </a>
+              <span aria-hidden className="h-px w-8 bg-white/15" />
+            </div>
           </div>
         </div>
       </div>
@@ -118,7 +122,7 @@ export function Hero() {
           </p>
 
           <div
-            className="fade-in-up is-visible mt-12 flex flex-col items-center gap-3"
+            className="fade-in-up is-visible mt-12 flex flex-col items-center gap-5"
             style={{ transitionDelay: "0.3s" }}
           >
             <div className="flex items-center justify-center gap-3">
@@ -129,9 +133,13 @@ export function Hero() {
                 Fazer reserva
               </button>
             </div>
-            <a href="#cardapio" className={cardapioLinkClass}>
-              Ver cardápio →
-            </a>
+            <div className="flex items-center gap-4">
+              <span aria-hidden className="h-px w-10 bg-white/15" />
+              <a href="#cardapio" className={cardapioLinkClass}>
+                Ver cardápio
+              </a>
+              <span aria-hidden className="h-px w-10 bg-white/15" />
+            </div>
           </div>
         </div>
       </div>
