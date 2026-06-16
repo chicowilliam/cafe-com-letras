@@ -12,10 +12,10 @@ function scrollToDates() {
 }
 
 const ctaPrimary =
-  "btn-primary focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";
+  "btn-primary focus-ring rounded-full px-8 py-3.5 transition-all duration-300 hover:scale-[1.01]";
 
 const ctaGhost =
-  "btn-ghost focus-ring rounded-full px-7 py-3 transition-all duration-300 hover:scale-[1.01]";
+  "btn-ghost focus-ring rounded-full px-6 py-3 opacity-85 transition-all duration-300 hover:scale-[1.01]";
 
 const cardapioLinkClass =
   "focus-ring font-sans text-sm text-foreground-muted underline-offset-4 transition-colors duration-200 hover:text-accent hover:underline";

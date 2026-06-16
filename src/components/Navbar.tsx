@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
-import { NAV_LINKS } from "@/lib/constants";
+import { NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
 
 const HERO_INTERSECTION_THRESHOLD = 0.1;
 
@@ -105,7 +105,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-6">
             <ul className="hidden items-center gap-7 md:flex">
-              {NAV_LINKS.map((link) => {
+              {NAV_DESKTOP_LINKS.map((link) => {
                 const isActive = activeHref === link.href;
                 return (
                   <li key={link.href}>
