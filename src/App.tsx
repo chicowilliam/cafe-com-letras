@@ -15,6 +15,11 @@ import { ReservationProvider } from "@/hooks/useReservation";
 const About = lazy(() =>
   import("@/components/About").then((module) => ({ default: module.About })),
 );
+const Reconhecimentos = lazy(() =>
+  import("@/components/Reconhecimentos").then((module) => ({
+    default: module.Reconhecimentos,
+  })),
+);
 const NoiteDosDates = lazy(() =>
   import("@/components/NoiteDosDates").then((module) => ({
     default: module.NoiteDosDates,
@@ -77,6 +82,9 @@ export default function App() {
           </Suspense>
           <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
             <About />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton className="min-h-[5rem]" />}>
+            <Reconhecimentos />
           </Suspense>
           <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
             <Quotes />
