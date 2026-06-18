@@ -15,6 +15,12 @@ export function Cardapio() {
           />
         </FadeIn>
 
+        <FadeIn className="mt-4 mb-8 text-center md:mb-10">
+          <p className="mx-auto max-w-md font-garamond text-lg italic leading-relaxed text-foreground-muted">
+            Cada prato foi pensado para durar mais do que a refeição. Como um bom livro.
+          </p>
+        </FadeIn>
+
         <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2">
           {CARDAPIO.map((categoria, index) => (
             <FadeIn key={categoria.id} delay={0.05 * index}>
