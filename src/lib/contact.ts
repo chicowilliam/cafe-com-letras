@@ -7,6 +7,9 @@ export const WHATSAPP_NUMBER = "553132148900";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/cafe_com_letras/";
 
+export const SPOTIFY_URL =
+  "https://open.spotify.com/user/31yy7b5iokv7lutg23wlofk4rdku";
+
 /** Monta um link wa.me com mensagem opcional pré-preenchida. */
 export function buildWhatsAppUrl(message?: string): string {
   const base = `https://wa.me/${WHATSAPP_NUMBER}`;
