@@ -77,7 +77,7 @@ export function Footer() {
         <div className="flex flex-col gap-3 text-sm text-foreground-muted">
           <span className="inline-flex items-center gap-2.5">
             <MapPin size={15} className="text-accent" aria-hidden />
-            Rua Antônio de Albuquerque, Savassi — BH
+            Rua Antônio de Albuquerque, 781 · Savassi — BH
           </span>
           <span className="inline-flex items-center gap-2.5">
             <Phone size={15} className="text-accent" aria-hidden />

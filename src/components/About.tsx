@@ -64,7 +64,7 @@ export function About() {
         </div>
 
         <p className="mt-8 font-sans text-xs uppercase tracking-[0.12em] text-foreground-muted/80 md:mt-10">
-          Rua Antônio de Albuquerque · Savassi · Belo Horizonte
+          Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte
         </p>
       </FadeIn>
     </section>

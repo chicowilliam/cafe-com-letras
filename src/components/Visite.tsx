@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 
-const ADDRESS = "Rua Antônio de Albuquerque, Savassi · Belo Horizonte — MG";
+const ADDRESS = "Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte — MG";
 
 const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20com%20Letras%20Savassi%20Belo%20Horizonte";
