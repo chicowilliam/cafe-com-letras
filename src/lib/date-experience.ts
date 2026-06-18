@@ -39,14 +39,6 @@ export const DATE_PACKAGES = [
   },
 ] as const;
 
-export const PAYMENT_METHODS = [
-  { id: "pix", label: "PIX" },
-  { id: "credit", label: "Cartão de Crédito" },
-  { id: "apple", label: "Apple Pay" },
-] as const;
-
-export type PaymentMethodId = (typeof PAYMENT_METHODS)[number]["id"];
-
 export function getPackageById(id: DatePackageId) {
   return DATE_PACKAGES.find((pkg) => pkg.id === id)!;
 }
