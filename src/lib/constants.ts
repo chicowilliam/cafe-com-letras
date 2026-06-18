@@ -1,7 +1,7 @@
 export const NAV_LINKS = [
   { label: "Início", href: "#inicio" },
   { label: "Noite dos Dates", href: "#noite-dos-dates" },
-  { label: "Cardápio", href: "#cardapio" },
+  { label: "Cardápio", href: "/cardapio" },
   { label: "Curadoria da Semana", href: "#curadoria-da-semana" },
   { label: "Programação", href: "#programacao" },
   { label: "História", href: "#sobre" },
@@ -11,7 +11,7 @@ export const NAV_LINKS = [
 /** Links visíveis na barra desktop (menu mobile mantém NAV_LINKS completo). */
 export const NAV_DESKTOP_LINKS = [
   { label: "Início", href: "#inicio" },
-  { label: "Cardápio", href: "#cardapio" },
+  { label: "Cardápio", href: "/cardapio" },
   { label: "Programação", href: "#programacao" },
   { label: "História", href: "#sobre" },
 ] as const;

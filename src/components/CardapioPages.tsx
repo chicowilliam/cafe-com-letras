@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { FadeIn } from "@/components/FadeIn";
 import { CardapioLightbox } from "@/components/CardapioLightbox";
 import { CARDAPIO_IMAGES } from "@/lib/cardapio-images";
 
-export function CardapioDestaques() {
+export function CardapioPages() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const images = CARDAPIO_IMAGES;
 
@@ -13,7 +12,7 @@ export function CardapioDestaques() {
     setActiveIndex((index) => Math.min(images.length - 1, index + 1));
 
   return (
-    <FadeIn>
+    <>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
         {images.map((src, index) => {
           const isLonelyLast =
@@ -48,6 +47,6 @@ export function CardapioDestaques() {
         onPrev={prev}
         onNext={next}
       />
-    </FadeIn>
+    </>
   );
 }

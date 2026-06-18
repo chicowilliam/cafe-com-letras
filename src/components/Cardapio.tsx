@@ -1,7 +1,10 @@
-import { CardapioDestaques } from "@/components/CardapioDestaques";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CARDAPIO } from "@/lib/cardapio";
+
+// Categoria exibida por completo como destaque na landing.
+const FEATURED_ID = "pratos";
+const PREVIEW_COUNT = 2;
 
 export function Cardapio() {
   return (
@@ -22,52 +25,71 @@ export function Cardapio() {
           </p>
         </FadeIn>
 
-        <CardapioDestaques />
-
-        <div className="my-12 flex items-center gap-6">
-          <div className="h-px flex-1 bg-hairline" />
-          <p className="font-garamond text-sm italic text-foreground-muted/60">
-            cardápio completo
-          </p>
-          <div className="h-px flex-1 bg-hairline" />
-        </div>
-
         <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2">
-          {CARDAPIO.map((categoria, index) => (
-            <FadeIn key={categoria.id} delay={0.05 * index}>
-              <h3 className="section-eyebrow border-b border-hairline pb-3">
-                {categoria.label}
-              </h3>
-              <ul className="mt-4 flex flex-col gap-4">
-                {categoria.items.map((item) => (
-                  <li key={item.name} className="flex items-baseline gap-3">
-                    <div className="min-w-0">
-                      <p className="font-display text-base text-foreground">
-                        {item.name}
-                      </p>
-                      {item.description ? (
-                        <p className="mt-0.5 text-sm leading-relaxed text-foreground-muted">
-                          {item.description}
+          {CARDAPIO.map((categoria, index) => {
+            const isFeatured = categoria.id === FEATURED_ID;
+            const items = isFeatured
+              ? categoria.items
+              : categoria.items.slice(0, PREVIEW_COUNT);
+            const hasMore = !isFeatured && categoria.items.length > PREVIEW_COUNT;
+
+            return (
+              <FadeIn key={categoria.id} delay={0.05 * index}>
+                <h3 className="section-eyebrow border-b border-hairline pb-3">
+                  {categoria.label}
+                </h3>
+                <ul className="mt-4 flex flex-col gap-4">
+                  {items.map((item) => (
+                    <li key={item.name} className="flex items-baseline gap-3">
+                      <div className="min-w-0">
+                        <p className="font-display text-base text-foreground">
+                          {item.name}
                         </p>
-                      ) : null}
-                    </div>
-                    <span
-                      aria-hidden
-                      className="mb-1 min-w-3 flex-1 self-end border-b border-dotted border-hairline"
-                    />
-                    <span className="shrink-0 font-display text-sm text-accent">
-                      {item.price}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </FadeIn>
-          ))}
+                        {item.description ? (
+                          <p className="mt-0.5 text-sm leading-relaxed text-foreground-muted">
+                            {item.description}
+                          </p>
+                        ) : null}
+                      </div>
+                      <span
+                        aria-hidden
+                        className="mb-1 min-w-3 flex-1 self-end border-b border-dotted border-hairline"
+                      />
+                      <span className="shrink-0 font-display text-sm text-accent">
+                        {item.price}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                {hasMore ? (
+                  <p className="mt-4 font-garamond text-sm italic text-foreground-muted/50">
+                    ...
+                  </p>
+                ) : null}
+              </FadeIn>
+            );
+          })}
         </div>
 
-        <p className="mt-10 text-xs text-foreground-muted/70">
-          Uma seleção da casa. Cardápio completo e valores sujeitos a alteração — consulte no café.
-        </p>
+        <div className="mt-10 flex justify-center">
+          <a
+            href="/cardapio"
+            className="btn-ghost focus-ring inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 hover:scale-[1.01]"
+          >
+            Ver cardápio completo
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -86,7 +86,7 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-4">
               <span aria-hidden className="h-px w-10 bg-white/15" />
-              <a href="#cardapio" className={cardapioLinkClass}>
+              <a href="/cardapio" className={cardapioLinkClass}>
                 Ver cardápio
               </a>
               <span aria-hidden className="h-px w-10 bg-white/15" />
@@ -135,7 +135,7 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-4">
               <span aria-hidden className="h-px w-10 bg-white/15" />
-              <a href="#cardapio" className={cardapioLinkClass}>
+              <a href="/cardapio" className={cardapioLinkClass}>
                 Ver cardápio
               </a>
               <span aria-hidden className="h-px w-10 bg-white/15" />

@@ -1,17 +1,11 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { Analytics } from "@vercel/analytics/react";
+import { lazy, Suspense } from "react";
 import { BackToTop } from "@/components/BackToTop";
-import { CookieConsent } from "@/components/CookieConsent";
-import { DeferredModals } from "@/components/DeferredModals";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { ReservationPopup } from "@/components/ReservationPopup";
 import { SectionSkeleton } from "@/components/SectionSkeleton";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
-import { ReservationProvider } from "@/hooks/useReservation";
-import { CONSENT_EVENT, getStoredConsent, type ConsentValue } from "@/lib/consent";
 
 // PaletteSwitcher é ferramenta de preview: só carrega em desenvolvimento.
 const PaletteSwitcher = import.meta.env.DEV
@@ -66,72 +60,57 @@ const Newsletter = lazy(() =>
 );
 
 export default function App() {
-  const [consent, setConsent] = useState<ConsentValue | null>(getStoredConsent);
-
-  useEffect(() => {
-    const onChange = (event: Event) => {
-      setConsent((event as CustomEvent<ConsentValue>).detail);
-    };
-    window.addEventListener(CONSENT_EVENT, onChange);
-    return () => window.removeEventListener(CONSENT_EVENT, onChange);
-  }, []);
-
   return (
-    <ReservationProvider>
-      <ExperienceCheckoutProvider>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-surface-elevated focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent"
-        >
-          Pular para o conteúdo
-        </a>
-        <Navbar />
-        <main id="main">
-          <Hero />
-          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
-            <NoiteDosDates />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
-            <Cardapio />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
-            <CuradoriaSemanal />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
-            <Programacao />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
-            <About />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[5rem]" />}>
-            <Reconhecimentos />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
-            <Quotes />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
-            <ImageMarquee />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
-            <Visite />
-          </Suspense>
-          <Suspense fallback={<SectionSkeleton className="min-h-[30vh]" />}>
-            <Newsletter />
-          </Suspense>
-        </main>
-        <Footer />
-        <ReservationPopup />
-        <WhatsAppButton />
-        <BackToTop />
-        {PaletteSwitcher ? (
-          <Suspense fallback={null}>
-            <PaletteSwitcher />
-          </Suspense>
-        ) : null}
-        <CookieConsent />
-        <DeferredModals />
-        {consent === "accepted" ? <Analytics /> : null}
-      </ExperienceCheckoutProvider>
-    </ReservationProvider>
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-surface-elevated focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent"
+      >
+        Pular para o conteúdo
+      </a>
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
+          <NoiteDosDates />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
+          <Cardapio />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
+          <CuradoriaSemanal />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
+          <Programacao />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[5rem]" />}>
+          <Reconhecimentos />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
+          <Quotes />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
+          <ImageMarquee />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
+          <Visite />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton className="min-h-[30vh]" />}>
+          <Newsletter />
+        </Suspense>
+      </main>
+      <Footer />
+      <ReservationPopup />
+      <WhatsAppButton />
+      <BackToTop />
+      {PaletteSwitcher ? (
+        <Suspense fallback={null}>
+          <PaletteSwitcher />
+        </Suspense>
+      ) : null}
+    </>
   );
 }

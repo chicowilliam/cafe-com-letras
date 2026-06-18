@@ -6,5 +6,6 @@
   "installCommand": "npm install",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "regions": ["gru1"]
+  "regions": ["gru1"],
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

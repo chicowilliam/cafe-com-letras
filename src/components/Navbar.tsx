@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
 import { NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
@@ -14,12 +15,23 @@ const navLinkClass =
 
 const navLinkActiveClass = "text-white after:scale-x-100";
 
+function resolveNavHref(href: string, isHome: boolean): string {
+  if (href.startsWith("#") && !isHome) {
+    return `/${href}`;
+  }
+  return href;
+}
+
 export function Navbar() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const visible = useNavbarVisibility();
   const { open: openReservation } = useReservation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
-  const [activeHref, setActiveHref] = useState<string>(NAV_LINKS[0].href);
+  const [pastHero, setPastHero] = useState(!isHome);
+  const [activeHref, setActiveHref] = useState<string>(
+    location.pathname === "/cardapio" ? "/cardapio" : NAV_LINKS[0].href,
+  );
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -29,6 +41,11 @@ export function Navbar() {
   }, [menuOpen]);
 
   useEffect(() => {
+    if (!isHome) {
+      setPastHero(true);
+      return;
+    }
+
     const hero = document.getElementById("inicio");
     if (!hero) return;
 
@@ -43,9 +60,16 @@ export function Navbar() {
 
     observer.observe(hero);
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
+    if (location.pathname === "/cardapio") {
+      setActiveHref("/cardapio");
+      return;
+    }
+
+    if (!isHome) return;
+
     let ticking = false;
 
     const update = () => {
@@ -53,6 +77,7 @@ export function Navbar() {
       let active: string = NAV_LINKS[0].href;
 
       for (const link of NAV_LINKS) {
+        if (!link.href.startsWith("#")) continue;
         const section = document.querySelector<HTMLElement>(link.href);
         if (section && section.offsetTop <= probe) {
           active = link.href;
@@ -72,32 +97,34 @@ export function Navbar() {
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome, location.pathname]);
+
+  const showSolidNav = !isHome || pastHero;
 
   return (
     <>
       <header
         className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
-          pastHero
+          showSolidNav
             ? "navbar--solid border-b border-white/10 bg-background/70 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
         } ${visible ? "navbar-slide--visible" : "navbar-slide--hidden"}`}
       >
         <nav
           className={`relative mx-auto flex max-w-6xl items-center justify-between px-5 pt-[env(safe-area-inset-top)] transition-[height] duration-300 ease-out motion-reduce:transition-none md:px-8 ${
-            pastHero ? "h-14" : "h-16"
+            showSolidNav ? "h-14" : "h-16"
           }`}
         >
           <div
             className={`shrink-0 overflow-hidden transition-[max-width,opacity] duration-300 ease-out motion-reduce:transition-none ${
-              pastHero ? "max-w-[11rem] opacity-100" : "max-w-0 opacity-0"
+              showSolidNav ? "max-w-[11rem] opacity-100" : "max-w-0 opacity-0"
             }`}
           >
             <a
-              href="#inicio"
+              href={isHome ? "#inicio" : "/"}
               className={`brand-wordmark ${wordmarkClass}`}
-              aria-hidden={!pastHero}
-              tabIndex={pastHero ? 0 : -1}
+              aria-hidden={!showSolidNav}
+              tabIndex={showSolidNav ? 0 : -1}
             >
               Café com Letras
             </a>
@@ -106,11 +133,16 @@ export function Navbar() {
           <div className="flex items-center gap-6">
             <ul className="hidden items-center gap-7 md:flex">
               {NAV_DESKTOP_LINKS.map((link) => {
-                const isActive = activeHref === link.href;
+                const href = resolveNavHref(link.href, isHome);
+                const isActive =
+                  link.href.startsWith("#")
+                    ? isHome && activeHref === link.href
+                    : location.pathname === link.href;
+
                 return (
                   <li key={link.href}>
                     <a
-                      href={link.href}
+                      href={href}
                       aria-current={isActive ? "page" : undefined}
                       className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
                     >
@@ -153,11 +185,16 @@ export function Navbar() {
         <div className="flex h-full flex-col px-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))]">
           <ul className="flex flex-col items-start gap-7">
             {NAV_LINKS.map((link) => {
-              const isActive = activeHref === link.href;
+              const href = resolveNavHref(link.href, isHome);
+              const isActive =
+                link.href.startsWith("#")
+                  ? isHome && activeHref === link.href
+                  : location.pathname === link.href;
+
               return (
                 <li key={link.href}>
                   <a
-                    href={link.href}
+                    href={href}
                     onClick={() => setMenuOpen(false)}
                     aria-current={isActive ? "page" : undefined}
                     className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
