@@ -1,3 +1,4 @@
+import { CardapioDestaques } from "@/components/CardapioDestaques";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CARDAPIO } from "@/lib/cardapio";
@@ -20,6 +21,16 @@ export function Cardapio() {
             Cada prato foi pensado para durar mais do que a refeição. Como um bom livro.
           </p>
         </FadeIn>
+
+        <CardapioDestaques />
+
+        <div className="my-12 flex items-center gap-6">
+          <div className="h-px flex-1 bg-hairline" />
+          <p className="font-garamond text-sm italic text-foreground-muted/60">
+            cardápio completo
+          </p>
+          <div className="h-px flex-1 bg-hairline" />
+        </div>
 
         <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2">
           {CARDAPIO.map((categoria, index) => (
