@@ -1,16 +1,26 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { BackToTop } from "@/components/BackToTop";
 import { CookieConsent } from "@/components/CookieConsent";
 import { DeferredModals } from "@/components/DeferredModals";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
-import { PaletteSwitcher } from "@/components/PaletteSwitcher";
 import { ReservationPopup } from "@/components/ReservationPopup";
 import { SectionSkeleton } from "@/components/SectionSkeleton";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
+import { CONSENT_EVENT, getStoredConsent, type ConsentValue } from "@/lib/consent";
+
+// PaletteSwitcher é ferramenta de preview: só carrega em desenvolvimento.
+const PaletteSwitcher = import.meta.env.DEV
+  ? lazy(() =>
+      import("@/components/PaletteSwitcher").then((module) => ({
+        default: module.PaletteSwitcher,
+      })),
+    )
+  : null;
 
 const About = lazy(() =>
   import("@/components/About").then((module) => ({ default: module.About })),
@@ -56,6 +66,16 @@ const Newsletter = lazy(() =>
 );
 
 export default function App() {
+  const [consent, setConsent] = useState<ConsentValue | null>(getStoredConsent);
+
+  useEffect(() => {
+    const onChange = (event: Event) => {
+      setConsent((event as CustomEvent<ConsentValue>).detail);
+    };
+    window.addEventListener(CONSENT_EVENT, onChange);
+    return () => window.removeEventListener(CONSENT_EVENT, onChange);
+  }, []);
+
   return (
     <ReservationProvider>
       <ExperienceCheckoutProvider>
@@ -103,9 +123,14 @@ export default function App() {
         <ReservationPopup />
         <WhatsAppButton />
         <BackToTop />
-        <PaletteSwitcher />
+        {PaletteSwitcher ? (
+          <Suspense fallback={null}>
+            <PaletteSwitcher />
+          </Suspense>
+        ) : null}
         <CookieConsent />
         <DeferredModals />
+        {consent === "accepted" ? <Analytics /> : null}
       </ExperienceCheckoutProvider>
     </ReservationProvider>
   );
