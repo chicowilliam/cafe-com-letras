@@ -10,6 +10,7 @@ import { ReservationProvider } from "@/hooks/useReservation";
 import { CONSENT_EVENT, getStoredConsent, type ConsentValue } from "@/lib/consent";
 import { hydrateStoredPalette } from "@/lib/palette-switcher";
 import CardapioPage from "@/pages/CardapioPage";
+import HappyHourPage from "@/pages/HappyHourPage";
 import "./index.css";
 
 if (import.meta.env.DEV) {
@@ -43,6 +44,7 @@ function Root() {
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/cardapio" element={<CardapioPage />} />
+            <Route path="/happy-hour" element={<HappyHourPage />} />
           </Routes>
         </BrowserRouter>
         <DeferredModals />

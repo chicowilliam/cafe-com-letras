@@ -147,6 +147,12 @@ export function Navbar() {
                       className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
                     >
                       {link.label}
+                      {link.href === "/happy-hour" ? (
+                        <span
+                          className="ml-1.5 inline-flex h-1.5 w-1.5 rounded-full bg-amber-400 align-middle"
+                          aria-hidden
+                        />
+                      ) : null}
                     </a>
                   </li>
                 );
