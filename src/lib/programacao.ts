@@ -2,8 +2,15 @@ import imgJazz from "@/assets/images/livraria/grs-0223.jpg";
 import imgLiteratura from "@/assets/images/livraria/grs-0209.jpg";
 import imgPiano from "@/assets/images/livraria/grs-0207.jpg";
 import imgSarau from "@/assets/images/livraria/grs-0249.jpg";
+import { BLUE_MOON_IMAGES } from "@/lib/blue-moon-images";
 
-export type EventCategory = "jazz" | "piano-bar" | "literatura" | "sarau" | "outro";
+export type EventCategory =
+  | "jazz"
+  | "piano-bar"
+  | "literatura"
+  | "sarau"
+  | "outro"
+  | "happy-hour";
 
 export type ProgramacaoEvento = {
   id: string;
@@ -55,6 +62,12 @@ export const CATEGORY_CONFIG: Record<
       "border-white/15 bg-white/5 text-foreground-muted hover:border-white/25 hover:bg-white/8",
     tagClass: "border-white/15 bg-white/5 text-foreground-muted",
   },
+  "happy-hour": {
+    label: "Happy Hour",
+    chipClass:
+      "border-amber-400/35 bg-amber-400/10 text-amber-300 hover:border-amber-400/50 hover:bg-amber-400/15",
+    tagClass: "border-amber-400/30 bg-amber-400/10 text-amber-300",
+  },
 };
 
 export const FILTER_CHIPS: { value: CategoryFilter; label: string }[] = [
@@ -63,6 +76,7 @@ export const FILTER_CHIPS: { value: CategoryFilter; label: string }[] = [
   { value: "piano-bar", label: CATEGORY_CONFIG["piano-bar"].label },
   { value: "literatura", label: CATEGORY_CONFIG.literatura.label },
   { value: "sarau", label: CATEGORY_CONFIG.sarau.label },
+  { value: "happy-hour", label: "Happy Hour" },
 ];
 
 export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
@@ -249,12 +263,44 @@ export function isEventInMonth(isoDate: string, viewMonth: Date): boolean {
   );
 }
 
+export function generateHappyHourEvents(viewMonth: Date): ProgramacaoEvento[] {
+  const year = viewMonth.getFullYear();
+  const month = viewMonth.getMonth();
+  const events: ProgramacaoEvento[] = [];
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(year, month, day);
+    // 4 = quinta-feira (0=dom, 1=seg, ..., 4=qui)
+    if (date.getDay() !== 4) continue;
+
+    const isoDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+    events.push({
+      id: `happy-hour-blue-moon-${isoDate}`,
+      date: isoDate,
+      time: "17:00",
+      title: "Happy Hour com Blue Moon",
+      category: "happy-hour",
+      description:
+        "Toda quinta a partir das 17h: chopp Blue Moon gelado com preço especial, petiscos da casa e a melhor vista da Savassi.",
+      image: BLUE_MOON_IMAGES[0],
+    });
+  }
+
+  return events;
+}
+
 export function filterProgramacao(
   events: ProgramacaoEvento[],
   viewMonth: Date,
   category: CategoryFilter,
 ): ProgramacaoEvento[] {
-  return events
+  const recurringEvents = generateHappyHourEvents(viewMonth);
+  const allEvents = [...events, ...recurringEvents];
+
+  return allEvents
     .filter((event) => isEventInMonth(event.date, viewMonth))
     .filter((event) => category === "all" || event.category === category)
     .sort((a, b) => {

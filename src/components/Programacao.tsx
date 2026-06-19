@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useReservation } from "@/hooks/useReservation";
+import { BLUE_MOON_IMAGES } from "@/lib/blue-moon-images";
 import {
   CATEGORY_CONFIG,
   FILTER_CHIPS,
@@ -445,6 +446,34 @@ export function Programacao() {
             Letras, curada mês a mês na Savassi.
           </p>
         </FadeIn>
+
+        {new Date().getDay() === 4 && (
+          <FadeIn>
+            <div className="mb-6 flex items-center gap-4 rounded-md border border-amber-400/20 bg-amber-400/8 px-5 py-4">
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-400" />
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-amber-300">
+                  Hoje tem Happy Hour com Blue Moon
+                </p>
+                <p className="mt-0.5 text-xs text-foreground-muted">
+                  A partir das 17h · Toda quinta-feira
+                </p>
+              </div>
+              {BLUE_MOON_IMAGES[0] && (
+                <img
+                  src={BLUE_MOON_IMAGES[0]}
+                  alt="Blue Moon"
+                  className="ml-auto hidden h-12 w-12 shrink-0 rounded-sm object-cover sm:block"
+                  loading="eager"
+                  decoding="async"
+                />
+              )}
+            </div>
+          </FadeIn>
+        )}
 
         <div className="sticky top-14 z-20 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background/95 px-5 py-4 backdrop-blur-md md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
           <MonthNav
