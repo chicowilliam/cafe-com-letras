@@ -1,3 +1,4 @@
+import capaPt from "@/assets/images/cardapio/capa-pt.jfif";
 import ptPag01 from "@/assets/images/cardapio/pt/01_info_geral.png";
 import ptPag02 from "@/assets/images/cardapio/pt/02_bebidas_quentes.png";
 import ptPag03 from "@/assets/images/cardapio/pt/03_bebidas_geladas.png";
@@ -33,9 +34,9 @@ export const CARDAPIO_PAGES = {
   en: [enPag01, enPag02, enPag03, enPag04, enPag05],
 } as const;
 
-// Sem arquivos de capa dedicados: usa a primeira página de cada menu como capa.
+// Capa PT dedicada; EN usa a primeira página até haver capa-en.
 export const CARDAPIO_CAPAS = {
-  pt: { src: CARDAPIO_PAGES.pt[0], label: "Cardápio", lang: "pt" },
+  pt: { src: capaPt, label: "Cardápio", lang: "pt" },
   en: { src: CARDAPIO_PAGES.en[0], label: "English Menu", lang: "en" },
 } as const;
 
