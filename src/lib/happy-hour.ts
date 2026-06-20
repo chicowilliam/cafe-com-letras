@@ -1,6 +1,3 @@
-import img01 from "@/assets/images/blue-moon/01.jpg";
-import img02 from "@/assets/images/blue-moon/02.jpg";
-
 export type HappyHourItem = {
   name: string;
   description: string;
@@ -10,78 +7,75 @@ export type HappyHourItem = {
   badge?: string;
 };
 
-export type HappyHourCategoria = {
+export type HappyHourBloco = {
   id: string;
-  label: string;
-  sublabel?: string;
+  titulo: string;
   items: HappyHourItem[];
+  /** Índices de BLUE_MOON_IMAGES usados na grade 2×2 (máx 4). */
+  imageIndexes: number[];
 };
 
-export const HAPPY_HOUR_CATEGORIAS: HappyHourCategoria[] = [
-  {
-    id: "drinks",
-    label: "Drinks & Chopps",
-    sublabel: "Preços especiais toda quinta a partir das 17h",
-    items: [
-      {
-        name: "Blue Moon Belgian White",
-        description:
-          "Cerveja de trigo belga com notas cítricas e um toque de coentro. " +
-          "Servida com fatia de laranja, do jeito que a Blue Moon pede.",
-        image: img01,
-        badge: "Blue Moon",
-      },
-      {
-        name: "Blue Moon Light Sky",
-        description:
-          "Versão leve e refrescante, com menos calorias e todo o sabor " +
-          "cítrico característico da Blue Moon.",
-        image: img02,
-        badge: "Blue Moon",
-      },
-      {
-        name: "Chope Pilsen",
-        description: "Gelado, cremoso e na medida certa para começar a quinta. 300ml.",
-        price: "R$ 15,00",
-      },
-      {
-        name: "Aperol Spritz",
-        description: "Aperol, espumante e água com gás — o clássico do entardecer.",
-        price: "R$ 35,00",
-      },
-      {
-        name: "Negroni",
-        description: "Gin, Campari e vermute tinto, com casca de laranja.",
-        price: "R$ 25,00",
-      },
-    ],
-  },
+export const HAPPY_HOUR_BLOCOS: HappyHourBloco[] = [
   {
     id: "petiscos",
-    label: "Para petiscar",
-    sublabel: "Clássicos da casa para acompanhar",
+    titulo: "Para petiscar",
+    imageIndexes: [0, 1, 2, 3],
     items: [
       {
         name: "Dupla de pão de queijo",
-        description: "Tradição mineira, quentinho. 2 unidades.",
+        description: "Tradição mineira, quentinho e na medida para abrir a quinta. 2 unidades.",
         price: "R$ 5,50",
       },
       {
         name: "Bruschettas clássicas",
-        description: "Mussarela de búfala e tomate italiano. 6 unidades.",
+        description:
+          "Pão italiano tostado com mussarela de búfala e tomate italiano. 6 unidades.",
         price: "R$ 42,00",
       },
       {
         name: "Carpaccio de carne clássico",
-        description: "Molho de alcaparras, parmesão e rúcula, com baguete.",
+        description:
+          "Finas fatias com molho de alcaparras, parmesão e rúcula, acompanhadas de baguete.",
         price: "R$ 48,00",
       },
       {
         name: "Fish and chips",
-        description: "Peixe do dia empanado na farinha panko, chips e molho aioli.",
+        description:
+          "Peixe do dia empanado na farinha panko, com chips crocantes e molho aioli da casa.",
         price: "R$ 57,00",
       },
     ],
+  },
+];
+
+export const HAPPY_HOUR_DRINKS: HappyHourItem[] = [
+  {
+    name: "Blue Moon Belgian White",
+    description:
+      "Cerveja de trigo belga com notas cítricas e um toque de coentro. " +
+      "Servida com fatia de laranja, do jeito que a Blue Moon pede.",
+    badge: "Blue Moon",
+  },
+  {
+    name: "Blue Moon Light Sky",
+    description:
+      "Versão leve e refrescante, com menos calorias e todo o sabor cítrico característico.",
+    badge: "Blue Moon",
+  },
+  {
+    name: "Chope Pilsen",
+    description: "Gelado, cremoso e na medida certa para começar a quinta. 300ml.",
+    price: "R$ 15,00",
+  },
+  {
+    name: "Aperol Spritz",
+    description: "Aperol, espumante e água com gás — o clássico do entardecer.",
+    price: "R$ 35,00",
+  },
+  {
+    name: "Negroni",
+    description: "Gin, Campari e vermute tinto, com casca de laranja.",
+    price: "R$ 25,00",
   },
 ];
 

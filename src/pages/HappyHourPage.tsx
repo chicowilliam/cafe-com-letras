@@ -1,9 +1,13 @@
 import { useEffect, useRef } from "react";
 import { FadeIn } from "@/components/FadeIn";
+import { HappyHourBlocoCard } from "@/components/HappyHourBloco";
 import { HappyHourItemCard } from "@/components/HappyHourItemCard";
 import { useReservation } from "@/hooks/useReservation";
-import { BLUE_MOON_IMAGES } from "@/lib/blue-moon-images";
-import { HAPPY_HOUR_CATEGORIAS, HAPPY_HOUR_INFO } from "@/lib/happy-hour";
+import {
+  HAPPY_HOUR_BLOCOS,
+  HAPPY_HOUR_DRINKS,
+  HAPPY_HOUR_INFO,
+} from "@/lib/happy-hour";
 
 export default function HappyHourPage() {
   const contentRef = useRef<HTMLElement>(null);
@@ -67,56 +71,35 @@ export default function HappyHourPage() {
           </div>
         </div>
 
-        <div className="section-padding mx-auto max-w-3xl space-y-14">
-          {HAPPY_HOUR_CATEGORIAS.map((categoria, catIndex) => (
-            <FadeIn key={categoria.id} delay={0.06 * catIndex}>
-              <div>
-                <div className="mb-6">
-                  <h2 className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
-                    {categoria.label}
-                  </h2>
-                  {categoria.sublabel ? (
-                    <p className="mt-1 font-garamond text-base italic text-foreground-muted">
-                      {categoria.sublabel}
-                    </p>
-                  ) : null}
-                </div>
-
-                <div className="flex flex-col gap-4">
-                  {categoria.items.map((item) => (
-                    <HappyHourItemCard key={item.name} item={item} />
-                  ))}
-                </div>
-              </div>
-            </FadeIn>
-          ))}
+        <div className="section-padding mx-auto max-w-4xl">
+          <div className="flex flex-col gap-16 md:gap-20">
+            {HAPPY_HOUR_BLOCOS.map((bloco, index) => (
+              <FadeIn key={bloco.id} delay={0.06 * index}>
+                <HappyHourBlocoCard bloco={bloco} reverse={index % 2 !== 0} />
+              </FadeIn>
+            ))}
+          </div>
         </div>
 
-        {BLUE_MOON_IMAGES.length > 1 ? (
-          <div className="section-padding border-t border-hairline bg-surface">
-            <div className="mx-auto max-w-3xl">
-              <FadeIn>
-                <p className="section-eyebrow mb-6 text-center">Galeria</p>
-                <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                  {BLUE_MOON_IMAGES.slice(1).map((src, i) => (
-                    <div
-                      key={i}
-                      className="aspect-[4/3] overflow-hidden rounded-sm"
-                    >
-                      <img
-                        src={src}
-                        alt="Happy Hour Café com Letras"
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover transition-[filter] duration-300 hover:brightness-105"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </FadeIn>
-            </div>
+        <div className="section-padding border-t border-hairline bg-surface">
+          <div className="mx-auto max-w-3xl">
+            <FadeIn>
+              <div className="mb-6">
+                <h2 className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
+                  Drinks & Chopps
+                </h2>
+                <p className="mt-1 font-garamond text-base italic text-foreground-muted">
+                  Preços especiais toda quinta a partir das 17h
+                </p>
+              </div>
+              <div className="flex flex-col gap-4">
+                {HAPPY_HOUR_DRINKS.map((item) => (
+                  <HappyHourItemCard key={item.name} item={item} />
+                ))}
+              </div>
+            </FadeIn>
           </div>
-        ) : null}
+        </div>
 
         <div className="section-padding border-t border-hairline">
           <div className="mx-auto max-w-3xl text-center">
