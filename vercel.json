@@ -5,7 +5,12 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "outputDirectory": "dist",
-  "cleanUrls": true,
   "regions": ["gru1"],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/politica-de-privacidade",
+      "destination": "/politica-de-privacidade.html"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
