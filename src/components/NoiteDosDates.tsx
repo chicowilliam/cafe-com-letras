@@ -1,17 +1,9 @@
-import { ExperienceCard } from "@/components/ExperienceCard";
+import { ArrowRight, Heart } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
-import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
-import { DATE_PACKAGES, type DatePackageId } from "@/lib/date-experience";
-
-const BADGE_STYLES: Record<DatePackageId, string> = {
-  complete: "border-accent/30 bg-black/65 text-accent",
-  vegan: "border-accent-2/30 bg-black/65 text-accent-2",
-};
+import { DATE_PACKAGES } from "@/lib/date-experience";
 
 export function NoiteDosDates() {
-  const { openWithPackage } = useExperienceCheckout();
-
   return (
     <section id="noite-dos-dates" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
@@ -24,35 +16,36 @@ export function NoiteDosDates() {
         </FadeIn>
 
         <FadeIn delay={0.06}>
-          <p className="mb-10 max-w-3xl text-center text-sm leading-relaxed text-foreground-muted md:mb-12 md:text-left md:text-base">
-            Conheça a Noite dos Dates, uma experiência imersiva feita para quem busca
-            um romance autêntico e sem pressa na Savassi. Enquanto o jazz ao vivo dita
-            o ritmo sob luzes baixas, vocês desfrutam de um menu degustação exclusivo
-            e alta coquetelaria desenhada para compartilhar. O refúgio perfeito para se
-            desconectar do mundo exterior e viver uma noite memorável a dois.
+          <p className="mb-8 max-w-3xl text-center text-sm leading-relaxed text-foreground-muted md:mb-10 md:text-left md:text-base">
+            Conheça a Noite dos Dates, uma experiência imersiva feita para quem busca um
+            romance autêntico e sem pressa na Savassi — jazz ao vivo, luzes baixas e menu
+            degustação exclusivo para compartilhar a dois.
           </p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
-          {DATE_PACKAGES.map((pkg, index) => (
-            <FadeIn key={pkg.id} delay={0.1 + index * 0.06}>
-              <ExperienceCard
-                image={pkg.image}
-                imageAlt={pkg.imageAlt}
-                badge={pkg.badge}
-                badgeClassName={BADGE_STYLES[pkg.id]}
-                title={pkg.title}
-                subtitle={pkg.subtitle}
-                description={pkg.description}
-                highlights={pkg.highlights}
-                price={pkg.price}
-                priceNote={pkg.priceNote}
-                ctaLabel="Selecionar pacote"
-                onCta={() => openWithPackage(pkg.id)}
-              />
-            </FadeIn>
-          ))}
-        </div>
+        <FadeIn delay={0.1}>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center md:justify-start">
+            {DATE_PACKAGES.map((pkg) => (
+              <p key={pkg.id} className="text-sm text-foreground-muted">
+                <span className="font-display text-foreground">{pkg.title}</span>
+                {" · "}
+                <span className="text-accent">{pkg.price}</span>
+                <span className="text-foreground-muted/70"> {pkg.priceNote}</span>
+              </p>
+            ))}
+          </div>
+
+          <div className="mt-8 flex justify-center md:justify-start">
+            <a
+              href="/noite-dos-dates"
+              className="btn-primary focus-ring inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            >
+              <Heart size={15} strokeWidth={1.75} aria-hidden />
+              Conheça a experiência completa
+              <ArrowRight size={15} strokeWidth={1.75} aria-hidden />
+            </a>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

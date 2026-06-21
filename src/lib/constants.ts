@@ -1,8 +1,7 @@
 export const NAV_LINKS = [
   { label: "Início", href: "#inicio" },
-  { label: "Noite dos Dates", href: "#noite-dos-dates" },
+  { label: "Noite dos Dates", href: "/noite-dos-dates" },
   { label: "Cardápio", href: "/cardapio" },
-  { label: "Happy Hour", href: "/happy-hour" },
   { label: "Curadoria da Semana", href: "#curadoria-da-semana" },
   { label: "Programação", href: "#programacao" },
   { label: "História", href: "#sobre" },
@@ -13,7 +12,7 @@ export const NAV_LINKS = [
 export const NAV_DESKTOP_LINKS = [
   { label: "Início", href: "#inicio" },
   { label: "Cardápio", href: "/cardapio" },
-  { label: "Happy Hour", href: "/happy-hour" },
+  { label: "Noite dos Dates", href: "/noite-dos-dates" },
   { label: "Programação", href: "#programacao" },
   { label: "História", href: "#sobre" },
 ] as const;

@@ -68,6 +68,11 @@ export function Navbar() {
       return;
     }
 
+    if (location.pathname === "/noite-dos-dates") {
+      setActiveHref("/noite-dos-dates");
+      return;
+    }
+
     if (!isHome) return;
 
     let ticking = false;
@@ -147,9 +152,9 @@ export function Navbar() {
                       className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
                     >
                       {link.label}
-                      {link.href === "/happy-hour" ? (
+                      {link.href === "/noite-dos-dates" ? (
                         <span
-                          className="ml-1.5 inline-flex h-1.5 w-1.5 rounded-full bg-amber-400 align-middle"
+                          className="ml-1.5 inline-flex h-1.5 w-1.5 rounded-full bg-[#c45c6a] align-middle"
                           aria-hidden
                         />
                       ) : null}

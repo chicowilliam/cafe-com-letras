@@ -1,0 +1,71 @@
+[data-page-theme="noite-dos-dates"] {
+  --background: #1a0f14;
+  --surface: #241018;
+  --surface-elevated: #2e141c;
+  --foreground: #f5ebe8;
+  --foreground-muted: #c4a8ad;
+  --muted: #c4a8ad;
+  --accent: #d4847a;
+  --accent-hover: #e09890;
+  --accent-active: #c06e64;
+  --accent-foreground: #1a0f14;
+  --accent-2: #8b2942;
+  --accent-2-hover: #9e3450;
+  --accent-2-active: #721f32;
+  --hairline: rgba(255, 200, 210, 0.1);
+  --ink: #1a0f14;
+  --shadow-card: 0 0 0 1px rgba(255, 180, 190, 0.04), 0 2px 8px rgba(0, 0, 0, 0.2),
+    0 4px 16px rgba(40, 10, 20, 0.25);
+  --shadow-card-hover: 0 0 0 1px rgba(255, 180, 190, 0.08), 0 4px 16px rgba(0, 0, 0, 0.25),
+    0 8px 32px rgba(60, 15, 30, 0.35);
+  --selection-bg: rgba(212, 132, 122, 0.28);
+  --selection-color: var(--foreground);
+  --tap-highlight: rgba(212, 132, 122, 0.15);
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+.noite-dos-dates-page {
+  min-height: 100dvh;
+}
+
+.ndd-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.ndd-hero-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139, 41, 66, 0.35), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(212, 132, 122, 0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(139, 41, 66, 0.15), transparent 55%);
+}
+
+.ndd-hero-image {
+  filter: brightness(0.72) saturate(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ndd-hero-glow {
+    background: rgba(36, 16, 24, 0.5);
+  }
+}
+
+[data-page-theme="noite-dos-dates"] .card-experience img {
+  filter: brightness(0.88) saturate(1.08);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-page-theme="noite-dos-dates"] .card-experience:hover img {
+    filter: brightness(0.92) saturate(1.1);
+  }
+}
+
+[data-page-theme="noite-dos-dates"] .ndd-atmosphere-card {
+  border: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--surface) 88%, var(--accent-2) 12%);
+  border-radius: var(--radius-md);
+}

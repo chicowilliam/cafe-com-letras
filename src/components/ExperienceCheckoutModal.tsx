@@ -6,10 +6,11 @@ import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { buildWhatsAppUrl } from "@/lib/contact";
 import { DATE_PACKAGES, getPackageById } from "@/lib/date-experience";
+import "@/styles/noite-dos-dates-theme.css";
 
 export function ExperienceCheckoutModal() {
   const titleId = useId();
-  const { isOpen, selectedPackage, close, setSelectedPackage } =
+  const { isOpen, selectedPackage, checkoutTheme, close, setSelectedPackage } =
     useExperienceCheckout();
   const dialogRef = useRef<HTMLDivElement>(null);
   const [name, setName] = useState("");
@@ -71,7 +72,10 @@ export function ExperienceCheckoutModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4">
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4"
+      data-page-theme={checkoutTheme === "dates" ? "noite-dos-dates" : undefined}
+    >
       <button
         type="button"
         aria-label="Fechar"
