@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CardapioHero } from "@/components/CardapioHero";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
 import { FadeIn } from "@/components/FadeIn";
 import { useCardapioSectionSpy } from "@/hooks/useCardapioSectionSpy";
@@ -65,16 +64,14 @@ export default function CardapioPage() {
 
       <main className="min-h-dvh bg-background">
         {!lang && (
-          <>
-            <CardapioHero />
-
-            <div className="section-padding">
-              <FadeIn className="mx-auto max-w-2xl text-center">
-                <p className="section-eyebrow">Escolha o idioma</p>
-                <h2 className="mt-2 font-display text-xl tracking-tight text-foreground md:text-2xl">
-                  Abrir cardápio
-                </h2>
-              </FadeIn>
+          <div className="section-padding">
+            <FadeIn className="mx-auto max-w-2xl text-center">
+              <p className="section-eyebrow">Escolha o idioma</p>
+              <h1 className="section-title mt-2 text-foreground">Cardápio</h1>
+              <p className="mt-3 font-garamond text-lg italic text-foreground-muted">
+                da cozinha mineira ao café autoral
+              </p>
+            </FadeIn>
 
               <div className="mx-auto mt-10 grid max-w-2xl grid-cols-2 gap-4 md:gap-6">
                 {(["pt", "en"] as CardapioLang[]).map((key) => {
@@ -109,8 +106,7 @@ export default function CardapioPage() {
                   );
                 })}
               </div>
-            </div>
-          </>
+          </div>
         )}
 
         {lang && (
@@ -132,7 +128,7 @@ export default function CardapioPage() {
                 />
               </aside>
 
-              <div className="w-full max-w-[700px] lg:mx-8">
+              <div className="w-full max-w-[500px] lg:mx-8">
                 {sections.map((section, index) => (
                   <section
                     key={section.id}
@@ -149,7 +145,7 @@ export default function CardapioPage() {
                       }
                       loading={index === 0 ? "eager" : "lazy"}
                       decoding="async"
-                      className="mb-3 w-full last:mb-0"
+                      className="mx-auto mb-3 block h-auto w-full max-w-[500px] last:mb-0"
                     />
                   </section>
                 ))}

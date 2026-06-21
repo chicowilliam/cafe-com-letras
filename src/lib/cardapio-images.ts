@@ -1,4 +1,3 @@
-import capaPt from "@/assets/images/cardapio/capa-pt.jfif";
 import ptPag01 from "@/assets/images/cardapio/pt/01_info_geral.png";
 import ptPag02 from "@/assets/images/cardapio/pt/02_bebidas_quentes.png";
 import ptPag03 from "@/assets/images/cardapio/pt/03_bebidas_geladas.png";
@@ -16,6 +15,8 @@ import enPag02 from "@/assets/images/cardapio/en/02.png";
 import enPag03 from "@/assets/images/cardapio/en/03.png";
 import enPag04 from "@/assets/images/cardapio/en/04.png";
 import enPag05 from "@/assets/images/cardapio/en/05.png";
+
+import { CARDAPIO_COVER_IMAGES } from "@/lib/cardapio-cover-images";
 
 export type CardapioLang = "pt" | "en";
 
@@ -84,8 +85,8 @@ export const CARDAPIO_PAGES: Record<CardapioLang, string[]> = {
 };
 
 export const CARDAPIO_CAPAS = {
-  pt: { src: capaPt, label: "Cardápio", lang: "pt" as const },
-  en: { src: CARDAPIO_PAGES.en[0]!, label: "English Menu", lang: "en" as const },
+  pt: { src: CARDAPIO_COVER_IMAGES.pt, label: "Cardápio", lang: "pt" as const },
+  en: { src: CARDAPIO_COVER_IMAGES.en, label: "English Menu", lang: "en" as const },
 } as const;
 
 export function scrollToCardapioSection(sectionId: string) {

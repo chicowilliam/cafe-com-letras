@@ -55,7 +55,7 @@ export function CardapioSectionNav({
         aria-label="Seções do cardápio"
         className="border-b border-hairline bg-background/95 backdrop-blur-md"
       >
-        <div className="mx-auto flex max-w-[700px] gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto flex max-w-[500px] gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {sections.map((section) => (
             <NavButton
               key={section.id}
