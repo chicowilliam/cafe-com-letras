@@ -78,3 +78,14 @@ export function heroVideoPoster(
     `q_auto:best,${fmt},w_${posterWidth},c_limit,so_0`,
   );
 }
+
+/** MP4 primeiro (Safari/iOS); WebM como alternativa leve. */
+export function heroVideoSources(
+  publicId = HERO_CLOUDINARY_VIDEO_ID,
+  delivery: HeroVideoDelivery = getHeroVideoDelivery(),
+) {
+  return [
+    { src: heroVideoMp4(publicId, delivery), type: "video/mp4" },
+    { src: heroVideoWebm(publicId, delivery), type: "video/webm" },
+  ] as const;
+}

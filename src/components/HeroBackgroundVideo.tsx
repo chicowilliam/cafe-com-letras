@@ -3,11 +3,11 @@ import { HERO_IMAGE } from "@/lib/hero-image";
 import {
   HERO_CLOUDINARY_VIDEO_ID,
   getHeroVideoDelivery,
-  heroVideoMp4,
   heroVideoPoster,
-  heroVideoWebm,
+  heroVideoSources,
   type HeroVideoDelivery,
 } from "@/lib/hero-video";
+import { loadVideoSources } from "@/lib/video-utils";
 
 const videoClassName =
   "hero-bg-video absolute inset-0 h-full w-full scale-[1.06] object-cover object-[50%_62%] md:scale-100 md:object-center";
@@ -32,15 +32,25 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
     const video = videoRef.current;
     if (!video) return;
 
-    const play = () => {
-      video.play().catch(() => setUseFallbackImage(true));
+    const sources = heroVideoSources(HERO_CLOUDINARY_VIDEO_ID, delivery).map(
+      ({ src, type }) => ({ src, type }),
+    );
+
+    const cleanupSources = loadVideoSources(video, sources);
+
+    const tryPlay = () => {
+      void video.play().catch(() => {});
     };
 
-    video.addEventListener("loadeddata", play);
-    play();
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
 
-    return () => video.removeEventListener("loadeddata", play);
-  }, [reduceMotion, useFallbackImage]);
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      cleanupSources();
+    };
+  }, [delivery, reduceMotion, useFallbackImage]);
 
   if (useFallbackImage || reduceMotion) {
     return (
@@ -57,8 +67,6 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
   const posterAvif = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "avif", delivery.posterWidth);
   const posterWebp = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "webp", delivery.posterWidth);
   const posterJpg = heroVideoPoster(HERO_CLOUDINARY_VIDEO_ID, "jpg", delivery.posterWidth);
-  const mp4Src = heroVideoMp4(HERO_CLOUDINARY_VIDEO_ID, delivery);
-  const webmSrc = heroVideoWebm(HERO_CLOUDINARY_VIDEO_ID, delivery);
 
   return (
     <>
@@ -71,7 +79,6 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
           aria-hidden
           decoding="async"
           fetchPriority="high"
-          onError={() => setUseFallbackImage(true)}
           className={`${videoClassName} transition-opacity duration-700 motion-reduce:transition-none ${
             videoReady ? "opacity-0" : "opacity-100"
           }`}
@@ -84,7 +91,7 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         disablePictureInPicture
         controls={false}
         controlsList="nodownload noplaybackrate noremoteplayback"
@@ -95,10 +102,7 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
         className={`${videoClassName} transition-opacity duration-700 motion-reduce:transition-none ${
           videoReady ? "opacity-100" : "opacity-0"
         }`}
-      >
-        <source src={webmSrc} type="video/webm" />
-        <source src={mp4Src} type="video/mp4" />
-      </video>
+      />
     </>
   );
 });
