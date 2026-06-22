@@ -103,3 +103,74 @@ export function getCafeDaTardeImageBySlug(slug: CafeDaTardeImage["slug"]) {
   }
   return image;
 }
+
+export type CafeDaTardeChapterConfig = {
+  itemKey: string;
+  imageSlug: CafeDaTardeImage["slug"];
+  secondarySlug?: CafeDaTardeImage["slug"];
+  reverse: boolean;
+  objectPosition?: string;
+  variant?: "standard" | "detail" | "wide";
+};
+
+/** Ordem narrativa dos capítulos — imagens mapeadas aos itens do menu. */
+export const CAFE_DA_TARDE_CHAPTERS: CafeDaTardeChapterConfig[] = [
+  {
+    itemKey: "Bolo do dia",
+    imageSlug: "bolo-do-dia-01",
+    secondarySlug: "bolo-do-dia-03",
+    reverse: false,
+    objectPosition: "object-center",
+    variant: "standard",
+  },
+  {
+    itemKey: "Cesta de pão de queijo com suco do dia",
+    imageSlug: "cesta-pao-de-queijo",
+    reverse: true,
+    objectPosition: "object-[50%_40%]",
+    variant: "wide",
+  },
+  {
+    itemKey: "Empada de palmito",
+    imageSlug: "empada-palmito",
+    reverse: false,
+    objectPosition: "object-center",
+  },
+  {
+    itemKey: "Quiche",
+    imageSlug: "quiche",
+    secondarySlug: "foco-quiche",
+    reverse: true,
+    objectPosition: "object-center",
+    variant: "detail",
+  },
+  {
+    itemKey: "Quiche com suco do dia",
+    imageSlug: "quiche-com-suco",
+    reverse: false,
+    objectPosition: "object-[50%_35%]",
+    variant: "wide",
+  },
+];
+
+export type CafeDaTardeMosaicCell = {
+  slug: CafeDaTardeImage["slug"];
+  layout: "hero-wide" | "tall" | "standard" | "panorama";
+};
+
+/** Mosaico final — fotos de atmosfera ainda não protagonistas nos capítulos. */
+export const CAFE_DA_TARDE_MOSAIC: CafeDaTardeMosaicCell[] = [
+  { slug: "todas-as-refeicoes-foco-pao", layout: "hero-wide" },
+  { slug: "bolo-do-dia-02", layout: "tall" },
+  { slug: "bolo-do-dia-03", layout: "standard" },
+  { slug: "foco-quiche", layout: "standard" },
+  { slug: "empada-palmito", layout: "panorama" },
+  { slug: "cesta-pao-de-queijo", layout: "tall" },
+];
+
+export function getCafeDaTardeMosaicImages() {
+  return CAFE_DA_TARDE_MOSAIC.map((cell) => ({
+    ...cell,
+    image: getCafeDaTardeImageBySlug(cell.slug),
+  }));
+}
