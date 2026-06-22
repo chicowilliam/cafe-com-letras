@@ -1,4 +1,4 @@
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowRight, Heart, Sparkles } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { DATE_PACKAGES } from "@/lib/date-experience";
@@ -35,7 +35,7 @@ export function NoiteDosDates() {
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center md:justify-start">
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
             <a
               href="/noite-dos-dates"
               className="btn-primary focus-ring inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
@@ -43,6 +43,13 @@ export function NoiteDosDates() {
               <Heart size={15} strokeWidth={1.75} aria-hidden />
               Conheça a experiência completa
               <ArrowRight size={15} strokeWidth={1.75} aria-hidden />
+            </a>
+            <a
+              href="/experiencias"
+              className="btn-ghost-minimal focus-ring inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            >
+              <Sparkles size={15} strokeWidth={1.75} aria-hidden />
+              Todas as experiências
             </a>
           </div>
         </FadeIn>

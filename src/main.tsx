@@ -9,7 +9,10 @@ import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
 import { CONSENT_EVENT, getStoredConsent, type ConsentValue } from "@/lib/consent";
 import { hydrateStoredPalette } from "@/lib/palette-switcher";
+import CafeDaTardePage from "@/pages/CafeDaTardePage";
 import CardapioPage from "@/pages/CardapioPage";
+import ExperienciasPage from "@/pages/ExperienciasPage";
+import HappyHourPage from "@/pages/HappyHourPage";
 import NoiteDosDatesPage from "@/pages/NoiteDosDatesPage";
 import "./index.css";
 
@@ -22,13 +25,6 @@ function ScrollToTop() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  return null;
-}
-
-function HappyHourRedirect() {
-  useEffect(() => {
-    window.location.replace("/#programacao");
-  }, []);
   return null;
 }
 
@@ -51,8 +47,10 @@ function Root() {
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/cardapio" element={<CardapioPage />} />
+            <Route path="/experiencias" element={<ExperienciasPage />} />
+            <Route path="/cafe-da-tarde" element={<CafeDaTardePage />} />
+            <Route path="/happy-hour" element={<HappyHourPage />} />
             <Route path="/noite-dos-dates" element={<NoiteDosDatesPage />} />
-            <Route path="/happy-hour" element={<HappyHourRedirect />} />
           </Routes>
         </BrowserRouter>
         <DeferredModals />

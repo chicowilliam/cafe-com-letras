@@ -1,6 +1,6 @@
 export const NAV_LINKS = [
   { label: "Início", href: "#inicio" },
-  { label: "Noite dos Dates", href: "/noite-dos-dates" },
+  { label: "Experiências", href: "/experiencias" },
   { label: "Cardápio", href: "/cardapio" },
   { label: "Curadoria da Semana", href: "#curadoria-da-semana" },
   { label: "Programação", href: "#programacao" },
@@ -12,9 +12,17 @@ export const NAV_LINKS = [
 export const NAV_DESKTOP_LINKS = [
   { label: "Início", href: "#inicio" },
   { label: "Cardápio", href: "/cardapio" },
-  { label: "Noite dos Dates", href: "/noite-dos-dates" },
+  { label: "Experiências", href: "/experiencias" },
   { label: "Programação", href: "#programacao" },
   { label: "História", href: "#sobre" },
+] as const;
+
+/** Rotas filhas do hub de experiências — ativam o link principal. */
+export const EXPERIENCIA_ROUTES = [
+  "/experiencias",
+  "/cafe-da-tarde",
+  "/happy-hour",
+  "/noite-dos-dates",
 ] as const;
 
 export const ABOUT_PARAGRAPHS = [

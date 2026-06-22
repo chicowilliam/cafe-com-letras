@@ -2,7 +2,13 @@ import imgJazz from "@/assets/images/livraria/grs-0223.jpg";
 import imgLiteratura from "@/assets/images/livraria/grs-0209.jpg";
 import imgPiano from "@/assets/images/livraria/grs-0207.jpg";
 import imgSarau from "@/assets/images/livraria/grs-0249.jpg";
-import { BLUE_MOON_IMAGES } from "@/lib/blue-moon-images";
+import {
+  EXPERIENCIAS_CATALOG,
+  getHappyHourDayByWeekday,
+  getWeekdayLabel,
+  type ExperienciaId,
+  type Weekday,
+} from "@/lib/experiencias";
 
 export type EventCategory =
   | "jazz"
@@ -10,7 +16,8 @@ export type EventCategory =
   | "literatura"
   | "sarau"
   | "outro"
-  | "happy-hour";
+  | "happy-hour"
+  | "cafe-da-tarde";
 
 export type ProgramacaoEvento = {
   id: string;
@@ -68,6 +75,12 @@ export const CATEGORY_CONFIG: Record<
       "border-amber-400/35 bg-amber-400/10 text-amber-300 hover:border-amber-400/50 hover:bg-amber-400/15",
     tagClass: "border-amber-400/30 bg-amber-400/10 text-amber-300",
   },
+  "cafe-da-tarde": {
+    label: "Café da Tarde",
+    chipClass:
+      "border-accent/35 bg-accent/10 text-accent hover:border-accent/50 hover:bg-accent/15",
+    tagClass: "border-accent/30 bg-accent/10 text-accent",
+  },
 };
 
 export const FILTER_CHIPS: { value: CategoryFilter; label: string }[] = [
@@ -77,6 +90,7 @@ export const FILTER_CHIPS: { value: CategoryFilter; label: string }[] = [
   { value: "literatura", label: CATEGORY_CONFIG.literatura.label },
   { value: "sarau", label: CATEGORY_CONFIG.sarau.label },
   { value: "happy-hour", label: "Happy Hour" },
+  { value: "cafe-da-tarde", label: "Café da Tarde" },
 ];
 
 export const PROGRAMACAO_EVENTOS: ProgramacaoEvento[] = [
@@ -263,33 +277,62 @@ export function isEventInMonth(isoDate: string, viewMonth: Date): boolean {
   );
 }
 
-export function generateHappyHourEvents(viewMonth: Date): ProgramacaoEvento[] {
+const RECURRING_EXPERIENCIA_CATEGORY: Record<
+  Exclude<ExperienciaId, "noite-dos-dates">,
+  EventCategory
+> = {
+  "happy-hour": "happy-hour",
+  "cafe-da-tarde": "cafe-da-tarde",
+};
+
+export function generateRecurringExperienciaEvents(viewMonth: Date): ProgramacaoEvento[] {
   const year = viewMonth.getFullYear();
   const month = viewMonth.getMonth();
   const events: ProgramacaoEvento[] = [];
-
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const recurring = EXPERIENCIAS_CATALOG.filter(
+    (entry): entry is typeof entry & { id: Exclude<ExperienciaId, "noite-dos-dates"> } =>
+      entry.id !== "noite-dos-dates",
+  );
 
   for (let day = 1; day <= daysInMonth; day++) {
     const date = new Date(year, month, day);
-    // 4 = quinta-feira (0=dom, 1=seg, ..., 4=qui)
-    if (date.getDay() !== 4) continue;
-
+    const weekday = date.getDay() as Weekday;
     const isoDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
-    events.push({
-      id: `happy-hour-blue-moon-${isoDate}`,
-      date: isoDate,
-      time: "17:00",
-      title: "Happy Hour com Blue Moon",
-      category: "happy-hour",
-      description:
-        "Toda quinta a partir das 17h: chopp Blue Moon gelado com preço especial, petiscos da casa e a melhor vista da Savassi.",
-      image: BLUE_MOON_IMAGES[0],
-    });
+    for (const entry of recurring) {
+      if (!entry.weekdays.includes(weekday)) continue;
+
+      const happyHourDay =
+        entry.id === "happy-hour" ? getHappyHourDayByWeekday(weekday) : null;
+
+      events.push({
+        id: `${entry.id}-${isoDate}`,
+        date: isoDate,
+        time: entry.startsAt,
+        title:
+          entry.id === "happy-hour"
+            ? `Happy Hour · ${getWeekdayLabel(weekday)}`
+            : entry.title,
+        category: RECURRING_EXPERIENCIA_CATEGORY[entry.id],
+        description: happyHourDay
+          ? `${happyHourDay.headline}. ${entry.scheduleShort}.`
+          : entry.description,
+        image: entry.image,
+        href: entry.href,
+      });
+    }
   }
 
   return events;
+}
+
+/** @deprecated Use generateRecurringExperienciaEvents */
+export function generateHappyHourEvents(viewMonth: Date): ProgramacaoEvento[] {
+  return generateRecurringExperienciaEvents(viewMonth).filter(
+    (event) => event.category === "happy-hour",
+  );
 }
 
 export function filterProgramacao(
@@ -297,7 +340,7 @@ export function filterProgramacao(
   viewMonth: Date,
   category: CategoryFilter,
 ): ProgramacaoEvento[] {
-  const recurringEvents = generateHappyHourEvents(viewMonth);
+  const recurringEvents = generateRecurringExperienciaEvents(viewMonth);
   const allEvents = [...events, ...recurringEvents];
 
   return allEvents

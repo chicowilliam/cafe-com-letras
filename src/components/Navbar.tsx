@@ -3,9 +3,13 @@ import { Menu, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
-import { NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
+import { EXPERIENCIA_ROUTES, NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
 
 const HERO_INTERSECTION_THRESHOLD = 0.1;
+
+function isExperienciaRoute(pathname: string) {
+  return (EXPERIENCIA_ROUTES as readonly string[]).includes(pathname);
+}
 
 const wordmarkClass =
   "focus-ring block whitespace-nowrap font-display text-sm tracking-tight text-white transition-colors hover:text-white/90 md:text-[0.9375rem]";
@@ -68,8 +72,8 @@ export function Navbar() {
       return;
     }
 
-    if (location.pathname === "/noite-dos-dates") {
-      setActiveHref("/noite-dos-dates");
+    if (isExperienciaRoute(location.pathname)) {
+      setActiveHref("/experiencias");
       return;
     }
 
@@ -142,7 +146,9 @@ export function Navbar() {
                 const isActive =
                   link.href.startsWith("#")
                     ? isHome && activeHref === link.href
-                    : location.pathname === link.href;
+                    : link.href === "/experiencias"
+                      ? isExperienciaRoute(location.pathname)
+                      : location.pathname === link.href;
 
                 return (
                   <li key={link.href}>
@@ -152,7 +158,7 @@ export function Navbar() {
                       className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
                     >
                       {link.label}
-                      {link.href === "/noite-dos-dates" ? (
+                      {link.href === "/experiencias" ? (
                         <span
                           className="ml-1.5 inline-flex h-1.5 w-1.5 rounded-full bg-[#c45c6a] align-middle"
                           aria-hidden
@@ -200,7 +206,9 @@ export function Navbar() {
               const isActive =
                 link.href.startsWith("#")
                   ? isHome && activeHref === link.href
-                  : location.pathname === link.href;
+                  : link.href === "/experiencias"
+                    ? isExperienciaRoute(location.pathname)
+                    : location.pathname === link.href;
 
               return (
                 <li key={link.href}>

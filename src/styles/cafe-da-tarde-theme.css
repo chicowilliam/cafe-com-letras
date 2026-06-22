@@ -1,0 +1,42 @@
+[data-page-theme="cafe-da-tarde"] {
+  --background: #1c1814;
+  --surface: #262018;
+  --surface-elevated: #302820;
+  --foreground: #f4ece0;
+  --foreground-muted: #b8a894;
+  --muted: #b8a894;
+  --accent: #c9a06a;
+  --accent-hover: #d4ae7c;
+  --accent-active: #b08d55;
+  --accent-foreground: #1c1814;
+  --accent-2: #8a6a4a;
+  --accent-2-hover: #9c7a58;
+  --accent-2-active: #75593c;
+  --hairline: rgba(255, 230, 200, 0.1);
+  --ink: #1c1814;
+  --shadow-card: 0 0 0 1px rgba(255, 220, 180, 0.04), 0 2px 8px rgba(0, 0, 0, 0.18),
+    0 4px 16px rgba(30, 20, 10, 0.2);
+  --shadow-card-hover: 0 0 0 1px rgba(255, 220, 180, 0.08), 0 4px 16px rgba(0, 0, 0, 0.22),
+    0 8px 32px rgba(40, 28, 14, 0.3);
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-hero-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 30% 0%, rgba(201, 160, 106, 0.18), transparent 65%),
+    radial-gradient(ellipse 50% 45% at 80% 100%, rgba(138, 106, 74, 0.12), transparent 55%);
+}
+
+[data-page-theme="cafe-da-tarde"] .card-experience img,
+[data-page-theme="cafe-da-tarde"] .cdt-hero-image,
+[data-page-theme="cafe-da-tarde"] .cdt-gallery-feature img {
+  filter: brightness(0.9) saturate(1.05);
+}
+
+[data-page-theme="cafe-da-tarde"] figcaption {
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}

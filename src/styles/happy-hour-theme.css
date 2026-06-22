@@ -1,0 +1,38 @@
+[data-page-theme="happy-hour"] {
+  --background: #17120e;
+  --surface: #211912;
+  --surface-elevated: #2a2018;
+  --foreground: #f5efe6;
+  --foreground-muted: #bda894;
+  --muted: #bda894;
+  --accent: #e0a84a;
+  --accent-hover: #ecb85f;
+  --accent-active: #c99438;
+  --accent-foreground: #17120e;
+  --accent-2: #9b6b3d;
+  --accent-2-hover: #ad7a48;
+  --accent-2-active: #855a32;
+  --hairline: rgba(255, 210, 150, 0.1);
+  --ink: #17120e;
+  --shadow-card: 0 0 0 1px rgba(255, 200, 120, 0.04), 0 2px 8px rgba(0, 0, 0, 0.2),
+    0 4px 16px rgba(40, 25, 10, 0.25);
+  --shadow-card-hover: 0 0 0 1px rgba(255, 200, 120, 0.08), 0 4px 16px rgba(0, 0, 0, 0.25),
+    0 8px 32px rgba(50, 30, 10, 0.35);
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+[data-page-theme="happy-hour"] .hh-hero-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(224, 168, 74, 0.22), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 90% 100%, rgba(155, 107, 61, 0.15), transparent 55%);
+}
+
+[data-page-theme="happy-hour"] .hh-day-tab--active {
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--foreground);
+}

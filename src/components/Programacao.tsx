@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useReservation } from "@/hooks/useReservation";
-import { BLUE_MOON_IMAGES } from "@/lib/blue-moon-images";
+import { getExperienciasAtivasHoje } from "@/lib/experiencias";
 import {
   CATEGORY_CONFIG,
   FILTER_CHIPS,
@@ -447,30 +447,37 @@ export function Programacao() {
           </p>
         </FadeIn>
 
-        {new Date().getDay() === 4 && (
+        {getExperienciasAtivasHoje().length > 0 && (
           <FadeIn>
-            <div className="mb-6 flex items-center gap-4 rounded-md border border-amber-400/20 bg-amber-400/8 px-5 py-4">
-              <span className="relative flex h-2.5 w-2.5 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-400" />
-              </span>
-              <div className="min-w-0">
-                <p className="text-sm font-medium text-amber-300">
-                  Hoje tem Happy Hour com Blue Moon
-                </p>
-                <p className="mt-0.5 text-xs text-foreground-muted">
-                  A partir das 17h · Toda quinta-feira
-                </p>
-              </div>
-              {BLUE_MOON_IMAGES[0] && (
-                <img
-                  src={BLUE_MOON_IMAGES[0]}
-                  alt="Blue Moon"
-                  className="ml-auto hidden h-12 w-12 shrink-0 rounded-sm object-cover sm:block"
-                  loading="eager"
-                  decoding="async"
-                />
-              )}
+            <div className="mb-6 space-y-3">
+              {getExperienciasAtivasHoje().map((experiencia) => (
+                <a
+                  key={experiencia.id}
+                  href={experiencia.href}
+                  className="focus-ring flex items-center gap-4 rounded-md border border-accent/20 bg-accent/8 px-5 py-4 transition-colors hover:border-accent/35 hover:bg-accent/12"
+                >
+                  <span className="relative flex h-2.5 w-2.5 shrink-0">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-foreground">
+                      Hoje: {experiencia.title}
+                    </p>
+                    <p className="mt-0.5 text-xs text-foreground-muted">
+                      {experiencia.scheduleShort}
+                    </p>
+                  </div>
+                  <img
+                    src={experiencia.image}
+                    alt=""
+                    aria-hidden
+                    className="ml-auto hidden h-12 w-12 shrink-0 rounded-sm object-cover sm:block"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </a>
+              ))}
             </div>
           </FadeIn>
         )}

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Heart, Music, Sparkles, Wine } from "lucide-react";
+import { ExperiencePageShell } from "@/components/experiencias/ExperiencePageShell";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { FadeIn } from "@/components/FadeIn";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
@@ -42,36 +43,11 @@ export default function NoiteDosDatesPage() {
   }, []);
 
   return (
-    <div
-      data-page-theme="noite-dos-dates"
-      className="noite-dos-dates-page bg-background text-foreground"
+    <ExperiencePageShell
+      theme="noite-dos-dates"
+      title="Noite dos Dates · Café com Letras"
+      className="noite-dos-dates-page"
     >
-      <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-hairline bg-background/90 px-5 backdrop-blur-md md:px-8">
-        <a
-          href="/"
-          className="focus-ring inline-flex items-center gap-2 rounded-md py-1 text-sm text-foreground-muted transition-colors hover:text-foreground"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            aria-hidden="true"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          Voltar
-        </a>
-
-        <span className="font-display text-sm tracking-tight text-foreground">
-          Noite dos Dates · Café com Letras
-        </span>
-
-        <span className="w-16" aria-hidden />
-      </header>
-
       <main ref={contentRef}>
         <section className="ndd-hero section-padding border-b border-hairline bg-surface">
           <div className="ndd-hero-glow" aria-hidden />
@@ -210,6 +186,6 @@ export default function NoiteDosDatesPage() {
           </div>
         </section>
       </main>
-    </div>
+    </ExperiencePageShell>
   );
 }
