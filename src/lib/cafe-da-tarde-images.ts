@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import boloDoDia01 from "@/assets/images/cafe-da-tarde/cafe-da-tarde-bolo-do-dia01.webp";
 import boloDoDia02 from "@/assets/images/cafe-da-tarde/cafe-da-tarde-bolo-do-dia02.webp";
 import boloDoDia03 from "@/assets/images/cafe-da-tarde/cafe-da-tarde-bolo-do-dia03.webp";
+import cafe from "@/assets/images/cafe-da-tarde/cafe-da-tarde-cafe.jpg";
 import cestaPaoDeQueijo from "@/assets/images/cafe-da-tarde/cafe-da-tarde-cesta-de-pao-de-queijo-com-suco-do-dia.webp";
 import empadaPalmito from "@/assets/images/cafe-da-tarde/cafe-da-tarde-empada-de-palmito.webp";
 import focoQuiche from "@/assets/images/cafe-da-tarde/cafe-da-tarde-foco-no-quiche.webp";
@@ -71,6 +72,14 @@ export const CAFE_DA_TARDE_IMAGES: CafeDaTardeImage[] = [
     aspectHint: "square",
   },
   {
+    slug: "cafe",
+    src: cafe,
+    label: "Café",
+    alt: "Cappuccino com latte art servido no Café com Letras",
+    focalPoint: "50% 48%",
+    aspectHint: "portrait",
+  },
+  {
     slug: "cesta-pao-de-queijo",
     src: cestaPaoDeQueijo,
     label: "Cesta de pão de queijo",
@@ -107,14 +116,14 @@ export const CAFE_DA_TARDE_IMAGES: CafeDaTardeImage[] = [
     src: quicheComSuco,
     label: "Quiche com suco",
     alt: "Quiche acompanhado de suco do dia na mesa do café da tarde",
-    focalPoint: "50% 55%",
-    aspectHint: "landscape",
+    focalPoint: "50% 46%",
+    aspectHint: "portrait",
   },
 ];
 
 /** Fotos editoriais para a galeria — exclui as usadas no hero e no menu. */
 export const CAFE_DA_TARDE_GALLERY: CafeDaTardeImage[] = [
-  CAFE_DA_TARDE_IMAGES.find((img) => img.slug === "todas-as-refeicoes-foco-pao")!,
+  CAFE_DA_TARDE_IMAGES.find((img) => img.slug === "cafe")!,
   CAFE_DA_TARDE_IMAGES.find((img) => img.slug === "bolo-do-dia-02")!,
   CAFE_DA_TARDE_IMAGES.find((img) => img.slug === "bolo-do-dia-03")!,
   CAFE_DA_TARDE_IMAGES.find((img) => img.slug === "foco-quiche")!,
@@ -159,57 +168,35 @@ export function cafeDaTardeChapterAspectClass(
   return "cdt-aspect-chapter-portrait";
 }
 
-export function cafeDaTardeHighlightAspectClass(
-  image: CafeDaTardeImage,
-  variant: ChapterVariant = "standard",
-) {
-  if (variant === "wide" || image.aspectHint === "landscape") {
-    return "cdt-aspect-highlight-wide";
-  }
-  if (variant === "detail" || image.aspectHint === "square") {
-    return "cdt-aspect-highlight-square";
-  }
-  return "cdt-aspect-highlight-portrait";
-}
-
 export function cafeDaTardeIntroAspectClass(image: CafeDaTardeImage) {
   return image.aspectHint === "landscape"
     ? "cdt-aspect-intro-landscape"
     : "cdt-aspect-intro-portrait";
 }
 
-export type CafeDaTardeHighlightConfig = {
-  title: string;
-  description: string;
-  imageSlug: CafeDaTardeImage["slug"];
-  reverse: boolean;
-  variant?: ChapterVariant;
-};
+export type SpreadCellRole = "default" | "hero" | "wide" | "featured";
 
-/** Destaques visuais compactos — o cardápio completo fica em cafe-da-tarde-menu.ts */
-export const CAFE_DA_TARDE_HIGHLIGHTS: CafeDaTardeHighlightConfig[] = [
-  {
-    title: "Bolo do dia",
-    description: "Consulte a opção disponível no dia",
-    imageSlug: "bolo-do-dia-01",
-    reverse: false,
-    variant: "standard",
-  },
-  {
-    title: "Cestinha de pães de queijo",
-    description: "Dez unidades, quentinhos",
-    imageSlug: "cesta-pao-de-queijo",
-    reverse: true,
-    variant: "wide",
-  },
-  {
-    title: "Quiche",
-    description: "Lorraine ou alho-poró, com saladinha da casa",
-    imageSlug: "quiche",
-    reverse: false,
-    variant: "standard",
-  },
-];
+export function cafeDaTardeSpreadCellClass(
+  image: CafeDaTardeImage,
+  role: SpreadCellRole = "default",
+) {
+  if (role === "featured") {
+    if (image.aspectHint === "landscape") {
+      return "cdt-spread-cell--landscape";
+    }
+    if (image.aspectHint === "square") {
+      return "cdt-spread-cell--square";
+    }
+    return "cdt-spread-cell--portrait";
+  }
+  if (role === "wide" || image.aspectHint === "landscape") {
+    return "cdt-spread-cell--landscape";
+  }
+  if (role === "hero") {
+    return "cdt-spread-cell--hero";
+  }
+  return "cdt-spread-cell--square";
+}
 
 export type CafeDaTardeMosaicLayout = "feature" | "detail";
 

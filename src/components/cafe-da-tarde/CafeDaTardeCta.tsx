@@ -9,7 +9,7 @@ type CafeDaTardeCtaProps = {
 };
 
 export function CafeDaTardeCta({ onReserve }: CafeDaTardeCtaProps) {
-  const backdrop = getCafeDaTardeImageBySlug("bolo-do-dia-02");
+  const backdrop = getCafeDaTardeImageBySlug("bolo-do-dia-03");
 
   return (
     <section className="cdt-cta-section relative overflow-hidden py-14 md:py-20">

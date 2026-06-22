@@ -47,9 +47,13 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-page-theme="cafe-da-tarde"] .cdt-highlight-visual:hover .cdt-highlight-image,
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-visual:hover .cdt-spread-image,
   [data-page-theme="cafe-da-tarde"] .cdt-intro-frame:hover .cdt-editorial-image {
     filter: brightness(0.96) saturate(1.08);
+  }
+
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-visual:hover .cdt-spread-image {
+    transform: scale(1.02);
   }
 }
 
@@ -88,29 +92,79 @@
   max-height: 280px;
 }
 
-/* Destaques compactos */
-[data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-portrait {
-  aspect-ratio: 2 / 3;
-  max-height: 320px;
+/* Spreads — grids de fotos ao lado do texto */
+[data-page-theme="cafe-da-tarde"] .cdt-spread-grid {
+  max-height: 240px;
 }
 
-[data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-wide {
-  aspect-ratio: 4 / 3;
-  max-height: 280px;
+[data-page-theme="cafe-da-tarde"] .cdt-spread-grid--asymmetric {
+  max-height: 260px;
 }
 
-[data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-square {
-  aspect-ratio: 1 / 1;
-  max-height: 300px;
+[data-page-theme="cafe-da-tarde"] .cdt-spread-grid--duo {
+  max-height: 200px;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread-grid--duo {
+  max-height: 200px;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread-grid--duo:has(.cdt-spread-cell--portrait) {
+  max-height: none;
 }
 
 @media (min-width: 768px) {
-  [data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-portrait {
-    max-height: 380px;
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-grid {
+    max-height: 320px;
   }
 
-  [data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-wide {
-    max-height: 300px;
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-grid--asymmetric {
+    max-height: 360px;
+  }
+
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-grid--duo {
+    max-height: 280px;
+  }
+
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-grid--duo:has(.cdt-spread-cell--portrait) {
+    max-height: none;
+  }
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread-cell--square {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread-cell--portrait {
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  max-height: 260px;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread-cell--landscape {
+  aspect-ratio: 4 / 3;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread-cell--hero {
+  height: 100%;
+  min-height: 0;
+}
+
+@media (min-width: 768px) {
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-cell--portrait {
+    max-height: 320px;
+    max-width: 240px;
+  }
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread-image {
+  transition: transform 0.6s ease-out, filter 0.4s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page-theme="cafe-da-tarde"] .cdt-spread-image {
+    transition: none;
   }
 }
 
@@ -147,31 +201,6 @@
 
   [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-square {
     min-height: 300px;
-  }
-}
-
-/* Cardápio — lista editorial */
-[data-page-theme="cafe-da-tarde"] .cdt-menu-thumb {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 230, 200, 0.08);
-}
-
-@media (min-width: 768px) {
-  [data-page-theme="cafe-da-tarde"] .cdt-menu-thumb {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-}
-
-[data-page-theme="cafe-da-tarde"] .cdt-highlight {
-  max-width: 42rem;
-}
-
-@media (min-width: 768px) {
-  [data-page-theme="cafe-da-tarde"] .cdt-highlight {
-    max-width: none;
   }
 }
 

@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import { CafeDaTardeCta } from "@/components/cafe-da-tarde/CafeDaTardeCta";
 import { CafeDaTardeHero } from "@/components/cafe-da-tarde/CafeDaTardeHero";
-import { CafeDaTardeHighlights } from "@/components/cafe-da-tarde/CafeDaTardeHighlights";
 import { CafeDaTardeIntro } from "@/components/cafe-da-tarde/CafeDaTardeIntro";
-import { CafeDaTardeMenu } from "@/components/cafe-da-tarde/CafeDaTardeMenu";
+import { CafeDaTardeSpread } from "@/components/cafe-da-tarde/CafeDaTardeSpread";
 import { ExperiencePageShell } from "@/components/experiencias/ExperiencePageShell";
 import { useReservation } from "@/hooks/useReservation";
+import { getCafeDaTardeImageBySlug } from "@/lib/cafe-da-tarde-images";
 import {
-  CAFE_DA_TARDE_HIGHLIGHTS,
-  getCafeDaTardeImageBySlug,
-} from "@/lib/cafe-da-tarde-images";
+  CAFE_DA_TARDE_PRICE_FOOTNOTE,
+  getCafeDaTardeSpreads,
+} from "@/lib/cafe-da-tarde-menu";
 import { EXPERIENCIAS_BY_ID } from "@/lib/experiencias";
 import "@/styles/cafe-da-tarde-theme.css";
 
@@ -17,6 +17,7 @@ export default function CafeDaTardePage() {
   const contentRef = useRef<HTMLElement>(null);
   const { open: openReservation } = useReservation();
   const info = EXPERIENCIAS_BY_ID["cafe-da-tarde"];
+  const spreads = getCafeDaTardeSpreads();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -37,12 +38,26 @@ export default function CafeDaTardePage() {
 
         <CafeDaTardeIntro
           description={info.description}
-          image={getCafeDaTardeImageBySlug("todas-as-refeicoes-foco-pao")}
+          image={getCafeDaTardeImageBySlug("cafe")}
         />
 
-        <CafeDaTardeHighlights items={CAFE_DA_TARDE_HIGHLIGHTS} />
+        {spreads.map((spread, index) => (
+          <CafeDaTardeSpread
+            key={spread.id}
+            index={index}
+            eyebrow={spread.eyebrow}
+            title={spread.title}
+            subtitle={spread.subtitle}
+            items={spread.items}
+            images={spread.images}
+            variant={spread.variant}
+            reverse={index % 2 !== 0}
+          />
+        ))}
 
-        <CafeDaTardeMenu schedule={info.scheduleLong} />
+        <p className="border-t border-hairline/60 bg-surface px-5 py-6 text-center font-garamond text-xs italic text-foreground-muted/70 md:px-10">
+          {CAFE_DA_TARDE_PRICE_FOOTNOTE}
+        </p>
 
         <CafeDaTardeCta onReserve={openReservation} />
       </main>
