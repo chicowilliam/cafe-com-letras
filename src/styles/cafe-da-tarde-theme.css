@@ -47,7 +47,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-page-theme="cafe-da-tarde"] .cdt-chapter-visual:hover .cdt-chapter-image,
+  [data-page-theme="cafe-da-tarde"] .cdt-highlight-visual:hover .cdt-highlight-image,
   [data-page-theme="cafe-da-tarde"] .cdt-intro-frame:hover .cdt-editorial-image {
     filter: brightness(0.96) saturate(1.08);
   }
@@ -77,77 +77,139 @@
   }
 }
 
-/* Proporções alinhadas às fotos (2:3 nativo) */
+/* Proporções — intro contida */
 [data-page-theme="cafe-da-tarde"] .cdt-aspect-intro-portrait {
   aspect-ratio: 2 / 3;
-  min-height: 280px;
+  max-height: 360px;
 }
 
 [data-page-theme="cafe-da-tarde"] .cdt-aspect-intro-landscape {
   aspect-ratio: 4 / 3;
-  min-height: 240px;
+  max-height: 280px;
 }
 
+/* Destaques compactos */
+[data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-portrait {
+  aspect-ratio: 2 / 3;
+  max-height: 320px;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-wide {
+  aspect-ratio: 4 / 3;
+  max-height: 280px;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-square {
+  aspect-ratio: 1 / 1;
+  max-height: 300px;
+}
+
+@media (min-width: 768px) {
+  [data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-portrait {
+    max-height: 380px;
+  }
+
+  [data-page-theme="cafe-da-tarde"] .cdt-aspect-highlight-wide {
+    max-height: 300px;
+  }
+}
+
+/* Legado — capítulos (se reutilizados) */
 [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-portrait {
   aspect-ratio: 2 / 3;
-  min-height: 300px;
+  min-height: 220px;
 }
 
 [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-wide {
-  aspect-ratio: 5 / 4;
-  min-height: 260px;
+  aspect-ratio: 4 / 3;
+  min-height: 200px;
 }
 
 [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-square {
   aspect-ratio: 1 / 1;
-  min-height: 280px;
+  min-height: 220px;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-landscape {
+  aspect-ratio: 3 / 2;
+  min-height: 200px;
 }
 
 @media (min-width: 768px) {
   [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-portrait {
-    min-height: 460px;
+    min-height: 300px;
   }
 
-  [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-wide {
-    min-height: 400px;
+  [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-wide,
+  [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-landscape {
+    min-height: 280px;
   }
 
   [data-page-theme="cafe-da-tarde"] .cdt-aspect-chapter-square {
-    min-height: 420px;
+    min-height: 300px;
   }
 }
 
-/* Mosaico — alturas proporcionais, sem row fixo agressivo */
+/* Cardápio — lista editorial */
+[data-page-theme="cafe-da-tarde"] .cdt-menu-thumb {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 230, 200, 0.08);
+}
+
+@media (min-width: 768px) {
+  [data-page-theme="cafe-da-tarde"] .cdt-menu-thumb {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-highlight {
+  max-width: 42rem;
+}
+
+@media (min-width: 768px) {
+  [data-page-theme="cafe-da-tarde"] .cdt-highlight {
+    max-width: none;
+  }
+}
+
+/* Mosaico — legado, células menores se reutilizado */
 [data-page-theme="cafe-da-tarde"] .cdt-mosaic {
   grid-template-columns: 1fr;
 }
 
 [data-page-theme="cafe-da-tarde"] .cdt-mosaic-cell--feature {
   aspect-ratio: 2 / 3;
-  min-height: 320px;
+  min-height: 240px;
+  max-height: 360px;
 }
 
 [data-page-theme="cafe-da-tarde"] .cdt-mosaic-cell--detail {
   aspect-ratio: 1 / 1;
-  min-height: 220px;
+  min-height: 180px;
+  max-height: 280px;
 }
 
 @media (min-width: 768px) {
   [data-page-theme="cafe-da-tarde"] .cdt-mosaic {
     grid-template-columns: 1.35fr 1fr;
-    grid-template-rows: repeat(2, minmax(200px, auto));
+    grid-template-rows: repeat(2, minmax(160px, auto));
     align-items: stretch;
   }
 
   [data-page-theme="cafe-da-tarde"] .cdt-mosaic-cell--feature {
     grid-row: span 2;
     aspect-ratio: auto;
-    min-height: 520px;
+    min-height: 360px;
+    max-height: 420px;
   }
 
   [data-page-theme="cafe-da-tarde"] .cdt-mosaic-cell--detail {
     aspect-ratio: 4 / 3;
     min-height: 0;
+    max-height: 200px;
   }
 }
 

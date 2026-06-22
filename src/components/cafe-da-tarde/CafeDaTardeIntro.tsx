@@ -12,18 +12,18 @@ type CafeDaTardeIntroProps = {
 
 export function CafeDaTardeIntro({ description, image }: CafeDaTardeIntroProps) {
   return (
-    <section className="cdt-intro cdt-section-bridge relative overflow-hidden bg-background py-16 md:py-24">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-[1fr_1.05fr] md:gap-14 md:px-10">
+    <section className="cdt-intro cdt-section-bridge relative overflow-hidden bg-background py-10 md:py-14">
+      <div className="mx-auto grid max-w-4xl items-center gap-8 px-5 md:grid-cols-[1fr_minmax(0,280px)] md:gap-10 md:px-10 lg:grid-cols-[1fr_minmax(0,320px)]">
         <FadeIn>
-          <p className="font-garamond text-2xl italic leading-relaxed text-foreground-muted md:text-3xl md:leading-snug">
+          <p className="font-garamond text-xl italic leading-relaxed text-foreground-muted md:text-2xl md:leading-snug">
             {description}
           </p>
-          <p className="cdt-pull-quote mt-8 border-l-2 border-accent/40 pl-5 font-garamond text-lg italic text-foreground/80 md:text-xl">
+          <p className="cdt-pull-quote mt-6 border-l-2 border-accent/40 pl-5 font-garamond text-base italic text-foreground/80 md:text-lg">
             Entre um capítulo e outro, um bolo e um chá.
           </p>
         </FadeIn>
 
-        <FadeIn delay={0.08} className="cdt-intro-visual relative md:-mr-4 lg:-mr-8">
+        <FadeIn delay={0.08} className="cdt-intro-visual relative mx-auto w-full max-w-xs md:mx-0 md:max-w-sm">
           <div className="cdt-intro-frame overflow-hidden">
             <img
               src={image.src}

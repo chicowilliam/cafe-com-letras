@@ -3,7 +3,6 @@ import {
   CAFE_DA_TARDE_HERO_ALT,
   CAFE_DA_TARDE_HERO_IMAGE,
   getCafeDaTardeGalleryImages,
-  getCafeDaTardeImageBySlug,
 } from "@/lib/cafe-da-tarde-images";
 import { DATE_PACKAGE_IMAGES } from "@/lib/date-package-images";
 import { BLUE_MOON_IMAGES } from "@/lib/blue-moon-images";
@@ -247,39 +246,6 @@ export const HAPPY_HOUR_DRINKS: ExperienciaMenuItem[] = [
     name: "Negroni",
     description: "Gin, Campari e vermute tinto, com casca de laranja.",
     price: "R$ 25,00",
-  },
-];
-
-export const CAFE_DA_TARDE_ITEMS: ExperienciaMenuItem[] = [
-  {
-    name: "Bolo do dia",
-    description:
-      "Fatia generosa do bolo preparado pelo chef — a receita muda conforme a estação e o humor da confeitaria.",
-    image: getCafeDaTardeImageBySlug("bolo-do-dia-01").src,
-  },
-  {
-    name: "Cesta de pão de queijo com suco do dia",
-    description:
-      "Pães de queijo quentinhos em cesta de vime, acompanhados de suco natural preparado no dia.",
-    image: getCafeDaTardeImageBySlug("cesta-pao-de-queijo").src,
-  },
-  {
-    name: "Empada de palmito",
-    description:
-      "Massa amanteigada e recheio cremoso de palmito — salgado individual, perfeito para compartilhar a mesa.",
-    image: getCafeDaTardeImageBySlug("empada-palmito").src,
-  },
-  {
-    name: "Quiche",
-    description:
-      "Quiche salgado da casa, com massa dourada e recheio equilibrado — um clássico do café da tarde.",
-    image: getCafeDaTardeImageBySlug("quiche").src,
-  },
-  {
-    name: "Quiche com suco do dia",
-    description:
-      "O quiche da casa servido com suco natural do dia — combinação leve para a tarde na Savassi.",
-    image: getCafeDaTardeImageBySlug("quiche-com-suco").src,
   },
 ];
 

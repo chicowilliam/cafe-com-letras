@@ -1,38 +1,22 @@
 import { useEffect, useRef } from "react";
 import { CafeDaTardeCta } from "@/components/cafe-da-tarde/CafeDaTardeCta";
-import { CafeDaTardeDishChapter } from "@/components/cafe-da-tarde/CafeDaTardeDishChapter";
 import { CafeDaTardeHero } from "@/components/cafe-da-tarde/CafeDaTardeHero";
+import { CafeDaTardeHighlights } from "@/components/cafe-da-tarde/CafeDaTardeHighlights";
 import { CafeDaTardeIntro } from "@/components/cafe-da-tarde/CafeDaTardeIntro";
-import { CafeDaTardeMosaic } from "@/components/cafe-da-tarde/CafeDaTardeMosaic";
+import { CafeDaTardeMenu } from "@/components/cafe-da-tarde/CafeDaTardeMenu";
 import { ExperiencePageShell } from "@/components/experiencias/ExperiencePageShell";
 import { useReservation } from "@/hooks/useReservation";
 import {
-  CAFE_DA_TARDE_CHAPTERS,
+  CAFE_DA_TARDE_HIGHLIGHTS,
   getCafeDaTardeImageBySlug,
-  getCafeDaTardeMosaicImages,
 } from "@/lib/cafe-da-tarde-images";
-import { CAFE_DA_TARDE_ITEMS, EXPERIENCIAS_BY_ID } from "@/lib/experiencias";
+import { EXPERIENCIAS_BY_ID } from "@/lib/experiencias";
 import "@/styles/cafe-da-tarde-theme.css";
 
 export default function CafeDaTardePage() {
   const contentRef = useRef<HTMLElement>(null);
   const { open: openReservation } = useReservation();
   const info = EXPERIENCIAS_BY_ID["cafe-da-tarde"];
-  const mosaic = getCafeDaTardeMosaicImages();
-
-  const chapters = CAFE_DA_TARDE_CHAPTERS.map((config) => {
-    const item = CAFE_DA_TARDE_ITEMS.find((entry) => entry.name === config.itemKey);
-    if (!item) {
-      throw new Error(`Cafe da tarde chapter item not found: ${config.itemKey}`);
-    }
-
-    return {
-      ...config,
-      title: item.name,
-      description: item.description,
-      image: getCafeDaTardeImageBySlug(config.imageSlug),
-    };
-  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -56,19 +40,9 @@ export default function CafeDaTardePage() {
           image={getCafeDaTardeImageBySlug("todas-as-refeicoes-foco-pao")}
         />
 
-        {chapters.map((chapter, index) => (
-          <CafeDaTardeDishChapter
-            key={chapter.itemKey}
-            index={index}
-            title={chapter.title}
-            description={chapter.description}
-            image={chapter.image}
-            reverse={chapter.reverse}
-            variant={chapter.variant}
-          />
-        ))}
+        <CafeDaTardeHighlights items={CAFE_DA_TARDE_HIGHLIGHTS} />
 
-        <CafeDaTardeMosaic cells={mosaic} />
+        <CafeDaTardeMenu schedule={info.scheduleLong} />
 
         <CafeDaTardeCta onReserve={openReservation} />
       </main>

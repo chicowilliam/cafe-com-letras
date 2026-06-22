@@ -107,8 +107,8 @@ export const CAFE_DA_TARDE_IMAGES: CafeDaTardeImage[] = [
     src: quicheComSuco,
     label: "Quiche com suco",
     alt: "Quiche acompanhado de suco do dia na mesa do café da tarde",
-    focalPoint: "50% 42%",
-    aspectHint: "portrait",
+    focalPoint: "50% 55%",
+    aspectHint: "landscape",
   },
 ];
 
@@ -153,7 +153,23 @@ export function cafeDaTardeChapterAspectClass(
   if (variant === "detail" || image.aspectHint === "square") {
     return "cdt-aspect-chapter-square";
   }
+  if (image.aspectHint === "landscape") {
+    return "cdt-aspect-chapter-landscape";
+  }
   return "cdt-aspect-chapter-portrait";
+}
+
+export function cafeDaTardeHighlightAspectClass(
+  image: CafeDaTardeImage,
+  variant: ChapterVariant = "standard",
+) {
+  if (variant === "wide" || image.aspectHint === "landscape") {
+    return "cdt-aspect-highlight-wide";
+  }
+  if (variant === "detail" || image.aspectHint === "square") {
+    return "cdt-aspect-highlight-square";
+  }
+  return "cdt-aspect-highlight-portrait";
 }
 
 export function cafeDaTardeIntroAspectClass(image: CafeDaTardeImage) {
@@ -162,43 +178,36 @@ export function cafeDaTardeIntroAspectClass(image: CafeDaTardeImage) {
     : "cdt-aspect-intro-portrait";
 }
 
-export type CafeDaTardeChapterConfig = {
-  itemKey: string;
+export type CafeDaTardeHighlightConfig = {
+  title: string;
+  description: string;
   imageSlug: CafeDaTardeImage["slug"];
   reverse: boolean;
   variant?: ChapterVariant;
 };
 
-/** Ordem narrativa dos capítulos — imagens mapeadas aos itens do menu. */
-export const CAFE_DA_TARDE_CHAPTERS: CafeDaTardeChapterConfig[] = [
+/** Destaques visuais compactos — o cardápio completo fica em cafe-da-tarde-menu.ts */
+export const CAFE_DA_TARDE_HIGHLIGHTS: CafeDaTardeHighlightConfig[] = [
   {
-    itemKey: "Bolo do dia",
+    title: "Bolo do dia",
+    description: "Consulte a opção disponível no dia",
     imageSlug: "bolo-do-dia-01",
     reverse: false,
     variant: "standard",
   },
   {
-    itemKey: "Cesta de pão de queijo com suco do dia",
+    title: "Cestinha de pães de queijo",
+    description: "Dez unidades, quentinhos",
     imageSlug: "cesta-pao-de-queijo",
     reverse: true,
     variant: "wide",
   },
   {
-    itemKey: "Empada de palmito",
-    imageSlug: "empada-palmito",
-    reverse: false,
-  },
-  {
-    itemKey: "Quiche",
+    title: "Quiche",
+    description: "Lorraine ou alho-poró, com saladinha da casa",
     imageSlug: "quiche",
-    reverse: true,
-    variant: "standard",
-  },
-  {
-    itemKey: "Quiche com suco do dia",
-    imageSlug: "quiche-com-suco",
     reverse: false,
-    variant: "wide",
+    variant: "standard",
   },
 ];
 

@@ -12,7 +12,7 @@ export function CafeDaTardeCta({ onReserve }: CafeDaTardeCtaProps) {
   const backdrop = getCafeDaTardeImageBySlug("bolo-do-dia-02");
 
   return (
-    <section className="cdt-cta-section relative overflow-hidden py-20 md:py-28">
+    <section className="cdt-cta-section relative overflow-hidden py-14 md:py-20">
       <img
         src={backdrop.src}
         alt=""
