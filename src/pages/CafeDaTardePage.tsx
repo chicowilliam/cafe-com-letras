@@ -31,9 +31,6 @@ export default function CafeDaTardePage() {
       title: item.name,
       description: item.description,
       image: getCafeDaTardeImageBySlug(config.imageSlug),
-      secondaryImage: config.secondarySlug
-        ? getCafeDaTardeImageBySlug(config.secondarySlug)
-        : undefined,
     };
   });
 
@@ -66,9 +63,7 @@ export default function CafeDaTardePage() {
             title={chapter.title}
             description={chapter.description}
             image={chapter.image}
-            secondaryImage={chapter.secondaryImage}
             reverse={chapter.reverse}
-            objectPosition={chapter.objectPosition}
             variant={chapter.variant}
           />
         ))}

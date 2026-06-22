@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import boloDoDia01 from "@/assets/images/cafe-da-tarde/cafe-da-tarde-bolo-do-dia01.webp";
 import boloDoDia02 from "@/assets/images/cafe-da-tarde/cafe-da-tarde-bolo-do-dia02.webp";
 import boloDoDia03 from "@/assets/images/cafe-da-tarde/cafe-da-tarde-bolo-do-dia03.webp";
@@ -9,11 +10,18 @@ import quicheComSuco from "@/assets/images/cafe-da-tarde/cafe-da-tarde-quiche-co
 import todasRefeicoes from "@/assets/images/cafe-da-tarde/cafe-da-tarde-todas-as-refeicoes.webp";
 import todasRefeicoesFocoPao from "@/assets/images/cafe-da-tarde/cafe-da-tarde-todas-as-refeicoes-mas-foco-pao-de-queijo.webp";
 
+export type AspectHint = "portrait" | "landscape" | "square";
+export type ImageFit = "cover" | "contain";
+
 export type CafeDaTardeImage = {
   src: string;
   alt: string;
   label: string;
   slug: string;
+  /** CSS object-position — ponto focal do prato principal. */
+  focalPoint: string;
+  aspectHint: AspectHint;
+  fit?: ImageFit;
 };
 
 export const CAFE_DA_TARDE_HERO_IMAGE = todasRefeicoes;
@@ -27,60 +35,80 @@ export const CAFE_DA_TARDE_IMAGES: CafeDaTardeImage[] = [
     src: todasRefeicoes,
     label: "Todas as refeições",
     alt: "Visão geral da mesa do café da tarde com salgados, doces e sucos",
+    focalPoint: "50% 42%",
+    aspectHint: "portrait",
   },
   {
     slug: "todas-as-refeicoes-foco-pao",
     src: todasRefeicoesFocoPao,
     label: "Pão de queijo em destaque",
     alt: "Cesta de pão de queijo e salgados servidos no café da tarde",
+    focalPoint: "50% 48%",
+    aspectHint: "portrait",
   },
   {
     slug: "bolo-do-dia-01",
     src: boloDoDia01,
     label: "Bolo do dia",
     alt: "Fatia do bolo do dia servida no café da tarde",
+    focalPoint: "50% 40%",
+    aspectHint: "portrait",
   },
   {
     slug: "bolo-do-dia-02",
     src: boloDoDia02,
     label: "Bolo do dia",
     alt: "Outra variação do bolo do dia na vitrine do café da tarde",
+    focalPoint: "50% 44%",
+    aspectHint: "portrait",
   },
   {
     slug: "bolo-do-dia-03",
     src: boloDoDia03,
     label: "Bolo do dia",
     alt: "Bolo do dia com apresentação editorial na mesa",
+    focalPoint: "50% 46%",
+    aspectHint: "square",
   },
   {
     slug: "cesta-pao-de-queijo",
     src: cestaPaoDeQueijo,
     label: "Cesta de pão de queijo",
     alt: "Cesta de pão de queijo acompanhada de suco do dia",
+    focalPoint: "50% 45%",
+    aspectHint: "portrait",
   },
   {
     slug: "empada-palmito",
     src: empadaPalmito,
     label: "Empada de palmito",
     alt: "Empada de palmito individual do café da tarde",
+    focalPoint: "50% 50%",
+    aspectHint: "portrait",
   },
   {
     slug: "quiche",
     src: quiche,
     label: "Quiche",
     alt: "Quiche salgado servido no café da tarde",
+    focalPoint: "50% 48%",
+    aspectHint: "portrait",
   },
   {
     slug: "foco-quiche",
     src: focoQuiche,
     label: "Quiche em detalhe",
     alt: "Close do quiche com massa dourada e recheio cremoso",
+    focalPoint: "50% 52%",
+    aspectHint: "square",
   },
   {
     slug: "quiche-com-suco",
     src: quicheComSuco,
     label: "Quiche com suco",
     alt: "Quiche acompanhado de suco do dia na mesa do café da tarde",
+    focalPoint: "50% 42%",
+    aspectHint: "portrait",
   },
 ];
 
@@ -104,13 +132,41 @@ export function getCafeDaTardeImageBySlug(slug: CafeDaTardeImage["slug"]) {
   return image;
 }
 
+export function cafeDaTardeObjectStyle(
+  image: Pick<CafeDaTardeImage, "focalPoint" | "fit">,
+): CSSProperties {
+  return {
+    objectPosition: image.focalPoint,
+    objectFit: image.fit ?? "cover",
+  };
+}
+
+export type ChapterVariant = "standard" | "wide" | "detail";
+
+export function cafeDaTardeChapterAspectClass(
+  image: CafeDaTardeImage,
+  variant: ChapterVariant = "standard",
+) {
+  if (variant === "wide") {
+    return "cdt-aspect-chapter-wide";
+  }
+  if (variant === "detail" || image.aspectHint === "square") {
+    return "cdt-aspect-chapter-square";
+  }
+  return "cdt-aspect-chapter-portrait";
+}
+
+export function cafeDaTardeIntroAspectClass(image: CafeDaTardeImage) {
+  return image.aspectHint === "landscape"
+    ? "cdt-aspect-intro-landscape"
+    : "cdt-aspect-intro-portrait";
+}
+
 export type CafeDaTardeChapterConfig = {
   itemKey: string;
   imageSlug: CafeDaTardeImage["slug"];
-  secondarySlug?: CafeDaTardeImage["slug"];
   reverse: boolean;
-  objectPosition?: string;
-  variant?: "standard" | "detail" | "wide";
+  variant?: ChapterVariant;
 };
 
 /** Ordem narrativa dos capítulos — imagens mapeadas aos itens do menu. */
@@ -118,54 +174,49 @@ export const CAFE_DA_TARDE_CHAPTERS: CafeDaTardeChapterConfig[] = [
   {
     itemKey: "Bolo do dia",
     imageSlug: "bolo-do-dia-01",
-    secondarySlug: "bolo-do-dia-03",
     reverse: false,
-    objectPosition: "object-center",
     variant: "standard",
   },
   {
     itemKey: "Cesta de pão de queijo com suco do dia",
     imageSlug: "cesta-pao-de-queijo",
     reverse: true,
-    objectPosition: "object-[50%_40%]",
     variant: "wide",
   },
   {
     itemKey: "Empada de palmito",
     imageSlug: "empada-palmito",
     reverse: false,
-    objectPosition: "object-center",
   },
   {
     itemKey: "Quiche",
     imageSlug: "quiche",
-    secondarySlug: "foco-quiche",
     reverse: true,
-    objectPosition: "object-center",
-    variant: "detail",
+    variant: "standard",
   },
   {
     itemKey: "Quiche com suco do dia",
     imageSlug: "quiche-com-suco",
     reverse: false,
-    objectPosition: "object-[50%_35%]",
     variant: "wide",
   },
 ];
 
+export type CafeDaTardeMosaicLayout = "feature" | "detail";
+
 export type CafeDaTardeMosaicCell = {
   slug: CafeDaTardeImage["slug"];
-  layout: "hero-wide" | "tall" | "standard" | "panorama";
+  layout: CafeDaTardeMosaicLayout;
 };
 
-/** Mosaico final — fotos de atmosfera ainda não protagonistas nos capítulos. */
+/**
+ * Mosaico final — só closes e variações que não protagonizam os capítulos.
+ * (Hero, intro e capítulos já usam as demais fotos.)
+ */
 export const CAFE_DA_TARDE_MOSAIC: CafeDaTardeMosaicCell[] = [
-  { slug: "todas-as-refeicoes-foco-pao", layout: "hero-wide" },
-  { slug: "bolo-do-dia-02", layout: "tall" },
-  { slug: "bolo-do-dia-03", layout: "standard" },
-  { slug: "foco-quiche", layout: "standard" },
-  { slug: "empada-palmito", layout: "panorama" },
-  { slug: "cesta-pao-de-queijo", layout: "tall" },
+  { slug: "bolo-do-dia-02", layout: "feature" },
+  { slug: "bolo-do-dia-03", layout: "detail" },
+  { slug: "foco-quiche", layout: "detail" },
 ];
 
 export function getCafeDaTardeMosaicImages() {
@@ -174,3 +225,5 @@ export function getCafeDaTardeMosaicImages() {
     image: getCafeDaTardeImageBySlug(cell.slug),
   }));
 }
+
+export const CAFE_DA_TARDE_HERO_IMAGE_META = getCafeDaTardeImageBySlug("todas-as-refeicoes");

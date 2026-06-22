@@ -1,5 +1,8 @@
 import { FadeIn } from "@/components/FadeIn";
-import { getCafeDaTardeImageBySlug } from "@/lib/cafe-da-tarde-images";
+import {
+  cafeDaTardeObjectStyle,
+  getCafeDaTardeImageBySlug,
+} from "@/lib/cafe-da-tarde-images";
 
 type CafeDaTardeCtaProps = {
   onReserve: () => void;
@@ -14,7 +17,8 @@ export function CafeDaTardeCta({ onReserve }: CafeDaTardeCtaProps) {
         src={backdrop.src}
         alt=""
         aria-hidden
-        className="absolute inset-0 h-full w-full object-cover object-center"
+        style={cafeDaTardeObjectStyle(backdrop)}
+        className="cdt-cta-backdrop absolute inset-0 h-full w-full"
         loading="lazy"
         decoding="async"
       />

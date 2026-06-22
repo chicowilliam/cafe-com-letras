@@ -2,6 +2,8 @@ import { Coffee } from "lucide-react";
 import {
   CAFE_DA_TARDE_HERO_ALT,
   CAFE_DA_TARDE_HERO_IMAGE,
+  CAFE_DA_TARDE_HERO_IMAGE_META,
+  cafeDaTardeObjectStyle,
 } from "@/lib/cafe-da-tarde-images";
 
 type CafeDaTardeHeroProps = {
@@ -18,18 +20,19 @@ export function CafeDaTardeHero({
   subtitle,
 }: CafeDaTardeHeroProps) {
   return (
-    <section className="cdt-hero-full relative min-h-[78dvh] w-full overflow-hidden md:min-h-[88vh]">
+    <section className="cdt-hero-full relative min-h-[78dvh] w-full overflow-hidden md:min-h-[85vh]">
       <img
         src={CAFE_DA_TARDE_HERO_IMAGE}
         alt={CAFE_DA_TARDE_HERO_ALT}
-        className="cdt-hero-full__image absolute inset-0 h-full w-full object-cover object-center"
+        style={cafeDaTardeObjectStyle(CAFE_DA_TARDE_HERO_IMAGE_META)}
+        className="cdt-hero-full__image absolute inset-0 h-full w-full"
         decoding="async"
         fetchPriority="high"
       />
       <div className="cdt-hero-overlay absolute inset-0" aria-hidden />
       <div className="cdt-hero-glow absolute inset-0" aria-hidden />
 
-      <div className="relative z-10 mx-auto flex min-h-[78dvh] max-w-6xl flex-col justify-end px-5 pb-12 pt-28 md:min-h-[88vh] md:px-10 md:pb-20">
+      <div className="relative z-10 mx-auto flex min-h-[78dvh] max-w-6xl flex-col justify-end px-5 pb-12 pt-28 md:min-h-[85vh] md:px-10 md:pb-20">
         <span className="cdt-hero-eyebrow section-eyebrow flex items-center gap-1.5 text-foreground/90">
           <Coffee size={12} strokeWidth={1.75} aria-hidden />
           {eyebrow}
