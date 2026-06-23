@@ -1,5 +1,4 @@
 import useEmblaCarousel from "embla-carousel-react";
-import type { EmblaCarouselType } from "embla-carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   memo,
@@ -11,6 +10,7 @@ import {
 } from "react";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
+import { useEmblaSlideTween } from "@/hooks/useEmblaSlideTween";
 import {
   cloudinaryVideoPoster,
   cloudinaryVideoSources,
@@ -22,7 +22,6 @@ import {
 import { loadVideoSources } from "@/lib/video-utils";
 
 const PREMIUM_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-const TWEEN_FACTOR_BASE = 0.52;
 const REEL_ASPECT = 9 / 16;
 const TRIPTYCH_HEIGHT = "clamp(420px, 60vh, 560px)";
 const INACTIVE_PANEL_PX = 52;
@@ -799,51 +798,6 @@ function CuradoriaDesktopTriptych({
       </div>
     </div>
   );
-}
-
-function useEmblaSlideTween(
-  emblaApi: EmblaCarouselType | undefined,
-  reduceMotion: boolean,
-) {
-  const tweenFactor = useRef(TWEEN_FACTOR_BASE);
-
-  useEffect(() => {
-    if (!emblaApi || reduceMotion) return;
-
-    const setTweenFactor = () => {
-      tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
-    };
-
-    const tweenSlides = () => {
-      const scrollProgress = emblaApi.scrollProgress();
-      const snapList = emblaApi.scrollSnapList();
-
-      emblaApi.slideNodes().forEach((slideNode, slideIndex) => {
-        const diffToTarget = snapList[slideIndex] - scrollProgress;
-        const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-        const scale = clamp(0.96 + tweenValue * 0.04, 0.96, 1);
-        const opacity = clamp(0.78 + tweenValue * 0.22, 0.78, 1);
-        slideNode.style.transform = `scale(${scale})`;
-        slideNode.style.opacity = `${opacity}`;
-      });
-    };
-
-    setTweenFactor();
-    emblaApi.on("reInit", setTweenFactor);
-    emblaApi.on("scroll", tweenSlides);
-    emblaApi.on("slideFocus", tweenSlides);
-    tweenSlides();
-
-    return () => {
-      emblaApi.off("reInit", setTweenFactor);
-      emblaApi.off("scroll", tweenSlides);
-      emblaApi.off("slideFocus", tweenSlides);
-      emblaApi.slideNodes().forEach((node) => {
-        node.style.transform = "";
-        node.style.opacity = "";
-      });
-    };
-  }, [emblaApi, reduceMotion]);
 }
 
 type MobileSlideProps = {
