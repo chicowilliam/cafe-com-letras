@@ -90,7 +90,7 @@ export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
       "Pastel aberto de camarão",
       "Pastel aberto de queijo provolone com salaminho",
     ],
-    imageSlugs: ["mesa-entardecer", "laranja-no-copo", "petiscos-mesa", "chopp-espuma"],
+    imageSlugs: ["petiscos-abertos", "mesa-entardecer", "petiscos-mesa", "chopp-espuma"],
     variant: "grid-2x2",
   },
   {
@@ -99,7 +99,7 @@ export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
     title: "Para compartilhar",
     subtitle: "Porções fartas para dividir entre amigos na Savassi",
     itemNames: ["Batatas rústicas", "Croquetes de carne", "Choripan"],
-    imageSlugs: ["petiscos-mesa", "mesa-entardecer", "chopp-espuma"],
+    imageSlugs: ["croquetes-de-carne", "batatas-rusticas", "petiscos-mesa"],
     variant: "grid-asymmetric",
     tone: "default",
   },
@@ -115,8 +115,13 @@ export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
       "Aperol Spritz",
       "Negroni",
     ],
-    imageSlugs: ["laranja-no-copo"],
-    variant: "duo",
+    imageSlugs: [
+      "servindo-blue-moon",
+      "mesa-casal-blue-moon",
+      "laranja-no-copo",
+      "brinde-amigos",
+    ],
+    variant: "grid-2x2",
     tone: "beer",
   },
 ];

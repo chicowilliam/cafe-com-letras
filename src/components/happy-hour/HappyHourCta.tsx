@@ -7,7 +7,7 @@ type HappyHourCtaProps = {
 };
 
 export function HappyHourCta({ onReserve, schedule }: HappyHourCtaProps) {
-  const backdrop = getBlueMoonImageBySlug("mesa-entardecer");
+  const backdrop = getBlueMoonImageBySlug("branding-banco");
 
   return (
     <section className="hh-cta-section relative overflow-hidden py-14 md:py-20">
