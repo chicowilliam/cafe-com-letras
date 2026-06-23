@@ -65,11 +65,11 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     title: "Happy Hour",
     eyebrow: "Quinta a domingo",
     timeBand: "entardecer",
-    timeLabel: "17h",
-    scheduleShort: "Quinta a domingo · a partir das 17h",
-    scheduleLong: "Quintas, sextas, sábados e domingos, a partir das 17h",
+    timeLabel: "Blue Moon",
+    scheduleShort: "Quinta a domingo",
+    scheduleLong: "Quintas, sextas, sábados e domingos",
     weekdays: [0, 4, 5, 6],
-    startsAt: "17:00",
+    startsAt: "",
     description:
       "Petiscos e drinks em preço especial, com cardápio que muda a cada dia. " +
       "Blue Moon gelada, coquetelaria e o clima descontraído da Savassi ao entardecer.",

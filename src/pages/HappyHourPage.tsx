@@ -27,12 +27,10 @@ export default function HappyHourPage() {
   }, []);
 
   return (
-    <ExperiencePageShell theme="happy-hour" title="Happy Hour" navEyebrow="Blue Moon">
+    <ExperiencePageShell theme="happy-hour" title="Blue Moon" navEyebrow="Happy Hour">
       <main ref={contentRef}>
         <HappyHourHero
           eyebrow={info.eyebrow}
-          title={`${info.title} · Blue Moon`}
-          schedule={info.scheduleLong}
           subtitle="Chopp gelado, fatia de laranja e petiscos para o entardecer na Savassi."
         />
 
@@ -60,7 +58,7 @@ export default function HappyHourPage() {
           {HAPPY_HOUR_PRICE_FOOTNOTE}
         </p>
 
-        <HappyHourCta onReserve={openReservation} schedule={info.scheduleLong} />
+        <HappyHourCta onReserve={openReservation} />
       </main>
     </ExperiencePageShell>
   );

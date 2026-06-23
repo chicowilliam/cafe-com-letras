@@ -164,15 +164,9 @@ export function HappyHourSpread({
           delay={0.08}
           className={`${hasVisual ? (reverse ? "md:order-1 md:pr-2" : "md:order-2 md:pl-2") : ""}`}
         >
-          {eyebrow ? <p className="section-eyebrow mb-2">{eyebrow}</p> : null}
-          <h2 className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
-            {title}
-          </h2>
-          {subtitle ? (
-            <p className="mt-3 font-garamond text-base italic leading-relaxed text-foreground-muted md:text-lg">
-              {subtitle}
-            </p>
-          ) : null}
+          {eyebrow ? <p className="hh-spread-eyebrow">{eyebrow}</p> : null}
+          <h2 className="hh-spread-title">{title}</h2>
+          {subtitle ? <p className="hh-spread-subtitle">{subtitle}</p> : null}
 
           <ul className="mt-6 flex flex-col gap-5 md:mt-8 md:gap-6">
             {items.map((item) => (

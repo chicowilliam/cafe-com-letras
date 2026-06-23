@@ -78,7 +78,7 @@ export function ExperiencePageShell({
                 <span className="hh-nav-eyebrow block text-[10px] font-medium uppercase tracking-[0.16em] text-accent-2">
                   {navEyebrow}
                 </span>
-                <span className="font-display text-sm leading-tight tracking-tight text-foreground">
+                <span className="hh-nav-brand font-display leading-tight tracking-tight text-foreground">
                   {title}
                 </span>
               </>

@@ -3,10 +3,9 @@ import { blueMoonObjectStyle, getBlueMoonImageBySlug } from "@/lib/blue-moon-ima
 
 type HappyHourCtaProps = {
   onReserve: () => void;
-  schedule: string;
 };
 
-export function HappyHourCta({ onReserve, schedule }: HappyHourCtaProps) {
+export function HappyHourCta({ onReserve }: HappyHourCtaProps) {
   const backdrop = getBlueMoonImageBySlug("branding-banco");
 
   return (
@@ -24,10 +23,9 @@ export function HappyHourCta({ onReserve, schedule }: HappyHourCtaProps) {
 
       <div className="relative z-10 mx-auto max-w-2xl px-5 text-center md:px-10">
         <FadeIn>
-          <p className="font-garamond text-2xl italic leading-relaxed text-foreground md:text-3xl">
+          <p className="hh-cta-title font-garamond text-2xl italic leading-relaxed text-foreground md:text-[2rem]">
             Garanta sua mesa para o próximo happy hour.
           </p>
-          <p className="mt-4 text-sm text-foreground-muted">{schedule}</p>
           <button
             type="button"
             onClick={onReserve}

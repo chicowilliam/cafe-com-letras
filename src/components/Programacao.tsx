@@ -200,7 +200,9 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
               {event.title}
             </h3>
             <p className="mt-1.5 text-[13px] text-foreground-muted">
-              <time dateTime={`${event.date}T${event.time}`}>{dateTimeLabel}</time>
+              <time dateTime={event.time ? `${event.date}T${event.time}` : event.date}>
+                {dateTimeLabel}
+              </time>
             </p>
             {event.artist ? (
               <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-foreground-muted">
@@ -263,10 +265,10 @@ function EventRow({ event, onReserve, showDivider }: EventRowProps) {
     >
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3 sm:grid-cols-[4.5rem_minmax(0,1fr)_auto] sm:gap-4">
         <time
-          dateTime={`${event.date}T${event.time}`}
+          dateTime={event.time ? `${event.date}T${event.time}` : event.date}
           className="pt-0.5 font-sans text-sm tabular-nums text-accent sm:text-base"
         >
-          {event.time}
+          {event.time || "\u00a0"}
         </time>
 
         {expandable ? (

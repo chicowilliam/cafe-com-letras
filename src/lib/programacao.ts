@@ -256,7 +256,7 @@ export function formatEventDateTime(isoDate: string, time: string): string {
     day: "numeric",
     month: "long",
   }).format(parseEventDate(isoDate));
-  return `${dateLabel} · ${time}`;
+  return time ? `${dateLabel} · ${time}` : dateLabel;
 }
 
 export function toMonthKey(date: Date): string {
@@ -310,7 +310,7 @@ export function generateRecurringExperienciaEvents(viewMonth: Date): Programacao
       events.push({
         id: `${entry.id}-${isoDate}`,
         date: isoDate,
-        time: entry.startsAt,
+        time: entry.id === "happy-hour" ? "" : entry.startsAt,
         title:
           entry.id === "happy-hour"
             ? `Happy Hour · ${getWeekdayLabel(weekday)}`
