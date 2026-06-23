@@ -50,9 +50,10 @@
   --hero-overlay-bottom: var(--background);
   --hero-foreground: var(--foreground);
   --hero-foreground-muted: var(--foreground-muted);
-  --scrollbar-track: var(--background);
-  --scrollbar-thumb: color-mix(in srgb, var(--foreground) 16%, transparent);
-  --scrollbar-thumb-hover: color-mix(in srgb, var(--accent) 40%, transparent);
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: color-mix(in srgb, var(--foreground) 0%, transparent);
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--foreground) 22%, transparent);
+  --scrollbar-thumb-active: color-mix(in srgb, var(--foreground) 32%, transparent);
 }
 
 @media (min-width: 768px) {
@@ -87,25 +88,50 @@ html {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: var(--tap-highlight);
   scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
 html::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 html::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
+  background: transparent;
 }
 
 html::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
-  border: 2px solid var(--scrollbar-track);
+  border: none;
   border-radius: 999px;
+  transition: background 0.25s ease;
 }
 
+html:hover::-webkit-scrollbar-thumb,
+html.is-scrolling::-webkit-scrollbar-thumb,
 html::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover);
+}
+
+html::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scrollbar-color: color-mix(in srgb, var(--foreground) 28%, transparent) transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--foreground) 28%, transparent);
+    transition: none;
+  }
+
+  html:hover::-webkit-scrollbar-thumb,
+  html.is-scrolling::-webkit-scrollbar-thumb,
+  html::-webkit-scrollbar-thumb:hover,
+  html::-webkit-scrollbar-thumb:active {
+    background: color-mix(in srgb, var(--foreground) 28%, transparent);
+  }
 }
 
 /* Compensa a navbar fixa ao navegar por âncora. */

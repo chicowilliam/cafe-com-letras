@@ -7,6 +7,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { DeferredModals } from "@/components/DeferredModals";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
 import { ReservationProvider } from "@/hooks/useReservation";
+import { useScrollingClass } from "@/hooks/useScrollingClass";
 import { CONSENT_EVENT, getStoredConsent, type ConsentValue } from "@/lib/consent";
 import { hydrateStoredPalette } from "@/lib/palette-switcher";
 import CafeDaTardePage from "@/pages/CafeDaTardePage";
@@ -30,6 +31,7 @@ function ScrollToTop() {
 
 function Root() {
   const [consent, setConsent] = useState<ConsentValue | null>(getStoredConsent);
+  useScrollingClass();
 
   useEffect(() => {
     const onChange = (event: Event) => {
