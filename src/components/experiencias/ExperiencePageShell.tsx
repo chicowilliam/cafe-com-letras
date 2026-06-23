@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 
 type ExperiencePageShellProps = {
   theme?: string;
@@ -17,6 +18,14 @@ export function ExperiencePageShell({
   className = "",
   children,
 }: ExperiencePageShellProps) {
+  useEffect(() => {
+    if (!theme) return;
+    document.documentElement.setAttribute("data-page-theme", theme);
+    return () => {
+      document.documentElement.removeAttribute("data-page-theme");
+    };
+  }, [theme]);
+
   return (
     <div
       data-page-theme={theme}

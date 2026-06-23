@@ -13,6 +13,9 @@
   --accent-2-hover: #9c7a58;
   --accent-2-active: #75593c;
   --hairline: rgba(255, 230, 200, 0.1);
+  --scrollbar-track: #1c1814;
+  --scrollbar-thumb: rgba(255, 230, 200, 0.14);
+  --scrollbar-thumb-hover: rgba(201, 160, 106, 0.45);
   --ink: #1c1814;
   --shadow-card: 0 0 0 1px rgba(255, 220, 180, 0.04), 0 2px 8px rgba(0, 0, 0, 0.18),
     0 4px 16px rgba(30, 20, 10, 0.2);

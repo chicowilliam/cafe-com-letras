@@ -50,6 +50,9 @@
   --hero-overlay-bottom: var(--background);
   --hero-foreground: var(--foreground);
   --hero-foreground-muted: var(--foreground-muted);
+  --scrollbar-track: var(--background);
+  --scrollbar-thumb: color-mix(in srgb, var(--foreground) 16%, transparent);
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 @media (min-width: 768px) {
@@ -83,6 +86,26 @@
 html {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: var(--tap-highlight);
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* Compensa a navbar fixa ao navegar por âncora. */
