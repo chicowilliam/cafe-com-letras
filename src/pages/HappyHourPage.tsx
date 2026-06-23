@@ -27,7 +27,7 @@ export default function HappyHourPage() {
   }, []);
 
   return (
-    <ExperiencePageShell theme="happy-hour" title="Happy Hour · Café com Letras">
+    <ExperiencePageShell theme="happy-hour" title="Happy Hour" navEyebrow="Blue Moon">
       <main ref={contentRef}>
         <HappyHourHero
           eyebrow={info.eyebrow}
@@ -38,7 +38,7 @@ export default function HappyHourPage() {
 
         <HappyHourIntro
           description={info.description}
-          image={getBlueMoonImageBySlug("laranja-no-copo")}
+          image={getBlueMoonImageBySlug("ambiente-savassi")}
         />
 
         {spreads.map((spread, index) => (

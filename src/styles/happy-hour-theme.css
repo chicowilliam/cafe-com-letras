@@ -13,9 +13,6 @@
   --accent-2-hover: #3a7ec9;
   --accent-2-active: #245a96;
   --hairline: rgba(120, 180, 255, 0.1);
-  --scrollbar-track: #0e1419;
-  --scrollbar-thumb: rgba(120, 180, 255, 0.16);
-  --scrollbar-thumb-hover: rgba(232, 135, 46, 0.45);
   --ink: #0e1419;
   --shadow-card: 0 0 0 1px rgba(120, 180, 255, 0.05), 0 2px 8px rgba(0, 0, 0, 0.22),
     0 4px 16px rgba(8, 12, 20, 0.35);
@@ -129,15 +126,15 @@
 }
 
 [data-page-theme="happy-hour"] .hh-spread-grid {
-  max-height: 240px;
+  max-height: 300px;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-grid--asymmetric {
-  max-height: 260px;
+  max-height: 340px;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-grid--duo {
-  max-height: 200px;
+  max-height: 280px;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-grid--duo:has(.hh-spread-cell--portrait) {
@@ -146,15 +143,15 @@
 
 @media (min-width: 768px) {
   [data-page-theme="happy-hour"] .hh-spread-grid {
-    max-height: 320px;
+    max-height: 400px;
   }
 
   [data-page-theme="happy-hour"] .hh-spread-grid--asymmetric {
-    max-height: 360px;
+    max-height: 440px;
   }
 
   [data-page-theme="happy-hour"] .hh-spread-grid--duo {
-    max-height: 280px;
+    max-height: 360px;
   }
 
   [data-page-theme="happy-hour"] .hh-spread-grid--duo:has(.hh-spread-cell--portrait) {
@@ -162,8 +159,67 @@
   }
 
   [data-page-theme="happy-hour"] .hh-spread-cell--portrait {
-    max-height: 320px;
-    max-width: 240px;
+    max-height: 400px;
+    max-width: 300px;
+  }
+}
+
+[data-page-theme="happy-hour"] .hh-spread-cell--contain {
+  background:
+    linear-gradient(165deg, rgba(45, 108, 181, 0.06) 0%, transparent 55%),
+    var(--surface-elevated);
+}
+
+[data-page-theme="happy-hour"] .hh-spread-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-carousel__card {
+  background:
+    linear-gradient(165deg, rgba(45, 108, 181, 0.06) 0%, transparent 55%),
+    var(--surface-elevated);
+}
+
+[data-page-theme="happy-hour"] .hh-spread-carousel__slide {
+  opacity: 0;
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-page-theme="happy-hour"] .hh-spread-carousel__slide[data-active="true"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page-theme="happy-hour"] .hh-spread-carousel__slide {
+    transition: none;
+  }
+}
+
+[data-page-theme="happy-hour"] .hh-spread-carousel__image {
+  transition: filter 0.4s ease-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-page-theme="happy-hour"] .hh-spread-carousel:hover .hh-spread-carousel__image {
+    filter: brightness(0.95) saturate(1.12);
+  }
+}
+
+[data-page-theme="happy-hour"] .hh-spread-grid--duo:has(.hh-spread-cell--featured),
+[data-page-theme="happy-hour"] .hh-spread-grid--duo .hh-spread-cell:only-child {
+  max-height: none;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-grid--duo .hh-spread-cell--portrait:only-child {
+  max-height: 420px;
+}
+
+@media (min-width: 768px) {
+  [data-page-theme="happy-hour"] .hh-spread-grid--duo .hh-spread-cell--portrait:only-child {
+    max-height: 480px;
+    max-width: 320px;
   }
 }
 
@@ -175,7 +231,7 @@
 [data-page-theme="happy-hour"] .hh-spread-cell--portrait {
   aspect-ratio: 2 / 3;
   width: 100%;
-  max-height: 260px;
+  max-height: 320px;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-cell--landscape {
@@ -208,4 +264,46 @@
 
 [data-page-theme="happy-hour"] .hh-cta-backdrop {
   filter: brightness(0.45) saturate(1.1);
+}
+
+[data-page-theme="happy-hour"] .hh-nav-slide {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+[data-page-theme="happy-hour"] .hh-nav-title {
+  max-width: min(12rem, 42vw);
+}
+
+@media (min-width: 640px) {
+  [data-page-theme="happy-hour"] .hh-nav-title {
+    max-width: none;
+  }
+}
+
+[data-page-theme="happy-hour"] .hh-nav-eyebrow {
+  line-height: 1.2;
+  margin-bottom: 0.125rem;
+}
+
+[data-page-theme="happy-hour"] .hh-nav-slide--hidden {
+  transform: translate3d(0, calc(-100% - env(safe-area-inset-top, 0px)), 0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page-theme="happy-hour"] .hh-nav-slide {
+    transition: none !important;
+  }
+
+  [data-page-theme="happy-hour"] .hh-nav-slide--hidden {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

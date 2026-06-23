@@ -3,13 +3,18 @@ import {
   type BlueMoonImage,
 } from "@/lib/blue-moon-images";
 
-export type SpreadVariant = "grid-2x2" | "grid-asymmetric" | "duo";
+export type SpreadVariant =
+  | "grid-2x2"
+  | "grid-asymmetric"
+  | "duo"
+  | "carousel-card";
 
 export type HappyHourMenuItem = {
   name: string;
   price?: string;
   description: string;
   badge?: string;
+  imageSlug?: BlueMoonImage["slug"];
 };
 
 export type HappyHourSpreadConfig = {
@@ -28,6 +33,7 @@ export const HAPPY_HOUR_PETISCOS: HappyHourMenuItem[] = [
     name: "Pastel aberto de camarão",
     price: "R$ 32",
     description: "Quatro unidades",
+    imageSlug: "petiscos-para-abrir",
   },
   {
     name: "Pastel aberto de queijo provolone com salaminho",
@@ -43,6 +49,7 @@ export const HAPPY_HOUR_PETISCOS: HappyHourMenuItem[] = [
     name: "Croquetes de carne",
     price: "R$ 42",
     description: "Com fonduta de requeijão de raspa — seis unidades",
+    imageSlug: "croquetes-de-carne",
   },
   {
     name: "Choripan",
@@ -57,11 +64,13 @@ export const HAPPY_HOUR_DRINKS: HappyHourMenuItem[] = [
     description:
       "Cerveja de trigo belga com notas cítricas — servida com fatia de laranja, do jeito que a Blue Moon pede",
     badge: "Blue Moon",
+    imageSlug: "laranja-no-copo",
   },
   {
     name: "Blue Moon Light Sky",
     description: "Versão leve e refrescante, com todo o sinal cítrico característico",
     badge: "Blue Moon",
+    imageSlug: "mesa-blue-moon",
   },
   {
     name: "Chope Pilsen",
@@ -90,8 +99,8 @@ export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
       "Pastel aberto de camarão",
       "Pastel aberto de queijo provolone com salaminho",
     ],
-    imageSlugs: ["petiscos-abertos", "mesa-entardecer", "petiscos-mesa", "chopp-espuma"],
-    variant: "grid-2x2",
+    imageSlugs: ["petiscos-para-abrir", "laranja-no-copo", "mesa-blue-moon"],
+    variant: "carousel-card",
   },
   {
     id: "na-mesa",
@@ -99,8 +108,8 @@ export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
     title: "Para compartilhar",
     subtitle: "Porções fartas para dividir entre amigos na Savassi",
     itemNames: ["Batatas rústicas", "Croquetes de carne", "Choripan"],
-    imageSlugs: ["croquetes-de-carne", "batatas-rusticas", "petiscos-mesa"],
-    variant: "grid-asymmetric",
+    imageSlugs: ["croquetes-de-carne", "petiscos-para-abrir", "laranja-no-copo"],
+    variant: "carousel-card",
     tone: "default",
   },
   {
@@ -115,13 +124,8 @@ export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
       "Aperol Spritz",
       "Negroni",
     ],
-    imageSlugs: [
-      "servindo-blue-moon",
-      "mesa-casal-blue-moon",
-      "laranja-no-copo",
-      "brinde-amigos",
-    ],
-    variant: "grid-2x2",
+    imageSlugs: ["laranja-no-copo", "mesa-blue-moon"],
+    variant: "duo",
     tone: "beer",
   },
 ];

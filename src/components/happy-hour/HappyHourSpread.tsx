@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/FadeIn";
+import { HappyHourSpreadCarousel } from "@/components/happy-hour/HappyHourSpreadCarousel";
 import {
   blueMoonObjectStyle,
   blueMoonSpreadCellClass,
@@ -18,6 +19,10 @@ type HappyHourSpreadProps = {
   tone?: "default" | "beer";
 };
 
+function spreadCellSurfaceClass(image: BlueMoonImage) {
+  return image.fit === "contain" ? "hh-spread-cell--contain" : "";
+}
+
 function SpreadPhotoGrid({
   images,
   variant,
@@ -29,30 +34,39 @@ function SpreadPhotoGrid({
     const [hero, ...rest] = images;
     return (
       <div className="hh-spread-grid hh-spread-grid--asymmetric grid grid-cols-2 grid-rows-2 gap-1.5 md:gap-2">
-        <div className="hh-spread-cell hh-spread-cell--hero row-span-2 overflow-hidden rounded-sm">
+        <div
+          className={`hh-spread-cell hh-spread-cell--hero row-span-2 overflow-hidden rounded-sm ${spreadCellSurfaceClass(hero)}`}
+        >
           <img
             src={hero.src}
             alt={hero.alt}
             loading="lazy"
             decoding="async"
             style={blueMoonObjectStyle(hero)}
-            className={`hh-editorial-image hh-spread-image h-full w-full object-cover ${blueMoonSpreadCellClass(hero, "hero")}`}
+            className={`hh-editorial-image hh-spread-image h-full w-full ${blueMoonSpreadCellClass(hero, "hero")}`}
           />
         </div>
         {rest.slice(0, 2).map((image) => (
-          <div key={image.slug} className="hh-spread-cell overflow-hidden rounded-sm">
+          <div
+            key={image.slug}
+            className={`hh-spread-cell overflow-hidden rounded-sm ${spreadCellSurfaceClass(image)}`}
+          >
             <img
               src={image.src}
               alt={image.alt}
               loading="lazy"
               decoding="async"
               style={blueMoonObjectStyle(image)}
-              className={`hh-editorial-image hh-spread-image h-full w-full object-cover ${blueMoonSpreadCellClass(image)}`}
+              className={`hh-editorial-image hh-spread-image h-full w-full ${blueMoonSpreadCellClass(image)}`}
             />
           </div>
         ))}
       </div>
     );
+  }
+
+  if (variant === "carousel-card") {
+    return <HappyHourSpreadCarousel images={images} />;
   }
 
   if (variant === "duo") {
@@ -65,7 +79,7 @@ function SpreadPhotoGrid({
         {images.map((image) => (
           <div
             key={image.slug}
-            className={`hh-spread-cell overflow-hidden rounded-sm ${
+            className={`hh-spread-cell overflow-hidden rounded-sm ${spreadCellSurfaceClass(image)} ${
               images.length === 1 ? "mx-auto md:mx-0" : ""
             }`}
           >
@@ -75,7 +89,7 @@ function SpreadPhotoGrid({
               loading="lazy"
               decoding="async"
               style={blueMoonObjectStyle(image)}
-              className={`hh-editorial-image hh-spread-image h-full w-full object-cover ${blueMoonSpreadCellClass(image, images.length === 1 ? "featured" : "default")}`}
+              className={`hh-editorial-image hh-spread-image h-full w-full ${blueMoonSpreadCellClass(image, images.length === 1 ? "featured" : "default")}`}
             />
           </div>
         ))}
@@ -86,14 +100,17 @@ function SpreadPhotoGrid({
   return (
     <div className="hh-spread-grid hh-spread-grid--2x2 grid grid-cols-2 gap-1.5 md:gap-2">
       {images.slice(0, 4).map((image) => (
-        <div key={image.slug} className="hh-spread-cell overflow-hidden rounded-sm">
+        <div
+          key={image.slug}
+          className={`hh-spread-cell overflow-hidden rounded-sm ${spreadCellSurfaceClass(image)}`}
+        >
           <img
             src={image.src}
             alt={image.alt}
             loading="lazy"
             decoding="async"
             style={blueMoonObjectStyle(image)}
-            className={`hh-editorial-image hh-spread-image h-full w-full object-cover ${blueMoonSpreadCellClass(image)}`}
+            className={`hh-editorial-image hh-spread-image h-full w-full ${blueMoonSpreadCellClass(image)}`}
           />
         </div>
       ))}
@@ -119,25 +136,33 @@ export function HappyHourSpread({
         ? "bg-background"
         : "bg-surface";
 
+  const hasVisual = images.length > 0;
+
   return (
     <section
       className={`hh-spread hh-section-bridge border-t border-hairline/60 ${surface} py-12 md:py-16`}
     >
       <div
         className={`mx-auto grid max-w-5xl items-center gap-8 px-5 md:max-w-6xl md:gap-12 md:px-10 lg:gap-14 ${
-          reverse ? "md:grid-cols-[1fr_1.05fr]" : "md:grid-cols-[1.05fr_1fr]"
+          hasVisual
+            ? reverse
+              ? "md:grid-cols-[1fr_1.05fr]"
+              : "md:grid-cols-[1.05fr_1fr]"
+            : "md:max-w-3xl"
         }`}
       >
-        <FadeIn
-          delay={0.04}
-          className={`hh-spread-visual group ${reverse ? "md:order-2" : "md:order-1"}`}
-        >
-          <SpreadPhotoGrid images={images} variant={variant} />
-        </FadeIn>
+        {hasVisual ? (
+          <FadeIn
+            delay={0.04}
+            className={`hh-spread-visual group ${reverse ? "md:order-2" : "md:order-1"}`}
+          >
+            <SpreadPhotoGrid images={images} variant={variant} />
+          </FadeIn>
+        ) : null}
 
         <FadeIn
           delay={0.08}
-          className={`${reverse ? "md:order-1 md:pr-2" : "md:order-2 md:pl-2"}`}
+          className={`${hasVisual ? (reverse ? "md:order-1 md:pr-2" : "md:order-2 md:pl-2") : ""}`}
         >
           {eyebrow ? <p className="section-eyebrow mb-2">{eyebrow}</p> : null}
           <h2 className="font-display text-2xl tracking-tight text-foreground md:text-3xl">

@@ -1,17 +1,14 @@
 import type { CSSProperties } from "react";
-import img01 from "@/assets/images/blue-moon/blue-moon-01.webp";
 import img02 from "@/assets/images/blue-moon/blue-moon-02.webp";
 import img03 from "@/assets/images/blue-moon/blue-moon-03.webp";
 import img04 from "@/assets/images/blue-moon/blue-moon-04.webp";
-import img05 from "@/assets/images/blue-moon/blue-moon-05.webp";
-import img06 from "@/assets/images/blue-moon/blue-moon-06.webp";
 import img07 from "@/assets/images/blue-moon/blue-moon-07.webp";
 import img08 from "@/assets/images/blue-moon/blue-moon-08.webp";
 import img09 from "@/assets/images/blue-moon/blue-moon-09.webp";
-import img10 from "@/assets/images/blue-moon/blue-moon-10.webp";
 import img11 from "@/assets/images/blue-moon/blue-moon-11.webp";
 
 export type AspectHint = "portrait" | "landscape" | "square";
+export type ImageFit = "cover" | "contain";
 
 export type BlueMoonImage = {
   src: string;
@@ -20,20 +17,21 @@ export type BlueMoonImage = {
   slug: string;
   focalPoint: string;
   aspectHint: AspectHint;
+  fit?: ImageFit;
 };
 
-export const BLUE_MOON_HERO_IMAGE = img03;
+export const BLUE_MOON_HERO_IMAGE = img08;
 
 export const BLUE_MOON_HERO_ALT =
-  "Chopp Blue Moon Belgian White com espuma cremosa e fatia de laranja no happy hour";
+  "Garçom servindo Blue Moon Belgian White em copo personalizado no happy hour";
 
 export const BLUE_MOON_IMAGES: BlueMoonImage[] = [
   {
-    slug: "mesa-entardecer",
-    src: img01,
-    label: "Mesa do happy hour",
-    alt: "Choppes e petiscos na mesa do happy hour no Café com Letras",
-    focalPoint: "50% 45%",
+    slug: "ambiente-savassi",
+    src: img03,
+    label: "Entardecer na Savassi",
+    alt: "Terraço do Café com Letras à noite com letreiro Blue Moon e guarda-sóis na Savassi",
+    focalPoint: "50% 42%",
     aspectHint: "landscape",
   },
   {
@@ -45,67 +43,37 @@ export const BLUE_MOON_IMAGES: BlueMoonImage[] = [
     aspectHint: "portrait",
   },
   {
-    slug: "chopp-espuma",
-    src: img03,
-    label: "Blue Moon gelada",
-    alt: "Close do chopp Blue Moon com espuma dourada servido no happy hour",
-    focalPoint: "50% 48%",
-    aspectHint: "landscape",
-  },
-  {
-    slug: "petiscos-mesa",
-    src: img04,
-    label: "Petiscos da casa",
-    alt: "Petiscos servidos no happy hour acompanhados de cerveja",
-    focalPoint: "50% 46%",
-    aspectHint: "portrait",
-  },
-  {
     slug: "croquetes-de-carne",
-    src: img05,
+    src: img04,
     label: "Croquetes de carne",
     alt: "Seis croquetes de carne crocantes com fonduta de requeijão ao lado de chopp Blue Moon com fatia de laranja",
-    focalPoint: "52% 62%",
+    focalPoint: "52% 58%",
     aspectHint: "portrait",
+    fit: "contain",
   },
   {
-    slug: "batatas-rusticas",
-    src: img06,
-    label: "Batatas rústicas",
-    alt: "Batatas assadas e carne na tábua de madeira com garrafa e copo de Blue Moon Belgian White ao fundo",
-    focalPoint: "50% 68%",
-    aspectHint: "portrait",
-  },
-  {
-    slug: "petiscos-abertos",
+    slug: "petiscos-para-abrir",
     src: img07,
     label: "Petiscos para abrir",
     alt: "Porção de petiscos fritos com guacamole e carne moída acompanhada de chopp Blue Moon com laranja",
-    focalPoint: "50% 64%",
+    focalPoint: "50% 62%",
     aspectHint: "portrait",
+    fit: "contain",
+  },
+  {
+    slug: "mesa-blue-moon",
+    src: img09,
+    label: "Mesa com Blue Moon",
+    alt: "Garrafa e copos de Blue Moon Belgian White com fatia de laranja em mesa ao ar livre à noite",
+    focalPoint: "40% 52%",
+    aspectHint: "landscape",
   },
   {
     slug: "servindo-blue-moon",
     src: img08,
     label: "Servindo Blue Moon",
     alt: "Garçom servindo Blue Moon Belgian White em copo personalizado no terraço do Café com Letras",
-    focalPoint: "46% 56%",
-    aspectHint: "portrait",
-  },
-  {
-    slug: "mesa-casal-blue-moon",
-    src: img09,
-    label: "Mesa com Blue Moon",
-    alt: "Garrafa e copos de Blue Moon Belgian White com fatia de laranja em mesa ao ar livre à noite",
-    focalPoint: "38% 54%",
-    aspectHint: "landscape",
-  },
-  {
-    slug: "brinde-amigos",
-    src: img10,
-    label: "Brinde no happy hour",
-    alt: "Amigos brindando com copo de Blue Moon Belgian White no pátio do Café com Letras à noite",
-    focalPoint: "50% 44%",
+    focalPoint: "46% 52%",
     aspectHint: "portrait",
   },
   {
@@ -130,11 +98,11 @@ export function getBlueMoonImageBySlug(slug: BlueMoonImage["slug"]) {
 }
 
 export function blueMoonObjectStyle(
-  image: Pick<BlueMoonImage, "focalPoint">,
+  image: Pick<BlueMoonImage, "focalPoint" | "fit">,
 ): CSSProperties {
   return {
     objectPosition: image.focalPoint,
-    objectFit: "cover",
+    objectFit: image.fit ?? "cover",
   };
 }
 
@@ -168,4 +136,4 @@ export function blueMoonIntroAspectClass(image: BlueMoonImage) {
     : "hh-aspect-intro-portrait";
 }
 
-export const BLUE_MOON_HERO_IMAGE_META = getBlueMoonImageBySlug("chopp-espuma");
+export const BLUE_MOON_HERO_IMAGE_META = getBlueMoonImageBySlug("servindo-blue-moon");
