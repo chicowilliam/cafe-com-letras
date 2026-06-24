@@ -1,0 +1,147 @@
+{
+  "lang": "en",
+  "updatedAt": "2026-06-01",
+  "sections": [
+    {
+      "id": "to-share-salads",
+      "label": "To share & salads",
+      "eyebrow": "To share",
+      "items": [
+        {
+          "id": "cheese-bread-duo",
+          "name": "Cheese bread duo",
+          "description": "2 units",
+          "price": 5.5,
+          "tags": ["share"]
+        },
+        {
+          "id": "classic-bruschettas",
+          "name": "Classic bruschettas",
+          "description": "Buffalo mozzarella and Italian tomato · 6 units",
+          "price": 42,
+          "tags": ["share", "vegetarian"]
+        },
+        {
+          "id": "classic-beef-carpaccio",
+          "name": "Classic beef carpaccio",
+          "description": "Caper sauce, parmesan and arugula · served with baguette",
+          "price": 48,
+          "tags": ["share"]
+        },
+        {
+          "id": "pear-gorgonzola-salad",
+          "name": "Pear and gorgonzola salad",
+          "description": "Mixed greens, caramelized pear, gorgonzola and cashew",
+          "price": 45,
+          "tags": ["salad", "vegetarian"]
+        },
+        {
+          "id": "caesar-salad",
+          "name": "Caesar salad",
+          "description": "Romaine, grilled chicken and Café caesar dressing",
+          "price": 57,
+          "tags": ["salad"]
+        }
+      ]
+    },
+    {
+      "id": "main-courses",
+      "label": "Main courses",
+      "items": [
+        {
+          "id": "buffalo-mozzarella-ravioli",
+          "name": "Buffalo mozzarella ravioli",
+          "description": "Pomodoro and basil sauce",
+          "price": 55,
+          "tags": ["main", "vegetarian"]
+        },
+        {
+          "id": "trifolati-fettuccine",
+          "name": "Trifolati fettuccine",
+          "description": "Handmade pasta with truffle mushroom cream sauce",
+          "price": 59,
+          "tags": ["main", "vegetarian"]
+        },
+        {
+          "id": "steak-with-fries",
+          "name": "Steak with fries",
+          "description": "200g tenderloin on gorgonzola sauce · fries",
+          "price": 75,
+          "tags": ["main"]
+        },
+        {
+          "id": "shrimp-bobo",
+          "name": "Shrimp bobó",
+          "description": "Served with coconut rice",
+          "price": 96,
+          "tags": ["main"]
+        }
+      ]
+    },
+    {
+      "id": "drinks-beers",
+      "label": "Drinks & beers",
+      "items": [
+        {
+          "id": "espresso",
+          "name": "Gourmet espresso of the day",
+          "price": 5.9,
+          "tags": ["coffee"]
+        },
+        {
+          "id": "latte-en",
+          "name": "Latte",
+          "description": "Traditional or vegan",
+          "price": 10.5,
+          "tags": ["coffee"]
+        },
+        {
+          "id": "draft-pilsen",
+          "name": "Draft Pilsen",
+          "description": "300ml",
+          "price": 15,
+          "tags": ["beer"]
+        },
+        {
+          "id": "caipirinha-en",
+          "name": "Caipirinha",
+          "price": 19,
+          "tags": ["drink"]
+        },
+        {
+          "id": "gin-tonic-en",
+          "name": "Gin & tonic",
+          "price": 31,
+          "tags": ["drink"]
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "label": "Desserts",
+      "items": [
+        {
+          "id": "grandmas-pudding",
+          "name": "Grandma's pudding",
+          "description": "Condensed milk with coconut milk",
+          "price": 15,
+          "tags": ["dessert"]
+        },
+        {
+          "id": "chocolate-petit-gateau",
+          "name": "Chocolate petit gâteau",
+          "description": "Crème anglaise and vanilla ice cream",
+          "price": 37,
+          "tags": ["dessert"]
+        },
+        {
+          "id": "tiramisu-en",
+          "name": "Tiramisù",
+          "description": "Mascarpone, coffee, Amaretto and champagne biscuit",
+          "price": 30,
+          "tags": ["dessert"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,27 +1,48 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CardapioListViewer } from "@/components/cardapio/CardapioListViewer";
 import { CardapioMenuViewer } from "@/components/cardapio/CardapioMenuViewer";
+import { CardapioViewToggle } from "@/components/cardapio/CardapioViewToggle";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
 import { FadeIn } from "@/components/FadeIn";
 import { useCardapioSectionSpy } from "@/hooks/useCardapioSectionSpy";
+import { useCardapioViewMode } from "@/hooks/useCardapioViewMode";
 import { useSubpageChrome } from "@/hooks/useSubpageChrome";
+import { getCatalogSectionsWithItems } from "@/lib/cardapio-catalog";
 import {
   CARDAPIO_CAPAS,
   CARDAPIO_SECTIONS,
   type CardapioLang,
+  type CardapioSection,
 } from "@/lib/cardapio-images";
 import { viewTransitionNavigateOptions } from "@/lib/navigation";
+
+function toNavSections(
+  entries: Array<{ id: string; label: string }>,
+): CardapioSection[] {
+  return entries.map((entry) => ({ ...entry, src: "" }));
+}
 
 export default function CardapioPage() {
   const navigate = useNavigate();
   const [lang, setLang] = useState<CardapioLang | null>(null);
+  const [viewMode, setViewMode] = useCardapioViewMode();
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const sections = lang ? CARDAPIO_SECTIONS[lang] : [];
+  const imageSections = lang ? CARDAPIO_SECTIONS[lang] : [];
+  const listSections = lang ? getCatalogSectionsWithItems(lang) : [];
+
+  const navSections = useMemo(() => {
+    if (!lang) return [];
+    if (viewMode === "sheet") return imageSections;
+    return toNavSections(listSections);
+  }, [imageSections, lang, listSections, viewMode]);
+
   const sectionIds = useMemo(
-    () => sections.map((section) => section.id),
-    [sections],
+    () => navSections.map((section) => section.id),
+    [navSections],
   );
+
   const activeSectionId = useCardapioSectionSpy(sectionIds, lang !== null);
 
   const handleBack = useCallback(() => {
@@ -102,7 +123,7 @@ export default function CardapioPage() {
         <div ref={menuRef}>
           <div className="sticky top-14 z-40 lg:hidden">
             <CardapioSectionNav
-              sections={sections}
+              sections={navSections}
               activeId={activeSectionId}
               variant="mobile"
             />
@@ -111,18 +132,39 @@ export default function CardapioPage() {
           <div className="mx-auto flex max-w-6xl justify-center px-4 py-6 md:px-6 lg:px-8">
             <aside className="hidden w-44 shrink-0 lg:block xl:w-48">
               <CardapioSectionNav
-                sections={sections}
+                sections={navSections}
                 activeId={activeSectionId}
                 variant="desktop"
               />
             </aside>
 
-            <div className="w-full max-w-[500px] lg:mx-8">
-              <CardapioMenuViewer
-                sections={sections}
-                activeSectionId={activeSectionId}
-                onChangeLang={() => setLang(null)}
-              />
+            <div
+              className={`w-full lg:mx-8 ${
+                viewMode === "list"
+                  ? "cardapio-page__content--list max-w-[576px]"
+                  : "max-w-[500px]"
+              }`}
+            >
+              <div className="cardapio-page__toolbar">
+                <CardapioViewToggle
+                  lang={lang}
+                  mode={viewMode}
+                  onChange={setViewMode}
+                />
+              </div>
+
+              {viewMode === "sheet" ? (
+                <CardapioMenuViewer
+                  sections={imageSections}
+                  activeSectionId={activeSectionId}
+                  onChangeLang={() => setLang(null)}
+                />
+              ) : (
+                <CardapioListViewer
+                  lang={lang}
+                  onChangeLang={() => setLang(null)}
+                />
+              )}
             </div>
           </div>
         </div>

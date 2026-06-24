@@ -1,0 +1,256 @@
+{
+  "lang": "pt",
+  "updatedAt": "2026-06-01",
+  "sections": [
+    {
+      "id": "compartilhar-grelhados",
+      "label": "Compartilhar & grelhados",
+      "eyebrow": "Para compartilhar",
+      "items": [
+        {
+          "id": "dupla-pao-de-queijo",
+          "name": "Dupla de pão de queijo",
+          "description": "2 unidades",
+          "price": 5.5,
+          "tags": ["compartilhar"]
+        },
+        {
+          "id": "bruschettas-classicas",
+          "name": "Bruschettas clássicas",
+          "description": "Mussarela de búfala e tomate italiano · 6 unidades",
+          "price": 42,
+          "tags": ["compartilhar", "vegetariano"]
+        },
+        {
+          "id": "carpaccio-carne-classico",
+          "name": "Carpaccio de carne clássico",
+          "description": "Molho de alcaparras, parmesão e rúcula · acompanha baguete",
+          "price": 48,
+          "tags": ["compartilhar"]
+        },
+        {
+          "id": "fish-and-chips",
+          "name": "Fish and chips",
+          "description": "Peixe do dia empanado na farinha panko · chips e molho aioli",
+          "price": 57,
+          "tags": ["compartilhar"]
+        }
+      ]
+    },
+    {
+      "id": "saladas-massas",
+      "label": "Saladas, massas & infantil",
+      "eyebrow": "Saladas",
+      "items": [
+        {
+          "id": "salada-pera-gorgonzola",
+          "name": "Salada de pêra e gorgonzola",
+          "description": "Mix de folhas, pêra caramelizada, gorgonzola e castanha de caju",
+          "price": 45,
+          "tags": ["salada", "vegetariano"]
+        },
+        {
+          "id": "salada-caesar",
+          "name": "Salada Caesar",
+          "description": "Alface americana, peito de frango grelhado e molho caesar do Café",
+          "price": 57,
+          "tags": ["salada"]
+        },
+        {
+          "id": "salada-salmao-curado",
+          "name": "Salada de salmão curado",
+          "description": "Maçã verde, folhas e caviar de mostarda",
+          "price": 66,
+          "tags": ["salada"]
+        },
+        {
+          "id": "ravioli-mussarela-bufala",
+          "name": "Ravioli de mussarela de búfala",
+          "description": "Molho de pomodoro e manjericão",
+          "price": 55,
+          "tags": ["prato", "massa", "vegetariano"]
+        },
+        {
+          "id": "fettuccine-trifolati",
+          "name": "Fettuccine trifolati",
+          "description": "Massa artesanal ao molho branco trufado de cogumelos",
+          "price": 59,
+          "tags": ["prato", "massa", "vegetariano"]
+        }
+      ]
+    },
+    {
+      "id": "carnes-sanduiches",
+      "label": "Carnes & sanduíches",
+      "eyebrow": "Pratos",
+      "items": [
+        {
+          "id": "file-com-fritas",
+          "name": "Filé com fritas do Café",
+          "description": "Filé mignon 200g sobre molho gorgonzola · batatas fritas",
+          "price": 75,
+          "tags": ["prato", "carne"]
+        },
+        {
+          "id": "file-parmegiana",
+          "name": "Filé à parmegiana",
+          "description": "Filé mignon com fettuccine fresco na manteiga e sálvia",
+          "price": 85,
+          "tags": ["prato", "carne"]
+        },
+        {
+          "id": "bobo-camarao",
+          "name": "Bobó de camarão",
+          "description": "Acompanha arroz de coco",
+          "price": 96,
+          "tags": ["prato"]
+        },
+        {
+          "id": "risoto-camaroes",
+          "name": "Risoto de camarões",
+          "description": "Molho pomodoro com azeitonas pretas",
+          "price": 115,
+          "tags": ["prato"]
+        }
+      ]
+    },
+    {
+      "id": "bebidas-quentes",
+      "label": "Bebidas quentes",
+      "eyebrow": "Cafés",
+      "items": [
+        {
+          "id": "cafe-espresso",
+          "name": "Café espresso gourmet do dia",
+          "price": 5.9,
+          "tags": ["cafe"]
+        },
+        {
+          "id": "latte",
+          "name": "Latte",
+          "description": "Tradicional ou vegano",
+          "price": 10.5,
+          "tags": ["cafe"]
+        },
+        {
+          "id": "cappuccino",
+          "name": "Cappuccino",
+          "description": "Tradicional ou vegano",
+          "price": 10.9,
+          "tags": ["cafe"]
+        },
+        {
+          "id": "cafe-mocha",
+          "name": "Café mocha",
+          "description": "Espresso, leite vaporizado e calda de chocolate",
+          "price": 15,
+          "tags": ["cafe"]
+        }
+      ]
+    },
+    {
+      "id": "bebidas-geladas",
+      "label": "Bebidas geladas",
+      "items": [
+        {
+          "id": "suco-do-dia",
+          "name": "Suco do dia",
+          "description": "300ml · consulte opções com a equipe",
+          "price": 16.5,
+          "tags": ["bebida"]
+        },
+        {
+          "id": "limonada-suica",
+          "name": "Limonada suíça",
+          "description": "300ml",
+          "price": 10.9,
+          "tags": ["bebida"]
+        }
+      ]
+    },
+    {
+      "id": "cervejas-drinks",
+      "label": "Cervejas & drinks",
+      "items": [
+        {
+          "id": "chope-pilsen",
+          "name": "Chope Pilsen",
+          "description": "300ml",
+          "price": 15,
+          "tags": ["cerveja"]
+        }
+      ]
+    },
+    {
+      "id": "drinks-coqueteis",
+      "label": "Drinks & coquetéis",
+      "items": [
+        {
+          "id": "caipirinha",
+          "name": "Caipirinha",
+          "price": 19,
+          "tags": ["drink"]
+        },
+        {
+          "id": "gin-tonica",
+          "name": "Gin tônica",
+          "price": 31,
+          "tags": ["drink"]
+        },
+        {
+          "id": "negroni",
+          "name": "Negroni",
+          "price": 25,
+          "tags": ["drink"]
+        },
+        {
+          "id": "aperol-spritz",
+          "name": "Aperol Spritz",
+          "price": 35,
+          "tags": ["drink"]
+        }
+      ]
+    },
+    {
+      "id": "sobremesas",
+      "label": "Sobremesas",
+      "items": [
+        {
+          "id": "pudim-vovo",
+          "name": "Pudim da vovó",
+          "description": "Leite condensado com leite de coco",
+          "price": 15,
+          "tags": ["sobremesa"]
+        },
+        {
+          "id": "petit-gateau",
+          "name": "Petit gâteau de chocolate",
+          "description": "Creme inglês e sorvete de creme",
+          "price": 37,
+          "tags": ["sobremesa"]
+        },
+        {
+          "id": "torta-limao",
+          "name": "Torta de limão",
+          "description": "Com merengue",
+          "price": 20,
+          "tags": ["sobremesa"]
+        },
+        {
+          "id": "tiramisu",
+          "name": "Tiramisù",
+          "description": "Mascarpone, café, Amaretto e biscoito champagne",
+          "price": 30,
+          "tags": ["sobremesa"]
+        },
+        {
+          "id": "brownie-mix",
+          "name": "Brownie mix",
+          "description": "Gotas branco, meio amargo e nozes · sorvete de creme",
+          "price": 35,
+          "tags": ["sobremesa"]
+        }
+      ]
+    }
+  ]
+}

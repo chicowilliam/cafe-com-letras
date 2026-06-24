@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "optimize:images": "node scripts/optimize-images.mjs",
     "optimize:cardapio": "node scripts/optimize-cardapio-images.mjs",
+    "validate:cardapio": "node scripts/validate-cardapio-catalog.mjs",
     "subset:fonts": "node scripts/subset-fonts.mjs",
     "audit:videos": "node scripts/audit-cloudinary-videos.mjs",
     "cloudinary:onboard": "node scripts/cloudinary-onboarding.mjs"

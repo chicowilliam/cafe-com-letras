@@ -1,0 +1,258 @@
+/* Cardápio — modo lista interativa (Fase 3) */
+
+[data-page="cardapio"] .cardapio-view-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.375rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.28);
+  padding: 0.25rem;
+  margin-bottom: 0.875rem;
+}
+
+[data-page="cardapio"] .cardapio-view-toggle__btn {
+  min-height: 2.5rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--foreground-muted) 85%, transparent);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+[data-page="cardapio"] .cardapio-view-toggle__btn.is-active {
+  background: color-mix(in srgb, var(--cardapio-paper) 92%, #fff);
+  color: #2a2820;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+[data-page="cardapio"] .cardapio-list-viewer {
+  position: relative;
+  width: 100%;
+  padding: 0.75rem 0 1.75rem;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(212, 163, 115, 0.07) 0%, transparent 52%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 35%, rgba(0, 0, 0, 0.48) 100%),
+    var(--cardapio-mesa);
+}
+
+[data-page="cardapio"] .cardapio-search {
+  margin-bottom: 1rem;
+}
+
+[data-page="cardapio"] .cardapio-search__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+[data-page="cardapio"] .cardapio-search__icon {
+  pointer-events: none;
+  position: absolute;
+  left: 0.875rem;
+  color: color-mix(in srgb, var(--foreground-muted) 70%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-search__input {
+  width: 100%;
+  min-height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.22);
+  padding: 0.625rem 2.5rem 0.625rem 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--foreground);
+}
+
+[data-page="cardapio"] .cardapio-search__input::placeholder {
+  color: color-mix(in srgb, var(--foreground-muted) 65%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-search__clear {
+  position: absolute;
+  right: 0.375rem;
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--foreground-muted);
+}
+
+[data-page="cardapio"] .cardapio-search__status {
+  margin-top: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--foreground-muted) 60%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-list-viewer__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+[data-page="cardapio"] .cardapio-list-section {
+  border-radius: 3px;
+  border: 1px solid var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper) 94%, #fff);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 1rem 1.125rem 1.125rem;
+}
+
+[data-page="cardapio"] .cardapio-list-section__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 85%, #000);
+}
+
+[data-page="cardapio"] .cardapio-list-section__title {
+  margin-top: 0.25rem;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #2a2820;
+}
+
+[data-page="cardapio"] .cardapio-list-section__intro {
+  margin-top: 0.375rem;
+  font-family: var(--font-garamond);
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: color-mix(in srgb, #2a2820 70%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-list-section__items {
+  margin-top: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 0;
+  list-style: none;
+}
+
+[data-page="cardapio"] .cardapio-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+[data-page="cardapio"] .cardapio-list-item__copy {
+  min-width: 0;
+}
+
+[data-page="cardapio"] .cardapio-list-item__name {
+  font-size: 0.9375rem;
+  line-height: 1.25;
+  color: #2a2820;
+}
+
+[data-page="cardapio"] .cardapio-list-item__description {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, #2a2820 62%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-list-item__leader {
+  margin-bottom: 0.25rem;
+  min-width: 1rem;
+  flex: 1;
+  align-self: flex-end;
+  border-bottom: 1px dotted color-mix(in srgb, #2a2820 22%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-list-item__price {
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  color: color-mix(in srgb, var(--accent) 88%, #000);
+}
+
+[data-page="cardapio"] .cardapio-list-item__mark {
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  color: inherit;
+  padding: 0 0.125rem;
+}
+
+[data-page="cardapio"] .cardapio-list-viewer__empty {
+  border-radius: 3px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-family: var(--font-garamond);
+  font-size: 1rem;
+  font-style: italic;
+  color: color-mix(in srgb, var(--foreground-muted) 75%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-list-viewer__updated {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--foreground-muted) 55%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-list-viewer__disclaimer {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--foreground-muted) 55%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-list-viewer__footer {
+  margin-top: 1.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+[data-page="cardapio"] .cardapio-page__toolbar {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 35;
+  padding: 0.625rem 0 0;
+  background: linear-gradient(
+    to bottom,
+    var(--cardapio-mesa) 0%,
+    var(--cardapio-mesa) 72%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  [data-page="cardapio"] .cardapio-page__toolbar {
+    top: 4.5rem;
+  }
+}
+
+[data-page="cardapio"] .cardapio-page__content--list {
+  max-width: 36rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page="cardapio"] .cardapio-view-toggle__btn {
+    transition: none;
+  }
+}
