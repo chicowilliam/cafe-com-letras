@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { CafeDaTardeCta } from "@/components/cafe-da-tarde/CafeDaTardeCta";
 import { CafeDaTardeHero } from "@/components/cafe-da-tarde/CafeDaTardeHero";
 import { CafeDaTardeIntro } from "@/components/cafe-da-tarde/CafeDaTardeIntro";
@@ -14,21 +13,13 @@ import { EXPERIENCIAS_BY_ID } from "@/lib/experiencias";
 import "@/styles/cafe-da-tarde-theme.css";
 
 export default function CafeDaTardePage() {
-  const contentRef = useRef<HTMLElement>(null);
   const { open: openReservation } = useReservation();
   const info = EXPERIENCIAS_BY_ID["cafe-da-tarde"];
   const spreads = getCafeDaTardeSpreads();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      contentRef.current?.scrollIntoView({ behavior: "instant" });
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <ExperiencePageShell theme="cafe-da-tarde" title="Café da Tarde · Café com Letras">
-      <main ref={contentRef}>
+    <ExperiencePageShell>
+      <main>
         <CafeDaTardeHero
           eyebrow={info.eyebrow}
           title={info.title}
