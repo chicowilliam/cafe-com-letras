@@ -1,4 +1,5 @@
 import { ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 import { HeroBackgroundVideo } from "@/components/HeroBackgroundVideo";
 import { useReservation } from "@/hooks/useReservation";
 
@@ -86,9 +87,9 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-4">
               <span aria-hidden className="h-px w-10 bg-white/15" />
-              <a href="/cardapio" className={cardapioLinkClass}>
+              <Link to="/cardapio" viewTransition className={cardapioLinkClass}>
                 Ver cardápio
-              </a>
+              </Link>
               <span aria-hidden className="h-px w-10 bg-white/15" />
             </div>
           </div>
@@ -135,9 +136,9 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-4">
               <span aria-hidden className="h-px w-10 bg-white/15" />
-              <a href="/cardapio" className={cardapioLinkClass}>
+              <Link to="/cardapio" viewTransition className={cardapioLinkClass}>
                 Ver cardápio
-              </a>
+              </Link>
               <span aria-hidden className="h-px w-10 bg-white/15" />
             </div>
           </div>
