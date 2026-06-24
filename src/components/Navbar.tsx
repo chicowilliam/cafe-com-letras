@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
 import { EXPERIENCIA_ROUTES, NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
@@ -18,13 +18,6 @@ const navLinkClass =
   "focus-ring relative rounded-md px-1 py-1 font-sans text-sm font-medium tracking-normal text-white/80 transition-colors hover:text-white after:pointer-events-none after:absolute after:-bottom-1 after:inset-x-0 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-out after:content-[''] hover:after:scale-x-100 motion-reduce:after:transition-none";
 
 const navLinkActiveClass = "text-white after:scale-x-100";
-
-function resolveNavHref(href: string, isHome: boolean): string {
-  if (href.startsWith("#") && !isHome) {
-    return `/${href}`;
-  }
-  return href;
-}
 
 export function Navbar() {
   const location = useLocation();
@@ -130,7 +123,7 @@ export function Navbar() {
             }`}
           >
             <a
-              href={isHome ? "#inicio" : "/"}
+              href="#inicio"
               className={`brand-wordmark ${wordmarkClass}`}
               aria-hidden={!showSolidNav}
               tabIndex={showSolidNav ? 0 : -1}
@@ -142,7 +135,6 @@ export function Navbar() {
           <div className="flex items-center gap-6">
             <ul className="hidden items-center gap-7 md:flex">
               {NAV_DESKTOP_LINKS.map((link) => {
-                const href = resolveNavHref(link.href, isHome);
                 const isActive =
                   link.href.startsWith("#")
                     ? isHome && activeHref === link.href
@@ -152,19 +144,36 @@ export function Navbar() {
 
                 return (
                   <li key={link.href}>
-                    <a
-                      href={href}
-                      aria-current={isActive ? "page" : undefined}
-                      className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
-                    >
-                      {link.label}
-                      {link.href === "/experiencias" ? (
-                        <span
-                          className="ml-1.5 inline-flex h-1.5 w-1.5 rounded-full bg-[#c45c6a] align-middle"
-                          aria-hidden
-                        />
-                      ) : null}
-                    </a>
+                    {link.href.startsWith("#") ? (
+                      <a
+                        href={link.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
+                      >
+                        {link.label}
+                        {link.href === "/experiencias" ? (
+                          <span
+                            className="ml-1.5 inline-flex h-1.5 w-1.5 rounded-full bg-[#c45c6a] align-middle"
+                            aria-hidden
+                          />
+                        ) : null}
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        viewTransition
+                        aria-current={isActive ? "page" : undefined}
+                        className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
+                      >
+                        {link.label}
+                        {link.href === "/experiencias" ? (
+                          <span
+                            className="ml-1.5 inline-flex h-1.5 w-1.5 rounded-full bg-[#c45c6a] align-middle"
+                            aria-hidden
+                          />
+                        ) : null}
+                      </Link>
+                    )}
                   </li>
                 );
               })}
@@ -202,7 +211,6 @@ export function Navbar() {
         <div className="flex h-full flex-col px-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))]">
           <ul className="flex flex-col items-start gap-7">
             {NAV_LINKS.map((link) => {
-              const href = resolveNavHref(link.href, isHome);
               const isActive =
                 link.href.startsWith("#")
                   ? isHome && activeHref === link.href
@@ -212,16 +220,30 @@ export function Navbar() {
 
               return (
                 <li key={link.href}>
-                  <a
-                    href={href}
-                    onClick={() => setMenuOpen(false)}
-                    aria-current={isActive ? "page" : undefined}
-                    className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
-                      isActive ? " text-accent" : ""
-                    }`}
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith("#") ? (
+                    <a
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
+                        isActive ? " text-accent" : ""
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      viewTransition
+                      onClick={() => setMenuOpen(false)}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
+                        isActive ? " text-accent" : ""
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               );
             })}
