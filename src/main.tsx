@@ -1,8 +1,9 @@
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import App from "./App";
+import { AppShell } from "@/components/AppShell";
 import { CookieConsent } from "@/components/CookieConsent";
 import { DeferredModals } from "@/components/DeferredModals";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
@@ -21,14 +22,6 @@ if (import.meta.env.DEV) {
   hydrateStoredPalette();
 }
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-}
-
 function Root() {
   const [consent, setConsent] = useState<ConsentValue | null>(getStoredConsent);
   useScrollingClass();
@@ -45,14 +38,15 @@ function Root() {
     <ReservationProvider>
       <ExperienceCheckoutProvider>
         <BrowserRouter>
-          <ScrollToTop />
           <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/cardapio" element={<CardapioPage />} />
-            <Route path="/experiencias" element={<ExperienciasPage />} />
-            <Route path="/cafe-da-tarde" element={<CafeDaTardePage />} />
-            <Route path="/happy-hour" element={<HappyHourPage />} />
-            <Route path="/noite-dos-dates" element={<NoiteDosDatesPage />} />
+            <Route element={<AppShell />}>
+              <Route path="/" element={<App />} />
+              <Route path="/cardapio" element={<CardapioPage />} />
+              <Route path="/experiencias" element={<ExperienciasPage />} />
+              <Route path="/cafe-da-tarde" element={<CafeDaTardePage />} />
+              <Route path="/happy-hour" element={<HappyHourPage />} />
+              <Route path="/noite-dos-dates" element={<NoiteDosDatesPage />} />
+            </Route>
           </Routes>
         </BrowserRouter>
         <DeferredModals />
