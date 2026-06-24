@@ -1,4 +1,3 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ExperienciaCatalogEntry, ExperienciaId } from "@/lib/experiencias";
 import { getExperienciasAtivasHoje } from "@/lib/experiencias";
 import { PREMIUM_EASE } from "@/lib/experience-hub-utils";
@@ -7,20 +6,14 @@ type ExperienceHubCommandBarProps = {
   entries: readonly ExperienciaCatalogEntry[];
   activeIndex: number;
   onSelect: (index: number) => void;
-  onPrev: () => void;
-  onNext: () => void;
 };
 
 export function ExperienceHubCommandBar({
   entries,
   activeIndex,
   onSelect,
-  onPrev,
-  onNext,
 }: ExperienceHubCommandBarProps) {
   const activeToday = getExperienciasAtivasHoje();
-  const atStart = activeIndex === 0;
-  const atEnd = activeIndex === entries.length - 1;
 
   const handleTodayChip = (id: ExperienciaId) => {
     const index = entries.findIndex((entry) => entry.id === id);
@@ -57,29 +50,6 @@ export function ExperienceHubCommandBar({
               {entry.timeBandLabel}
             </button>
           ))}
-        </div>
-
-        <div className="exp-hub-command-bar__nav">
-          <button
-            type="button"
-            onClick={onPrev}
-            disabled={atStart}
-            aria-label="Experiência anterior"
-            className="exp-hub-command-bar__arrow focus-ring"
-            style={{ transitionTimingFunction: PREMIUM_EASE }}
-          >
-            <ChevronLeft className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-          </button>
-          <button
-            type="button"
-            onClick={onNext}
-            disabled={atEnd}
-            aria-label="Próxima experiência"
-            className="exp-hub-command-bar__arrow focus-ring"
-            style={{ transitionTimingFunction: PREMIUM_EASE }}
-          >
-            <ChevronRight className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-          </button>
         </div>
 
         <div className="exp-hub-command-bar__today">

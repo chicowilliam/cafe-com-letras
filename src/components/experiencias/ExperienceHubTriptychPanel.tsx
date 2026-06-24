@@ -34,6 +34,7 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
       aria-controls={`exp-hub-panel-${entry.id}`}
       aria-label={`${entry.title} — ${entry.timeBandLabel}`}
       onClick={onActivate}
+      onMouseEnter={onActivate}
       className={`exp-hub-editorial__panel exp-hub-editorial__panel--${entry.id} focus-ring ${
         isActive ? "is-active" : ""
       }`}

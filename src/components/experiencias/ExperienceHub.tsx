@@ -113,8 +113,6 @@ export function ExperienceHub() {
           entries={EXPERIENCIAS_CATALOG}
           activeIndex={activeIndex}
           onSelect={goToIndex}
-          onPrev={goPrev}
-          onNext={goNext}
         />
 
         <div className="exp-hub-command__body">
