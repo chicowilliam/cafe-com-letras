@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { Heart, Music, Sparkles, Wine } from "lucide-react";
 import { ExperiencePageShell } from "@/components/experiencias/ExperiencePageShell";
 import { ExperienceCard } from "@/components/ExperienceCard";
@@ -32,23 +31,11 @@ const ATMOSPHERE = [
 ] as const;
 
 export default function NoiteDosDatesPage() {
-  const contentRef = useRef<HTMLElement>(null);
   const { openWithPackage } = useExperienceCheckout();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      contentRef.current?.scrollIntoView({ behavior: "instant" });
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <ExperiencePageShell
-      theme="noite-dos-dates"
-      title="Noite dos Dates · Café com Letras"
-      className="noite-dos-dates-page"
-    >
-      <main ref={contentRef}>
+    <ExperiencePageShell className="noite-dos-dates-page">
+      <main>
         <section className="ndd-hero section-padding border-b border-hairline bg-surface">
           <div className="ndd-hero-glow" aria-hidden />
           <div className="relative mx-auto max-w-4xl">
