@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { HappyHourCta } from "@/components/happy-hour/HappyHourCta";
 import { HappyHourHero } from "@/components/happy-hour/HappyHourHero";
 import { HappyHourIntro } from "@/components/happy-hour/HappyHourIntro";
@@ -14,21 +13,13 @@ import { EXPERIENCIAS_BY_ID } from "@/lib/experiencias";
 import "@/styles/happy-hour-theme.css";
 
 export default function HappyHourPage() {
-  const contentRef = useRef<HTMLElement>(null);
   const { open: openReservation } = useReservation();
   const info = EXPERIENCIAS_BY_ID["happy-hour"];
   const spreads = getHappyHourSpreads();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      contentRef.current?.scrollIntoView({ behavior: "instant" });
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <ExperiencePageShell theme="happy-hour" title="Blue Moon" navEyebrow="Happy Hour">
-      <main ref={contentRef}>
+    <ExperiencePageShell>
+      <main>
         <HappyHourHero
           eyebrow={info.eyebrow}
           subtitle="Chopp gelado, fatia de laranja e petiscos para o entardecer na Savassi."
