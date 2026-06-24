@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CARDAPIO } from "@/lib/cardapio";
@@ -72,8 +73,9 @@ export function Cardapio() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <a
-            href="/cardapio"
+          <Link
+            to="/cardapio"
+            viewTransition
             className="btn-ghost focus-ring inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 hover:scale-[1.01]"
           >
             Ver cardápio completo
@@ -88,7 +90,7 @@ export function Cardapio() {
             >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
