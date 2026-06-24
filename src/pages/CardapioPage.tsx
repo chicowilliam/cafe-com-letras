@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CardapioMenuViewer } from "@/components/cardapio/CardapioMenuViewer";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
 import { FadeIn } from "@/components/FadeIn";
 import { useCardapioSectionSpy } from "@/hooks/useCardapioSectionSpy";
@@ -50,7 +51,7 @@ export default function CardapioPage() {
   }, [lang]);
 
   return (
-    <main className="min-h-dvh bg-background">
+    <main className="min-h-dvh bg-background" data-page="cardapio">
       {!lang && (
         <div className="section-padding">
           <FadeIn className="mx-auto max-w-2xl text-center">
@@ -69,9 +70,9 @@ export default function CardapioPage() {
                   <button
                     type="button"
                     onClick={() => setLang(key)}
-                    className="group focus-ring w-full overflow-hidden rounded-md border border-hairline transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_0_0_1px_rgba(212,163,115,0.15)]"
+                    className="cardapio-lang-card focus-ring group w-full text-left"
                   >
-                    <div className="aspect-[3/4] overflow-hidden">
+                    <div className="cardapio-lang-card__cover">
                       <img
                         src={capa.src}
                         alt={capa.label}
@@ -81,7 +82,7 @@ export default function CardapioPage() {
                       />
                     </div>
 
-                    <div className="border-t border-hairline bg-surface px-4 py-3 text-left">
+                    <div className="cardapio-lang-card__footer">
                       <p className="font-display text-sm text-foreground md:text-base">
                         {capa.label}
                       </p>
@@ -117,40 +118,11 @@ export default function CardapioPage() {
             </aside>
 
             <div className="w-full max-w-[500px] lg:mx-8">
-              {sections.map((section, index) => (
-                <section
-                  key={section.id}
-                  id={section.id}
-                  aria-label={section.label}
-                  className="scroll-mt-[7.5rem] lg:scroll-mt-20"
-                >
-                  <img
-                    src={section.src}
-                    alt={
-                      index === 0
-                        ? `Cardápio do Café com Letras — ${section.label}`
-                        : section.label
-                    }
-                    loading={index === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                    className="mx-auto mb-3 block h-auto w-full max-w-[500px] last:mb-0"
-                  />
-                </section>
-              ))}
-
-              <p className="mt-6 text-center text-xs text-foreground-muted/60">
-                Valores sujeitos a alteração — consulte no café.
-              </p>
-
-              <div className="mt-8 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => setLang(null)}
-                  className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-md border border-hairline px-5 py-2.5 text-sm text-foreground-muted transition-colors hover:text-foreground"
-                >
-                  Ver outro idioma
-                </button>
-              </div>
+              <CardapioMenuViewer
+                sections={sections}
+                activeSectionId={activeSectionId}
+                onChangeLang={() => setLang(null)}
+              />
             </div>
           </div>
         </div>
