@@ -35,6 +35,8 @@ export type ExperienciaCatalogEntry = {
   scheduleLong: string;
   /** Uma linha sensorial no hub — detalhes ficam na página filha. */
   tagline: string;
+  /** Destaques curtos no hub (2–3 itens). */
+  highlights: readonly string[];
   weekdays: readonly Weekday[];
   startsAt: string;
   description: string;
@@ -56,6 +58,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     scheduleShort: "Sábado e domingo · 15h às 17h",
     scheduleLong: "Sábados e domingos, das 15h às 17h",
     tagline: "Bolos do dia, quiches e pausa entre capítulos na livraria.",
+    highlights: ["Bolos do dia", "Quiches e empadas", "Sábado e domingo"],
     weekdays: [0, 6],
     startsAt: "15:00",
     description:
@@ -76,6 +79,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     scheduleShort: "Quinta a domingo",
     scheduleLong: "Quintas, sextas, sábados e domingos",
     tagline: "Chopp gelado, fatia de laranja e petiscos na Savassi.",
+    highlights: ["Blue Moon Belgian White", "Petiscos e chopps", "Quinta a domingo"],
     weekdays: [0, 4, 5, 6],
     startsAt: "",
     description:
@@ -96,6 +100,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     scheduleShort: "Sob reserva · jazz ao vivo",
     scheduleLong: "Experiência sob reserva, com jazz ao vivo e menu degustação para dois",
     tagline: "Menu degustação, jazz ao vivo e luz baixa para dois.",
+    highlights: ["Menu degustação para dois", "Jazz ao vivo", "Sob reserva"],
     weekdays: [0, 1, 2, 3, 4, 5, 6],
     startsAt: "19:00",
     description:
