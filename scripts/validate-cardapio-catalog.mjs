@@ -21,11 +21,17 @@ const IMAGE_SECTION_IDS = {
     "sobremesas",
   ],
   en: [
-    "general-information",
-    "to-share-salads",
-    "main-courses",
-    "drinks-beers",
-    "desserts",
+    "info-geral",
+    "bebidas-quentes",
+    "bebidas-geladas",
+    "cervejas-drinks",
+    "drinks-coqueteis",
+    "licores-destilados",
+    "compartilhar-grelhados",
+    "carnes-sanduiches",
+    "saladas-massas",
+    "veganos",
+    "sobremesas",
   ],
 };
 
@@ -56,8 +62,10 @@ for (const file of roots) {
       (Array.isArray(section.infoBlocks) && section.infoBlocks.length > 0) ||
       section.infoLayout === "groups";
 
-    if (section.id === "info-geral" && catalog.lang === "pt") {
-      const infoFile = path.resolve("src/data/cardapio/info-geral.pt.json");
+    if (section.id === "info-geral") {
+      const infoFile = path.resolve(
+        `src/data/cardapio/info-geral.${catalog.lang}.json`,
+      );
       const infoRaw = await fs.readFile(infoFile, "utf8");
       const info = JSON.parse(infoRaw);
       if (!info.blocks?.length) {
