@@ -1,0 +1,18 @@
+{
+  "title": "House favorites",
+  "subtitle": "What guests order most this season",
+  "items": [
+    {
+      "itemId": "cafe-espresso-gourmet-do-dia",
+      "note": "Our signature blend of the week — also served short or as a carioca"
+    },
+    {
+      "itemId": "bruschettas-classicas",
+      "note": "The perfect start when sharing a table"
+    },
+    {
+      "itemId": "tiramisu",
+      "note": "House recipe with mascarpone and Amaretto"
+    }
+  ]
+}
