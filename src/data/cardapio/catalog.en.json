@@ -3,145 +3,1178 @@
   "updatedAt": "2026-06-01",
   "sections": [
     {
-      "id": "to-share-salads",
-      "label": "To share & salads",
-      "eyebrow": "To share",
-      "items": [
-        {
-          "id": "cheese-bread-duo",
-          "name": "Cheese bread duo",
-          "description": "2 units",
-          "price": 5.5,
-          "tags": ["share"]
-        },
-        {
-          "id": "classic-bruschettas",
-          "name": "Classic bruschettas",
-          "description": "Buffalo mozzarella and Italian tomato · 6 units",
-          "price": 42,
-          "tags": ["share", "vegetarian"]
-        },
-        {
-          "id": "classic-beef-carpaccio",
-          "name": "Classic beef carpaccio",
-          "description": "Caper sauce, parmesan and arugula · served with baguette",
-          "price": 48,
-          "tags": ["share"]
-        },
-        {
-          "id": "pear-gorgonzola-salad",
-          "name": "Pear and gorgonzola salad",
-          "description": "Mixed greens, caramelized pear, gorgonzola and cashew",
-          "price": 45,
-          "tags": ["salad", "vegetarian"]
-        },
-        {
-          "id": "caesar-salad",
-          "name": "Caesar salad",
-          "description": "Romaine, grilled chicken and Café caesar dressing",
-          "price": 57,
-          "tags": ["salad"]
-        }
-      ]
+      "id": "info-geral",
+      "label": "General info",
+      "heading": "Information",
+      "infoLayout": "groups",
+      "introBlocks": [],
+      "items": [],
+      "columns": 1
     },
     {
-      "id": "main-courses",
-      "label": "Main courses",
+      "id": "bebidas-quentes",
+      "label": "Hot drinks",
+      "eyebrow": "Hot drinks",
+      "introBlocks": [],
       "items": [
         {
-          "id": "buffalo-mozzarella-ravioli",
-          "name": "Buffalo mozzarella ravioli",
-          "description": "Pomodoro and basil sauce",
-          "price": 55,
-          "tags": ["main", "vegetarian"]
-        },
-        {
-          "id": "trifolati-fettuccine",
-          "name": "Trifolati fettuccine",
-          "description": "Handmade pasta with truffle mushroom cream sauce",
-          "price": 59,
-          "tags": ["main", "vegetarian"]
-        },
-        {
-          "id": "steak-with-fries",
-          "name": "Steak with fries",
-          "description": "200g tenderloin on gorgonzola sauce · fries",
-          "price": 75,
-          "tags": ["main"]
-        },
-        {
-          "id": "shrimp-bobo",
-          "name": "Shrimp bobó",
-          "description": "Served with coconut rice",
-          "price": 96,
-          "tags": ["main"]
-        }
-      ]
-    },
-    {
-      "id": "drinks-beers",
-      "label": "Drinks & beers",
-      "items": [
-        {
-          "id": "espresso",
-          "name": "Gourmet espresso of the day",
+          "id": "cafe-espresso-gourmet-do-dia",
+          "name": "Daily Gourmet Espresso",
           "price": 5.9,
-          "tags": ["coffee"]
+          "description": "also available short or carioca style",
+          "tags": [
+            "coffee"
+          ]
         },
         {
-          "id": "latte-en",
+          "id": "cafe-espresso-duplo",
+          "name": "Double Espresso",
+          "price": 9.9,
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cafe-macchiato",
+          "name": "Macchiato",
+          "price": 6.5,
+          "description": "espresso with steamed milk",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cafe-coado-v60-200ml",
+          "name": "V60 Pour-Over Coffee 200ml",
+          "price": 12,
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cafe-com-leite",
+          "name": "Coffee with Milk",
+          "price": 10.2,
+          "description": "regular or vegan",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "latte",
           "name": "Latte",
-          "description": "Traditional or vegan",
           "price": 10.5,
-          "tags": ["coffee"]
+          "description": "steamed milk with a touch of traditional or vegan espresso",
+          "tags": [
+            "coffee"
+          ]
         },
         {
-          "id": "draft-pilsen",
-          "name": "Draft Pilsen",
-          "description": "300ml",
+          "id": "cappucino",
+          "name": "Cappuccino",
+          "price": 10.9,
+          "description": "espresso and steamed milk (cocoa powder and cinnamon optional); regular or vegan",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cappucino-em-sache",
+          "name": "Instant Cappuccino Sachet",
+          "price": 10.9,
+          "description": "regular or light; with milk or water",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cafe-mocha",
+          "name": "Mocha",
           "price": 15,
-          "tags": ["beer"]
+          "description": "espresso, steamed milk and chocolate sauce",
+          "tags": [
+            "coffee"
+          ]
         },
         {
-          "id": "caipirinha-en",
+          "id": "cafe-vienense",
+          "name": "Viennese Coffee",
+          "price": 15,
+          "description": "espresso, steamed milk, dark chocolate and whipped cream",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cafe-foam",
+          "name": "Foam Coffee",
+          "price": 15,
+          "description": "espresso, steamed milk, white chocolate and chocolate sauce",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cafecolate",
+          "name": "Cafécolate",
+          "price": 12.2,
+          "description": "espresso, steamed milk, chocolate sauce and whipped cream",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "chocolate-quente",
+          "name": "Hot Chocolate",
+          "price": 13.2,
+          "description": "with whipped cream",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "choconhaque",
+          "name": "Choconhaque",
+          "price": 18,
+          "description": "dark chocolate, steamed milk and brandy",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "chas-e-infusoes-em-sache",
+          "name": "Bagged Teas & Infusions",
+          "price": 14.2,
+          "description": "ask your server for available options",
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cha-de-hortela",
+          "name": "Mint Tea",
+          "price": 7.5,
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "cha-de-gengibre-limao-e-mel",
+          "name": "Ginger, Lemon & Honey Tea",
+          "price": 8.2,
+          "tags": [
+            "coffee"
+          ]
+        },
+        {
+          "id": "acrescimo-de-chantilly",
+          "name": "Extra Whipped Cream",
+          "price": 4.3,
+          "tags": [
+            "coffee"
+          ]
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "id": "bebidas-geladas",
+      "label": "Cold drinks",
+      "eyebrow": "Cold drinks",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "agua-mineral-300ml",
+          "name": "Mineral Water 300ml",
+          "price": 7,
+          "description": "still or sparkling",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "agua-mamba-lata-350ml",
+          "name": "Mamba Water Can 350ml",
+          "price": 9,
+          "description": "still or sparkling",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "agua-tonica-lata-350ml",
+          "name": "Tonic Water Can 350ml",
+          "price": 9.9,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "refrigerante-lata-350ml",
+          "name": "Soft Drink Can 350ml",
+          "price": 9.9,
+          "description": "and Guaraná Antártica Zero",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "schweppes-citrus-lata-350ml",
+          "name": "Schweppes Citrus Can 350ml",
+          "price": 11,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "cafe-gelado-300ml",
+          "name": "Iced Coffee 300ml",
+          "price": 13.5,
+          "description": "espresso, steamed milk, vanilla syrup and whipped cream",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "milkshake-300ml",
+          "name": "Milkshake 300ml",
+          "price": 23.5,
+          "description": "coffee or chocolate with chocolate sauce",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "suco-do-dia-300ml",
+          "name": "Juice of the Day 300ml",
+          "price": 16.5,
+          "description": "ask your server for available options",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "suco-detox-do-dia-300ml",
+          "name": "Detox Juice of the Day 300ml",
+          "price": 18.5,
+          "description": "ask your server for available options",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "suco-de-laranja-300ml",
+          "name": "Fresh Orange Juice 300ml",
+          "price": 18.2,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "e-laranja-300ml",
+          "name": "e laranja 300ml",
+          "price": 24,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "limonada-suica-300ml",
+          "name": "Swiss Lemonade 300ml",
+          "price": 10.9,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "suco-integral-de-uva-300ml",
+          "name": "Whole Grape Juice 300ml",
+          "price": 22,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "mate-gelado-300ml",
+          "name": "Iced Mate 300ml",
+          "price": 11.9,
+          "description": "with lemon and mint syrup",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "energetico-regular-250ml",
+          "name": "Energy Drink Regular 250ml",
+          "price": 23.5,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "soda-italiana-300ml",
+          "name": "Italian Soda 300ml",
+          "price": 14.9,
+          "description": "ask your server for available flavors",
+          "tags": [
+            "drink"
+          ]
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "id": "cervejas-drinks",
+      "label": "Beers & drinks",
+      "eyebrow": "Beers & draft beer",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "chope-pilsen-300ml",
+          "name": "Draft Pilsen 300ml",
+          "price": 15,
+          "tags": [
+            "beer"
+          ]
+        },
+        {
+          "id": "chope-pilsen-480ml",
+          "name": "Draft Pilsen 480ml",
+          "price": 20,
+          "tags": [
+            "beer"
+          ]
+        },
+        {
+          "id": "heineken-330ml",
+          "name": "Heineken 330ml",
+          "price": 18,
+          "tags": [
+            "beer"
+          ]
+        },
+        {
+          "id": "heineken-zero-330ml",
+          "name": "Heineken Zero 330ml",
+          "price": 18,
+          "tags": [
+            "beer"
+          ]
+        },
+        {
+          "id": "lagunitas-355ml",
+          "name": "Lagunitas 355ml",
+          "price": 25,
+          "tags": [
+            "beer"
+          ]
+        },
+        {
+          "id": "praya-355ml",
+          "name": "Praya 355ml",
+          "price": 18,
+          "tags": [
+            "beer"
+          ]
+        },
+        {
+          "id": "blue-moon-355ml",
+          "name": "Blue Moon 355ml",
+          "price": 25,
+          "description": "lower intensity — up to 5 — higher intensity",
+          "tags": [
+            "beer"
+          ]
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "id": "drinks-coqueteis",
+      "label": "Drinks & cocktails",
+      "eyebrow": "Drinks & cocktails",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "mojito",
+          "name": "Mojito",
+          "price": 25,
+          "description": "rum, lime, mint, ice, sugar and soda water",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "cosmopolitan-do-cafe",
+          "name": "Cosmopolitan do Café",
+          "price": 25,
+          "description": "vodka, cherry brandy and triple sec | dry or sweet",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "margarita",
+          "name": "Margarita",
+          "price": 39,
+          "description": "tequila, lime, cointreau and salt",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "drink-de-verao",
+          "name": "Summer Drink",
+          "price": 22,
+          "description": "beer, lime and salt",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "aperol-spritz",
+          "name": "Aperol Spritz",
+          "price": 35,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "kir-royale",
+          "name": "Kir Royale",
+          "price": 32,
+          "description": "sparkling wine and crème de cassis",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "caipirinha",
           "name": "Caipirinha",
           "price": 19,
-          "tags": ["drink"]
+          "description": "cachaça, lime and sugar",
+          "tags": [
+            "drink"
+          ]
         },
         {
-          "id": "gin-tonic-en",
-          "name": "Gin & tonic",
+          "id": "caipiroska",
+          "name": "Caipiroska",
+          "price": 25,
+          "description": "vodka, fruit of the day and sugar (ask the team for available fruits)",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "gin-tonica",
+          "name": "Gin & Tonic",
           "price": 31,
-          "tags": ["drink"]
+          "description": "gin, tonic water, lime, Sicilian lemon and orange",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "negroni",
+          "name": "Negroni",
+          "price": 25,
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "fitzgerald",
+          "name": "Fitzgerald",
+          "price": 30,
+          "description": "gin, lemon juice, sugar syrup, aromatic bitters and ice",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "a-hora-da-estrela",
+          "name": "A Hora da Estrela",
+          "price": 42,
+          "description": "vodka, elderflower syrup, Thai lime juice, vanilla soda and jabuticaba foam",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "capitao-bala",
+          "name": "Capitão Bala",
+          "price": 25,
+          "description": "cachaça, almond syrup, Thai lime juice, Nib bitter and ginger ale",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "iracema",
+          "name": "Iracema",
+          "price": 24,
+          "description": "cachaça, elderflower syrup, Thai lime juice, vanilla soda and thyme",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "moramora",
+          "name": "Moramora",
+          "price": 27,
+          "description": "blackberry, strawberry, carbonated ginger syrup and strawberry syrup",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "pimentonica",
+          "name": "Pimentônica",
+          "price": 19,
+          "description": "strawberry and pink peppercorn",
+          "tags": [
+            "drink"
+          ]
+        },
+        {
+          "id": "rabico",
+          "name": "Rabicó",
+          "price": 19,
+          "description": "rapadura syrup, Thai lime juice and ginger ale",
+          "tags": [
+            "drink"
+          ]
         }
-      ]
+      ],
+      "columns": 2
     },
     {
-      "id": "desserts",
-      "label": "Desserts",
+      "id": "licores-destilados",
+      "label": "Liqueurs & spirits",
+      "eyebrow": "Liqueurs & spirits",
+      "introBlocks": [],
       "items": [
         {
-          "id": "grandmas-pudding",
-          "name": "Grandma's pudding",
-          "description": "Condensed milk with coconut milk",
-          "price": 15,
-          "tags": ["dessert"]
+          "id": "limoncello-dose-50ml",
+          "name": "Limoncello 50ml shot",
+          "price": 35,
+          "description": "lemon liqueur",
+          "tags": [
+            "spirit"
+          ]
         },
         {
-          "id": "chocolate-petit-gateau",
-          "name": "Chocolate petit gâteau",
-          "description": "Crème anglaise and vanilla ice cream",
-          "price": 37,
-          "tags": ["dessert"]
+          "id": "licor-43-dose-50ml",
+          "name": "Licor 43 50ml shot",
+          "price": 35,
+          "description": "marula liqueur",
+          "tags": [
+            "spirit"
+          ]
         },
         {
-          "id": "tiramisu-en",
-          "name": "Tiramisù",
-          "description": "Mascarpone, coffee, Amaretto and champagne biscuit",
+          "id": "jack-daniel-s-old-no-7",
+          "name": "Jack Daniel's Old No. 7",
+          "price": 25,
+          "tags": [
+            "spirit"
+          ]
+        },
+        {
+          "id": "johnnie-walker-red-label",
+          "name": "Johnnie Walker Red Label",
+          "price": 19,
+          "tags": [
+            "spirit"
+          ]
+        },
+        {
+          "id": "johnnie-walker-black-label",
+          "name": "Johnnie Walker Black Label",
           "price": 30,
-          "tags": ["dessert"]
+          "tags": [
+            "spirit"
+          ]
+        },
+        {
+          "id": "vodka-absolut",
+          "name": "Absolut Vodka",
+          "price": 19,
+          "tags": [
+            "spirit"
+          ]
+        },
+        {
+          "id": "gin-beefeater",
+          "name": "Beefeater Gin",
+          "price": 19,
+          "tags": [
+            "spirit"
+          ]
+        },
+        {
+          "id": "tequila-jose-cuervo",
+          "name": "José Cuervo Tequila",
+          "price": 30,
+          "tags": [
+            "spirit"
+          ]
+        },
+        {
+          "id": "cachaca-vale-verde",
+          "name": "Vale Verde Cachaça",
+          "price": 19,
+          "tags": [
+            "spirit"
+          ]
         }
-      ]
+      ],
+      "columns": 2
+    },
+    {
+      "id": "compartilhar-grelhados",
+      "label": "To share & from the grill",
+      "eyebrow": "To share",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "dupla-de-pao-de-queijo",
+          "name": "Cheese Bread Duo",
+          "price": 5.5,
+          "description": "2 pieces",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "paes-de-queijo-recheados",
+          "name": "Stuffed Cheese Breads",
+          "price": 37,
+          "description": "with buffalo mozzarella, sun-dried tomato and fresh basil, or with Canastra cheese and apricot jam // 8 pieces",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "bruschettas-classicas",
+          "name": "Classic Bruschetta",
+          "price": 42,
+          "description": "with buffalo mozzarella and Italian tomato // 6 pieces",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "bruschettas-de-cogumelos",
+          "name": "Mushroom Bruschetta",
+          "price": 46,
+          "description": "button mushroom cream and parmesan // 6 pieces",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "carpaccio-de-carne-classico",
+          "name": "Classic Beef Carpaccio",
+          "price": 48,
+          "description": "with caper sauce, parmesan and arugula // served with baguette",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "fish-and-chips",
+          "name": "Fish and Chips",
+          "price": 57,
+          "description": "catch of the day breaded in panko flour // served with potato chips and aioli",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "queijo-brie-assado",
+          "name": "Baked Brie",
+          "price": 58,
+          "description": "stuffed with red fruit jam // served with baguette",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "novo-tartare-de-salmao",
+          "name": "New Salmon Tartare",
+          "price": 71,
+          "description": "with potato chips",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "tabua-pub",
+          "name": "Pub Platter",
+          "price": 82,
+          "description": "onion rings, rustic potatoes, mozzarella sticks and breaded chicken // served with honey mustard, guava barbecue and gorgonzola sauces",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "iscas-de-file-aos-tres-molhos",
+          "name": "Beef Tenderloin Bites with Three Sauces",
+          "price": 125,
+          "description": "300g fillet mignon, roti, gorgonzola and hot mustard sauces // served with basil baguette, lemon and olive oil or mustard and honey",
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "bifinho-de-soja",
+          "name": "Soy Steak",
+          "price": 43,
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "file-de-frango",
+          "name": "Chicken Breast",
+          "price": 44,
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "peixe-branco",
+          "name": "White Fish",
+          "price": 51,
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "salmao",
+          "name": "Salmon",
+          "price": 78,
+          "tags": [
+            "share"
+          ]
+        },
+        {
+          "id": "file-bovino",
+          "name": "Beef Tenderloin",
+          "price": 80,
+          "tags": [
+            "share"
+          ]
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "id": "carnes-sanduiches",
+      "label": "Meats & sandwiches",
+      "eyebrow": "Meats & sandwiches",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "file-com-fritas-do-cafe",
+          "name": "Fillet with Fries — Café Style",
+          "price": 75,
+          "description": "200g fillet mignon over gorgonzola sauce // served with French fries",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "pf-do-cafe",
+          "name": "Café PF",
+          "price": 82,
+          "description": "200g fillet mignon topped with egg, rice, beans, collard greens and onion-bacon farofa // served with salad or French fries",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "file-a-parmegiana",
+          "name": "Parmigiana Fillet",
+          "price": 85,
+          "description": "fillet mignon served with fresh fettuccine in butter and sage",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "funghi",
+          "name": "Funghi",
+          "price": 94,
+          "description": "with truffled cream cheese fonduta",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "jabuticaba",
+          "name": "Jabuticaba",
+          "price": 97,
+          "description": "with mashed potatoes and mixed greens",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "mussarela-de-bufala",
+          "name": "Buffalo Mozzarella",
+          "price": 77,
+          "description": "with caper cream, lemon butter, spinach and almonds",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "bobo-de-camarao",
+          "name": "Shrimp Bobó",
+          "price": 96,
+          "description": "served with coconut rice",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "salmao-ao-molho-shimeji",
+          "name": "Salmon with Shimeji Sauce",
+          "price": 115,
+          "description": "with watercress risotto and bacon, basil baguette, lemon and olive oil or mustard and honey",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "sanduiche-caprese",
+          "name": "Caprese Sandwich",
+          "price": 49,
+          "description": "buffalo mozzarella, sun-dried tomato, arugula and basil pesto on baguette",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "hamburguer-mineirices",
+          "name": "Mineirices Burger",
+          "price": 53,
+          "description": "200g homemade burger, semi-cured Serro cheese, bacon caramelized in cane molasses, crispy collard greens and guava barbecue on corn bread // served with fries or mixed greens and tomato",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "crepe-de-cogumelos",
+          "name": "Mushroom Crêpe",
+          "price": 57,
+          "description": "with shiitake, shimeji, button mushrooms, zucchini and Catupiry cheese in Dijon mustard sauce // served with mixed greens",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "crepe-de-salmao",
+          "name": "Salmon Crêpe",
+          "price": 78,
+          "description": "with leek and passion fruit sauce // served with mixed greens",
+          "tags": [
+            "main"
+          ]
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "id": "saladas-massas",
+      "label": "Salads, pasta & kids",
+      "eyebrow": "Salads & pasta",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "ravioli-de-mussarela-de-bufala",
+          "name": "Buffalo Mozzarella Ravioli",
+          "price": 55,
+          "description": "with pomodoro and basil sauce",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "fettuccine-trifolati",
+          "name": "Fettuccine Trifolati",
+          "price": 59,
+          "description": "handmade pasta in white truffle mushroom sauce with shiitake, shimeji and button mushrooms",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "pappardelle-com-iscas-de-file",
+          "name": "Pappardelle with Beef Tenderloin Bites",
+          "price": 97,
+          "description": "in pomodoro sauce with buffalo mozzarella, confit tomato and arugula",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "fettuccine-al-limone",
+          "name": "Fettuccine al Limone",
+          "price": 98,
+          "description": "handmade pasta in Sicilian lemon cream sauce with shrimp",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "risoto-de-parmesao-e-file",
+          "name": "Parmesan & Beef Risotto",
+          "price": 88,
+          "description": "beef cubes, wine sauce and button mushrooms",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "risoto-de-camaroes",
+          "name": "Shrimp Risotto",
+          "price": 115,
+          "description": "in pomodoro sauce with black olives",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "salada-de-pera-e-gorgonzola",
+          "name": "Pear & Gorgonzola Salad",
+          "price": 45,
+          "description": "mixed greens, caramelized pear, gorgonzola cheese and cashews",
+          "tags": [
+            "salad"
+          ]
+        },
+        {
+          "id": "salada-caesar",
+          "name": "Caesar Salad",
+          "price": 57,
+          "description": "romaine lettuce, grilled chicken breast strips and the Café's Caesar dressing",
+          "tags": [
+            "salad"
+          ]
+        },
+        {
+          "id": "salada-de-salmao-curado",
+          "name": "Cured Salmon Salad",
+          "price": 66,
+          "description": "with green apple, greens and mustard caviar",
+          "tags": [
+            "salad"
+          ]
+        },
+        {
+          "id": "pf-infantil",
+          "name": "Kids' PF",
+          "price": 49,
+          "description": "rice, beans, diced fillet, French fries and tomato salad",
+          "tags": [
+            "kids"
+          ]
+        },
+        {
+          "id": "fettuccine-ao-pomodoro",
+          "name": "Fettuccine Pomodoro",
+          "price": 40,
+          "description": "handmade pasta in rustic pomodoro sauce",
+          "tags": [
+            "main"
+          ]
+        },
+        {
+          "id": "chocolate",
+          "name": "Chocolate",
+          "price": 16,
+          "description": "ask for available ice cream flavors",
+          "tags": [
+            "main"
+          ]
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "id": "veganos",
+      "label": "Vegan",
+      "eyebrow": "Vegan",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "dadinhos-de-tapioca",
+          "name": "Tapioca Cheese Bites",
+          "price": 25,
+          "description": "with lupin beans, served with cane molasses // 12 pieces",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "tabua-pub-vegana",
+          "name": "Vegan Pub Platter",
+          "price": 67,
+          "description": "breaded cassava mozzarella, black-eyed pea fritters, onion rings and finger potatoes // served with vegan cheddar, Jack Daniel's barbecue and mayo sauces",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "veg-crispy",
+          "name": "Veg Crispy",
+          "price": 45,
+          "description": "cornbread bun, breaded soy burger, Italian tomato, romaine lettuce, vegan mayo and carrot bacon // served with potato chips",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "veg-cheddar",
+          "name": "Veg Cheddar",
+          "price": 49,
+          "description": "cornbread bun, grilled soy burger, Italian tomato, romaine lettuce, vegan cheddar and caramelized onion // served with potato chips",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "moqueca-de-banana-da-terra",
+          "name": "Plantain Moqueca",
+          "price": 44,
+          "description": "with coconut rice and dendê farofa",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "ravioli-de-queijo-de-castanha",
+          "name": "Cashew Cheese Ravioli",
+          "price": 48,
+          "description": "in carrot cream with mushrooms and sautéed spinach",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "pf-vegano",
+          "name": "Vegan PF",
+          "price": 49,
+          "description": "grain patty (quinoa and millet with mushrooms, cashews and walnuts); rice, beans, collard greens, fried plantain and spicy sauce",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "risoto-de-palmito-pupunha",
+          "name": "Heart of Palm & Pupunha Risotto",
+          "price": 57,
+          "description": "and mushrooms roasted in herb olive oil",
+          "tags": [
+            "vegan"
+          ]
+        },
+        {
+          "id": "paella",
+          "name": "Paella",
+          "price": 68,
+          "description": "with brown rice, vegetables (carrot, zucchini, bell pepper, cauliflower, broccoli, button mushrooms) finished with cashews, seaweed, paellero seasoning and smoked hot paprika",
+          "tags": [
+            "vegan"
+          ]
+        }
+      ],
+      "columns": 1
+    },
+    {
+      "id": "sobremesas",
+      "label": "Desserts",
+      "eyebrow": "Desserts",
+      "introBlocks": [],
+      "items": [
+        {
+          "id": "brownie-mix",
+          "name": "Brownie Mix",
+          "price": 35,
+          "description": "with white chocolate, dark chocolate and walnut chips, served with vanilla ice cream",
+          "tags": [
+            "dessert"
+          ]
+        },
+        {
+          "id": "petit-gateau-de-chocolate",
+          "name": "Chocolate Petit Gâteau",
+          "price": 37,
+          "description": "with crème anglaise and vanilla ice cream",
+          "tags": [
+            "dessert"
+          ]
+        },
+        {
+          "id": "pudim-da-vovo",
+          "name": "Grandma's Pudding",
+          "price": 15,
+          "description": "condensed milk pudding with coconut milk",
+          "tags": [
+            "dessert"
+          ]
+        },
+        {
+          "id": "tiramisu",
+          "name": "Tiramisù",
+          "price": 30,
+          "description": "classic Italian dessert with mascarpone cream, coffee, Amaretto liqueur and ladyfingers",
+          "tags": [
+            "dessert"
+          ]
+        },
+        {
+          "id": "torta-de-limao",
+          "name": "Lemon Pie",
+          "price": 20,
+          "description": "with meringue",
+          "tags": [
+            "dessert"
+          ]
+        },
+        {
+          "id": "brownie-vegano",
+          "name": "Vegan Brownie",
+          "price": 30,
+          "description": "with sorbet of the day",
+          "tags": [
+            "dessert"
+          ]
+        },
+        {
+          "id": "tiramisu-de-frutas-vermelhas",
+          "name": "Red Berry Tiramisù",
+          "price": 30,
+          "description": "with Amaretto liqueur and cashew cream",
+          "tags": [
+            "dessert"
+          ]
+        },
+        {
+          "id": "tortinha-de-banana",
+          "name": "Banana Tart",
+          "price": 25,
+          "description": "with tangerine sorbet and coconut cream",
+          "tags": [
+            "dessert"
+          ]
+        }
+      ],
+      "columns": 1
     }
   ]
 }
