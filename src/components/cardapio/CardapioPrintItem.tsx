@@ -1,6 +1,7 @@
 import { getItemPriceLabel } from "@/lib/cardapio-format";
 import type { CardapioCatalogItem } from "@/lib/cardapio-catalog";
 import type { CardapioLang } from "@/lib/cardapio-images";
+import { getItemBadges } from "@/lib/cardapio-premium";
 import { HighlightText } from "@/components/cardapio/HighlightText";
 
 type CardapioPrintItemProps = {
@@ -18,14 +19,31 @@ export function CardapioPrintItem({
 }: CardapioPrintItemProps) {
   if (item.available === false) return null;
 
+  const badges = getItemBadges(item, lang);
+
   return (
     <li
       id={`cardapio-item-${item.id}`}
       className={`cardapio-print-item ${highlighted ? "is-highlighted" : ""}`}
     >
       <div className="cardapio-print-item__copy">
-        <p className="cardapio-print-item__name">
-          <HighlightText text={item.name} query={query} />
+        <p className="cardapio-print-item__name-row">
+          {badges.length > 0 ? (
+            <span className="cardapio-print-item__badges" aria-hidden>
+              {badges.map((badge) => (
+                <span
+                  key={badge.key}
+                  className={`cardapio-print-item__badge cardapio-print-item__badge--${badge.key}`}
+                  title={badge.title}
+                >
+                  {badge.label}
+                </span>
+              ))}
+            </span>
+          ) : null}
+          <span className="cardapio-print-item__name">
+            <HighlightText text={item.name} query={query} />
+          </span>
         </p>
         {item.description ? (
           <p className="cardapio-print-item__description">
