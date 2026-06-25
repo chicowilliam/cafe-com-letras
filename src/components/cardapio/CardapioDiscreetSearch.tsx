@@ -1,6 +1,7 @@
 import { Search, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import type { CardapioLang } from "@/lib/cardapio-images";
+import { getSearchPlaceholders } from "@/lib/cardapio-premium";
 
 type CardapioDiscreetSearchProps = {
   lang: CardapioLang;
@@ -20,11 +21,21 @@ export function CardapioDiscreetSearch({
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const hasQuery = query.trim().length > 0;
+  const placeholders = getSearchPlaceholders(lang);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
   }, [open]);
+
+  useEffect(() => {
+    if (open || hasQuery) return;
+    const timer = window.setInterval(() => {
+      setPlaceholderIndex((current) => (current + 1) % placeholders.length);
+    }, 4200);
+    return () => window.clearInterval(timer);
+  }, [open, hasQuery, placeholders.length]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -52,9 +63,7 @@ export function CardapioDiscreetSearch({
               type="search"
               value={query}
               onChange={(event) => onQueryChange(event.target.value)}
-              placeholder={
-                lang === "pt" ? "Buscar prato ou bebida…" : "Search dish or drink…"
-              }
+              placeholder={placeholders[placeholderIndex]}
               className="cardapio-discreet-search__input focus-ring"
               autoComplete="off"
             />
@@ -73,11 +82,11 @@ export function CardapioDiscreetSearch({
           <p className="cardapio-discreet-search__status" aria-live="polite">
             {hasQuery
               ? lang === "pt"
-                ? `${resultCount} de ${totalCount}`
-                : `${resultCount} of ${totalCount}`
+                ? `${resultCount} de ${totalCount} itens`
+                : `${resultCount} of ${totalCount} items`
               : lang === "pt"
-                ? `${totalCount} itens`
-                : `${totalCount} items`}
+                ? `${totalCount} itens na carta`
+                : `${totalCount} items on the menu`}
           </p>
         </div>
       ) : (
