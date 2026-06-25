@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { CardapioDiscreetSearch } from "@/components/cardapio/CardapioDiscreetSearch";
+import { CardapioPrintCover } from "@/components/cardapio/CardapioPrintCover";
+import { CardapioPrintFooter } from "@/components/cardapio/CardapioPrintFooter";
+import { CardapioPrintHighlights } from "@/components/cardapio/CardapioPrintHighlights";
 import { CardapioPrintSection } from "@/components/cardapio/CardapioPrintSection";
+import catalogMetaEn from "@/data/cardapio/catalog-meta.en.json";
 import { getCatalog } from "@/lib/cardapio-catalog";
 import { countCatalogItems, searchCatalog } from "@/lib/cardapio-search";
 import type { CardapioLang } from "@/lib/cardapio-images";
@@ -25,6 +29,8 @@ export function CardapioPrintViewer({
 
   const totalCount = countCatalogItems(baseCatalog);
   const resultCount = countCatalogItems(filteredCatalog);
+  const hasQuery = query.trim().length > 0;
+
   const visibleSections = filteredCatalog.sections.filter(
     (section) =>
       (section.items?.length ?? 0) > 0 ||
@@ -32,8 +38,11 @@ export function CardapioPrintViewer({
       (section.infoBlocks?.length ?? 0) > 0,
   );
 
+  const infoSection = visibleSections.find((section) => section.infoLayout === "groups");
+  const menuSections = visibleSections.filter((section) => section.id !== infoSection?.id);
+
   useEffect(() => {
-    if (!query.trim()) {
+    if (!hasQuery) {
       setHighlightItemId(null);
       return;
     }
@@ -45,7 +54,7 @@ export function CardapioPrintViewer({
     setHighlightItemId(firstItem.id);
     const target = document.getElementById(`cardapio-item-${firstItem.id}`);
     target?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [query, filteredCatalog]);
+  }, [query, filteredCatalog, hasQuery]);
 
   return (
     <div className="cardapio-print-viewer">
@@ -57,28 +66,58 @@ export function CardapioPrintViewer({
         totalCount={totalCount}
       />
 
-      <div className="cardapio-print-viewer__sheet">
-        {visibleSections.length > 0 ? (
-          visibleSections.map((section) => (
-            <CardapioPrintSection
-              key={section.id}
-              section={section}
+      <div className="cardapio-print-viewer__folio">
+        <div className="cardapio-print-viewer__sheet">
+          {!hasQuery ? (
+            <CardapioPrintCover
               lang={lang}
-              query={query}
-              highlightItemId={highlightItemId}
+              updatedAt={filteredCatalog.updatedAt}
             />
-          ))
-        ) : (
-          <p className="cardapio-print-viewer__empty">
-            {lang === "pt"
-              ? `Nenhum prato encontrado para «${query.trim()}».`
-              : `No dishes found for “${query.trim()}”.`}
-          </p>
-        )}
+          ) : null}
+
+          {visibleSections.length > 0 ? (
+            <>
+              {infoSection ? (
+                <CardapioPrintSection
+                  key={infoSection.id}
+                  section={infoSection}
+                  lang={lang}
+                  query={query}
+                  highlightItemId={highlightItemId}
+                />
+              ) : null}
+
+              {!hasQuery ? (
+                <CardapioPrintHighlights
+                  catalog={baseCatalog}
+                  lang={lang}
+                  query={query}
+                  highlightItemId={highlightItemId}
+                />
+              ) : null}
+
+              {menuSections.map((section) => (
+                <CardapioPrintSection
+                  key={section.id}
+                  section={section}
+                  lang={lang}
+                  query={query}
+                  highlightItemId={highlightItemId}
+                />
+              ))}
+            </>
+          ) : (
+            <p className="cardapio-print-viewer__empty">
+              {lang === "pt"
+                ? `Não achamos «${query.trim()}» na carta — tente «vegano», «café» ou «bruschetta».`
+                : `Nothing matched “${query.trim()}” — try “vegetarian”, “espresso” or “tiramisù”.`}
+            </p>
+          )}
+        </div>
       </div>
 
       <p className="cardapio-print-viewer__meta">
-        {lang === "pt" ? "Atualizado em " : "Updated on "}
+        {lang === "pt" ? "Atualizado em " : "Updated "}
         {new Date(filteredCatalog.updatedAt).toLocaleDateString(
           lang === "pt" ? "pt-BR" : "en-US",
           { day: "2-digit", month: "long", year: "numeric" },
@@ -91,15 +130,11 @@ export function CardapioPrintViewer({
           : "Prices subject to change — please check at the café."}
       </p>
 
-      <div className="cardapio-print-viewer__footer">
-        <button
-          type="button"
-          onClick={onChangeLang}
-          className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-md border border-hairline/60 px-5 py-2.5 text-sm text-foreground-muted transition-colors hover:text-foreground"
-        >
-          {lang === "pt" ? "Ver outro idioma" : "Switch language"}
-        </button>
-      </div>
+      <CardapioPrintFooter
+        lang={lang}
+        onChangeLang={onChangeLang}
+        enNotice={lang === "en" ? catalogMetaEn.notice : undefined}
+      />
     </div>
   );
 }
