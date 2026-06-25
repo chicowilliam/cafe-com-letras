@@ -12,15 +12,15 @@ export function CardapioViewToggle({
   mode,
   onChange,
 }: CardapioViewToggleProps) {
-  const printLabel = lang === "pt" ? "Cardápio" : "Menu";
-  const sheetLabel = lang === "pt" ? "Scan original" : "Original scan";
+  const printLabel = lang === "pt" ? "Ler" : "Read";
+  const sheetLabel = lang === "pt" ? "Folhear" : "Browse sheets";
 
   return (
     <div
       className="cardapio-view-toggle"
       role="tablist"
       aria-label={
-        lang === "pt" ? "Modo de visualização do cardápio" : "Menu view mode"
+        lang === "pt" ? "Como ver o cardápio" : "How to view the menu"
       }
     >
       <button
@@ -32,7 +32,10 @@ export function CardapioViewToggle({
           mode === "print" ? "is-active" : ""
         }`}
       >
-        {printLabel}
+        <span className="cardapio-view-toggle__label">{printLabel}</span>
+        <span className="cardapio-view-toggle__hint">
+          {lang === "pt" ? "Busca e leitura" : "Search & read"}
+        </span>
       </button>
       <button
         type="button"
@@ -43,7 +46,10 @@ export function CardapioViewToggle({
           mode === "sheet" ? "is-active" : ""
         }`}
       >
-        {sheetLabel}
+        <span className="cardapio-view-toggle__label">{sheetLabel}</span>
+        <span className="cardapio-view-toggle__hint">
+          {lang === "pt" ? "Como na mesa" : "Like at the table"}
+        </span>
       </button>
     </div>
   );
