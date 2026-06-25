@@ -1,0 +1,308 @@
+/* Cardápio — tema papel (superfície primária = folha do menu) */
+
+[data-page-theme="cardapio"] {
+  --cardapio-paper: #ede8dc;
+  --cardapio-paper-warm: #f5f0e6;
+  --cardapio-paper-edge: #d4cdc0;
+  --cardapio-mesa: #12110d;
+  --print-ink: #2a2820;
+  --print-ink-muted: #5c574c;
+  --print-price: #6b4f1a;
+  --cardapio-warm: #d4a373;
+  --print-paper: var(--cardapio-paper);
+  --print-page-max: 540px;
+  --print-col-gap: 1.75rem;
+
+  --background: var(--cardapio-paper);
+  --foreground: var(--print-ink);
+  --foreground-muted: var(--print-ink-muted);
+  --surface: #e8e3d7;
+  --surface-elevated: #f0ebe2;
+  --hairline: color-mix(in srgb, var(--print-ink) 12%, transparent);
+  --accent: var(--print-price);
+  --accent-hover: #7d5d1f;
+  --accent-active: #5a4214;
+  --accent-foreground: var(--cardapio-paper);
+  --accent-2: var(--cardapio-warm);
+  --accent-2-hover: #e0b88a;
+  --accent-2-active: #c49362;
+  --ink: var(--print-ink);
+  --selection-bg: rgba(107, 79, 26, 0.15);
+  --selection-color: var(--print-ink);
+
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+[data-page-theme="cardapio"] ::selection {
+  background: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+/* Fundo papel — toda a rota */
+[data-page-theme="cardapio"] [data-page="cardapio"] {
+  position: relative;
+  min-height: 100dvh;
+  color: var(--print-ink);
+  background-color: var(--cardapio-paper);
+  box-shadow: inset 0 0 80px rgba(18, 17, 13, 0.06);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"]::before {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  content: "";
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-page__stage {
+  position: relative;
+  min-height: calc(100dvh - 3.5rem);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-print-viewer,
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-menu-viewer,
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-list-viewer {
+  background: transparent;
+}
+
+/* Escolha de idioma */
+[data-page-theme="cardapio"] [data-page="cardapio"][data-cardapio-skin="picker"] .section-eyebrow {
+  color: var(--print-price);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"][data-cardapio-skin="picker"] .section-title {
+  color: var(--print-ink);
+}
+
+/* Header da subpágina */
+[data-page-theme="cardapio"] .site-subpage-header {
+  border-bottom: 1px solid var(--cardapio-paper-edge) !important;
+  background: color-mix(in srgb, var(--cardapio-paper-warm) 95%, #fff) !important;
+  backdrop-filter: none !important;
+}
+
+[data-page-theme="cardapio"] .site-subpage-header .font-display,
+[data-page-theme="cardapio"] .site-subpage-header .hh-nav-brand,
+[data-page-theme="cardapio"] .site-subpage-header .text-foreground {
+  color: var(--print-ink) !important;
+}
+
+[data-page-theme="cardapio"] .site-subpage-header .text-foreground-muted,
+[data-page-theme="cardapio"] .site-subpage-header button,
+[data-page-theme="cardapio"] .site-subpage-header a {
+  color: var(--print-ink-muted) !important;
+}
+
+[data-page-theme="cardapio"] .site-subpage-header a:hover,
+[data-page-theme="cardapio"] .site-subpage-header button:hover {
+  color: var(--print-ink) !important;
+}
+
+[data-page-theme="cardapio"] .site-subpage-header .hh-nav-eyebrow,
+[data-page-theme="cardapio"] .site-subpage-header .text-accent-2 {
+  color: var(--print-price) !important;
+}
+
+/* Focus ring */
+[data-page-theme="cardapio"] .focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--cardapio-paper),
+    0 0 0 4px var(--print-price);
+}
+
+/* Nav de seções — mobile */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--mobile {
+  border-bottom: 1px solid var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper) 92%, #fff);
+  backdrop-filter: none;
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--mobile .cardapio-section-nav__pill {
+  border-color: var(--cardapio-paper-edge);
+  background: transparent;
+  color: var(--print-ink-muted);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--mobile .cardapio-section-nav__pill.is-active {
+  border-color: var(--print-price);
+  background: color-mix(in srgb, var(--cardapio-paper-edge) 45%, var(--cardapio-paper));
+  color: var(--print-ink);
+}
+
+/* Nav de seções — desktop */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--desktop .cardapio-section-nav__label {
+  color: var(--print-price);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--desktop .cardapio-section-nav__link {
+  border-left-color: transparent;
+  color: var(--print-ink-muted);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--desktop .cardapio-section-nav__link:hover {
+  border-left-color: color-mix(in srgb, var(--print-price) 35%, transparent);
+  color: var(--print-ink);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--desktop .cardapio-section-nav__link.is-active {
+  border-left-color: var(--print-price);
+  background: color-mix(in srgb, var(--cardapio-paper-edge) 40%, transparent);
+  color: var(--print-ink);
+  font-weight: 500;
+}
+
+/* Toggle */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-view-toggle {
+  border-color: var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper-edge) 30%, var(--cardapio-paper));
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-view-toggle__btn {
+  color: var(--print-ink-muted);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-view-toggle__btn.is-active {
+  background: var(--cardapio-paper-warm);
+  color: var(--print-ink);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--print-ink) 6%, transparent),
+    0 2px 8px rgba(18, 17, 13, 0.08);
+}
+
+/* Toolbar */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-page__toolbar {
+  background: linear-gradient(
+    to bottom,
+    var(--cardapio-paper) 0%,
+    var(--cardapio-paper) 72%,
+    transparent 100%
+  );
+}
+
+/* Seções print — folha contínua */
+[data-page-theme="cardapio"] [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section {
+  background: transparent;
+  box-shadow: none;
+  border-bottom: none;
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section + .cardapio-print-section {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-viewer__empty {
+  border: 1px dashed var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper-edge) 20%, transparent);
+}
+
+/* Busca (modo lista) */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-search__input {
+  border-color: var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper-warm) 80%, #fff);
+  color: var(--print-ink);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-search__icon,
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-search__clear {
+  color: var(--print-ink-muted);
+}
+
+/* Busca discreta */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-discreet-search__toggle {
+  border-color: var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper-warm) 90%, #fff);
+  color: var(--print-ink-muted);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-discreet-search__panel {
+  border-color: var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper-warm) 96%, #fff);
+  backdrop-filter: blur(8px);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-discreet-search__input {
+  color: var(--print-ink);
+}
+
+/* Cards de idioma */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-lang-card {
+  border-color: var(--cardapio-paper-edge);
+  background: var(--cardapio-paper-warm);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--print-ink) 4%, transparent),
+    0 4px 16px rgba(18, 17, 13, 0.08);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-lang-card:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--print-price) 20%, transparent),
+    0 8px 24px rgba(18, 17, 13, 0.12);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-lang-card__footer {
+  border-top-color: var(--cardapio-paper-edge);
+  background: color-mix(in srgb, var(--cardapio-paper-edge) 22%, var(--cardapio-paper));
+}
+
+/* Botões de rodapé */
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-print-viewer__footer button,
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-menu-viewer__footer button,
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-list-viewer__footer button {
+  border-color: var(--cardapio-paper-edge) !important;
+  color: var(--print-ink-muted);
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-print-viewer__footer button:hover,
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-menu-viewer__footer button:hover,
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-list-viewer__footer button:hover {
+  color: var(--print-ink);
+}
+
+/* Zoom overlay — único uso de mesa escura */
+[data-page-theme="cardapio"] .cardapio-sheet-zoom {
+  background: rgba(18, 17, 13, 0.88);
+}
+
+[data-page-theme="cardapio"] .cardapio-sheet-zoom__header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-page-theme="cardapio"] .cardapio-sheet-zoom__title {
+  color: color-mix(in srgb, var(--cardapio-paper) 88%, transparent);
+}
+
+[data-page-theme="cardapio"] .cardapio-sheet-zoom__close {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: color-mix(in srgb, var(--cardapio-paper) 92%, transparent);
+}
+
+/* Scrollbar */
+[data-page-theme="cardapio"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-page-theme="cardapio"] ::-webkit-scrollbar-track {
+  background: var(--cardapio-paper);
+}
+
+[data-page-theme="cardapio"] ::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--cardapio-paper-edge);
+}
+
+[data-page-theme="cardapio"] ::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--print-ink-muted) 50%, var(--cardapio-paper-edge));
+}
