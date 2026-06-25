@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CardapioMenuViewer } from "@/components/cardapio/CardapioMenuViewer";
+import { CardapioPrintContextPanel } from "@/components/cardapio/CardapioPrintContextPanel";
 import { CardapioPrintViewer } from "@/components/cardapio/CardapioPrintViewer";
 import { CardapioViewToggle } from "@/components/cardapio/CardapioViewToggle";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
@@ -87,12 +88,15 @@ export default function CardapioPage() {
       data-cardapio-skin={cardapioSkin}
     >
       {!lang && (
-        <div className="section-padding">
+        <div className="section-padding cardapio-picker">
           <FadeIn className="mx-auto max-w-2xl text-center">
-            <p className="section-eyebrow">Escolha o idioma</p>
-            <h1 className="section-title mt-2 text-foreground">Cardápio</h1>
-            <p className="mt-3 font-garamond text-lg italic text-foreground-muted">
+            <p className="cardapio-picker__kicker">Savassi · Belo Horizonte</p>
+            <h1 className="cardapio-picker__title font-display">Cardápio</h1>
+            <p className="cardapio-picker__tagline font-garamond">
               da cozinha mineira ao café autoral
+            </p>
+            <p className="cardapio-picker__edition">
+              Edição {new Date("2026-06-01").toLocaleDateString("pt-BR", { month: "long", year: "numeric" })}
             </p>
           </FadeIn>
 
@@ -121,7 +125,9 @@ export default function CardapioPage() {
                         {capa.label}
                       </p>
                       <p className="mt-0.5 text-xs text-foreground-muted">
-                        {key === "pt" ? "Português" : "English"}
+                        {key === "pt"
+                          ? "Carta completa · Ler ou folhear"
+                          : "Full menu · Read or browse"}
                       </p>
                     </div>
                   </button>
@@ -139,23 +145,25 @@ export default function CardapioPage() {
               sections={navSections}
               activeId={activeSectionId}
               variant="mobile"
+              lang={lang}
             />
           </div>
 
-          <div className="mx-auto flex max-w-6xl justify-center px-4 py-4 md:px-6 lg:px-8">
-            <aside className="hidden w-40 shrink-0 lg:block xl:w-44">
+          <div className="cardapio-page__triptych mx-auto px-4 py-4 md:px-6 lg:px-8">
+            <aside className="cardapio-page__aside cardapio-page__aside--nav hidden shrink-0 lg:block">
               <CardapioSectionNav
                 sections={navSections}
                 activeId={activeSectionId}
                 variant="desktop"
+                lang={lang}
               />
             </aside>
 
             <div
-              className={`w-full lg:mx-6 ${
+              className={`cardapio-page__content w-full min-w-0 ${
                 viewMode === "print"
-                  ? "cardapio-page__content--print max-w-[576px]"
-                  : "max-w-[500px]"
+                  ? "cardapio-page__content--print"
+                  : "cardapio-page__content--sheet max-w-[500px] lg:mx-auto"
               }`}
             >
               <div className="cardapio-page__toolbar">
@@ -179,6 +187,12 @@ export default function CardapioPage() {
                 />
               )}
             </div>
+
+            {viewMode === "print" ? (
+              <div className="cardapio-page__aside cardapio-page__aside--context hidden shrink-0 xl:block">
+                <CardapioPrintContextPanel lang={lang} />
+              </div>
+            ) : null}
           </div>
         </div>
       )}
