@@ -1,7 +1,9 @@
 @import "tailwindcss";
 @import "./styles/route-transitions.css";
+@import "./styles/cardapio-theme.css";
 @import "./styles/cardapio-menu.css";
 @import "./styles/cardapio-list.css";
+@import "./styles/cardapio-print.css";
 
 @font-face {
   font-family: "Gloock";
