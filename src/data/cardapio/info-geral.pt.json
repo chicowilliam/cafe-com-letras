@@ -1,0 +1,162 @@
+{
+  "label": "Info geral",
+  "heading": "Informações",
+  "infoLayout": "groups",
+  "blocks": [
+    {
+      "id": "delivery",
+      "title": "Delivery",
+      "variant": "contact",
+      "column": 1,
+      "lines": [
+        { "value": "Segunda a domingo, 11h às 21h30" },
+        {
+          "label": "Telefone",
+          "value": "(31) 98424-4285",
+          "href": "tel:+5531984244285"
+        }
+      ]
+    },
+    {
+      "id": "reservas",
+      "title": "Reservas",
+      "variant": "contact",
+      "column": 1,
+      "lines": [
+        {
+          "label": "Telefone",
+          "value": "(31) 98424-4285",
+          "href": "tel:+5531984244285"
+        },
+        {
+          "label": "Online",
+          "value": "reservation.getin.app",
+          "href": "https://reservation.getin.app"
+        }
+      ]
+    },
+    {
+      "id": "redes",
+      "title": "Café nas redes",
+      "variant": "list",
+      "column": 1,
+      "lines": [
+        {
+          "label": "Instagram",
+          "value": "@cafecomletras",
+          "href": "https://instagram.com/cafecomletras"
+        },
+        {
+          "label": "Facebook",
+          "value": "@cafecomletras",
+          "href": "https://facebook.com/cafecomletras"
+        },
+        {
+          "label": "X",
+          "value": "@cafe_com_letras",
+          "href": "https://x.com/cafe_com_letras"
+        },
+        {
+          "label": "YouTube",
+          "value": "@cafecomletrastv",
+          "href": "https://youtube.com/@cafecomletrastv"
+        },
+        {
+          "label": "WhatsApp",
+          "value": "(31) 98424-4285",
+          "href": "https://wa.me/5531984244285"
+        },
+        {
+          "label": "Site",
+          "value": "cafecomletras.com.br",
+          "href": "https://cafecomletras.com.br"
+        }
+      ]
+    },
+    {
+      "id": "horario",
+      "title": "Horário de funcionamento",
+      "variant": "schedule",
+      "column": 2,
+      "lines": [
+        { "value": "Domingo a quinta-feira, 12h às 22h" },
+        { "value": "Sexta e sábado, 12h às 23h" }
+      ]
+    },
+    {
+      "id": "endereco",
+      "title": "Endereço e telefone",
+      "variant": "contact",
+      "column": 2,
+      "lines": [
+        {
+          "value": "Rua Antônio de Albuquerque, 781 — Funcionários"
+        },
+        {
+          "label": "Telefone",
+          "value": "(31) 99842-4285",
+          "href": "tel:+5531998424285"
+        }
+      ]
+    },
+    {
+      "id": "wifi",
+      "title": "Wi-fi",
+      "variant": "default",
+      "column": 2,
+      "lines": [
+        { "label": "Rede", "value": "Clientes do Café" },
+        { "label": "Senha", "value": "livrariadocafe" }
+      ]
+    },
+    {
+      "id": "rolha",
+      "title": "Taxa de rolha",
+      "variant": "policy",
+      "column": 2,
+      "body": "É cobrado o valor de R$ 50 (“rolha”) para qualquer produto alimentício ou bebida consumidos dentro do Café com Letras que não tenham sido adquiridos neste estabelecimento (exceto bolo de aniversário)."
+    },
+    {
+      "id": "programacao",
+      "title": "Programação cultural",
+      "variant": "program",
+      "column": "full",
+      "items": [
+        {
+          "name": "Jazz, Por Favor!",
+          "detail": "Quarta, 20h às 22h"
+        },
+        {
+          "name": "DJs no Café",
+          "detail": "Sexta e sábado, 20h às 23h"
+        },
+        {
+          "name": "Piano Bar",
+          "detail": "Domingo, 18h30 às 22h"
+        },
+        {
+          "name": "Lançar seu livro no café",
+          "detail": "contato@livrariacontraponto.com.br",
+          "href": "mailto:contato@livrariacontraponto.com.br"
+        }
+      ]
+    },
+    {
+      "id": "pagamento",
+      "title": "Meios de pagamento",
+      "variant": "payment",
+      "column": "full",
+      "lines": [
+        { "value": "Dinheiro" },
+        {
+          "value": "Cartão de crédito e débito: Visa, Mastercard, Elo, Amex e Diners"
+        },
+        {
+          "value": "Vale refeição: Alelo, Sodexo e Ticket"
+        },
+        { "value": "Cartões multibenefícios, na modalidade física" }
+      ],
+      "footnote": "Cobramos taxa de serviço de 12%"
+    }
+  ]
+}
