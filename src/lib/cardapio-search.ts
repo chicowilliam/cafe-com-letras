@@ -23,7 +23,12 @@ export function searchCatalog(
       ...section,
       items: section.items.filter((item) => itemMatchesQuery(item, query)),
     }))
-    .filter((section) => section.items.length > 0);
+    .filter(
+      (section) =>
+        section.items.length > 0 ||
+        (section.infoBlocks?.length ?? 0) > 0 ||
+        (section.introBlocks?.length ?? 0) > 0,
+    );
 
   return { ...catalog, sections };
 }
