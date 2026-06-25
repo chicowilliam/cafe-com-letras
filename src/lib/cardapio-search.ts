@@ -1,4 +1,8 @@
-import type { CardapioCatalog, CardapioCatalogItem } from "@/lib/cardapio-catalog";
+import type {
+  CardapioCatalog,
+  CardapioCatalogItem,
+  CardapioInfoBlock,
+} from "@/lib/cardapio-catalog";
 import { normalizeSearchText } from "@/lib/cardapio-format";
 
 function itemMatchesQuery(item: CardapioCatalogItem, query: string) {
@@ -9,6 +13,25 @@ function itemMatchesQuery(item: CardapioCatalogItem, query: string) {
   );
 
   return haystack.includes(query);
+}
+
+function infoBlockMatchesQuery(block: CardapioInfoBlock, query: string) {
+  const parts = [
+    block.title,
+    block.body ?? "",
+    block.footnote ?? "",
+    ...(block.lines?.flatMap((line) => [line.label ?? "", line.value]) ?? []),
+    ...(block.items?.flatMap((item) => [item.name, item.detail ?? ""]) ?? []),
+  ];
+  return normalizeSearchText(parts.join(" ")).includes(query);
+}
+
+function sectionMatchesInfoQuery(
+  section: CardapioCatalog["sections"][number],
+  query: string,
+) {
+  if (!section.infoBlocks?.length) return false;
+  return section.infoBlocks.some((block) => infoBlockMatchesQuery(block, query));
 }
 
 export function searchCatalog(
@@ -26,7 +49,7 @@ export function searchCatalog(
     .filter(
       (section) =>
         section.items.length > 0 ||
-        (section.infoBlocks?.length ?? 0) > 0 ||
+        sectionMatchesInfoQuery(section, query) ||
         (section.introBlocks?.length ?? 0) > 0,
     );
 
