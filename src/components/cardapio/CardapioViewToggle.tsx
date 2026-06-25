@@ -1,9 +1,10 @@
 import type { CardapioLang } from "@/lib/cardapio-images";
+import type { CardapioViewMode } from "@/hooks/useCardapioViewMode";
 
 type CardapioViewToggleProps = {
   lang: CardapioLang;
-  mode: "sheet" | "list";
-  onChange: (mode: "sheet" | "list") => void;
+  mode: CardapioViewMode;
+  onChange: (mode: CardapioViewMode) => void;
 };
 
 export function CardapioViewToggle({
@@ -11,8 +12,8 @@ export function CardapioViewToggle({
   mode,
   onChange,
 }: CardapioViewToggleProps) {
-  const sheetLabel = lang === "pt" ? "Cardápio impresso" : "Printed menu";
-  const listLabel = lang === "pt" ? "Lista interativa" : "Interactive list";
+  const printLabel = lang === "pt" ? "Cardápio" : "Menu";
+  const sheetLabel = lang === "pt" ? "Scan original" : "Original scan";
 
   return (
     <div
@@ -25,6 +26,17 @@ export function CardapioViewToggle({
       <button
         type="button"
         role="tab"
+        aria-selected={mode === "print"}
+        onClick={() => onChange("print")}
+        className={`cardapio-view-toggle__btn focus-ring ${
+          mode === "print" ? "is-active" : ""
+        }`}
+      >
+        {printLabel}
+      </button>
+      <button
+        type="button"
+        role="tab"
         aria-selected={mode === "sheet"}
         onClick={() => onChange("sheet")}
         className={`cardapio-view-toggle__btn focus-ring ${
@@ -32,17 +44,6 @@ export function CardapioViewToggle({
         }`}
       >
         {sheetLabel}
-      </button>
-      <button
-        type="button"
-        role="tab"
-        aria-selected={mode === "list"}
-        onClick={() => onChange("list")}
-        className={`cardapio-view-toggle__btn focus-ring ${
-          mode === "list" ? "is-active" : ""
-        }`}
-      >
-        {listLabel}
       </button>
     </div>
   );
