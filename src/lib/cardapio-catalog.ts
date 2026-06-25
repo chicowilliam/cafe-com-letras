@@ -1,6 +1,35 @@
 import catalogEn from "@/data/cardapio/catalog.en.json";
 import catalogPt from "@/data/cardapio/catalog.pt.json";
+import infoGeralPt from "@/data/cardapio/info-geral.pt.json";
 import type { CardapioLang } from "@/lib/cardapio-images";
+
+export type CardapioIntroBlock = {
+  title: string;
+  body: string;
+};
+
+export type CardapioInfoLine = {
+  label?: string;
+  value: string;
+  href?: string;
+};
+
+export type CardapioInfoProgramItem = {
+  name: string;
+  detail?: string;
+  href?: string;
+};
+
+export type CardapioInfoBlock = {
+  id: string;
+  title: string;
+  variant?: "default" | "policy" | "schedule" | "list" | "contact" | "program" | "payment";
+  column?: 1 | 2 | "full";
+  lines?: CardapioInfoLine[];
+  items?: CardapioInfoProgramItem[];
+  body?: string;
+  footnote?: string;
+};
 
 export type CardapioCatalogItem = {
   id: string;
@@ -16,8 +45,13 @@ export type CardapioCatalogItem = {
 export type CardapioCatalogSection = {
   id: string;
   label: string;
+  heading?: string;
   eyebrow?: string;
   intro?: string;
+  introBlocks?: CardapioIntroBlock[];
+  infoLayout?: "groups";
+  infoBlocks?: CardapioInfoBlock[];
+  columns?: number;
   items: CardapioCatalogItem[];
 };
 
@@ -28,16 +62,40 @@ export type CardapioCatalog = {
 };
 
 const CATALOGS: Record<CardapioLang, CardapioCatalog> = {
-  pt: catalogPt as CardapioCatalog,
+  pt: mergeInfoGeral(catalogPt as CardapioCatalog),
   en: catalogEn as CardapioCatalog,
 };
+
+function mergeInfoGeral(catalog: CardapioCatalog): CardapioCatalog {
+  const sections = catalog.sections.map((section) => {
+    if (section.id !== "info-geral") return section;
+    return {
+      ...section,
+      label: infoGeralPt.label,
+      heading: infoGeralPt.heading,
+      infoLayout: infoGeralPt.infoLayout as "groups",
+      infoBlocks: infoGeralPt.blocks as CardapioInfoBlock[],
+      introBlocks: [],
+      items: [],
+    };
+  });
+  return { ...catalog, sections };
+}
+
+function sectionHasContent(section: CardapioCatalogSection) {
+  return (
+    section.items.length > 0 ||
+    (section.introBlocks?.length ?? 0) > 0 ||
+    (section.infoBlocks?.length ?? 0) > 0
+  );
+}
 
 export function getCatalog(lang: CardapioLang): CardapioCatalog {
   return CATALOGS[lang];
 }
 
 export function getCatalogSectionsWithItems(lang: CardapioLang) {
-  return getCatalog(lang).sections.filter((section) => section.items.length > 0);
+  return getCatalog(lang).sections.filter(sectionHasContent);
 }
 
 export function getCatalogItemById(lang: CardapioLang, itemId: string) {
