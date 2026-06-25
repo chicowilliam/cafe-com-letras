@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const HEADER_OFFSET_PX = 64;
+const HEADER_OFFSET_PX = 80;
 
 export function useCardapioSectionSpy(
   sectionIds: string[],
