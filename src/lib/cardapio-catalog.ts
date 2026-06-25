@@ -1,5 +1,6 @@
 import catalogEn from "@/data/cardapio/catalog.en.json";
 import catalogPt from "@/data/cardapio/catalog.pt.json";
+import infoGeralEn from "@/data/cardapio/info-geral.en.json";
 import infoGeralPt from "@/data/cardapio/info-geral.pt.json";
 import type { CardapioLang } from "@/lib/cardapio-images";
 
@@ -61,20 +62,33 @@ export type CardapioCatalog = {
   sections: CardapioCatalogSection[];
 };
 
-const CATALOGS: Record<CardapioLang, CardapioCatalog> = {
-  pt: mergeInfoGeral(catalogPt as CardapioCatalog),
-  en: catalogEn as CardapioCatalog,
+type InfoGeralFile = {
+  label: string;
+  heading: string;
+  infoLayout: string;
+  blocks: CardapioInfoBlock[];
 };
 
-function mergeInfoGeral(catalog: CardapioCatalog): CardapioCatalog {
+const INFO_GERAL: Record<CardapioLang, InfoGeralFile> = {
+  pt: infoGeralPt as InfoGeralFile,
+  en: infoGeralEn as InfoGeralFile,
+};
+
+const CATALOGS: Record<CardapioLang, CardapioCatalog> = {
+  pt: mergeInfoGeral(catalogPt as CardapioCatalog, "pt"),
+  en: mergeInfoGeral(catalogEn as CardapioCatalog, "en"),
+};
+
+function mergeInfoGeral(catalog: CardapioCatalog, lang: CardapioLang): CardapioCatalog {
+  const info = INFO_GERAL[lang];
   const sections = catalog.sections.map((section) => {
     if (section.id !== "info-geral") return section;
     return {
       ...section,
-      label: infoGeralPt.label,
-      heading: infoGeralPt.heading,
-      infoLayout: infoGeralPt.infoLayout as "groups",
-      infoBlocks: infoGeralPt.blocks as CardapioInfoBlock[],
+      label: info.label,
+      heading: info.heading,
+      infoLayout: info.infoLayout as "groups",
+      infoBlocks: info.blocks,
       introBlocks: [],
       items: [],
     };
