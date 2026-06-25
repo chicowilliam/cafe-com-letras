@@ -12,6 +12,7 @@
     "optimize:cardapio": "node scripts/optimize-cardapio-images.mjs",
     "extract:cardapio": "node scripts/extract-cardapio-text.mjs",
     "build:cardapio-catalog": "node scripts/build-cardapio-catalog.mjs",
+    "build:cardapio-catalog-en": "node scripts/build-cardapio-catalog-en.mjs",
     "slice:cardapio-headers": "node scripts/slice-cardapio-headers.mjs",
     "validate:cardapio": "node scripts/validate-cardapio-catalog.mjs",
     "subset:fonts": "node scripts/subset-fonts.mjs",
