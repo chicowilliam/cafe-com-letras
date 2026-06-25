@@ -1,0 +1,162 @@
+{
+  "label": "General info",
+  "heading": "Information",
+  "infoLayout": "groups",
+  "blocks": [
+    {
+      "id": "delivery",
+      "title": "Delivery",
+      "variant": "contact",
+      "column": 1,
+      "lines": [
+        { "value": "Monday to Sunday, 11 a.m. to 9:30 p.m." },
+        {
+          "label": "Phone",
+          "value": "(31) 98424-4285",
+          "href": "tel:+5531984244285"
+        }
+      ]
+    },
+    {
+      "id": "reservas",
+      "title": "Reservations",
+      "variant": "contact",
+      "column": 1,
+      "lines": [
+        {
+          "label": "Phone",
+          "value": "(31) 98424-4285",
+          "href": "tel:+5531984244285"
+        },
+        {
+          "label": "Online",
+          "value": "reservation.getin.app",
+          "href": "https://reservation.getin.app"
+        }
+      ]
+    },
+    {
+      "id": "redes",
+      "title": "Find us online",
+      "variant": "list",
+      "column": 1,
+      "lines": [
+        {
+          "label": "Instagram",
+          "value": "@cafecomletras",
+          "href": "https://instagram.com/cafecomletras"
+        },
+        {
+          "label": "Facebook",
+          "value": "@cafecomletras",
+          "href": "https://facebook.com/cafecomletras"
+        },
+        {
+          "label": "X",
+          "value": "@cafe_com_letras",
+          "href": "https://x.com/cafe_com_letras"
+        },
+        {
+          "label": "YouTube",
+          "value": "@cafecomletrastv",
+          "href": "https://youtube.com/@cafecomletrastv"
+        },
+        {
+          "label": "WhatsApp",
+          "value": "(31) 98424-4285",
+          "href": "https://wa.me/5531984244285"
+        },
+        {
+          "label": "Website",
+          "value": "cafecomletras.com.br",
+          "href": "https://cafecomletras.com.br"
+        }
+      ]
+    },
+    {
+      "id": "horario",
+      "title": "Opening hours",
+      "variant": "schedule",
+      "column": 2,
+      "lines": [
+        { "value": "Sunday to Thursday, 12 p.m. to 10 p.m." },
+        { "value": "Friday and Saturday, 12 p.m. to 11 p.m." }
+      ]
+    },
+    {
+      "id": "endereco",
+      "title": "Address & phone",
+      "variant": "contact",
+      "column": 2,
+      "lines": [
+        {
+          "value": "781 Antônio de Albuquerque St. — Funcionários"
+        },
+        {
+          "label": "Phone",
+          "value": "(31) 99842-4285",
+          "href": "tel:+5531998424285"
+        }
+      ]
+    },
+    {
+      "id": "wifi",
+      "title": "Wi-fi",
+      "variant": "default",
+      "column": 2,
+      "lines": [
+        { "label": "Network", "value": "Clientes do Café" },
+        { "label": "Password", "value": "livrariadocafe" }
+      ]
+    },
+    {
+      "id": "rolha",
+      "title": "Corkage fee",
+      "variant": "policy",
+      "column": 2,
+      "body": "A R$ 50 corkage fee applies to any food or drink consumed at Café com Letras that was not purchased here (birthday cake excepted)."
+    },
+    {
+      "id": "programacao",
+      "title": "Cultural program",
+      "variant": "program",
+      "column": "full",
+      "items": [
+        {
+          "name": "Jazz, Por Favor!",
+          "detail": "Wednesdays, 8 p.m. to 10 p.m."
+        },
+        {
+          "name": "DJs at the Café",
+          "detail": "Friday and Saturday, 8 p.m. to 11 p.m."
+        },
+        {
+          "name": "Piano Bar",
+          "detail": "Sunday, 6:30 p.m. to 10 p.m."
+        },
+        {
+          "name": "Launch your book at the café",
+          "detail": "contato@livrariacontraponto.com.br",
+          "href": "mailto:contato@livrariacontraponto.com.br"
+        }
+      ]
+    },
+    {
+      "id": "pagamento",
+      "title": "Payment methods",
+      "variant": "payment",
+      "column": "full",
+      "lines": [
+        { "value": "Cash" },
+        {
+          "value": "Credit and debit cards: Visa, Mastercard, Elo, Amex and Diners"
+        },
+        {
+          "value": "Meal vouchers: Alelo, Sodexo and Ticket"
+        },
+        { "value": "Multi-benefit cards, physical card only" }
+      ],
+      "footnote": "A 12% service charge applies"
+    }
+  ]
+}
