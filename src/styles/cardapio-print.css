@@ -1,0 +1,456 @@
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-viewer {
+  position: relative;
+  width: 100%;
+  min-height: calc(100dvh - 7rem);
+  padding: 0.5rem 0 2.5rem;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-viewer__sheet {
+  display: flex;
+  width: 100%;
+  max-width: var(--print-page-max);
+  flex-direction: column;
+  gap: 0;
+  margin: 0 auto;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section {
+  background: transparent;
+  box-shadow: none;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section + .cardapio-print-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cardapio-paper-edge, #d4cdc0);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section__body {
+  padding: 0 0.25rem 0.5rem;
+}
+
+@media (min-width: 768px) {
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section__body {
+    padding: 0 0.5rem 0.625rem;
+  }
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section__head {
+  margin-bottom: 1rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--cardapio-paper-edge, #d4cdc0);
+  text-align: center;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section__head::after {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  letter-spacing: 0.35em;
+  color: color-mix(in srgb, var(--print-price, #6b4f1a) 55%, transparent);
+  content: "· · ·";
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--print-price, #6b4f1a);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section__heading {
+  margin-top: 0.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 4vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--print-ink, #2a2820);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-section--info .cardapio-print-section__head {
+  margin-bottom: 1.25rem;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--structured {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__column {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+@media (min-width: 768px) {
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--structured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.75rem;
+    max-width: 34rem;
+  }
+
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--structured > .cardapio-print-info__block {
+    grid-column: 1 / -1;
+  }
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--structured .cardapio-print-info__block {
+  padding: 0 0 1rem;
+  border-top: 1px solid var(--cardapio-paper-edge, #d4cdc0);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--structured .cardapio-print-info__title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  line-height: 1.2;
+  color: var(--print-ink, #2a2820);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__line {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__line-label {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--print-price, #6b4f1a);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__line-value {
+  font-family: var(--font-garamond);
+  font-size: 0.9375rem;
+  font-style: normal;
+  line-height: 1.4;
+  color: var(--print-ink, #2a2820);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__line-value--solo {
+  margin: 0.5rem 0 0;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__block--schedule .cardapio-print-info__line-value {
+  font-variant-numeric: tabular-nums;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__block--policy .cardapio-print-info__body {
+  margin-top: 0.5rem;
+  max-width: 42ch;
+  text-align: left;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__program-list {
+  margin: 0.625rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__block--program .cardapio-print-info__program-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1.5rem;
+  }
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__program-name {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  line-height: 1.2;
+  color: var(--print-ink, #2a2820);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__program-when {
+  margin-top: 0.2rem;
+  font-family: var(--font-garamond);
+  font-size: 0.8125rem;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--print-ink-muted, #5c574c);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__footnote {
+  margin-top: 0.75rem;
+  padding-top: 0.625rem;
+  border-top: 1px solid color-mix(in srgb, var(--print-price, #6b4f1a) 25%, transparent);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--print-price, #6b4f1a);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--print-price, #6b4f1a) 45%, transparent);
+  text-underline-offset: 0.15em;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__link:hover {
+  color: var(--print-price, #6b4f1a);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--cover {
+  max-width: 32rem;
+  margin-inline: auto;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--cover .cardapio-print-info__body {
+  margin-inline: auto;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info--cover .cardapio-print-info__block:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__block {
+  padding: 1rem 0;
+  border-top: 1px solid var(--cardapio-paper-edge, #d4cdc0);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--print-ink, #2a2820);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-info__body {
+  margin-top: 0.5rem;
+  max-width: 36ch;
+  font-family: var(--font-garamond);
+  font-size: 0.9375rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--print-ink-muted, #5c574c);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-items--cols-2 {
+  column-gap: var(--print-col-gap);
+}
+
+@media (min-width: 768px) {
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-items--cols-2 {
+    column-count: 2;
+  }
+
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item {
+    break-inside: avoid;
+  }
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item__copy {
+  min-width: 0;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item__name {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  line-height: 1.2;
+  color: var(--print-ink);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item__description {
+  margin-top: 0.2rem;
+  font-family: var(--font-garamond);
+  font-size: 0.8125rem;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--print-ink-muted);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item__leader {
+  margin-bottom: 0.2rem;
+  min-width: 0.75rem;
+  flex: 1;
+  align-self: flex-end;
+  border-bottom: 1px dotted color-mix(in srgb, var(--print-ink) 20%, transparent);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item__price {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  color: var(--print-price);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item__mark {
+  border-radius: 1px;
+  background: color-mix(in srgb, var(--print-price) 18%, transparent);
+  color: inherit;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item.is-highlighted {
+  animation: cardapio-print-highlight 1.6s ease;
+}
+
+@keyframes cardapio-print-highlight {
+  0%,
+  100% {
+    background: transparent;
+  }
+  20% {
+    background: color-mix(in srgb, var(--print-price) 12%, transparent);
+  }
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-viewer__empty {
+  background: var(--print-paper);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-family: var(--font-garamond);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--print-ink-muted);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-viewer__meta {
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--foreground-muted) 55%, transparent);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-viewer__disclaimer {
+  margin-top: 0.375rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--foreground-muted) 55%, transparent);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-viewer__footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search {
+    top: 4.5rem;
+  }
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search__toggle {
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--cardapio-paper-edge, #d4cdc0);
+  background: color-mix(in srgb, var(--cardapio-paper-warm, #f5f0e6) 90%, #fff);
+  color: var(--print-ink-muted, #5c574c);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(18rem, calc(100vw - 2rem));
+  border-radius: 999px;
+  border: 1px solid var(--cardapio-paper-edge, #d4cdc0);
+  background: color-mix(in srgb, var(--cardapio-paper-warm, #f5f0e6) 96%, #fff);
+  padding: 0.375rem 0.5rem;
+  backdrop-filter: blur(8px);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search__field {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search__input {
+  width: 100%;
+  min-height: 2rem;
+  border: none;
+  background: transparent;
+  padding: 0.25rem 0.375rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--foreground);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search__status {
+  padding: 0 0.625rem 0.25rem;
+  font-size: 0.625rem;
+  color: color-mix(in srgb, var(--foreground-muted) 70%, transparent);
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-page__content--print {
+  max-width: 36rem;
+}
+
+[data-page="cardapio"][data-cardapio-skin="print"] .cardapio-page__stage {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-print-item.is-highlighted {
+    animation: none;
+    background: color-mix(in srgb, var(--print-price) 10%, transparent);
+  }
+}
