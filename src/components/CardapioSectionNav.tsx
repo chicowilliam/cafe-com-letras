@@ -39,9 +39,7 @@ function NavButton({
       aria-current={isActive ? "true" : undefined}
       onClick={() => scrollToCardapioSection(section.id)}
       className={`cardapio-section-nav__link focus-ring block w-full rounded-md border-l-2 py-2 pl-3 pr-2 text-left transition-colors duration-200 motion-reduce:transition-none ${
-        isActive
-          ? "border-accent bg-accent/8 font-medium text-accent"
-          : "border-transparent text-foreground-muted hover:border-accent/25 hover:text-foreground"
+        isActive ? "is-active" : ""
       }`}
     >
       {section.label}
