@@ -1,0 +1,18 @@
+{
+  "title": "Pedidos da casa",
+  "subtitle": "O que a mesa mais pede nesta edição",
+  "items": [
+    {
+      "itemId": "cafe-espresso-gourmet-do-dia",
+      "note": "Blend autoral da semana — também curto ou carioca"
+    },
+    {
+      "itemId": "bruschettas-classicas",
+      "note": "Para abrir a mesa com amigos"
+    },
+    {
+      "itemId": "tiramisu",
+      "note": "Receita da casa com mascarpone e Amaretto"
+    }
+  ]
+}
