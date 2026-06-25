@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CardapioListViewer } from "@/components/cardapio/CardapioListViewer";
 import { CardapioMenuViewer } from "@/components/cardapio/CardapioMenuViewer";
+import { CardapioPrintViewer } from "@/components/cardapio/CardapioPrintViewer";
 import { CardapioViewToggle } from "@/components/cardapio/CardapioViewToggle";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
 import { FadeIn } from "@/components/FadeIn";
@@ -30,13 +30,13 @@ export default function CardapioPage() {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const imageSections = lang ? CARDAPIO_SECTIONS[lang] : [];
-  const listSections = lang ? getCatalogSectionsWithItems(lang) : [];
+  const printSections = lang ? getCatalogSectionsWithItems(lang) : [];
 
   const navSections = useMemo(() => {
     if (!lang) return [];
     if (viewMode === "sheet") return imageSections;
-    return toNavSections(listSections);
-  }, [imageSections, lang, listSections, viewMode]);
+    return toNavSections(printSections);
+  }, [imageSections, lang, printSections, viewMode]);
 
   const sectionIds = useMemo(
     () => navSections.map((section) => section.id),
@@ -57,9 +57,18 @@ export default function CardapioPage() {
     () => ({
       backLabel: lang ? "Escolher idioma" : "Voltar",
       onBack: handleBack,
+      ...(lang
+        ? { navEyebrow: "da cozinha mineira ao café autoral" }
+        : {}),
     }),
     [lang, handleBack],
   );
+
+  const cardapioSkin = !lang
+    ? "picker"
+    : viewMode === "print"
+      ? "print"
+      : "sheet";
 
   useSubpageChrome(chromeOverride);
 
@@ -72,7 +81,11 @@ export default function CardapioPage() {
   }, [lang]);
 
   return (
-    <main className="min-h-dvh bg-background" data-page="cardapio">
+    <main
+      className="min-h-dvh"
+      data-page="cardapio"
+      data-cardapio-skin={cardapioSkin}
+    >
       {!lang && (
         <div className="section-padding">
           <FadeIn className="mx-auto max-w-2xl text-center">
@@ -120,7 +133,7 @@ export default function CardapioPage() {
       )}
 
       {lang && (
-        <div ref={menuRef}>
+        <div ref={menuRef} className="cardapio-page__stage">
           <div className="sticky top-14 z-40 lg:hidden">
             <CardapioSectionNav
               sections={navSections}
@@ -129,8 +142,8 @@ export default function CardapioPage() {
             />
           </div>
 
-          <div className="mx-auto flex max-w-6xl justify-center px-4 py-6 md:px-6 lg:px-8">
-            <aside className="hidden w-44 shrink-0 lg:block xl:w-48">
+          <div className="mx-auto flex max-w-6xl justify-center px-4 py-4 md:px-6 lg:px-8">
+            <aside className="hidden w-40 shrink-0 lg:block xl:w-44">
               <CardapioSectionNav
                 sections={navSections}
                 activeId={activeSectionId}
@@ -139,9 +152,9 @@ export default function CardapioPage() {
             </aside>
 
             <div
-              className={`w-full lg:mx-8 ${
-                viewMode === "list"
-                  ? "cardapio-page__content--list max-w-[576px]"
+              className={`w-full lg:mx-6 ${
+                viewMode === "print"
+                  ? "cardapio-page__content--print max-w-[576px]"
                   : "max-w-[500px]"
               }`}
             >
@@ -160,7 +173,7 @@ export default function CardapioPage() {
                   onChangeLang={() => setLang(null)}
                 />
               ) : (
-                <CardapioListViewer
+                <CardapioPrintViewer
                   lang={lang}
                   onChangeLang={() => setLang(null)}
                 />
