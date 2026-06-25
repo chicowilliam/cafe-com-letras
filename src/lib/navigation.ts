@@ -44,6 +44,7 @@ export const SUBPAGE_CHROME: Record<string, SubpageChromeConfig> = {
 
 export function getPageTheme(pathname: string) {
   const themes: Record<string, string> = {
+    "/cardapio": "cardapio",
     "/cafe-da-tarde": "cafe-da-tarde",
     "/happy-hour": "happy-hour",
     "/noite-dos-dates": "noite-dos-dates",
