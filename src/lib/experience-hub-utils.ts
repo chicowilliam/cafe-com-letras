@@ -10,6 +10,8 @@ export const TRIPTYCH_HEIGHT = "clamp(480px, 56vh, 540px)";
 export const INACTIVE_PANEL_FLEX = 22;
 export const ACTIVE_PANEL_FLEX = 56;
 export const DESKTOP_BP = "(min-width: 1024px)";
+/** Debounce hover activation to avoid flicker crossing panel gaps. */
+export const HUB_HOVER_ACTIVATE_MS = 64;
 
 export function padHubIndex(value: number) {
   return String(value).padStart(2, "0");

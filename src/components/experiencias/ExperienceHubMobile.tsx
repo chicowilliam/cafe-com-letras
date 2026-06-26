@@ -1,6 +1,8 @@
 import { AppLink } from "@/components/AppLink";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
+import { hubContentContainerVariants, hubContentItemVariants } from "@/lib/motion-presets";
 
 type ExperienceHubMobileProps = {
   entries: readonly ExperienciaCatalogEntry[];
@@ -13,7 +15,29 @@ export function ExperienceHubMobile({
   activeIndex,
   onSelect,
 }: ExperienceHubMobileProps) {
+  const reduceMotion = useReducedMotion();
   const activeEntry = entries[activeIndex] ?? entries[0];
+
+  const detailContent = (
+    <>
+      <p className="exp-hub-mobile__detail-eyebrow">{activeEntry.eyebrow}</p>
+      <h2 className="exp-hub-mobile__detail-title font-display">{activeEntry.title}</h2>
+      <p className="exp-hub-mobile__detail-schedule">{activeEntry.scheduleShort}</p>
+      <p className="exp-hub-mobile__detail-tagline">{activeEntry.tagline}</p>
+      <ul className="exp-hub-mobile__detail-highlights">
+        {activeEntry.highlights.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      <AppLink
+        to={activeEntry.href}
+        className="exp-hub-mobile__detail-cta btn-primary focus-ring"
+      >
+        Explorar experiência
+        <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
+      </AppLink>
+    </>
+  );
 
   return (
     <div className="exp-hub-mobile">
@@ -57,29 +81,60 @@ export function ExperienceHubMobile({
         })}
       </div>
 
-      <article
-        id="exp-hub-mobile-detail"
-        role="tabpanel"
-        aria-labelledby={`exp-hub-mobile-tab-${activeEntry.id}`}
-        className={`exp-hub-mobile__detail exp-hub-mobile__detail--${activeEntry.id}`}
-      >
-        <p className="exp-hub-mobile__detail-eyebrow">{activeEntry.eyebrow}</p>
-        <h2 className="exp-hub-mobile__detail-title font-display">{activeEntry.title}</h2>
-        <p className="exp-hub-mobile__detail-schedule">{activeEntry.scheduleShort}</p>
-        <p className="exp-hub-mobile__detail-tagline">{activeEntry.tagline}</p>
-        <ul className="exp-hub-mobile__detail-highlights">
-          {activeEntry.highlights.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-        <AppLink
-          to={activeEntry.href}
-          className="exp-hub-mobile__detail-cta btn-primary focus-ring"
+      {reduceMotion ? (
+        <article
+          id="exp-hub-mobile-detail"
+          role="tabpanel"
+          aria-labelledby={`exp-hub-mobile-tab-${activeEntry.id}`}
+          className={`exp-hub-mobile__detail exp-hub-mobile__detail--${activeEntry.id}`}
         >
-          Explorar experiência
-          <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
-        </AppLink>
-      </article>
+          {detailContent}
+        </article>
+      ) : (
+        <AnimatePresence mode="wait" initial={false}>
+          <m.article
+            key={activeEntry.id}
+            id="exp-hub-mobile-detail"
+            role="tabpanel"
+            aria-labelledby={`exp-hub-mobile-tab-${activeEntry.id}`}
+            className={`exp-hub-mobile__detail exp-hub-mobile__detail--${activeEntry.id}`}
+            variants={hubContentContainerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <m.p className="exp-hub-mobile__detail-eyebrow" variants={hubContentItemVariants}>
+              {activeEntry.eyebrow}
+            </m.p>
+            <m.h2
+              className="exp-hub-mobile__detail-title font-display"
+              variants={hubContentItemVariants}
+            >
+              {activeEntry.title}
+            </m.h2>
+            <m.p className="exp-hub-mobile__detail-schedule" variants={hubContentItemVariants}>
+              {activeEntry.scheduleShort}
+            </m.p>
+            <m.p className="exp-hub-mobile__detail-tagline" variants={hubContentItemVariants}>
+              {activeEntry.tagline}
+            </m.p>
+            <m.ul className="exp-hub-mobile__detail-highlights" variants={hubContentItemVariants}>
+              {activeEntry.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </m.ul>
+            <m.div variants={hubContentItemVariants}>
+              <AppLink
+                to={activeEntry.href}
+                className="exp-hub-mobile__detail-cta btn-primary focus-ring"
+              >
+                Explorar experiência
+                <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
+              </AppLink>
+            </m.div>
+          </m.article>
+        </AnimatePresence>
+      )}
     </div>
   );
 }

@@ -27,7 +27,7 @@
   position: absolute;
   inset: 0;
   opacity: 0.9;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1);
   background:
     radial-gradient(ellipse 70% 55% at 50% 60%, var(--exp-ambient-glow, transparent) 0%, transparent 68%);
 }
@@ -275,13 +275,12 @@
   color: inherit;
   cursor: pointer;
   outline: none;
-  opacity: 0.88;
-  transform: scale(0.98);
+  transition:
+    border-color 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.48s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-page="experiencias-hub"] .exp-hub-editorial__panel.is-active {
-  opacity: 1;
-  transform: scale(1);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--foreground) 6%, transparent),
     0 16px 40px rgba(0, 0, 0, 0.22);
@@ -320,23 +319,6 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
-  transform: scale(1);
-  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-@media (hover: hover) {
-  [data-page="experiencias-hub"] .exp-hub-editorial__panel:hover .exp-hub-editorial__image {
-    transform: scale(1.08);
-  }
-
-  [data-page="experiencias-hub"] .exp-hub-editorial__panel.is-active .exp-hub-editorial__image {
-    transform: scale(1.05);
-  }
-
-  [data-page="experiencias-hub"] .exp-hub-editorial__panel.is-active:hover .exp-hub-editorial__image {
-    transform: scale(1.1);
-  }
 }
 
 [data-page="experiencias-hub"] .exp-hub-editorial__panel--noite-dos-dates .exp-hub-editorial__image {
@@ -354,7 +336,7 @@
   );
 }
 
-[data-page="experiencias-hub"] .exp-hub-editorial__panel:not(.is-active) .exp-hub-editorial__overlay {
+[data-page="experiencias-hub"] .exp-hub-editorial__overlay--compact {
   background: linear-gradient(
     to top,
     rgba(21, 22, 15, 0.88) 0%,
@@ -369,6 +351,11 @@
   bottom: 0;
   z-index: 1;
   padding: 1rem 1rem 1.125rem;
+}
+
+[data-page="experiencias-hub"] .exp-hub-editorial__content-stack {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 1280px) {
@@ -664,15 +651,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   [data-page="experiencias-hub"] .exp-hub-command__ambient,
-  [data-page="experiencias-hub"] .exp-hub-editorial__panel,
   [data-page="experiencias-hub"] .exp-hub-mobile__card,
   [data-page="experiencias-hub"] .exp-hub-command-bar__pill {
     transition: none;
-  }
-
-  [data-page="experiencias-hub"] .exp-hub-editorial__panel,
-  [data-page="experiencias-hub"] .exp-hub-editorial__image {
-    transform: none;
   }
 
   [data-page="experiencias-hub"] .exp-hub-editorial__panel:not(.is-active) {
