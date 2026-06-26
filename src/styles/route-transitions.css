@@ -69,3 +69,21 @@ html[data-transition-group="experiencias"]::view-transition-new(root) {
   animation-duration: 340ms;
   animation-delay: 40ms;
 }
+
+
+/* ——— Home ↔ Cardápio (tema papel) ——— */
+
+html[data-transition-group="cardapio"] {
+  transition:
+    background-color 650ms ease,
+    color 650ms ease;
+}
+
+html[data-transition-group="cardapio"]::view-transition-old(root) {
+  animation-duration: 580ms;
+}
+
+html[data-transition-group="cardapio"]::view-transition-new(root) {
+  animation-duration: 620ms;
+  animation-delay: 120ms;
+}
