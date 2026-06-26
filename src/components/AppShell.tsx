@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { PageTransition } from "@/components/PageTransition";
@@ -7,16 +8,30 @@ import {
   useSubpageChromeContext,
 } from "@/hooks/useSubpageChrome";
 import { useRouteScroll } from "@/hooks/useRouteScroll";
-import { getPageTheme, SUBPAGE_CHROME } from "@/lib/navigation";
-import { useEffect } from "react";
+import {
+  getPageTheme,
+  getRouteTransitionGroup,
+  SUBPAGE_CHROME,
+} from "@/lib/navigation";
 
 function AppShellChrome() {
   const { pathname } = useLocation();
+  const prevPathRef = useRef(pathname);
   const { override } = useSubpageChromeContext();
   const isHome = pathname === "/";
   const chrome = SUBPAGE_CHROME[pathname];
 
   useRouteScroll();
+
+  useEffect(() => {
+    const from = prevPathRef.current;
+    const to = pathname;
+    document.documentElement.setAttribute(
+      "data-transition-group",
+      getRouteTransitionGroup(from, to),
+    );
+    prevPathRef.current = to;
+  }, [pathname]);
 
   useEffect(() => {
     const theme = getPageTheme(pathname);
