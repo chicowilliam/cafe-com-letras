@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
 import { EXPERIENCIA_ROUTES, NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
@@ -106,7 +107,7 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
+        className={`site-chrome navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
           showSolidNav
             ? "navbar--solid border-b border-white/10 bg-background/70 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
@@ -159,9 +160,8 @@ export function Navbar() {
                         ) : null}
                       </a>
                     ) : (
-                      <Link
+                      <AppLink
                         to={link.href}
-                        viewTransition
                         aria-current={isActive ? "page" : undefined}
                         className={`${navLinkClass}${isActive ? ` ${navLinkActiveClass}` : ""}`}
                       >
@@ -172,7 +172,7 @@ export function Navbar() {
                             aria-hidden
                           />
                         ) : null}
-                      </Link>
+                      </AppLink>
                     )}
                   </li>
                 );
@@ -232,9 +232,8 @@ export function Navbar() {
                       {link.label}
                     </a>
                   ) : (
-                    <Link
+                    <AppLink
                       to={link.href}
-                      viewTransition
                       onClick={() => setMenuOpen(false)}
                       aria-current={isActive ? "page" : undefined}
                       className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
@@ -242,7 +241,7 @@ export function Navbar() {
                       }`}
                     >
                       {link.label}
-                    </Link>
+                    </AppLink>
                   )}
                 </li>
               );
