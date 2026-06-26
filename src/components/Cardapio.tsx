@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 
@@ -19,9 +19,8 @@ export function Cardapio() {
           <p className="font-garamond text-lg italic leading-relaxed text-foreground-muted">
             Cada prato foi pensado para durar mais do que a refeição. Como um bom livro.
           </p>
-          <Link
+          <AppLink
             to="/cardapio"
-            viewTransition
             className="btn-ghost focus-ring mt-8 inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 hover:scale-[1.01]"
           >
             Ver cardápio completo
@@ -36,7 +35,7 @@ export function Cardapio() {
             >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </Link>
+          </AppLink>
         </FadeIn>
       </div>
     </section>

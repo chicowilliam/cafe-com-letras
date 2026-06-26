@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useReservation } from "@/hooks/useReservation";
@@ -454,10 +454,9 @@ export function Programacao() {
           <FadeIn>
             <div className="mb-6 space-y-3">
               {getExperienciasAtivasHoje().map((experiencia) => (
-                <Link
+                <AppLink
                   key={experiencia.id}
                   to={experiencia.href}
-                  viewTransition
                   className="focus-ring flex items-center gap-4 rounded-md border border-accent/20 bg-accent/8 px-5 py-4 transition-colors hover:border-accent/35 hover:bg-accent/12"
                 >
                   <span className="relative flex h-2.5 w-2.5 shrink-0">
@@ -480,7 +479,7 @@ export function Programacao() {
                     loading="eager"
                     decoding="async"
                   />
-                </Link>
+                </AppLink>
               ))}
             </div>
           </FadeIn>
