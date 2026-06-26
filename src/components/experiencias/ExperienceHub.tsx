@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { useCallback, useEffect, useState } from "react";
 import { ExperienceHubCommandBar } from "@/components/experiencias/ExperienceHubCommandBar";
 import { ExperienceHubMobile } from "@/components/experiencias/ExperienceHubMobile";
@@ -134,9 +134,9 @@ export function ExperienceHub() {
 
         <p className="exp-hub-command__footer">
           Jazz e programação cultural na{" "}
-          <Link to="/#programacao" viewTransition>
+          <AppLink to="/#programacao">
             agenda do site
-          </Link>
+          </AppLink>
           .
         </p>
       </div>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { ArrowRight } from "lucide-react";
 import { memo } from "react";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
@@ -74,15 +74,14 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <Link
+              <AppLink
                 to={entry.href}
-                viewTransition
                 className="exp-hub-editorial__cta btn-primary focus-ring"
                 onClick={(event) => event.stopPropagation()}
               >
                 Explorar experiência
                 <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
-              </Link>
+              </AppLink>
             </>
           ) : (
             <>

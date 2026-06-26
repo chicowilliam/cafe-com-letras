@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { ArrowRight } from "lucide-react";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 
@@ -72,14 +72,13 @@ export function ExperienceHubMobile({
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <Link
+        <AppLink
           to={activeEntry.href}
-          viewTransition
           className="exp-hub-mobile__detail-cta btn-primary focus-ring"
         >
           Explorar experiência
           <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
-        </Link>
+        </AppLink>
       </article>
     </div>
   );

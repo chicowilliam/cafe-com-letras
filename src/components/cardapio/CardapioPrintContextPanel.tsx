@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import highlightsEn from "@/data/cardapio/highlights.en.json";
 import highlightsPt from "@/data/cardapio/highlights.pt.json";
 import infoGeralEn from "@/data/cardapio/info-geral.en.json";
@@ -68,9 +68,9 @@ export function CardapioPrintContextPanel({ lang }: CardapioPrintContextPanelPro
               </li>
             ))}
           </ul>
-          <Link to="/programacao" viewTransition className="cardapio-context-panel__text-link focus-ring">
+          <AppLink to="/programacao" className="cardapio-context-panel__text-link focus-ring">
             {lang === "pt" ? "Ver agenda completa" : "Full events calendar"}
-          </Link>
+          </AppLink>
         </section>
       ) : null}
 
@@ -119,12 +119,12 @@ export function CardapioPrintContextPanel({ lang }: CardapioPrintContextPanelPro
       </section>
 
       <section className="cardapio-context-panel__block cardapio-context-panel__block--links">
-        <Link to="/experiencias/cafe-da-tarde" viewTransition className="cardapio-context-panel__text-link focus-ring">
+        <AppLink to="/experiencias/cafe-da-tarde" className="cardapio-context-panel__text-link focus-ring">
           {lang === "pt" ? "Café da Tarde" : "Afternoon tea"}
-        </Link>
-        <Link to="/noite-dos-dates" viewTransition className="cardapio-context-panel__text-link focus-ring">
+        </AppLink>
+        <AppLink to="/noite-dos-dates" className="cardapio-context-panel__text-link focus-ring">
           {lang === "pt" ? "Noite dos Dates" : "Date night"}
-        </Link>
+        </AppLink>
       </section>
 
       <figure className="cardapio-context-panel__ambiance">

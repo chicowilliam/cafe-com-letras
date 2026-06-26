@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { useReservation } from "@/hooks/useReservation";
 import type { CardapioLang } from "@/lib/cardapio-images";
 
@@ -37,21 +37,21 @@ export function CardapioPrintFooter({
         >
           {lang === "pt" ? "Delivery" : "Delivery"}
         </a>
-        <Link to="/programacao" viewTransition className="cardapio-print-footer__btn focus-ring">
+        <AppLink to="/programacao" className="cardapio-print-footer__btn focus-ring">
           {lang === "pt" ? "Programação" : "Events"}
-        </Link>
+        </AppLink>
       </div>
 
       <div className="cardapio-print-footer__links">
-        <Link to="/experiencias/cafe-da-tarde" viewTransition className="cardapio-print-footer__link focus-ring">
+        <AppLink to="/experiencias/cafe-da-tarde" className="cardapio-print-footer__link focus-ring">
           {lang === "pt" ? "Café da Tarde" : "Afternoon tea"}
-        </Link>
+        </AppLink>
         <span aria-hidden className="cardapio-print-footer__sep">
           ·
         </span>
-        <Link to="/noite-dos-dates" viewTransition className="cardapio-print-footer__link focus-ring">
+        <AppLink to="/noite-dos-dates" className="cardapio-print-footer__link focus-ring">
           {lang === "pt" ? "Noite dos Dates" : "Date night"}
-        </Link>
+        </AppLink>
       </div>
 
       <button

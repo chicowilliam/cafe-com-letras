@@ -16,7 +16,7 @@ import {
   type CardapioLang,
   type CardapioSection,
 } from "@/lib/cardapio-images";
-import { viewTransitionNavigateOptions } from "@/lib/navigation";
+import { navigateWithTransition } from "@/lib/navigation";
 
 function toNavSections(
   entries: Array<{ id: string; label: string }>,
@@ -51,7 +51,7 @@ export default function CardapioPage() {
       setLang(null);
       return;
     }
-    navigate("/", viewTransitionNavigateOptions);
+    navigateWithTransition(navigate, "/");
   }, [lang, navigate]);
 
   const chromeOverride = useMemo(
