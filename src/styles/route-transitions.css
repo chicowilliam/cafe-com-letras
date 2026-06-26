@@ -57,3 +57,15 @@ html {
     animation: none;
   }
 }
+
+
+/* ——— Experiências hub ↔ detalhe (mais rápido) ——— */
+
+html[data-transition-group="experiencias"]::view-transition-old(root) {
+  animation-duration: 300ms;
+}
+
+html[data-transition-group="experiencias"]::view-transition-new(root) {
+  animation-duration: 340ms;
+  animation-delay: 40ms;
+}
