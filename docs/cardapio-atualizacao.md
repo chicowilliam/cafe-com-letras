@@ -38,10 +38,10 @@ O `id` da seção deve existir em `src/lib/cardapio-images.ts` (ex.: `compartilh
 
 ## Onde o dado aparece
 
-- **Home** (`/#cardapio`) — blocos configurados em `src/lib/cardapio-home-config.ts`
+- **Home** (`/#cardapio`) — convite com link para `/cardapio` (sem lista de itens)
 - **`/cardapio` → Lista interativa** — catálogo completo + busca
 - **`/cardapio` → Cardápio impresso** — imagens WebP (atualizar separadamente com `npm run optimize:cardapio`)
 
 ## Regra importante
 
-Se mudar preço só no JSON, o **modo lista** e a **home** atualizam no deploy. O **modo folha (imagem)** só muda quando novos WebPs forem exportados do InDesign/PDF.
+Se mudar preço só no JSON, o **modo lista** atualiza no deploy. O **modo folha (imagem)** só muda quando novos WebPs forem exportados do InDesign/PDF.
