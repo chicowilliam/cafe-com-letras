@@ -123,13 +123,42 @@ html[data-transition-group="cardapio"]::view-transition-new(root) {
   }
 }
 
+
+
+/* ——— Fallback sem View Transitions API ——— */
+
+.page-transition-root--fallback-enter {
+  animation: page-fade-in var(--route-duration-in) var(--route-ease) both;
+  animation-delay: 80ms;
+}
+
+html[data-transition-group="experiencias"] .page-transition-root--fallback-enter {
+  animation-duration: 340ms;
+  animation-delay: 40ms;
+}
+
+html[data-transition-group="cardapio"] .page-transition-root--fallback-enter {
+  animation-duration: 620ms;
+  animation-delay: 120ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     transition: none;
   }
 
   ::view-transition-old(root),
-  ::view-transition-new(root) {
+  ::view-transition-new(root),
+  ::view-transition-old(site-chrome),
+  ::view-transition-new(site-chrome) {
     animation: none;
+  }
+
+  .page-transition-root--fallback-enter {
+    animation: none;
+  }
+
+  .site-chrome {
+    view-transition-name: none;
   }
 }
