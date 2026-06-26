@@ -1,43 +1,45 @@
 /* Route transitions — View Transitions API + fallback */
 
+:root {
+  --route-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --route-duration-out: 520ms;
+  --route-duration-in: 560ms;
+  --route-duration-chrome: 500ms;
+}
+
 html {
   transition:
-    background-color 400ms ease,
-    color 400ms ease;
+    background-color 480ms ease,
+    color 480ms ease;
 }
 
 ::view-transition-old(root) {
-  animation: page-fade-out 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: page-fade-out var(--route-duration-out) var(--route-ease) both;
 }
 
 ::view-transition-new(root) {
-  animation: page-fade-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-[data-transition-group="experiencias"]::view-transition-old(root) {
-  animation-duration: 280ms;
-}
-
-[data-transition-group="experiencias"]::view-transition-new(root) {
-  animation-duration: 320ms;
+  animation: page-fade-in var(--route-duration-in) var(--route-ease) both;
+  animation-delay: 80ms;
 }
 
 @keyframes page-fade-out {
   to {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-12px);
+    filter: blur(2px);
   }
 }
 
 @keyframes page-fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(16px);
   }
 
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
