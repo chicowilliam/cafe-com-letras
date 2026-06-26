@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { AppLink } from "@/components/AppLink";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
 import { EXPERIENCIA_ROUTES, NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
+import { compositorStyle, overlaySpring } from "@/lib/motion-presets";
 
 const HERO_INTERSECTION_THRESHOLD = 0.1;
 
@@ -25,6 +27,7 @@ export function Navbar() {
   const isHome = location.pathname === "/";
   const visible = useNavbarVisibility();
   const { open: openReservation } = useReservation();
+  const reduceMotion = useReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
   const [pastHero, setPastHero] = useState(!isHome);
   const [activeHref, setActiveHref] = useState<string>(
@@ -44,21 +47,46 @@ export function Navbar() {
       return;
     }
 
-    const hero = document.getElementById("inicio");
-    if (!hero) return;
+    let observer: IntersectionObserver | null = null;
+    let cancelled = false;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const heroVisible =
-          entry.isIntersecting && entry.intersectionRatio >= HERO_INTERSECTION_THRESHOLD;
-        setPastHero(!heroVisible);
-      },
-      { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] },
-    );
+    const attach = () => {
+      const hero = document.getElementById("inicio");
+      if (!hero || cancelled) return false;
 
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, [isHome]);
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          const heroVisible =
+            entry.isIntersecting &&
+            entry.intersectionRatio >= HERO_INTERSECTION_THRESHOLD;
+          setPastHero(!heroVisible);
+        },
+        { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] },
+      );
+
+      observer.observe(hero);
+      return true;
+    };
+
+    if (attach()) {
+      return () => {
+        cancelled = true;
+        observer?.disconnect();
+      };
+    }
+
+    const retryId = window.setInterval(() => {
+      if (attach()) {
+        window.clearInterval(retryId);
+      }
+    }, 50);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(retryId);
+      observer?.disconnect();
+    };
+  }, [isHome, location.pathname]);
 
   useEffect(() => {
     if (location.pathname === "/cardapio") {
@@ -107,7 +135,7 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`site-chrome navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
+        className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
           showSolidNav
             ? "navbar--solid border-b border-white/10 bg-background/70 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
@@ -200,55 +228,111 @@ export function Navbar() {
         </nav>
       </header>
 
-      <div
-        className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-sm transition-opacity duration-300 motion-reduce:transition-none md:hidden ${
-          menuOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
-        aria-hidden={!menuOpen}
-      >
-        <div className="flex h-full flex-col px-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))]">
-          <ul className="flex flex-col items-start gap-7">
-            {NAV_LINKS.map((link) => {
-              const isActive =
-                link.href.startsWith("#")
-                  ? isHome && activeHref === link.href
-                  : link.href === "/experiencias"
-                    ? isExperienciaRoute(location.pathname)
-                    : location.pathname === link.href;
+      {reduceMotion ? (
+        menuOpen ? (
+          <div
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm md:hidden"
+            aria-hidden={false}
+          >
+            <div className="flex h-full flex-col px-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))]">
+              <ul className="flex flex-col items-start gap-7">
+                {NAV_LINKS.map((link) => {
+                  const isActive =
+                    link.href.startsWith("#")
+                      ? isHome && activeHref === link.href
+                      : link.href === "/experiencias"
+                        ? isExperienciaRoute(location.pathname)
+                        : location.pathname === link.href;
 
-              return (
-                <li key={link.href}>
-                  {link.href.startsWith("#") ? (
-                    <a
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      aria-current={isActive ? "page" : undefined}
-                      className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
-                        isActive ? " text-accent" : ""
-                      }`}
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <AppLink
-                      to={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      aria-current={isActive ? "page" : undefined}
-                      className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
-                        isActive ? " text-accent" : ""
-                      }`}
-                    >
-                      {link.label}
-                    </AppLink>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
+                  return (
+                    <li key={link.href}>
+                      {link.href.startsWith("#") ? (
+                        <a
+                          href={link.href}
+                          onClick={() => setMenuOpen(false)}
+                          aria-current={isActive ? "page" : undefined}
+                          className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
+                            isActive ? " text-accent" : ""
+                          }`}
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <AppLink
+                          to={link.href}
+                          onClick={() => setMenuOpen(false)}
+                          aria-current={isActive ? "page" : undefined}
+                          className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
+                            isActive ? " text-accent" : ""
+                          }`}
+                        >
+                          {link.label}
+                        </AppLink>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        ) : null
+      ) : (
+        <AnimatePresence>
+          {menuOpen ? (
+            <m.div
+              key="mobile-menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={overlaySpring}
+              className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm md:hidden"
+              style={compositorStyle}
+              aria-hidden={false}
+            >
+              <div className="flex h-full flex-col px-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))]">
+                <ul className="flex flex-col items-start gap-7">
+                  {NAV_LINKS.map((link) => {
+                    const isActive =
+                      link.href.startsWith("#")
+                        ? isHome && activeHref === link.href
+                        : link.href === "/experiencias"
+                          ? isExperienciaRoute(location.pathname)
+                          : location.pathname === link.href;
+
+                    return (
+                      <li key={link.href}>
+                        {link.href.startsWith("#") ? (
+                          <a
+                            href={link.href}
+                            onClick={() => setMenuOpen(false)}
+                            aria-current={isActive ? "page" : undefined}
+                            className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
+                              isActive ? " text-accent" : ""
+                            }`}
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          <AppLink
+                            to={link.href}
+                            onClick={() => setMenuOpen(false)}
+                            aria-current={isActive ? "page" : undefined}
+                            className={`focus-ring block min-h-11 py-1 font-sans text-lg font-medium tracking-normal text-foreground transition-colors active:text-accent${
+                              isActive ? " text-accent" : ""
+                            }`}
+                          >
+                            {link.label}
+                          </AppLink>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </m.div>
+          ) : null}
+        </AnimatePresence>
+      )}
     </>
   );
 }

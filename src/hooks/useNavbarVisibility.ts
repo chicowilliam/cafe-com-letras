@@ -1,9 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export function useNavbarVisibility() {
+  const { pathname } = useLocation();
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+
+  useEffect(() => {
+    setVisible(true);
+    lastScrollY.current = window.scrollY;
+  }, [pathname]);
 
   useEffect(() => {
     const update = () => {
