@@ -87,3 +87,49 @@ html[data-transition-group="cardapio"]::view-transition-new(root) {
   animation-duration: 620ms;
   animation-delay: 120ms;
 }
+
+
+/* ——— Chrome (navbar ↔ subpage header) ——— */
+
+.site-chrome {
+  view-transition-name: site-chrome;
+}
+
+::view-transition-old(site-chrome) {
+  animation: chrome-fade-out var(--route-duration-chrome) var(--route-ease) both;
+}
+
+::view-transition-new(site-chrome) {
+  animation: chrome-fade-in calc(var(--route-duration-chrome) + 40ms) var(--route-ease) both;
+  animation-delay: 60ms;
+}
+
+@keyframes chrome-fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes chrome-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    transition: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
