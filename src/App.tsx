@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
-import { Navbar } from "@/components/Navbar";
 import { ReservationPopup } from "@/components/ReservationPopup";
 import { SectionSkeleton } from "@/components/SectionSkeleton";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -64,9 +63,7 @@ const Newsletter = lazy(() =>
 
 export default function App() {
   return (
-    <>
-      <Navbar />
-      <main id="main">
+    <>      <main id="main">
         <Hero />
         <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
           <NoiteDosDates />

@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { Navbar } from "@/components/Navbar";
 import { PageTransition } from "@/components/PageTransition";
 import { SiteSubpageHeader } from "@/components/SiteSubpageHeader";
 import {
@@ -26,7 +27,11 @@ function AppShellChrome() {
     document.documentElement.removeAttribute("data-page-theme");
   }, [pathname]);
 
-  if (isHome || !chrome) return null;
+  if (isHome) {
+    return <Navbar />;
+  }
+
+  if (!chrome) return null;
 
   return (
     <SiteSubpageHeader
