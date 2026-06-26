@@ -1,32 +1,47 @@
-import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import { supportsViewTransitions } from "@/lib/navigation";
-
-const FALLBACK_ENTER_MS = 620;
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { useLayoutEffect, useRef } from "react";
+import { Outlet, useLocation, useOutlet } from "react-router-dom";
+import { useRouteScrollOnEnter } from "@/hooks/useRouteScroll";
+import { getRouteTransitionGroup } from "@/lib/navigation";
+import { compositorStyle } from "@/lib/motion-presets";
+import { getPageMotion } from "@/lib/route-motion";
 
 export function PageTransition() {
   const location = useLocation();
-  const useFallback = !supportsViewTransitions();
-  const [entering, setEntering] = useState(false);
+  const outlet = useOutlet();
+  const reduceMotion = useReducedMotion();
+  const onPageEnterComplete = useRouteScrollOnEnter();
+  const prevPathRef = useRef(location.pathname);
 
-  useEffect(() => {
-    if (!useFallback) return;
+  const group = getRouteTransitionGroup(prevPathRef.current, location.pathname);
+  const { variants } = getPageMotion(group);
 
-    setEntering(true);
-    const timer = window.setTimeout(() => setEntering(false), FALLBACK_ENTER_MS);
-    return () => window.clearTimeout(timer);
-  }, [location.pathname, useFallback]);
+  useLayoutEffect(() => {
+    prevPathRef.current = location.pathname;
+  }, [location.pathname]);
 
-  const className = [
-    "page-transition-root",
-    useFallback && entering ? "page-transition-root--fallback-enter" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  if (reduceMotion) {
+    return <Outlet />;
+  }
 
   return (
-    <div className={className}>
-      <Outlet />
-    </div>
+    <AnimatePresence mode="wait">
+      <m.div
+        key={location.pathname}
+        className="page-transition-root"
+        style={compositorStyle}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={variants}
+        onAnimationComplete={(definition) => {
+          if (definition === "animate") {
+            onPageEnterComplete();
+          }
+        }}
+      >
+        {outlet}
+      </m.div>
+    </AnimatePresence>
   );
 }

@@ -1,164 +1,37 @@
-/* Route transitions — View Transitions API + fallback */
-
-:root {
-  --route-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --route-duration-out: 520ms;
-  --route-duration-in: 560ms;
-  --route-duration-chrome: 500ms;
-}
+/* Route transitions — html theme crossfade (content via Framer Motion springs) */
 
 html {
   transition:
-    background-color 480ms ease,
-    color 480ms ease;
+    background-color 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
-
-::view-transition-old(root) {
-  animation: page-fade-out var(--route-duration-out) var(--route-ease) both;
-}
-
-::view-transition-new(root) {
-  animation: page-fade-in var(--route-duration-in) var(--route-ease) both;
-  animation-delay: 80ms;
-}
-
-@keyframes page-fade-out {
-  to {
-    opacity: 0;
-    transform: translateY(-12px);
-    filter: blur(2px);
-  }
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-.page-transition-root {
-  min-height: inherit;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    transition: none;
-  }
-
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-  }
-}
-
-
-/* ——— Experiências hub ↔ detalhe (mais rápido) ——— */
-
-html[data-transition-group="experiencias"]::view-transition-old(root) {
-  animation-duration: 300ms;
-}
-
-html[data-transition-group="experiencias"]::view-transition-new(root) {
-  animation-duration: 340ms;
-  animation-delay: 40ms;
-}
-
-
-/* ——— Home ↔ Cardápio (tema papel) ——— */
 
 html[data-transition-group="cardapio"] {
   transition:
-    background-color 650ms ease,
-    color 650ms ease;
+    background-color 480ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 480ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-html[data-transition-group="cardapio"]::view-transition-old(root) {
-  animation-duration: 580ms;
+.site-chrome-shell {
+  position: relative;
+  z-index: 50;
+  backface-visibility: hidden;
+  pointer-events: none;
 }
 
-html[data-transition-group="cardapio"]::view-transition-new(root) {
-  animation-duration: 620ms;
-  animation-delay: 120ms;
+.site-chrome-shell > * {
+  pointer-events: auto;
 }
 
-
-/* ——— Chrome (navbar ↔ subpage header) ——— */
-
-.site-chrome {
-  view-transition-name: site-chrome;
-}
-
-::view-transition-old(site-chrome) {
-  animation: chrome-fade-out var(--route-duration-chrome) var(--route-ease) both;
-}
-
-::view-transition-new(site-chrome) {
-  animation: chrome-fade-in calc(var(--route-duration-chrome) + 40ms) var(--route-ease) both;
-  animation-delay: 60ms;
-}
-
-@keyframes chrome-fade-out {
-  to {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes chrome-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-
-/* ——— Fallback sem View Transitions API ——— */
-
-.page-transition-root--fallback-enter {
-  animation: page-fade-in var(--route-duration-in) var(--route-ease) both;
-  animation-delay: 80ms;
-}
-
-html[data-transition-group="experiencias"] .page-transition-root--fallback-enter {
-  animation-duration: 340ms;
-  animation-delay: 40ms;
-}
-
-html[data-transition-group="cardapio"] .page-transition-root--fallback-enter {
-  animation-duration: 620ms;
-  animation-delay: 120ms;
+.page-transition-root {
+  position: relative;
+  z-index: 0;
+  min-height: inherit;
+  backface-visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     transition: none;
-  }
-
-  ::view-transition-old(root),
-  ::view-transition-new(root),
-  ::view-transition-old(site-chrome),
-  ::view-transition-new(site-chrome) {
-    animation: none;
-  }
-
-  .page-transition-root--fallback-enter {
-    animation: none;
-  }
-
-  .site-chrome {
-    view-transition-name: none;
   }
 }

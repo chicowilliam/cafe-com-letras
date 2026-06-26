@@ -1,9 +1,5 @@
 import type { NavigateFunction, NavigateOptions, To } from "react-router-dom";
 
-export const viewTransitionNavigateOptions = {
-  viewTransition: true,
-} as const satisfies NavigateOptions;
-
 export type RouteTransitionGroup = "site" | "experiencias" | "cardapio";
 
 export type SubpageChromeConfig = {
@@ -44,19 +40,12 @@ export const SUBPAGE_CHROME: Record<string, SubpageChromeConfig> = {
   },
 };
 
-export function supportsViewTransitions(): boolean {
-  return (
-    typeof document !== "undefined" &&
-    typeof document.startViewTransition === "function"
-  );
-}
-
 export function navigateWithTransition(
   navigate: NavigateFunction,
   to: To,
   options?: NavigateOptions,
 ) {
-  navigate(to, { ...options, viewTransition: true });
+  navigate(to, options);
 }
 
 export function getPageTheme(pathname: string) {
