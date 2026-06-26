@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { AppLink } from "@/components/AppLink";
 import { useScrollNavbarVisibility } from "@/hooks/useScrollNavbarVisibility";
 
 type SiteSubpageHeaderProps = {
@@ -21,10 +21,10 @@ export function SiteSubpageHeader({
   const navVisible = useScrollNavbarVisibility({ enabled: scrollAware });
 
   const headerClassName = scrollAware
-    ? `site-subpage-header hh-nav-slide fixed inset-x-0 top-0 z-50 border-b border-hairline bg-background/80 backdrop-blur-md ${
+    ? `site-chrome site-subpage-header hh-nav-slide fixed inset-x-0 top-0 z-50 border-b border-hairline bg-background/80 backdrop-blur-md ${
         navVisible ? "hh-nav-slide--visible" : "hh-nav-slide--hidden"
       }`
-    : "site-subpage-header sticky top-0 z-50 border-b border-hairline bg-background/90 backdrop-blur-md";
+    : "site-chrome site-subpage-header sticky top-0 z-50 border-b border-hairline bg-background/90 backdrop-blur-md";
 
   const backClassName =
     "focus-ring inline-flex min-w-0 items-center gap-2 justify-self-start rounded-md py-1 text-sm text-foreground-muted transition-colors hover:text-foreground";
@@ -55,9 +55,9 @@ export function SiteSubpageHeader({
             {backContent}
           </button>
         ) : (
-          <Link to={backHref} viewTransition aria-label={backLabel} className={backClassName}>
+          <AppLink to={backHref} aria-label={backLabel} className={backClassName}>
             {backContent}
-          </Link>
+          </AppLink>
         )}
 
         <div
@@ -79,13 +79,12 @@ export function SiteSubpageHeader({
           )}
         </div>
 
-        <Link
+        <AppLink
           to="/"
-          viewTransition
           className="focus-ring justify-self-end font-display text-xs tracking-tight text-foreground-muted transition-colors hover:text-foreground sm:text-sm"
         >
           Café com Letras
-        </Link>
+        </AppLink>
       </nav>
     </header>
   );
