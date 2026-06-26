@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import App from "./App";
 import { AppShell } from "@/components/AppShell";
+import { MotionProvider } from "@/components/MotionProvider";
 import { CookieConsent } from "@/components/CookieConsent";
 import { DeferredModals } from "@/components/DeferredModals";
 import { ExperienceCheckoutProvider } from "@/hooks/useExperienceCheckout";
@@ -38,16 +39,18 @@ function Root() {
     <ReservationProvider>
       <ExperienceCheckoutProvider>
         <BrowserRouter>
-          <Routes>
-            <Route element={<AppShell />}>
-              <Route path="/" element={<App />} />
-              <Route path="/cardapio" element={<CardapioPage />} />
-              <Route path="/experiencias" element={<ExperienciasPage />} />
-              <Route path="/cafe-da-tarde" element={<CafeDaTardePage />} />
-              <Route path="/happy-hour" element={<HappyHourPage />} />
-              <Route path="/noite-dos-dates" element={<NoiteDosDatesPage />} />
-            </Route>
-          </Routes>
+          <MotionProvider>
+            <Routes>
+              <Route element={<AppShell />}>
+                <Route path="/" element={<App />} />
+                <Route path="/cardapio" element={<CardapioPage />} />
+                <Route path="/experiencias" element={<ExperienciasPage />} />
+                <Route path="/cafe-da-tarde" element={<CafeDaTardePage />} />
+                <Route path="/happy-hour" element={<HappyHourPage />} />
+                <Route path="/noite-dos-dates" element={<NoiteDosDatesPage />} />
+              </Route>
+            </Routes>
+          </MotionProvider>
         </BrowserRouter>
         <DeferredModals />
         <CookieConsent />

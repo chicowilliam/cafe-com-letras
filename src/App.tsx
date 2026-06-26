@@ -63,41 +63,64 @@ const Newsletter = lazy(() =>
 
 export default function App() {
   return (
-    <>      <main id="main">
+    <>
+      <main id="main">
         <Hero />
-        <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
-          <NoiteDosDates />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
-          <Cardapio />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[50vh]" />}>
-          <Delivery />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
-          <CuradoriaSemanal />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
-          <Programacao />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
-          <About />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[5rem]" />}>
-          <Reconhecimentos />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
-          <Quotes />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
-          <ImageMarquee />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
-          <Visite />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton className="min-h-[30vh]" />}>
-          <Newsletter />
-        </Suspense>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
+            <NoiteDosDates />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
+            <Cardapio />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[50vh]" />}>
+            <Delivery />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
+            <CuradoriaSemanal />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
+            <Programacao />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
+            <About />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[5rem]" />}>
+            <Reconhecimentos />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
+            <Quotes />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
+            <ImageMarquee />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
+            <Visite />
+          </Suspense>
+        </div>
+        <div className="section-below-fold">
+          <Suspense fallback={<SectionSkeleton className="min-h-[30vh]" />}>
+            <Newsletter />
+          </Suspense>
+        </div>
       </main>
       <Footer />
       <ReservationPopup />

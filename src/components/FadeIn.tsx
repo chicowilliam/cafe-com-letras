@@ -1,8 +1,9 @@
-import { type CSSProperties, type ElementType, type ReactNode } from "react";
+import { m, useReducedMotion } from "framer-motion";
+import { type CSSProperties, type ReactNode } from "react";
 import { useInView } from "@/hooks/useInView";
+import { compositorStyle, fadeUpVariants, revealSpring } from "@/lib/motion-presets";
 
 type FadeInProps = {
-  as?: ElementType;
   children: ReactNode;
   className?: string;
   delay?: number;
@@ -11,22 +12,34 @@ type FadeInProps = {
 };
 
 export function FadeIn({
-  as: Tag = "div",
   children,
   className = "",
   delay = 0,
   rootMargin = "-60px",
   style,
 }: FadeInProps) {
-  const [ref, inView] = useInView<HTMLElement>({ rootMargin });
+  const [ref, inView] = useInView<HTMLDivElement>({ rootMargin });
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return (
+      <div className={className} style={style}>
+        {children}
+      </div>
+    );
+  }
 
   return (
-    <Tag
+    <m.div
       ref={ref}
-      className={`fade-in-up${inView ? " is-visible" : ""}${className ? ` ${className}` : ""}`}
-      style={{ ...style, transitionDelay: `${delay}s` }}
+      className={className}
+      style={{ ...compositorStyle, ...style }}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={fadeUpVariants}
+      transition={{ ...revealSpring, delay }}
     >
       {children}
-    </Tag>
+    </m.div>
   );
 }
