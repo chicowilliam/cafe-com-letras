@@ -1,30 +1,29 @@
 import {
-  WHATSAPP_BRAND,
-  WHATSAPP_ICON_PATH,
+  SPOTIFY_BRAND,
+  SPOTIFY_ICON_PATH,
 } from "@/lib/brand-icons";
 
-type WhatsAppIconProps = {
+type SpotifyIconProps = {
   size?: number;
   className?: string;
-  /** brand = WhatsApp green; mono = inherits currentColor */
   tone?: "brand" | "mono";
 };
 
-export function WhatsAppIcon({
+export function SpotifyIcon({
   size = 18,
   className,
   tone = "mono",
-}: WhatsAppIconProps) {
+}: SpotifyIconProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill={tone === "brand" ? WHATSAPP_BRAND : "currentColor"}
+      fill={tone === "brand" ? SPOTIFY_BRAND : "currentColor"}
       aria-hidden
       className={className}
     >
-      <path d={WHATSAPP_ICON_PATH} />
+      <path d={SPOTIFY_ICON_PATH} />
     </svg>
   );
 }

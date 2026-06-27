@@ -1,3 +1,4 @@
+import { ArrowLeft } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
 import { useScrollNavbarVisibility } from "@/hooks/useScrollNavbarVisibility";
 
@@ -31,18 +32,7 @@ export function SiteSubpageHeader({
 
   const backContent = (
     <>
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        aria-hidden="true"
-        className="shrink-0"
-      >
-        <path d="M19 12H5M12 19l-7-7 7-7" />
-      </svg>
+      <ArrowLeft size={16} strokeWidth={1.75} aria-hidden className="shrink-0" />
       <span className={scrollAware ? "hidden sm:inline" : undefined}>{backLabel}</span>
     </>
   );

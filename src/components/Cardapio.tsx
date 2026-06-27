@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -24,17 +25,7 @@ export function Cardapio() {
             className="btn-ghost focus-ring mt-8 inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 hover:scale-[1.01]"
           >
             Ver cardápio completo
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
           </AppLink>
         </FadeIn>
       </div>
