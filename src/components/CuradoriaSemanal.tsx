@@ -1,4 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
+import { AnimatePresence, m } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   memo,
@@ -8,8 +9,8 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
-import { FadeIn } from "@/components/FadeIn";
-import { SectionHeading } from "@/components/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
 import { useEmblaSlideTween } from "@/hooks/useEmblaSlideTween";
 import {
   cloudinaryVideoPoster,
@@ -20,6 +21,7 @@ import {
   type PratoDaSemana,
 } from "@/lib/curadoria-semanal";
 import { loadVideoSources } from "@/lib/video-utils";
+import { compositorStyle } from "@/lib/motion-presets";
 
 const PREMIUM_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const REEL_ASPECT = 9 / 16;
@@ -482,6 +484,8 @@ type ReelFrostedCaptionProps = {
   videoProgress: number;
   /** Mobile: scrim um pouco mais forte sobre fundo ambiente clareado. */
   denseScrim?: boolean;
+  /** Desktop: só barra de progresso — copy fica no painel editorial. */
+  compact?: boolean;
 };
 
 function ReelFrostedCaption({
@@ -490,6 +494,7 @@ function ReelFrostedCaption({
   reduceMotion,
   videoProgress,
   denseScrim = false,
+  compact = false,
 }: ReelFrostedCaptionProps) {
   const anchor = prato.captionPosition ?? "bottom";
   const isBottom = anchor === "bottom";
@@ -501,6 +506,43 @@ function ReelFrostedCaption({
           transitionTimingFunction: PREMIUM_EASE,
           transitionDelay: visible ? `${delayMs}ms` : "0ms",
         };
+
+  if (compact) {
+    return (
+      <div
+        className={`pointer-events-none absolute inset-x-0 z-10 ${isBottom ? "bottom-0" : "top-0"}`}
+        aria-hidden={!visible}
+      >
+        <div
+          aria-hidden
+          className={`absolute inset-x-0 ${
+            isBottom ? "bottom-0 h-[18%] bg-gradient-to-t from-black/55 to-transparent" : ""
+          }`}
+        />
+        <div
+          className={`relative h-[2px] overflow-hidden bg-white/10 ${
+            isBottom ? "mx-0" : "mt-0"
+          } ${
+            reduceMotion
+              ? visible
+                ? "opacity-100"
+                : "opacity-0"
+              : visible
+                ? "opacity-100"
+                : "opacity-0"
+          } transition-opacity duration-500 motion-reduce:transition-none`}
+        >
+          <div
+            className="h-full origin-left bg-accent transition-[width] duration-150 motion-reduce:transition-none"
+            style={{
+              width: `${clamp(videoProgress, 0, 1) * 100}%`,
+              transitionTimingFunction: PREMIUM_EASE,
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -709,6 +751,7 @@ const TriptychPanel = memo(function TriptychPanel({
           visible={showExpanded}
           reduceMotion={reduceMotion}
           videoProgress={shouldPlay ? videoProgress : 0}
+          compact
         />
       </div>
 
@@ -734,6 +777,81 @@ const TriptychPanel = memo(function TriptychPanel({
     </button>
   );
 });
+
+type CuradoriaEditorialPanelProps = {
+  prato: PratoDaSemana;
+  activeIndex: number;
+  reduceMotion: boolean;
+};
+
+function CuradoriaEditorialPanel({
+  prato,
+  activeIndex,
+  reduceMotion,
+}: CuradoriaEditorialPanelProps) {
+  const poster = cloudinaryVideoPoster(prato.cloudinaryPublicId);
+  const motionTransition = reduceMotion
+    ? { duration: 0 }
+    : { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const };
+
+  return (
+    <div
+      className="relative flex min-w-0 flex-col justify-center self-stretch py-4"
+      style={{ minHeight: TRIPTYCH_HEIGHT }}
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-4 inset-x-0 overflow-hidden rounded-xl"
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <m.img
+            key={prato.cloudinaryPublicId}
+            src={poster}
+            alt=""
+            width={REEL_POSTER_WIDTH}
+            height={REEL_POSTER_HEIGHT}
+            className="absolute inset-0 h-full w-full scale-110 object-cover opacity-[0.16] blur-2xl motion-reduce:opacity-10 motion-reduce:blur-xl"
+            style={compositorStyle}
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 0.16 }}
+            exit={reduceMotion ? undefined : { opacity: 0 }}
+            transition={motionTransition}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/55" />
+      </div>
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[42%] h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/12 blur-[72px] motion-reduce:opacity-60"
+      />
+
+      <AnimatePresence mode="wait" initial={false}>
+        <m.div
+          key={prato.id}
+          className="relative z-[1] max-w-[15.5rem] px-1 xl:max-w-[17rem]"
+          style={compositorStyle}
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+          transition={motionTransition}
+        >
+          <p className="section-caption !text-accent">{prato.tag}</p>
+          <span aria-hidden className="mt-3 block h-px w-10 bg-accent/55" />
+          <h3 className="mt-4 font-display text-[clamp(1.375rem,2vw,1.875rem)] leading-[1.08] tracking-tight text-foreground text-balance">
+            {prato.nome}
+          </h3>
+          <p className="section-prose mt-4 leading-relaxed">{prato.descricao}</p>
+          <p className="section-caption mt-7 text-foreground-muted/70">
+            {padIndex(activeIndex + 1)} · Seleção da semana
+          </p>
+        </m.div>
+      </AnimatePresence>
+    </div>
+  );
+}
 
 function CuradoriaDesktopTriptych({
   reduceMotion,
@@ -771,32 +889,35 @@ function CuradoriaDesktopTriptych({
   );
 
   return (
-    <div
-      className="flex justify-center lg:justify-end"
-      role="tablist"
-      aria-label="Curadoria da semana — tríptico interativo"
-      onKeyDown={handleKeyDown}
-    >
+    <SectionReveal variant="stagger">
       <div
-        ref={containerRef}
-        className="mx-auto flex w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_12px_36px_rgba(0,0,0,0.4)] lg:mx-0"
-        style={{ height: TRIPTYCH_HEIGHT }}
+        className="flex justify-start"
+        role="tablist"
+        aria-label="Curadoria da semana — tríptico interativo"
+        onKeyDown={handleKeyDown}
       >
-        {PRATOS_DA_SEMANA.map((prato, index) => (
-          <TriptychPanel
-            key={prato.id}
-            prato={prato}
-            index={index}
-            isActive={activeIndex === index}
-            reduceMotion={reduceMotion}
-            sectionInView={sectionInView}
-            showDivider={index < PRATOS_DA_SEMANA.length - 1}
-            activeReelWidth={activeReelWidth}
-            onActivate={() => onActiveIndexChange(index)}
-          />
-        ))}
+        <div
+          ref={containerRef}
+          className="mx-auto flex w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_12px_36px_rgba(0,0,0,0.4)] lg:mx-0"
+          style={{ height: TRIPTYCH_HEIGHT }}
+        >
+          {PRATOS_DA_SEMANA.map((prato, index) => (
+            <StaggerItem key={prato.id} index={index} className="h-full shrink-0">
+              <TriptychPanel
+                prato={prato}
+                index={index}
+                isActive={activeIndex === index}
+                reduceMotion={reduceMotion}
+                sectionInView={sectionInView}
+                showDivider={index < PRATOS_DA_SEMANA.length - 1}
+                activeReelWidth={activeReelWidth}
+                onActivate={() => onActiveIndexChange(index)}
+              />
+            </StaggerItem>
+          ))}
+        </div>
       </div>
-    </div>
+    </SectionReveal>
   );
 }
 
@@ -1024,25 +1145,26 @@ export function CuradoriaSemanal() {
     <section id="curadoria-da-semana" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
         {isDesktopLayout ? (
-          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] items-start gap-x-12 xl:gap-x-16">
-            <aside className="relative mb-0 self-start pr-8 text-left xl:pr-10 lg:sticky lg:top-24">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(11rem,13.5rem)_auto] items-center gap-x-8 xl:gap-x-10">
+            <aside className="relative mb-0 self-start pr-6 text-left xl:pr-8 lg:sticky lg:top-24">
               <span
                 aria-hidden
                 className="pointer-events-none absolute -right-0 top-6 bottom-6 w-px bg-accent/35 xl:-right-2"
               />
 
-              <FadeIn>
-                <SectionHeading
-                  index="03"
-                  eyebrow="Menu em movimento"
-                  title="Curadoria da Semana"
-                  align="left"
-                />
-                <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground-muted lg:text-base">
+              <AnimatedSectionHeading
+                index="03"
+                eyebrow="Menu em movimento"
+                title="Curadoria da Semana"
+                align="left"
+                editorial
+              />
+              <SectionReveal variant="line-mask">
+                <p className="section-prose mt-4 max-w-sm lg:text-base">
                   Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                   semanal do que há de mais refinado no Café com Letras.
                 </p>
-              </FadeIn>
+              </SectionReveal>
 
               <CuradoriaControlPanel
                 activeIndex={activeIndex}
@@ -1052,12 +1174,20 @@ export function CuradoriaSemanal() {
                 reduceMotion={reduceMotion}
               />
 
-              <p className="section-eyebrow mt-8 !text-[10px] !tracking-[0.14em] text-foreground-muted/60">
-                Atualizado semanalmente
-              </p>
+              <p className="section-caption mt-8">Atualizado semanalmente</p>
             </aside>
 
-            <div ref={sectionRef} className="min-w-0">
+            <CuradoriaEditorialPanel
+              prato={PRATOS_DA_SEMANA[activeIndex]}
+              activeIndex={activeIndex}
+              reduceMotion={reduceMotion}
+            />
+
+            <div ref={sectionRef} className="relative min-w-0">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-3 rounded-2xl bg-accent/[0.07] blur-3xl motion-reduce:opacity-50"
+              />
               <CuradoriaDesktopTriptych
                 reduceMotion={reduceMotion}
                 sectionInView={sectionInView}
@@ -1085,20 +1215,22 @@ export function CuradoriaSemanal() {
             />
 
             <div className="relative z-10">
-              <FadeIn className="mb-4">
-                <SectionHeading
-                  index="03"
-                  eyebrow="Menu em movimento"
-                  title="Curadoria da Semana"
-                  align="center"
-                  eyebrowClassName="drop-shadow-sm"
-                  titleClassName="drop-shadow-sm"
-                />
-                <p className="mx-auto mt-2 max-w-md text-center text-sm leading-relaxed text-foreground-muted drop-shadow-sm">
+              <AnimatedSectionHeading
+                className="mb-4"
+                index="03"
+                eyebrow="Menu em movimento"
+                title="Curadoria da Semana"
+                align="center"
+                eyebrowClassName="drop-shadow-sm"
+                titleClassName="drop-shadow-sm"
+                editorial
+              />
+              <SectionReveal variant="line-mask">
+                <p className="section-prose mx-auto mt-2 max-w-md text-center drop-shadow-sm">
                   Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                   semanal do que há de mais refinado no Café com Letras.
                 </p>
-              </FadeIn>
+              </SectionReveal>
 
               <CuradoriaMobileControls
                 activeIndex={activeIndex}
