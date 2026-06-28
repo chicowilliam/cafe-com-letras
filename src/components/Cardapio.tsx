@@ -1,33 +1,39 @@
 import { ArrowRight } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
-import { FadeIn } from "@/components/FadeIn";
-import { SectionHeading } from "@/components/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { ExecutiveLunchSpotlight } from "@/components/ExecutiveLunchSpotlight";
+import { SectionReveal } from "@/components/SectionReveal";
 
 export function Cardapio() {
   return (
     <section id="cardapio" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl text-center">
-        <FadeIn className="mb-8 md:mb-10">
-          <SectionHeading
-            index="02"
-            eyebrow="Sabores da casa"
-            title="Cardápio"
-            kicker="da cozinha mineira ao café autoral"
-          />
-        </FadeIn>
+        <AnimatedSectionHeading
+          className="mb-8 md:mb-10"
+          index="02"
+          eyebrow="Sabores da casa"
+          title="Cardápio"
+          kicker="da cozinha mineira ao café autoral"
+          editorial
+        />
 
-        <FadeIn className="mx-auto max-w-md">
-          <p className="font-garamond text-lg italic leading-relaxed text-foreground-muted">
+        <ExecutiveLunchSpotlight />
+
+        <SectionReveal variant="line-mask" className="mx-auto mt-8 max-w-md md:mt-10">
+          <p className="text-lead leading-relaxed">
             Cada prato foi pensado para durar mais do que a refeição. Como um bom livro.
           </p>
+        </SectionReveal>
+
+        <div className="mx-auto mt-8 max-w-md md:mt-10">
           <AppLink
             to="/cardapio"
-            className="btn-ghost focus-ring mt-8 inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 hover:scale-[1.01]"
+            className="btn-ghost focus-ring inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 hover:scale-[1.01]"
           >
             Ver cardápio completo
             <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
           </AppLink>
-        </FadeIn>
+        </div>
       </div>
     </section>
   );
