@@ -1,0 +1,327 @@
+/* Home section handoffs — transições visuais distintas, não hairlines repetidas */
+
+.section-handoff {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  margin-top: var(--section-overlap, 0);
+}
+
+.section-handoff-from-background {
+  --handoff-from: var(--background);
+}
+
+.section-handoff-from-surface {
+  --handoff-from: var(--surface);
+}
+
+.section-handoff-to-background {
+  --handoff-to: var(--background);
+}
+
+.section-handoff-to-surface {
+  --handoff-to: var(--surface);
+}
+
+/* Respiro puro — sem linha */
+.section-handoff-breath {
+  height: clamp(1.25rem, 3.5vh, 2.5rem);
+}
+
+/* Faixa de transição de tom — visível */
+.section-handoff-wash {
+  height: clamp(3rem, 9vh, 5.5rem);
+  background: linear-gradient(
+    180deg,
+    var(--handoff-from, var(--background)) 0%,
+    color-mix(in srgb, var(--handoff-from) 62%, var(--handoff-to)) 42%,
+    color-mix(in srgb, var(--handoff-from) 18%, var(--handoff-to)) 72%,
+    var(--handoff-to, var(--surface)) 100%
+  );
+}
+
+.section-handoff-wash::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+  width: min(72%, 36rem);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 50%, transparent) 50%,
+    transparent 100%
+  );
+  opacity: 0.85;
+}
+
+/* Onda orgânica — preenche com a cor da seção seguinte */
+.section-handoff-wave {
+  height: clamp(2.5rem, 7vw, 4.25rem);
+  background: var(--handoff-from, var(--background));
+  overflow: hidden;
+}
+
+.section-handoff-wave svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.section-handoff-wave-fill {
+  fill: var(--handoff-to, var(--surface));
+}
+
+/* Capítulo editorial — número como ponte */
+.section-handoff-chapter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  padding: clamp(1.75rem, 5vh, 3rem) 1.5rem;
+  background: linear-gradient(
+    180deg,
+    var(--handoff-from, var(--background)) 0%,
+    color-mix(in srgb, var(--handoff-from) 88%, var(--handoff-to)) 100%
+  );
+}
+
+.section-handoff-chapter::before,
+.section-handoff-chapter::after {
+  content: "";
+  flex: 1;
+  max-width: 8rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 28%, transparent),
+    transparent
+  );
+}
+
+.section-handoff-chapter-index {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 7vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--accent) 42%, transparent);
+}
+
+.section-handoff-chapter-label {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--foreground-muted) 88%, transparent);
+}
+
+/* Faixa de acento — não é hairline */
+.section-handoff-accent-band {
+  height: clamp(0.5rem, 1.4vh, 0.625rem);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 65%, transparent) 22%,
+    color-mix(in srgb, var(--accent-2) 45%, transparent) 78%,
+    transparent 100%
+  );
+  opacity: 0.9;
+}
+
+/* Painel que “sobe” sobre a seção anterior */
+.section-lifted-panel {
+  position: relative;
+  z-index: 3;
+  margin-top: calc(-1 * clamp(2.25rem, 7vh, 4.5rem));
+  border-radius: clamp(1.5rem, 3.5vw, 2rem) clamp(1.5rem, 3.5vw, 2rem) 0 0;
+  box-shadow:
+    0 -1px 0 color-mix(in srgb, var(--accent) 22%, transparent),
+    0 -28px 64px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.section-lifted-panel::before {
+  content: "";
+  position: absolute;
+  inset-inline: clamp(1.5rem, 8vw, 5rem);
+  top: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 70%, transparent),
+    transparent
+  );
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* Faixa de reconhecimento — ribbon, não caixa com bordas */
+.section-ribbon {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface) 92%, var(--accent) 8%) 0%,
+    var(--surface) 50%,
+    color-mix(in srgb, var(--surface) 92%, var(--accent) 8%) 100%
+  );
+}
+
+.section-overlap-sm {
+  --section-overlap: -4vh;
+}
+
+.section-overlap-md {
+  --section-overlap: -6vh;
+}
+
+.section-overlap-lg {
+  --section-overlap: -8vh;
+}
+
+.section-surface-enter {
+  position: relative;
+}
+
+.section-surface-enter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: var(--surface);
+}
+
+@supports (animation-timeline: view()) {
+  .section-surface-enter::before {
+    animation: section-surface-crossfade linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+
+  .section-view-reveal {
+    animation: section-view-fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 28%;
+  }
+
+  .section-line-reveal-inner {
+    animation: section-line-unmask linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+  }
+
+  .section-index-reveal {
+    animation: section-index-scale linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 20%;
+  }
+}
+
+@keyframes section-surface-crossfade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes section-view-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.5rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes section-line-unmask {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes section-index-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.line-reveal-mask {
+  overflow: hidden;
+  display: block;
+}
+
+.hero-handoff-fade {
+  position: relative;
+}
+
+.hero-handoff-fade::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 15;
+  height: clamp(5rem, 14vh, 10rem);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--background) 35%, transparent) 40%,
+    var(--background) 100%
+  );
+}
+
+@media (max-width: 767px) {
+  .section-overlap-sm {
+    --section-overlap: -2vh;
+  }
+
+  .section-overlap-md {
+    --section-overlap: -3vh;
+  }
+
+  .section-overlap-lg {
+    --section-overlap: -4vh;
+  }
+
+  .section-lifted-panel {
+    margin-top: calc(-1 * clamp(1.5rem, 5vh, 2.75rem));
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-surface-enter::before,
+  .section-view-reveal,
+  .section-line-reveal-inner,
+  .section-index-reveal {
+    animation: none !important;
+  }
+
+  .section-surface-enter::before {
+    opacity: 0 !important;
+  }
+
+  .section-line-reveal-inner {
+    transform: none !important;
+  }
+}

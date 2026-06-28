@@ -1,7 +1,7 @@
 import { ChevronDown, ExternalLink, MapPin } from "lucide-react";
 import { useState } from "react";
-import { FadeIn } from "@/components/FadeIn";
-import { SectionHeading } from "@/components/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
 
 const ADDRESS = "Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte — MG";
 
@@ -23,6 +23,11 @@ const FAQ_ITEMS: FaqItem[] = [
     question: "Tem couvert artístico?",
     answer:
       "Sim, há couvert artístico nas noites com apresentações musicais. O valor varia conforme a atração e é informado na entrada.",
+  },
+  {
+    question: "Há taxa de serviço?",
+    answer:
+      "Sim. Cobramos 12% de taxa de serviço por comanda ou por mesa, conforme o atendimento. O valor remunera nossa equipe e não está incluso nos preços do cardápio.",
   },
   {
     question: "Aceita pets?",
@@ -83,63 +88,64 @@ export function Visite() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="visite" className="section-padding border-t border-hairline bg-background">
+    <section id="visite" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-8 md:mb-10">
-          <SectionHeading
-            index="07"
-            eyebrow="Visite"
-            title="Onde nos encontrar"
-          />
-        </FadeIn>
+        <AnimatedSectionHeading
+          className="mb-8 md:mb-10"
+          eyebrow="Visite"
+          title="Onde nos encontrar"
+          editorial
+        />
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
-          <FadeIn className="flex flex-col">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-md)] border border-hairline">
-              <iframe
-                src={MAPS_EMBED_URL}
-                title="Localização do Café com Letras na Savassi, Belo Horizonte"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-                className="map-iframe h-full w-full border-0"
-              />
-            </div>
-
-            <div className="mt-5">
-              <p className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground">
-                <MapPin size={16} className="mt-0.5 shrink-0 text-accent" aria-hidden />
-                {ADDRESS}
-              </p>
-              <a
-                href={MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary focus-ring mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-transform duration-300 hover:scale-[1.01] motion-reduce:transition-none"
-              >
-                <ExternalLink size={16} strokeWidth={1.75} aria-hidden />
-                Abrir no Google Maps
-              </a>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.06}>
-            <p className="section-eyebrow">Perguntas frequentes</p>
-            <div className="mt-3">
-              {FAQ_ITEMS.map((item, index) => (
-                <FaqRow
-                  key={item.question}
-                  id={`faq-${index}`}
-                  item={item}
-                  isOpen={openIndex === index}
-                  onToggle={() =>
-                    setOpenIndex((current) => (current === index ? null : index))
-                  }
+        <SectionReveal variant="stagger">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
+            <StaggerItem index={0} className="flex flex-col">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-md)] border border-hairline">
+                <iframe
+                  src={MAPS_EMBED_URL}
+                  title="Localização do Café com Letras na Savassi, Belo Horizonte"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  className="map-iframe h-full w-full border-0"
                 />
-              ))}
-            </div>
-          </FadeIn>
-        </div>
+              </div>
+
+              <div className="mt-5">
+                <p className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground">
+                  <MapPin size={16} className="mt-0.5 shrink-0 text-accent" aria-hidden />
+                  {ADDRESS}
+                </p>
+                <a
+                  href={MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary focus-ring mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-transform duration-300 hover:scale-[1.01] motion-reduce:transition-none"
+                >
+                  <ExternalLink size={16} strokeWidth={1.75} aria-hidden />
+                  Abrir no Google Maps
+                </a>
+              </div>
+            </StaggerItem>
+
+            <StaggerItem index={1}>
+              <p className="section-caption">Perguntas frequentes</p>
+              <div className="mt-3">
+                {FAQ_ITEMS.map((item, index) => (
+                  <FaqRow
+                    key={item.question}
+                    id={`faq-${index}`}
+                    item={item}
+                    isOpen={openIndex === index}
+                    onToggle={() =>
+                      setOpenIndex((current) => (current === index ? null : index))
+                    }
+                  />
+                ))}
+              </div>
+            </StaggerItem>
+          </div>
+        </SectionReveal>
       </div>
     </section>
   );

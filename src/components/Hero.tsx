@@ -30,13 +30,66 @@ const taglineClass =
 const taglineHighlightClass =
   "hero-tagline-highlight mx-1 font-display text-base italic md:text-lg";
 
-export function Hero() {
+const heroTitleClass =
+  "hero-title fade-in-up is-visible font-display leading-[1.05] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] text-[2.75rem] md:text-6xl lg:text-7xl";
+
+function HeroCopy() {
   const { open: openReservation } = useReservation();
 
   return (
+    <div className="hero-copy mx-auto flex w-full max-w-2xl flex-col items-center text-center">
+      <span
+        className={`fade-in-up is-visible ${locationBadgeClass}`}
+        style={{ transitionDelay: "0.05s" }}
+      >
+        Savassi · Belo Horizonte
+      </span>
+
+      <h1
+        className={`${heroTitleClass} w-full text-center`}
+        style={{ transitionDelay: "0.12s" }}
+      >
+        Café com Letras
+      </h1>
+
+      <p
+        className={`fade-in-up is-visible mt-5 max-w-xs md:mt-6 md:max-w-md ${taglineClass}`}
+        style={{ transitionDelay: "0.2s" }}
+      >
+        Onde cultura,{" "}
+        <span className={taglineHighlightClass}>literatura</span> e gastronomia se
+        encontram
+      </p>
+
+      <div
+        className="fade-in-up is-visible mt-10 flex w-full flex-col items-center gap-5 md:mt-12"
+        style={{ transitionDelay: "0.3s" }}
+      >
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <button type="button" onClick={scrollToDates} className={ctaPrimary}>
+            Noite dos Dates
+          </button>
+          <button type="button" onClick={openReservation} className={ctaGhost}>
+            Fazer reserva
+          </button>
+        </div>
+        <div className="flex items-center gap-4">
+          <span aria-hidden className="h-px w-10 bg-white/15" />
+          <AppLink to="/cardapio" className={cardapioLinkClass}>
+            Ver cardápio
+          </AppLink>
+          <span aria-hidden className="h-px w-10 bg-white/15" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Hero() {
+  return (
     <section
       id="inicio"
-      className="relative min-h-[100dvh] w-full overflow-hidden bg-[var(--hero-overlay-bottom)]"
+      className="hero-handoff-fade relative min-h-[100dvh] w-full overflow-hidden bg-[var(--hero-overlay-bottom)]"
     >
       <HeroBackgroundVideo />
 
@@ -47,102 +100,8 @@ export function Hero() {
         className="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 sm:h-64 md:h-56 lg:h-72"
       />
 
-      {/* Mobile */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(5rem,env(safe-area-inset-top))] text-center md:hidden">
-        <div className="hero-mobile-copy flex w-full max-w-md flex-col items-center gap-1">
-          <span
-            className={`fade-in-up is-visible ${locationBadgeClass}`}
-            style={{ transitionDelay: "0.05s" }}
-          >
-            Savassi · Belo Horizonte
-          </span>
-
-          <h1
-            className="hero-title fade-in-up is-visible w-full text-center font-display text-[2.75rem] leading-[1.05] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
-            style={{ transitionDelay: "0.12s" }}
-          >
-            Café com Letras
-          </h1>
-
-          <p
-            className={`fade-in-up is-visible mt-5 max-w-xs ${taglineClass}`}
-            style={{ transitionDelay: "0.2s" }}
-          >
-            Onde cultura,{" "}
-            <span className={taglineHighlightClass}>literatura</span> e gastronomia se
-            encontram
-          </p>
-
-          <div
-            className="fade-in-up is-visible mt-10 flex w-full flex-col items-center gap-5"
-            style={{ transitionDelay: "0.3s" }}
-          >
-            <div className="flex w-full flex-wrap items-center justify-center gap-3">
-              <button type="button" onClick={scrollToDates} className={ctaPrimary}>
-                Noite dos Dates
-              </button>
-              <button type="button" onClick={openReservation} className={ctaGhost}>
-                Fazer reserva
-              </button>
-            </div>
-            <div className="flex items-center gap-4">
-              <span aria-hidden className="h-px w-10 bg-white/15" />
-              <AppLink to="/cardapio" className={cardapioLinkClass}>
-                Ver cardápio
-              </AppLink>
-              <span aria-hidden className="h-px w-10 bg-white/15" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Desktop */}
-      <div className="absolute inset-0 z-20 hidden flex-col items-center justify-center px-8 text-center md:flex">
-        <div className="flex w-full max-w-2xl flex-col items-center gap-1">
-          <span
-            className={`fade-in-up is-visible ${locationBadgeClass}`}
-            style={{ transitionDelay: "0.05s" }}
-          >
-            Savassi · Belo Horizonte
-          </span>
-
-          <h1
-            className="hero-title fade-in-up is-visible font-display text-6xl leading-[1.05] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] lg:text-7xl"
-            style={{ transitionDelay: "0.12s" }}
-          >
-            Café com Letras
-          </h1>
-
-          <p
-            className={`fade-in-up is-visible mt-6 max-w-md ${taglineClass}`}
-            style={{ transitionDelay: "0.2s" }}
-          >
-            Onde cultura,{" "}
-            <span className={taglineHighlightClass}>literatura</span> e gastronomia se
-            encontram
-          </p>
-
-          <div
-            className="fade-in-up is-visible mt-12 flex flex-col items-center gap-5"
-            style={{ transitionDelay: "0.3s" }}
-          >
-            <div className="flex items-center justify-center gap-3">
-              <button type="button" onClick={scrollToDates} className={ctaPrimary}>
-                Noite dos Dates
-              </button>
-              <button type="button" onClick={openReservation} className={ctaGhost}>
-                Fazer reserva
-              </button>
-            </div>
-            <div className="flex items-center gap-4">
-              <span aria-hidden className="h-px w-10 bg-white/15" />
-              <AppLink to="/cardapio" className={cardapioLinkClass}>
-                Ver cardápio
-              </AppLink>
-              <span aria-hidden className="h-px w-10 bg-white/15" />
-            </div>
-          </div>
-        </div>
+      <div className="absolute inset-0 z-20 flex items-center justify-center px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(5rem,env(safe-area-inset-top))] md:px-8">
+        <HeroCopy />
       </div>
 
       <a

@@ -1,24 +1,23 @@
 import type { ElementType, ReactNode } from "react";
 
-type SectionHeadingAlign = "left" | "center" | "responsive";
+export type SectionHeadingAlign = "left" | "center" | "responsive";
 
-type SectionHeadingProps = {
-  /** Número de seção, ex.: "01". */
+export type SectionHeadingProps = {
   index?: string;
   eyebrow: string;
   title: ReactNode;
-  /** Subtítulo curto em Garamond itálico. */
   kicker?: string;
   align?: SectionHeadingAlign;
   as?: ElementType;
   className?: string;
   eyebrowClassName?: string;
   titleClassName?: string;
-  /** Elemento opcional antes do eyebrow (ex.: ícone). */
   leading?: ReactNode;
+  /** Substitui o índice estático (ex.: animação). */
+  indexSlot?: ReactNode;
 };
 
-const ALIGN_CLASS: Record<SectionHeadingAlign, string> = {
+export const SECTION_HEADING_ALIGN: Record<SectionHeadingAlign, string> = {
   left: "items-start text-left",
   center: "items-center text-center",
   responsive: "items-center text-center md:items-start md:text-left",
@@ -35,16 +34,15 @@ export function SectionHeading({
   eyebrowClassName = "",
   titleClassName = "",
   leading,
+  indexSlot,
 }: SectionHeadingProps) {
   return (
-    <div className={`flex flex-col ${ALIGN_CLASS[align]} ${className}`}>
+    <div className={`flex flex-col ${SECTION_HEADING_ALIGN[align]} ${className}`}>
       <div className="flex items-center gap-2.5">
         {leading}
         {index ? (
           <>
-            <span className="font-sans text-[11px] font-medium tracking-[0.22em] text-accent/70 tabular-nums">
-              {index}
-            </span>
+            {indexSlot ?? <span className="section-index">{index}</span>}
             <span aria-hidden className="h-px w-5 bg-accent/30" />
           </>
         ) : null}
@@ -53,11 +51,7 @@ export function SectionHeading({
 
       <TitleTag className={`section-title mt-3 ${titleClassName}`}>{title}</TitleTag>
 
-      {kicker ? (
-        <p className="mt-2 font-garamond text-base italic text-foreground-muted md:text-lg">
-          {kicker}
-        </p>
-      ) : null}
+      {kicker ? <p className="section-kicker mt-2">{kicker}</p> : null}
     </div>
   );
 }

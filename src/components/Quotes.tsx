@@ -1,4 +1,4 @@
-import { FadeIn } from "@/components/FadeIn";
+import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
 
 type Quote = { text: string; source: string };
 
@@ -19,32 +19,23 @@ const QUOTES: Quote[] = [
 
 export function Quotes() {
   return (
-    <section className="section-padding border-t border-hairline bg-surface">
+    <section className="section-padding bg-surface">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-10 md:mb-12">
-          <p className="section-eyebrow">Reconhecimento</p>
-        </FadeIn>
-
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
-          {QUOTES.map((quote, index) => (
-            <FadeIn key={quote.text} delay={0.06 * index}>
-              <figure className="flex h-full flex-col">
-                <span
-                  aria-hidden
-                  className="font-display text-4xl leading-none text-accent/50"
-                >
-                  &ldquo;
-                </span>
-                <blockquote className="mt-2 font-garamond text-xl italic leading-relaxed text-foreground md:text-2xl">
-                  {quote.text}
-                </blockquote>
-                <figcaption className="mt-4 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-foreground-muted">
-                  {quote.source}
-                </figcaption>
-              </figure>
-            </FadeIn>
-          ))}
-        </div>
+        <SectionReveal variant="stagger">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+            {QUOTES.map((quote, index) => (
+              <StaggerItem key={quote.text} index={index}>
+                <figure className="flex h-full flex-col">
+                  <span aria-hidden className="quote-mark">
+                    &ldquo;
+                  </span>
+                  <blockquote className="quote-text mt-2">{quote.text}</blockquote>
+                  <figcaption className="section-caption mt-4">{quote.source}</figcaption>
+                </figure>
+              </StaggerItem>
+            ))}
+          </div>
+        </SectionReveal>
       </div>
     </section>
   );

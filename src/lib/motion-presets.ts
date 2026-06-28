@@ -72,6 +72,108 @@ export const fadeUpVariants: Variants = {
   visible: { opacity: 1, y: 0 },
 };
 
+/** Home section reveals — editorial rhythm, not repeated fade-up */
+export const sectionMobileSpring: Transition = {
+  type: "spring",
+  stiffness: 460,
+  damping: 40,
+  mass: 0.7,
+};
+
+export const editorialContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.04,
+    },
+  },
+};
+
+export const editorialEyebrowVariants: Variants = {
+  hidden: { opacity: 0, y: 6 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { ...revealSpring, duration: 0.38 },
+  },
+};
+
+export const editorialTitleVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { ...revealSpring, delay: 0.02 },
+  },
+};
+
+export const editorialBodyVariants: Variants = {
+  hidden: { opacity: 0, y: 6 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: revealSpring,
+  },
+};
+
+export const lineMaskVariants: Variants = {
+  hidden: { y: "110%" },
+  visible: {
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 380,
+      damping: 34,
+      mass: 0.85,
+    },
+  },
+};
+
+export const staggerGridContainerVariants: Variants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.06,
+    },
+  },
+};
+
+export const staggerGridItemVariants: Variants = {
+  hidden: { opacity: 0, y: 12, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: revealSpring,
+  },
+};
+
+export const indexScaleVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.82 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 520,
+      damping: 32,
+      mass: 0.55,
+    },
+  },
+};
+
+export const subtleFadeVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 /** Experience hub triptych — panel layout + content reveal */
 export const hubPanelSpring: Transition = experienciasSpring;
 

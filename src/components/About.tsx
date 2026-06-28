@@ -1,5 +1,5 @@
-import { FadeIn } from "@/components/FadeIn";
-import { SectionHeading } from "@/components/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { SectionReveal } from "@/components/SectionReveal";
 import { HISTORIA_IMAGE } from "@/lib/about-images";
 import { ABOUT_PARAGRAPHS } from "@/lib/constants";
 
@@ -9,30 +9,27 @@ export function About() {
       id="sobre"
       className="relative flex w-full flex-col items-stretch overflow-hidden bg-surface md:flex-row md:items-center"
     >
-      <FadeIn className="relative w-full shrink-0 md:w-[44%] lg:w-[40%]">
+      <SectionReveal variant="subtle" className="relative w-full shrink-0 md:w-[44%] lg:w-[40%]">
         <div className="relative h-[clamp(220px,48vw,280px)] w-full overflow-hidden sm:h-[clamp(240px,42vw,300px)] md:h-auto md:aspect-[4/3] md:max-h-[min(380px,46vh)] lg:max-h-[min(420px,48vh)]">
-          <img
-            src={HISTORIA_IMAGE}
-            alt="Interior do Café com Letras — mesas, estantes e ambiente acolhedor"
-            className="h-full w-full object-cover"
-            loading="lazy"
-            decoding="async"
-          />
-          <div
-            className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-hairline"
-            aria-hidden
-          />
-          <span className="absolute left-4 top-4 inline-flex items-center rounded-full border border-white/15 bg-black/45 px-3 py-1 font-sans text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-accent backdrop-blur-sm md:left-6 md:top-6">
-            Desde 1996
-          </span>
+            <img
+              src={HISTORIA_IMAGE}
+              alt="Interior do Café com Letras — mesas, estantes e ambiente acolhedor"
+              className="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <div
+              className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-hairline"
+              aria-hidden
+            />
+            <span className="absolute left-4 top-4 inline-flex items-center rounded-full border border-white/15 bg-black/45 px-3 py-1 font-sans text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-accent backdrop-blur-sm md:left-6 md:top-6">
+              Desde 1996
+            </span>
         </div>
-      </FadeIn>
+      </SectionReveal>
 
-      <FadeIn
-        className="flex w-full flex-col justify-center p-8 md:w-[56%] md:p-12 lg:w-[60%] lg:p-20"
-        delay={0.08}
-      >
-        <SectionHeading
+      <div className="flex w-full flex-col justify-center p-8 md:w-[56%] md:p-12 lg:w-[60%] lg:p-20">
+        <AnimatedSectionHeading
           index="05"
           eyebrow="A História"
           align="left"
@@ -43,6 +40,7 @@ export function About() {
               <span className="italic text-foreground-muted">e a Savassi</span>
             </>
           }
+          editorial
         />
 
         <div
@@ -50,23 +48,25 @@ export function About() {
           aria-hidden
         />
 
-        <div className="flex max-w-xl flex-col gap-6">
-          {ABOUT_PARAGRAPHS.map((text, index) => (
-            <p
-              key={index}
-              className={`font-garamond text-[1.0625rem] leading-relaxed text-foreground-muted md:text-[1.1875rem] ${
-                index === 0 ? "story-lead" : ""
-              }`}
-            >
-              {text}
-            </p>
-          ))}
-        </div>
+        <SectionReveal variant="line-mask">
+          <div className="flex max-w-xl flex-col gap-6">
+            {ABOUT_PARAGRAPHS.map((text, index) => (
+              <p
+                key={index}
+                className={`font-garamond text-[1.0625rem] leading-relaxed text-foreground-muted md:text-[1.1875rem] ${
+                  index === 0 ? "story-lead" : ""
+                }`}
+              >
+                {text}
+              </p>
+            ))}
+          </div>
+        </SectionReveal>
 
-        <p className="mt-8 font-sans text-xs uppercase tracking-[0.12em] text-foreground-muted/80 md:mt-10">
+        <p className="section-caption mt-8 md:mt-10">
           Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte
         </p>
-      </FadeIn>
+      </div>
     </section>
   );
 }

@@ -1,8 +1,8 @@
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AppLink } from "@/components/AppLink";
-import { FadeIn } from "@/components/FadeIn";
-import { SectionHeading } from "@/components/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { SectionReveal } from "@/components/SectionReveal";
 import { useReservation } from "@/hooks/useReservation";
 import { getExperienciasAtivasHoje } from "@/lib/experiencias";
 import {
@@ -166,7 +166,7 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
   const dateTimeLabel = formatEventDateTime(event.date, event.time);
 
   return (
-    <FadeIn>
+    <SectionReveal variant="subtle">
       <article className="mx-auto w-full max-w-4xl overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface-elevated shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_12px_32px_rgba(0,0,0,0.28)]">
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-stretch">
           {event.image ? (
@@ -220,7 +220,7 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
           </div>
         </div>
       </article>
-    </FadeIn>
+    </SectionReveal>
   );
 }
 
@@ -334,7 +334,7 @@ type DayGroupProps = {
 
 function DayGroup({ date, events, onReserve, staggerIndex }: DayGroupProps) {
   return (
-    <FadeIn delay={0.04 * staggerIndex}>
+    <SectionReveal variant="subtle" delay={0.04 * staggerIndex}>
       <div className="grid grid-cols-1 gap-0 md:grid-cols-[5.5rem_minmax(0,1fr)] md:gap-x-8">
         <header className="mb-3 flex items-baseline gap-2 md:mb-0 md:flex-col md:gap-0 md:pt-5">
           <span
@@ -359,7 +359,7 @@ function DayGroup({ date, events, onReserve, staggerIndex }: DayGroupProps) {
           ))}
         </div>
       </div>
-    </FadeIn>
+    </SectionReveal>
   );
 }
 
@@ -375,7 +375,7 @@ function EmptyState({
   const monthLabel = formatMonthLabel(viewMonth);
 
   return (
-    <FadeIn>
+    <SectionReveal variant="subtle">
       <div className="rounded-[var(--radius-md)] border border-dashed border-hairline bg-white/[0.02] px-6 py-14 text-center">
         <span
           aria-hidden
@@ -397,7 +397,7 @@ function EmptyState({
           </p>
         ) : null}
       </div>
-    </FadeIn>
+    </SectionReveal>
   );
 }
 
@@ -438,20 +438,21 @@ export function Programacao() {
   return (
     <section id="programacao" className="section-padding bg-background">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-8 md:mb-10">
-          <SectionHeading
-            index="04"
-            eyebrow="Agenda cultural"
-            title="Programação"
-          />
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-foreground-muted md:mx-0 md:text-left md:text-base">
+        <AnimatedSectionHeading
+          className="mb-8 md:mb-10"
+          eyebrow="Agenda cultural"
+          title="Programação"
+          editorial
+        />
+        <SectionReveal variant="line-mask">
+          <p className="section-prose mx-auto mt-3 max-w-2xl text-center md:mx-0 md:text-left">
             Jazz, piano bar, lançamentos e saraus — a programação viva do Café com
             Letras, curada mês a mês na Savassi.
           </p>
-        </FadeIn>
+        </SectionReveal>
 
         {getExperienciasAtivasHoje().length > 0 && (
-          <FadeIn>
+          <SectionReveal variant="subtle">
             <div className="mb-6 space-y-3">
               {getExperienciasAtivasHoje().map((experiencia) => (
                 <AppLink
@@ -482,7 +483,7 @@ export function Programacao() {
                 </AppLink>
               ))}
             </div>
-          </FadeIn>
+          </SectionReveal>
         )}
 
         <div className="sticky top-14 z-20 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background/95 px-5 py-4 backdrop-blur-md md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
@@ -534,13 +535,13 @@ export function Programacao() {
           )}
         </div>
 
-        <FadeIn className="mt-12 border-t border-hairline pt-6 md:mt-16 md:pt-8">
-          <p className="section-eyebrow !mb-0">Horário de funcionamento</p>
-          <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
+        <div className="mt-12 border-t border-hairline pt-6 md:mt-16 md:pt-8">
+          <p className="section-caption !mb-0">Horário de funcionamento</p>
+          <p className="section-prose mt-2">
             Aberto todos os dias · Domingo a quinta-feira das 12h às 22h · Sexta-feira
             e sábado das 12h às 23h.
           </p>
-        </FadeIn>
+        </div>
       </div>
     </section>
   );

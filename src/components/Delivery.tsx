@@ -1,5 +1,5 @@
-import { FadeIn } from "@/components/FadeIn";
-import { SectionHeading } from "@/components/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
 import { DELIVERY_IMAGES } from "@/lib/delivery-images";
 
 const IFOOD_URL =
@@ -9,18 +9,16 @@ export function Delivery() {
   return (
     <section
       id="delivery"
-      className="section-padding border-t border-hairline bg-surface"
+      className="section-lifted-panel section-surface-enter section-padding bg-surface"
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-[2fr_3fr] md:items-center md:gap-16">
-        <FadeIn className="flex flex-col">
-          <SectionHeading
+      <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-[2fr_3fr] md:items-center md:gap-16">
+        <div className="flex flex-col">
+          <AnimatedSectionHeading
             eyebrow="Delivery"
             title="O café em casa"
-            kicker="entregue onde você estiver"
+            kicker="Os mesmos sabores do Café com Letras, entregues onde você estiver."
+            align="left"
           />
-          <p className="mt-5 max-w-sm font-garamond text-lg italic leading-relaxed text-foreground-muted">
-            Os mesmos sabores do Café com Letras, entregues onde você estiver.
-          </p>
           <a
             href={IFOOD_URL}
             target="_blank"
@@ -37,17 +35,18 @@ export function Delivery() {
             </svg>
             Pedir no iFood
           </a>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.08}>
+        <SectionReveal variant="stagger">
           <div
             className={`grid gap-3 ${
               DELIVERY_IMAGES.length === 1 ? "grid-cols-1" : "grid-cols-2"
             }`}
           >
             {DELIVERY_IMAGES.map((src, i) => (
-              <div
+              <StaggerItem
                 key={i}
+                index={i}
                 className={`overflow-hidden rounded-sm ${
                   i === 0 && DELIVERY_IMAGES.length === 3 ? "col-span-2" : ""
                 }`}
@@ -59,10 +58,10 @@ export function Delivery() {
                   decoding="async"
                   className="aspect-[4/3] h-full w-full object-cover transition-[filter] duration-300 hover:brightness-105"
                 />
-              </div>
+              </StaggerItem>
             ))}
           </div>
-        </FadeIn>
+        </SectionReveal>
       </div>
     </section>
   );

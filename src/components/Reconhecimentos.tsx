@@ -10,9 +10,9 @@ export function Reconhecimentos() {
   return (
     <section
       aria-label="Reconhecimentos culturais"
-      className="border-t border-b border-hairline bg-surface py-8 px-5 md:px-8"
+      className="section-ribbon py-10 px-5 md:px-8 md:py-12"
     >
-      <p className="mx-auto max-w-4xl text-center font-garamond text-sm italic text-foreground-muted">
+      <p className="mx-auto max-w-4xl text-center text-lead md:text-lg">
         {RECONHECIMENTOS.join(" · ")}
       </p>
     </section>

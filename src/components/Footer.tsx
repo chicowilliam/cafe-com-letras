@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import { track } from "@vercel/analytics/react";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import { FadeIn } from "@/components/FadeIn";
 import { InstagramIcon } from "@/components/InstagramIcon";
 import { SpotifyIcon } from "@/components/SpotifyIcon";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -34,8 +33,8 @@ export function Footer() {
   const open = isOpenNow();
 
   return (
-    <footer className="section-padding border-t border-hairline bg-background !pb-[max(var(--section-space),env(safe-area-inset-bottom))]">
-      <FadeIn className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:gap-8">
+    <footer className="section-padding bg-background !pb-[max(var(--section-space),env(safe-area-inset-bottom))]">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:gap-8">
         <div>
           <p className="font-display text-lg text-foreground">Café com Letras</p>
           <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
@@ -140,7 +139,7 @@ export function Footer() {
             </span>
           </span>
         </div>
-      </FadeIn>
+      </div>
     </footer>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { track } from "@vercel/analytics/react";
 import { Check } from "lucide-react";
-import { FadeIn } from "@/components/FadeIn";
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { buildWhatsAppUrl } from "@/lib/contact";
 
@@ -21,12 +21,15 @@ export function Newsletter() {
   };
 
   return (
-    <section className="section-padding border-t border-hairline bg-background">
-      <FadeIn className="mx-auto flex max-w-xl flex-col items-center text-center">
-        <h2 className="section-title">Receba a programação</h2>
-        <p className="mt-3 font-garamond text-lg italic text-foreground-muted">
-          Jazz, saraus e lançamentos — enviamos a agenda para você, sem spam.
-        </p>
+    <section className="section-padding bg-background">
+      <div className="mx-auto flex max-w-xl flex-col items-center text-center">
+        <AnimatedSectionHeading
+          eyebrow="Newsletter"
+          title="Receba a programação"
+          kicker="Jazz, saraus e lançamentos — enviamos a agenda para você, sem spam."
+          align="center"
+          editorial
+        />
 
         {submitted ? (
           <p className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-accent-2">
@@ -59,7 +62,7 @@ export function Newsletter() {
             </button>
           </form>
         )}
-      </FadeIn>
+      </div>
     </section>
   );
 }
