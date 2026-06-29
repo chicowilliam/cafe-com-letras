@@ -1,16 +1,27 @@
-import { Camera } from "lucide-react";
-import { useState } from "react";
+import { Camera, Images } from "lucide-react";
+import { useMemo, useState } from "react";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { GalleryViewer } from "@/components/GalleryViewer";
 import { useInView } from "@/hooks/useInView";
-import { MARQUEE_IMAGES } from "@/lib/marquee-images";
+import {
+  GALLERY_MARQUEE_IMAGES,
+  galleryImageAspectRatio,
+} from "@/lib/gallery-images";
 
 export function ImageMarquee() {
-  const loop = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
   const [paused, setPaused] = useState(false);
+  const [viewerOpen, setViewerOpen] = useState(false);
   const [sectionRef, sectionInView] = useInView<HTMLElement>({
     rootMargin: "120px",
     threshold: 0,
   });
+
+  const images = GALLERY_MARQUEE_IMAGES;
+
+  const loop = useMemo(
+    () => [...images, ...images],
+    [images],
+  );
 
   return (
     <section
@@ -23,12 +34,20 @@ export function ImageMarquee() {
           eyebrow="Galeria"
           title="Café, cultura e encontros"
           align="left"
-          kicker="Artistas locais e nacionais — fotografia, pintura e a cena cultural de BH."
+          kicker="Arquivo e presente — memórias da casa e instantes de hoje na Savassi."
           leading={
             <Camera size={16} className="text-accent" strokeWidth={1.5} aria-hidden />
           }
           editorial
         />
+        <button
+          type="button"
+          onClick={() => setViewerOpen(true)}
+          className="section-caption focus-ring mt-5 inline-flex items-center gap-2 text-foreground-muted/75 transition-colors duration-300 hover:text-accent"
+        >
+          <Images size={12} strokeWidth={1.5} aria-hidden />
+          Ver galeria completa
+        </button>
       </div>
 
       <div className="relative -mx-5 md:-mx-8">
@@ -36,7 +55,7 @@ export function ImageMarquee() {
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-surface to-transparent md:w-24" />
 
         <div
-          className="flex min-h-36 cursor-grab overflow-hidden px-5 sm:min-h-40 md:min-h-44 md:px-8"
+          className="flex min-h-36 cursor-grab overflow-hidden px-5 sm:min-h-40 md:min-h-44 md:px-8 motion-reduce:cursor-default"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}
@@ -44,29 +63,40 @@ export function ImageMarquee() {
         >
           {sectionInView ? (
             <div
-              className={`animate-marquee flex shrink-0 gap-5 md:gap-8 marquee-running${paused ? " marquee-paused" : ""}`}
+              className={`animate-marquee flex shrink-0 gap-5 md:gap-8 marquee-running motion-reduce:animate-none motion-reduce:overflow-x-auto motion-reduce:[scrollbar-width:none]${paused ? " marquee-paused" : ""}`}
             >
-              {loop.map((image, index) => (
-                <div
-                  key={`galeria-${index}`}
-                  className="relative h-36 w-48 shrink-0 overflow-hidden rounded-xl sm:h-40 sm:w-52 md:h-44 md:w-56"
-                >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    width={224}
-                    height={176}
-                    className="h-full w-full object-cover"
-                    draggable={false}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              ))}
+              {loop.map((image, index) => {
+                const aspectRatio = galleryImageAspectRatio(image);
+
+                return (
+                  <div
+                    key={`galeria-${image.src}-${index}`}
+                    className="gallery-marquee-card relative h-36 shrink-0 overflow-hidden rounded-xl bg-[color-mix(in_srgb,var(--foreground)_5%,var(--surface))] ring-1 ring-hairline/60 sm:h-40 md:h-44"
+                    style={{ aspectRatio }}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      className="h-full w-full object-contain"
+                      draggable={false}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                );
+              })}
             </div>
           ) : null}
         </div>
       </div>
+
+      <GalleryViewer
+        images={images}
+        open={viewerOpen}
+        onClose={() => setViewerOpen(false)}
+      />
     </section>
   );
 }
