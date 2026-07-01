@@ -94,6 +94,7 @@ export function Visite() {
           className="mb-8 md:mb-10"
           eyebrow="Visite"
           title="Onde nos encontrar"
+          kicker="Rua Antônio de Albuquerque — no coração da Savassi, entre estacionamentos rotativos e a vida cultural do bairro."
           editorial
         />
 
@@ -129,19 +130,21 @@ export function Visite() {
             </StaggerItem>
 
             <StaggerItem index={1}>
-              <p className="section-caption">Perguntas frequentes</p>
-              <div className="mt-3">
-                {FAQ_ITEMS.map((item, index) => (
-                  <FaqRow
-                    key={item.question}
-                    id={`faq-${index}`}
-                    item={item}
-                    isOpen={openIndex === index}
-                    onToggle={() =>
-                      setOpenIndex((current) => (current === index ? null : index))
-                    }
-                  />
-                ))}
+              <div className="editorial-inset-panel editorial-inset-panel--soft rounded-2xl px-5 py-6 md:px-6 md:py-7">
+                <p className="section-caption">Perguntas frequentes</p>
+                <div className="mt-3">
+                  {FAQ_ITEMS.map((item, index) => (
+                    <FaqRow
+                      key={item.question}
+                      id={`faq-${index}`}
+                      item={item}
+                      isOpen={openIndex === index}
+                      onToggle={() =>
+                        setOpenIndex((current) => (current === index ? null : index))
+                      }
+                    />
+                  ))}
+                </div>
               </div>
             </StaggerItem>
           </div>

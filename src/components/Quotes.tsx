@@ -1,6 +1,7 @@
+import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
 
-type Quote = { text: string; source: string };
+type Quote = { text: string; source: string; featured?: boolean };
 
 const QUOTES: Quote[] = [
   {
@@ -10,6 +11,7 @@ const QUOTES: Quote[] = [
   {
     text: "Berço do Savassi Festival e do Jazz Com Todas as Letras.",
     source: "Cena cultural mineira",
+    featured: true,
   },
   {
     text: "Onde a literatura encontra o jazz, a arte e a boa mesa.",
@@ -17,21 +19,46 @@ const QUOTES: Quote[] = [
   },
 ];
 
+function QuoteFigure({
+  quote,
+  className = "",
+}: {
+  quote: Quote;
+  className?: string;
+}) {
+  return (
+    <figure className={`flex h-full flex-col ${className}`.trim()}>
+      <span aria-hidden className="quote-mark">
+        &ldquo;
+      </span>
+      <blockquote className="quote-text mt-2">{quote.text}</blockquote>
+      <figcaption className="section-caption mt-4">{quote.source}</figcaption>
+    </figure>
+  );
+}
+
 export function Quotes() {
   return (
     <section className="section-padding bg-surface">
       <div className="mx-auto max-w-6xl">
+        <AnimatedSectionHeading
+          eyebrow="Vozes"
+          title="Quem fala da casa"
+          align="left"
+          kicker="Imprensa, público e cena cultural — o Café com Letras na memória coletiva de BH."
+          editorial
+          className="mb-10 md:mb-12"
+        />
+
         <SectionReveal variant="stagger">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+          <div className="quotes-editorial-grid">
             {QUOTES.map((quote, index) => (
-              <StaggerItem key={quote.text} index={index}>
-                <figure className="flex h-full flex-col">
-                  <span aria-hidden className="quote-mark">
-                    &ldquo;
-                  </span>
-                  <blockquote className="quote-text mt-2">{quote.text}</blockquote>
-                  <figcaption className="section-caption mt-4">{quote.source}</figcaption>
-                </figure>
+              <StaggerItem
+                key={quote.text}
+                index={index}
+                className={quote.featured ? "quotes-editorial-featured" : ""}
+              >
+                <QuoteFigure quote={quote} />
               </StaggerItem>
             ))}
           </div>

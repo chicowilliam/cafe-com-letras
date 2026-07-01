@@ -33,6 +33,7 @@ export function About() {
           index="05"
           eyebrow="A História"
           align="left"
+          kicker="De três amigos e um sonho a referência cultural da Savassi — quase três décadas de mesa, música e livros."
           titleClassName="max-w-xl text-foreground"
           title={
             <>

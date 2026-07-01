@@ -53,12 +53,12 @@ function HeroCopy() {
       </h1>
 
       <p
-        className={`fade-in-up is-visible mt-5 max-w-xs md:mt-6 md:max-w-md ${taglineClass}`}
+        className={`fade-in-up is-visible mt-5 max-w-sm md:mt-6 md:max-w-lg ${taglineClass}`}
         style={{ transitionDelay: "0.2s" }}
       >
-        Onde cultura,{" "}
-        <span className={taglineHighlightClass}>literatura</span> e gastronomia se
-        encontram
+        Desde 1996 na Savassi —{" "}
+        <span className={taglineHighlightClass}>jazz</span>, saraus, boa mesa e
+        livros num só endereço
       </p>
 
       <div
@@ -66,11 +66,11 @@ function HeroCopy() {
         style={{ transitionDelay: "0.3s" }}
       >
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <button type="button" onClick={scrollToDates} className={ctaPrimary}>
-            Noite dos Dates
-          </button>
-          <button type="button" onClick={openReservation} className={ctaGhost}>
+          <button type="button" onClick={openReservation} className={ctaPrimary}>
             Fazer reserva
+          </button>
+          <button type="button" onClick={scrollToDates} className={ctaGhost}>
+            Noite dos Dates
           </button>
         </div>
         <div className="flex items-center gap-4">

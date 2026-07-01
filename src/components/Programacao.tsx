@@ -442,15 +442,9 @@ export function Programacao() {
           className="mb-8 md:mb-10"
           eyebrow="Agenda cultural"
           title="Programação"
+          kicker="Jazz, piano bar, lançamentos e saraus — curada mês a mês na Savassi."
           editorial
         />
-        <SectionReveal variant="line-mask">
-          <p className="section-prose mx-auto mt-3 max-w-2xl text-center md:mx-0 md:text-left">
-            Jazz, piano bar, lançamentos e saraus — a programação viva do Café com
-            Letras, curada mês a mês na Savassi.
-          </p>
-        </SectionReveal>
-
         {getExperienciasAtivasHoje().length > 0 && (
           <SectionReveal variant="subtle">
             <div className="mb-6 space-y-3">
