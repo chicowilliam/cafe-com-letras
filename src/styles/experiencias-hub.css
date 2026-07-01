@@ -1,62 +1,96 @@
 [data-page="experiencias-hub"] {
   --exp-cdt-accent: #c9a06a;
   --exp-cdt-glow: rgba(201, 160, 106, 0.2);
+  --exp-cdt-base: #1c1814;
   --exp-hh-accent: #2d6cb5;
   --exp-hh-glow: rgba(45, 108, 181, 0.22);
+  --exp-hh-base: #0e1419;
   --exp-ndd-accent: #8b2942;
   --exp-ndd-glow: rgba(139, 41, 66, 0.2);
-  min-height: calc(100dvh - 3.5rem);
+  --exp-ndd-base: #1a0f14;
+  --exp-ambient-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --exp-ambient-duration: 0.85s;
+  min-height: 100dvh;
+  padding-top: calc(3.5rem + env(safe-area-inset-top));
   background: var(--background);
 }
 
 [data-page="experiencias-hub"] .exp-hub-command {
   position: relative;
   display: flex;
-  min-height: calc(100dvh - 3.5rem);
+  min-height: calc(100dvh - 3.5rem - env(safe-area-inset-top));
   flex-direction: column;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(212, 163, 115, 0.045) 0%, transparent 52%),
-    radial-gradient(ellipse 80% 60% at 100% 100%, rgba(45, 108, 181, 0.035) 0%, transparent 48%),
-    var(--background);
-  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.28);
+  background: #0f100c;
 }
 
-[data-page="experiencias-hub"] .exp-hub-command__ambient {
+[data-page="experiencias-hub"] .exp-hub-ambient-stack {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.9;
-  transition: opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
+  overflow: hidden;
+  contain: strict;
+}
+
+[data-page="experiencias-hub"] .exp-hub-ambient-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateZ(0);
+  transition: opacity var(--exp-ambient-duration) var(--exp-ambient-ease);
+  contain: layout paint style;
+}
+
+[data-page="experiencias-hub"] .exp-hub-ambient-layer[data-front="true"] {
+  opacity: 1;
+}
+
+html[data-exp-hub-transitioning] [data-page="experiencias-hub"] .exp-hub-ambient-layer {
+  will-change: opacity;
+}
+
+[data-page="experiencias-hub"] .exp-hub-ambient-layer--cafe-da-tarde {
   background:
-    radial-gradient(ellipse 70% 55% at 50% 60%, var(--exp-ambient-glow, transparent) 0%, transparent 68%);
+    radial-gradient(ellipse 75% 58% at 28% 0%, rgba(201, 160, 106, 0.24) 0%, transparent 68%),
+    radial-gradient(ellipse 55% 48% at 88% 100%, rgba(138, 106, 74, 0.16) 0%, transparent 58%),
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(48, 40, 32, 0.35) 0%, transparent 72%),
+    var(--exp-cdt-base);
 }
 
-[data-page="experiencias-hub"] .exp-hub-command[data-active-theme="cafe-da-tarde"] {
-  --exp-ambient-glow: rgba(201, 160, 106, 0.12);
+[data-page="experiencias-hub"] .exp-hub-ambient-layer--happy-hour {
+  background:
+    radial-gradient(ellipse 70% 55% at 72% 8%, rgba(45, 108, 181, 0.2) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 45% at 12% 92%, rgba(232, 135, 46, 0.11) 0%, transparent 55%),
+    radial-gradient(ellipse 85% 65% at 50% 55%, rgba(14, 28, 42, 0.4) 0%, transparent 70%),
+    var(--exp-hh-base);
 }
 
-[data-page="experiencias-hub"] .exp-hub-command[data-active-theme="happy-hour"] {
-  --exp-ambient-glow: rgba(45, 108, 181, 0.11);
-}
-
-[data-page="experiencias-hub"] .exp-hub-command[data-active-theme="noite-dos-dates"] {
-  --exp-ambient-glow: rgba(139, 41, 66, 0.1);
+[data-page="experiencias-hub"] .exp-hub-ambient-layer--noite-dos-dates {
+  background:
+    radial-gradient(ellipse 68% 52% at 50% 18%, rgba(139, 41, 66, 0.18) 0%, transparent 62%),
+    radial-gradient(ellipse 48% 42% at 92% 88%, rgba(212, 132, 122, 0.09) 0%, transparent 52%),
+    radial-gradient(ellipse 80% 60% at 40% 70%, rgba(36, 16, 24, 0.45) 0%, transparent 68%),
+    var(--exp-ndd-base);
 }
 
 [data-page="experiencias-hub"] .exp-hub-command__grain {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.028;
-  mix-blend-mode: soft-light;
+  z-index: 1;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
 }
 
+html[data-exp-hub-transitioning] [data-page="experiencias-hub"] .exp-hub-command__grain {
+  opacity: 0;
+}
+
 [data-page="experiencias-hub"] .exp-hub-command__inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   min-height: inherit;
   width: 100%;
@@ -275,9 +309,16 @@
   color: inherit;
   cursor: pointer;
   outline: none;
+  opacity: 0.88;
   transition:
+    flex-grow 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.48s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-page="experiencias-hub"] .exp-hub-editorial__panel.is-active {
+  opacity: 1;
 }
 
 [data-page="experiencias-hub"] .exp-hub-editorial__panel.is-active {
@@ -649,8 +690,23 @@
   font-weight: 500;
 }
 
+[data-page="experiencias-hub"] .exp-hub-command--perf {
+  --exp-ambient-duration: 0.35s;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  [data-page="experiencias-hub"] .exp-hub-command__ambient,
+  [data-page="experiencias-hub"] {
+    --exp-ambient-duration: 0s;
+  }
+
+  [data-page="experiencias-hub"] .exp-hub-ambient-layer {
+    transition: none;
+  }
+
+  [data-page="experiencias-hub"] .exp-hub-editorial__panel {
+    transition: none;
+  }
+
   [data-page="experiencias-hub"] .exp-hub-mobile__card,
   [data-page="experiencias-hub"] .exp-hub-command-bar__pill {
     transition: none;

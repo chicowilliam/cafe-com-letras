@@ -12,6 +12,7 @@ type ExperienceHubTriptychProps = {
   entries: readonly ExperienciaCatalogEntry[];
   activeIndex: number;
   reduceMotion: boolean;
+  perfMode: boolean;
   onActiveIndexChange: (index: number) => void;
 };
 
@@ -19,6 +20,7 @@ export function ExperienceHubTriptych({
   entries,
   activeIndex,
   reduceMotion,
+  perfMode,
   onActiveIndexChange,
 }: ExperienceHubTriptychProps) {
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -38,7 +40,7 @@ export function ExperienceHubTriptych({
 
       clearHoverTimer();
 
-      if (reduceMotion) {
+      if (reduceMotion || perfMode) {
         onActiveIndexChange(index);
         return;
       }
@@ -48,7 +50,7 @@ export function ExperienceHubTriptych({
         hoverTimerRef.current = null;
       }, HUB_HOVER_ACTIVATE_MS);
     },
-    [activeIndex, clearHoverTimer, onActiveIndexChange, reduceMotion],
+    [activeIndex, clearHoverTimer, onActiveIndexChange, perfMode, reduceMotion],
   );
 
   const handlePanelActivate = useCallback(
@@ -89,7 +91,7 @@ export function ExperienceHubTriptych({
               entry={entry}
               index={index}
               isActive={activeIndex === index}
-              reduceMotion={reduceMotion}
+              reduceMotion={reduceMotion || perfMode}
               onHover={() => handlePanelHover(index)}
               onActivate={() => handlePanelActivate(index)}
             />

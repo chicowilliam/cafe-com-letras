@@ -15,6 +15,7 @@ import {
   SUBPAGE_CHROME,
 } from "@/lib/navigation";
 import { chromeVariants } from "@/lib/route-motion";
+import "@/styles/experiencias-nav-theme.css";
 
 function AppShellChrome() {
   const { pathname } = useLocation();
@@ -62,6 +63,7 @@ function AppShellChrome() {
       navEyebrow={override?.navEyebrow ?? chrome!.navEyebrow}
       onBack={override?.onBack}
       scrollAware={chrome!.scrollAware}
+      variant={pathname === "/experiencias" ? "exp-hub" : "default"}
     />
   );
 

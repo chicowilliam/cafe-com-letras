@@ -1,13 +1,20 @@
 import { AppLink } from "@/components/AppLink";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, startTransition } from "react";
+import { ExperienceHubAmbientStack } from "@/components/experiencias/ExperienceHubAmbientStack";
 import { ExperienceHubCommandBar } from "@/components/experiencias/ExperienceHubCommandBar";
 import { ExperienceHubMobile } from "@/components/experiencias/ExperienceHubMobile";
 import { ExperienceHubTriptych } from "@/components/experiencias/ExperienceHubTriptych";
+import { useExpHubPerfMode } from "@/hooks/useExpHubPerfMode";
 import {
   DESKTOP_BP,
   getInitialActiveIndex,
   HUB_TOTAL,
 } from "@/lib/experience-hub-utils";
+import {
+  initExpHubChromeTheme,
+  resetExpHubChrome,
+  syncExpHubChromeTheme,
+} from "@/lib/exp-hub-chrome-store";
 import {
   EXPERIENCIAS_CATALOG,
   type ExperienciaId,
@@ -46,22 +53,42 @@ function useIsDesktopLayout() {
 
 export function ExperienceHub() {
   const reduceMotion = useReducedMotion();
+  const perfMode = useExpHubPerfMode(reduceMotion);
   const isDesktop = useIsDesktopLayout();
   const [activeIndex, setActiveIndex] = useState(getInitialActiveIndex);
 
   const activeEntry = EXPERIENCIAS_CATALOG[activeIndex] ?? EXPERIENCIAS_CATALOG[0];
+  const didInitChrome = useRef(false);
 
   const goToIndex = useCallback((index: number) => {
-    setActiveIndex(Math.max(0, Math.min(HUB_TOTAL - 1, index)));
+    startTransition(() => {
+      setActiveIndex(Math.max(0, Math.min(HUB_TOTAL - 1, index)));
+    });
   }, []);
 
   const goPrev = useCallback(() => {
-    setActiveIndex((current) => Math.max(0, current - 1));
+    startTransition(() => {
+      setActiveIndex((current) => Math.max(0, current - 1));
+    });
   }, []);
 
   const goNext = useCallback(() => {
-    setActiveIndex((current) => Math.min(HUB_TOTAL - 1, current + 1));
+    startTransition(() => {
+      setActiveIndex((current) => Math.min(HUB_TOTAL - 1, current + 1));
+    });
   }, []);
+
+  useEffect(() => {
+    if (!didInitChrome.current) {
+      didInitChrome.current = true;
+      initExpHubChromeTheme(activeEntry.id);
+      return;
+    }
+
+    syncExpHubChromeTheme(activeEntry.id);
+  }, [activeEntry.id]);
+
+  useEffect(() => () => resetExpHubChrome(), []);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -98,10 +125,10 @@ export function ExperienceHub() {
 
   return (
     <section
-      className="exp-hub-command"
+      className={`exp-hub-command${perfMode ? " exp-hub-command--perf" : ""}`}
       data-active-theme={activeEntry.id as ExperienciaId}
     >
-      <div className="exp-hub-command__ambient" aria-hidden />
+      <ExperienceHubAmbientStack />
       <div className="exp-hub-command__grain" aria-hidden />
       <div className="exp-hub-command__inner">
         <header className="exp-hub-command__header">
@@ -121,6 +148,7 @@ export function ExperienceHub() {
               entries={EXPERIENCIAS_CATALOG}
               activeIndex={activeIndex}
               reduceMotion={reduceMotion}
+              perfMode={perfMode}
               onActiveIndexChange={goToIndex}
             />
           ) : (

@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
+import { ExperienceHubNavAmbient } from "@/components/experiencias/ExperienceHubNavAmbient";
 import { useScrollNavbarVisibility } from "@/hooks/useScrollNavbarVisibility";
 
 type SiteSubpageHeaderProps = {
@@ -9,6 +10,7 @@ type SiteSubpageHeaderProps = {
   navEyebrow?: string;
   onBack?: () => void;
   scrollAware?: boolean;
+  variant?: "default" | "exp-hub";
 };
 
 export function SiteSubpageHeader({
@@ -18,27 +20,38 @@ export function SiteSubpageHeader({
   navEyebrow,
   onBack,
   scrollAware = false,
+  variant = "default",
 }: SiteSubpageHeaderProps) {
   const navVisible = useScrollNavbarVisibility({ enabled: scrollAware });
+  const isExpHub = variant === "exp-hub";
 
-  const headerClassName = scrollAware
-    ? `site-subpage-header hh-nav-slide fixed inset-x-0 top-0 z-50 border-b border-hairline bg-background/80 backdrop-blur-md ${
-        navVisible ? "hh-nav-slide--visible" : "hh-nav-slide--hidden"
-      }`
-    : "site-subpage-header sticky top-0 z-50 border-b border-hairline bg-background/90 backdrop-blur-md";
+  const headerClassName = isExpHub
+    ? "site-subpage-header site-subpage-header--exp-hub"
+    : scrollAware
+      ? `site-subpage-header hh-nav-slide fixed inset-x-0 top-0 z-50 border-b border-hairline bg-background/80 backdrop-blur-md ${
+          navVisible ? "hh-nav-slide--visible" : "hh-nav-slide--hidden"
+        }`
+      : "site-subpage-header sticky top-0 z-50 border-b border-hairline bg-background/90 backdrop-blur-md";
 
-  const backClassName =
-    "focus-ring inline-flex min-w-0 items-center gap-2 justify-self-start rounded-md py-1 text-sm text-foreground-muted transition-colors hover:text-foreground";
+  const backClassName = isExpHub
+    ? "site-subpage-header__link focus-ring inline-flex min-w-0 items-center gap-2 justify-self-start rounded-md py-1 text-sm"
+    : "focus-ring inline-flex min-w-0 items-center gap-2 justify-self-start rounded-md py-1 text-sm text-foreground-muted transition-colors hover:text-foreground";
+
+  const brandClassName = isExpHub
+    ? "site-subpage-header__link focus-ring justify-self-end font-display text-xs tracking-tight sm:text-sm"
+    : "focus-ring justify-self-end font-display text-xs tracking-tight text-foreground-muted transition-colors hover:text-foreground sm:text-sm";
 
   const backContent = (
     <>
       <ArrowLeft size={16} strokeWidth={1.75} aria-hidden className="shrink-0" />
-      <span className={scrollAware ? "hidden sm:inline" : undefined}>{backLabel}</span>
+      <span className={scrollAware && !isExpHub ? "hidden sm:inline" : undefined}>{backLabel}</span>
     </>
   );
 
   return (
     <header className={headerClassName}>
+      {isExpHub ? <ExperienceHubNavAmbient /> : null}
+
       <nav className="site-subpage-header__nav mx-auto grid h-14 max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-5 pt-[env(safe-area-inset-top)] md:px-8">
         {onBack ? (
           <button type="button" onClick={onBack} aria-label={backLabel} className={backClassName}>
@@ -52,7 +65,7 @@ export function SiteSubpageHeader({
 
         <div
           className={`min-w-0 justify-self-center text-center ${
-            scrollAware ? "hh-nav-title" : ""
+            scrollAware && !isExpHub ? "hh-nav-title" : ""
           }`}
         >
           {navEyebrow ? (
@@ -64,15 +77,17 @@ export function SiteSubpageHeader({
                 {title}
               </span>
             </>
+          ) : isExpHub ? (
+            <span className="site-subpage-header__title font-display text-sm tracking-tight">
+              <span className="site-subpage-header__title-dot" aria-hidden />
+              {title}
+            </span>
           ) : (
             <span className="font-display text-sm tracking-tight text-foreground">{title}</span>
           )}
         </div>
 
-        <AppLink
-          to="/"
-          className="focus-ring justify-self-end font-display text-xs tracking-tight text-foreground-muted transition-colors hover:text-foreground sm:text-sm"
-        >
+        <AppLink to="/" className={brandClassName}>
           Café com Letras
         </AppLink>
       </nav>

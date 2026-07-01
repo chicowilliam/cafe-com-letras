@@ -2,18 +2,17 @@ import { AppLink } from "@/components/AppLink";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 import { memo } from "react";
+import { useExpHubChrome } from "@/hooks/useExpHubChrome";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 import {
   ACTIVE_PANEL_FLEX,
   INACTIVE_PANEL_FLEX,
 } from "@/lib/experience-hub-utils";
 import {
-  compositorStyle,
   hubCompactVariants,
   hubContentContainerVariants,
   hubContentItemVariants,
   hubImageSpring,
-  hubPanelSpring,
 } from "@/lib/motion-presets";
 
 type ExperienceHubTriptychPanelProps = {
@@ -28,13 +27,13 @@ type ExperienceHubTriptychPanelProps = {
 function PanelContent({
   entry,
   isActive,
-  reduceMotion,
+  simplifyMotion,
 }: {
   entry: ExperienciaCatalogEntry;
   isActive: boolean;
-  reduceMotion: boolean;
+  simplifyMotion: boolean;
 }) {
-  if (reduceMotion) {
+  if (simplifyMotion) {
     return (
       <div className="exp-hub-editorial__content">
         {isActive ? (
@@ -142,91 +141,19 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
   onActivate,
   onHover,
 }: ExperienceHubTriptychPanelProps) {
+  const { isTransitioning } = useExpHubChrome();
+  const simplifyMotion = reduceMotion || isTransitioning;
   const flexGrow = isActive ? ACTIVE_PANEL_FLEX : INACTIVE_PANEL_FLEX;
-  const panelClassName = `exp-hub-editorial__panel exp-hub-editorial__panel--${entry.id} focus-ring ${
-    isActive ? "is-active" : ""
+  const panelClassName = `exp-hub-editorial__panel exp-hub-editorial__panel--${entry.id} focus-ring${
+    isActive ? " is-active" : ""
   }`;
-
-  const panelInner = (
-    <>
-      <div
-        id={`exp-hub-panel-${entry.id}`}
-        role="tabpanel"
-        aria-labelledby={`exp-hub-tab-${entry.id}`}
-        className="exp-hub-editorial__panel-inner"
-      >
-        {reduceMotion ? (
-          <img
-            src={entry.image}
-            alt=""
-            aria-hidden
-            className="exp-hub-editorial__image"
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
-          />
-        ) : (
-          <m.img
-            src={entry.image}
-            alt=""
-            aria-hidden
-            className="exp-hub-editorial__image"
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
-            style={compositorStyle}
-            animate={{ scale: isActive ? 1.05 : 1 }}
-            whileHover={{ scale: isActive ? 1.1 : 1.08 }}
-            transition={hubImageSpring}
-          />
-        )}
-
-        {reduceMotion ? (
-          <div
-            className={`exp-hub-editorial__overlay${
-              isActive ? "" : " exp-hub-editorial__overlay--compact"
-            }`}
-            aria-hidden
-          />
-        ) : (
-          <m.div
-            className={`exp-hub-editorial__overlay${
-              isActive ? "" : " exp-hub-editorial__overlay--compact"
-            }`}
-            aria-hidden
-            animate={{ opacity: isActive ? 1 : 0.92 }}
-            transition={hubImageSpring}
-          />
-        )}
-
-        <PanelContent entry={entry} isActive={isActive} reduceMotion={reduceMotion} />
-      </div>
-
-      <span className="sr-only">
-        Painel {index + 1}: {entry.title}
-      </span>
-    </>
-  );
-
-  if (reduceMotion) {
-    return (
-      <button
-        type="button"
-        role="tab"
-        id={`exp-hub-tab-${entry.id}`}
-        aria-selected={isActive}
-        aria-controls={`exp-hub-panel-${entry.id}`}
-        aria-label={`${entry.title} — ${entry.timeBandLabel}`}
-        onClick={onActivate}
-        onMouseEnter={onHover}
-        className={panelClassName}
-        style={{ flexGrow, flexBasis: 0 }}
-      >
-        {panelInner}
-      </button>
-    );
-  }
+  const overlayClassName = `exp-hub-editorial__overlay${
+    isActive ? "" : " exp-hub-editorial__overlay--compact"
+  }`;
+  const imageLoading = index === 0 || isActive ? "eager" : "lazy";
 
   return (
-    <m.button
+    <button
       type="button"
       role="tab"
       id={`exp-hub-tab-${entry.id}`}
@@ -235,16 +162,49 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
       aria-label={`${entry.title} — ${entry.timeBandLabel}`}
       onClick={onActivate}
       onMouseEnter={onHover}
-      layout
       className={panelClassName}
-      style={{ flexGrow, flexBasis: 0, flexShrink: 1, ...compositorStyle }}
-      animate={{ opacity: isActive ? 1 : 0.88 }}
-      transition={{
-        layout: hubPanelSpring,
-        opacity: hubPanelSpring,
-      }}
+      style={{ flexGrow, flexBasis: 0 }}
     >
-      {panelInner}
-    </m.button>
+      <div
+        id={`exp-hub-panel-${entry.id}`}
+        role="tabpanel"
+        aria-labelledby={`exp-hub-tab-${entry.id}`}
+        className="exp-hub-editorial__panel-inner"
+      >
+        {simplifyMotion ? (
+          <img
+            src={entry.image}
+            alt=""
+            aria-hidden
+            className="exp-hub-editorial__image"
+            loading={imageLoading}
+            decoding="async"
+          />
+        ) : (
+          <m.img
+            src={entry.image}
+            alt=""
+            aria-hidden
+            className="exp-hub-editorial__image"
+            loading={imageLoading}
+            decoding="async"
+            animate={{ scale: isActive ? 1.05 : 1 }}
+            transition={hubImageSpring}
+          />
+        )}
+
+        <div className={overlayClassName} aria-hidden />
+
+        <PanelContent
+          entry={entry}
+          isActive={isActive}
+          simplifyMotion={simplifyMotion}
+        />
+      </div>
+
+      <span className="sr-only">
+        Painel {index + 1}: {entry.title}
+      </span>
+    </button>
   );
 });

@@ -12,6 +12,7 @@ export const ACTIVE_PANEL_FLEX = 56;
 export const DESKTOP_BP = "(min-width: 1024px)";
 /** Debounce hover activation to avoid flicker crossing panel gaps. */
 export const HUB_HOVER_ACTIVATE_MS = 64;
+export const EXP_HUB_TRANSITION_MS = 850;
 
 export function padHubIndex(value: number) {
   return String(value).padStart(2, "0");

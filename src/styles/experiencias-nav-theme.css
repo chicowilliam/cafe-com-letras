@@ -1,0 +1,176 @@
+/* ── Hub /experiencias — nav sincronizada com exp-hub-chrome-store ── */
+
+html[data-exp-hub-theme] {
+  --exp-cdt-accent: #c9a06a;
+  --exp-cdt-base: #1c1814;
+  --exp-hh-accent: #2d6cb5;
+  --exp-hh-base: #0e1419;
+  --exp-ndd-accent: #8b2942;
+  --exp-ndd-base: #1a0f14;
+  --exp-nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --exp-nav-duration: 0.85s;
+}
+
+.site-subpage-header--exp-hub {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 50;
+  overflow: hidden;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  transition: border-color var(--exp-nav-duration) var(--exp-nav-ease);
+}
+
+.site-subpage-header__ambient-stack {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  contain: strict;
+}
+
+.exp-hub-nav-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateZ(0);
+  transition: opacity var(--exp-nav-duration) var(--exp-nav-ease);
+  contain: layout paint style;
+}
+
+.exp-hub-nav-layer[data-front="true"] {
+  opacity: 1;
+}
+
+html[data-exp-hub-transitioning] .exp-hub-nav-layer {
+  will-change: opacity;
+}
+
+.exp-hub-nav-layer--cafe-da-tarde {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--exp-cdt-base) 94%, transparent) 0%,
+      color-mix(in srgb, var(--exp-cdt-base) 90%, transparent) 100%
+    ),
+    radial-gradient(ellipse 80% 120% at 20% 0%, rgba(201, 160, 106, 0.18) 0%, transparent 70%);
+}
+
+.exp-hub-nav-layer--happy-hour {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--exp-hh-base) 94%, transparent) 0%,
+      color-mix(in srgb, var(--exp-hh-base) 90%, transparent) 100%
+    ),
+    radial-gradient(ellipse 80% 120% at 80% 0%, rgba(45, 108, 181, 0.16) 0%, transparent 70%);
+}
+
+.exp-hub-nav-layer--noite-dos-dates {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--exp-ndd-base) 94%, transparent) 0%,
+      color-mix(in srgb, var(--exp-ndd-base) 90%, transparent) 100%
+    ),
+    radial-gradient(ellipse 80% 120% at 50% 0%, rgba(139, 41, 66, 0.15) 0%, transparent 70%);
+}
+
+html[data-exp-hub-theme="cafe-da-tarde"] .site-subpage-header--exp-hub {
+  border-bottom-color: color-mix(in srgb, var(--exp-cdt-accent) 30%, transparent);
+}
+
+html[data-exp-hub-theme="happy-hour"] .site-subpage-header--exp-hub {
+  border-bottom-color: color-mix(in srgb, var(--exp-hh-accent) 30%, transparent);
+}
+
+html[data-exp-hub-theme="noite-dos-dates"] .site-subpage-header--exp-hub {
+  border-bottom-color: color-mix(in srgb, var(--exp-ndd-accent) 32%, transparent);
+}
+
+.site-subpage-header--exp-hub .site-subpage-header__nav {
+  position: relative;
+  z-index: 1;
+}
+
+.site-subpage-header--exp-hub .site-subpage-header__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #f2efe2;
+}
+
+.site-subpage-header--exp-hub .site-subpage-header__title-dot {
+  display: inline-block;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--exp-nav-accent, var(--accent));
+  opacity: 0.9;
+  transition: background-color var(--exp-nav-duration) var(--exp-nav-ease);
+}
+
+html[data-exp-hub-theme="cafe-da-tarde"] .site-subpage-header--exp-hub {
+  --exp-nav-accent: var(--exp-cdt-accent);
+}
+
+html[data-exp-hub-theme="happy-hour"] .site-subpage-header--exp-hub {
+  --exp-nav-accent: var(--exp-hh-accent);
+}
+
+html[data-exp-hub-theme="noite-dos-dates"] .site-subpage-header--exp-hub {
+  --exp-nav-accent: var(--exp-ndd-accent);
+}
+
+.site-subpage-header--exp-hub .site-subpage-header__link {
+  color: color-mix(in srgb, #f2efe2 68%, transparent);
+  transition: color 0.25s ease;
+}
+
+.site-subpage-header--exp-hub .site-subpage-header__link:hover {
+  color: var(--exp-nav-accent, var(--accent));
+}
+
+/* ── Subpáginas — header alinhado ao data-page-theme ── */
+
+[data-page-theme="cafe-da-tarde"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
+  border-bottom-color: color-mix(in srgb, var(--accent) 22%, transparent) !important;
+  background: color-mix(in srgb, var(--background) 90%, transparent) !important;
+}
+
+[data-page-theme="happy-hour"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
+  border-bottom-color: color-mix(in srgb, var(--accent-2) 24%, transparent) !important;
+  background: color-mix(in srgb, var(--background) 88%, transparent) !important;
+}
+
+[data-page-theme="noite-dos-dates"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
+  border-bottom-color: color-mix(in srgb, var(--accent-2) 26%, transparent) !important;
+  background: color-mix(in srgb, var(--background) 90%, transparent) !important;
+}
+
+[data-page-theme="cafe-da-tarde"] .site-subpage-header:not(.site-subpage-header--exp-hub) a:hover,
+[data-page-theme="cafe-da-tarde"] .site-subpage-header:not(.site-subpage-header--exp-hub) button:hover {
+  color: var(--accent) !important;
+}
+
+[data-page-theme="happy-hour"] .site-subpage-header:not(.site-subpage-header--exp-hub) a:hover,
+[data-page-theme="happy-hour"] .site-subpage-header:not(.site-subpage-header--exp-hub) button:hover {
+  color: var(--accent) !important;
+}
+
+[data-page-theme="noite-dos-dates"] .site-subpage-header:not(.site-subpage-header--exp-hub) a:hover,
+[data-page-theme="noite-dos-dates"] .site-subpage-header:not(.site-subpage-header--exp-hub) button:hover {
+  color: var(--accent) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-exp-hub-theme] {
+    --exp-nav-duration: 0s;
+  }
+
+  .exp-hub-nav-layer,
+  .site-subpage-header--exp-hub,
+  .site-subpage-header--exp-hub .site-subpage-header__title-dot {
+    transition: none;
+  }
+}
