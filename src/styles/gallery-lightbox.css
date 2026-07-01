@@ -1,0 +1,203 @@
+.gallery-lightbox-root {
+  --gallery-lightbox-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --gallery-lightbox-nav-offset: max(
+    4.5rem,
+    calc(env(safe-area-inset-top) + 3.5rem)
+  );
+}
+
+html[data-gallery-open] .navbar-slide {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gallery-lightbox-backdrop {
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 50% 42%,
+      rgba(30, 31, 22, 0.35),
+      rgba(8, 8, 6, 0.94) 72%
+    ),
+    rgba(8, 8, 6, 0.94);
+}
+
+.gallery-lightbox-stage {
+  padding-top: var(--gallery-lightbox-nav-offset);
+}
+
+.gallery-lightbox-glow {
+  position: absolute;
+  inset: 18% 8% 22%;
+  background: radial-gradient(
+    ellipse 55% 48% at 50% 50%,
+    color-mix(in srgb, var(--accent) 9%, transparent),
+    transparent 72%
+  );
+}
+
+.gallery-lightbox-header {
+  padding-top: 0.75rem;
+  padding-bottom: 0.5rem;
+}
+
+.gallery-lightbox-track {
+  touch-action: pan-x pinch-zoom;
+  margin-left: -8px;
+}
+
+.gallery-lightbox-slide {
+  display: flex;
+  min-width: 0;
+  flex: 0 0 72vw;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+}
+
+@media (min-width: 640px) {
+  .gallery-lightbox-slide {
+    flex-basis: 58vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-lightbox-slide {
+    flex-basis: 48vw;
+  }
+}
+
+.gallery-lightbox-photo-frame {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.9);
+  filter: brightness(0.68);
+  transition:
+    transform 340ms var(--gallery-lightbox-ease),
+    filter 340ms var(--gallery-lightbox-ease);
+}
+
+.gallery-lightbox-slide.is-adjacent .gallery-lightbox-photo-frame {
+  transform: scale(0.96);
+  filter: brightness(0.82);
+}
+
+.gallery-lightbox-slide.is-active .gallery-lightbox-photo-frame {
+  transform: scale(1);
+  filter: brightness(1);
+}
+
+.gallery-lightbox-photo-wrap {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: min(52vh, 520px);
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-lightbox-photo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(68vh, 780px);
+  border-radius: 6px;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.gallery-lightbox-photo--placeholder {
+  position: absolute;
+  max-height: min(68vh, 780px);
+  filter: blur(10px) saturate(0.92);
+  transform: scale(1.03);
+  opacity: 1;
+  transition: opacity 260ms ease;
+}
+
+.gallery-lightbox-photo--placeholder.is-replaced {
+  opacity: 0;
+}
+
+.gallery-lightbox-photo--hires {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 320ms var(--gallery-lightbox-ease);
+}
+
+.gallery-lightbox-photo--hires.is-ready {
+  opacity: 1;
+}
+
+.gallery-lightbox-slide.is-active .gallery-lightbox-photo--hires.is-ready {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent),
+    0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-lightbox-counter {
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
+  letter-spacing: 0.1em;
+}
+
+.gallery-lightbox-era {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: color-mix(in srgb, var(--foreground-muted) 92%, transparent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gallery-lightbox-era__dot {
+  display: inline-block;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  opacity: 0.85;
+}
+
+.gallery-lightbox-control {
+  border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  background: color-mix(in srgb, var(--background) 78%, transparent);
+  transition:
+    color 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.gallery-lightbox-control:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--background) 90%, transparent);
+}
+
+.gallery-lightbox-control--nav {
+  opacity: 0.65;
+}
+
+.gallery-lightbox-control--nav:hover {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-lightbox-photo-frame,
+  .gallery-lightbox-photo--placeholder,
+  .gallery-lightbox-photo--hires {
+    transition: none;
+  }
+
+  .gallery-lightbox-slide.is-adjacent .gallery-lightbox-photo-frame,
+  .gallery-lightbox-slide.is-active .gallery-lightbox-photo-frame {
+    transform: none;
+  }
+
+  .gallery-lightbox-photo--hires {
+    opacity: 1;
+  }
+}

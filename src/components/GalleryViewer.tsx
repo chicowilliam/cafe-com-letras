@@ -1,4 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
   useCallback,
@@ -8,12 +9,10 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
-import { useEmblaSlideTween } from "@/hooks/useEmblaSlideTween";
+import { createPortal } from "react-dom";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
-import {
-  galleryImageAspectRatio,
-  type MarqueeImage,
-} from "@/lib/gallery-images";
+import type { MarqueeImage } from "@/lib/gallery-images";
+import "@/styles/gallery-lightbox.css";
 
 type GalleryViewerProps = {
   images: MarqueeImage[];
@@ -22,30 +21,111 @@ type GalleryViewerProps = {
   startIndex?: number;
 };
 
-function usePrefersReducedMotion() {
-  const [reduceMotion, setReduceMotion] = useState(false);
+const LIGHTBOX_EASE = [0.22, 1, 0.36, 1] as const;
+const PRELOAD_RADIUS = 2;
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduceMotion(media.matches);
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, []);
-
-  return reduceMotion;
+function loopDistance(active: number, index: number, total: number) {
+  const linear = Math.abs(active - index);
+  return Math.min(linear, total - linear);
 }
 
-export function GalleryViewer({
+function neighborIndices(active: number, total: number, radius = PRELOAD_RADIUS) {
+  const indices = new Set<number>();
+  for (let offset = 0; offset <= radius; offset += 1) {
+    if (offset === 0) {
+      indices.add(active);
+      continue;
+    }
+    indices.add((active + offset) % total);
+    indices.add((active - offset + total) % total);
+  }
+  return [...indices];
+}
+
+function preloadImages(images: MarqueeImage[], indices: number[]) {
+  const links: HTMLLinkElement[] = [];
+
+  for (const index of indices) {
+    const href = images[index]?.viewerSrc;
+    if (!href) continue;
+
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = href;
+    document.head.appendChild(link);
+    links.push(link);
+  }
+
+  return () => {
+    for (const link of links) {
+      link.remove();
+    }
+  };
+}
+
+type LightboxPhotoProps = {
+  image: MarqueeImage;
+  isActive: boolean;
+  distance: number;
+};
+
+function LightboxPhoto({ image, isActive, distance }: LightboxPhotoProps) {
+  const shouldLoadHires = distance <= PRELOAD_RADIUS;
+  const [hiresReady, setHiresReady] = useState(false);
+  const placeholderSrc = image.previewSrc;
+
+  useEffect(() => {
+    setHiresReady(false);
+  }, [image.viewerSrc]);
+
+  return (
+    <div className="gallery-lightbox-photo-wrap">
+      <img
+        src={placeholderSrc}
+        alt=""
+        aria-hidden
+        width={image.width}
+        height={image.height}
+        decoding="async"
+        draggable={false}
+        className={`gallery-lightbox-photo gallery-lightbox-photo--placeholder${hiresReady ? " is-replaced" : ""}`}
+      />
+      {shouldLoadHires ? (
+        <img
+          src={image.viewerSrc}
+          alt={isActive ? image.alt : ""}
+          width={image.width}
+          height={image.height}
+          decoding="async"
+          draggable={false}
+          fetchPriority={isActive ? "high" : "low"}
+          onLoad={() => setHiresReady(true)}
+          className={`gallery-lightbox-photo gallery-lightbox-photo--hires${hiresReady ? " is-ready" : ""}`}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+type GalleryLightboxLayerProps = {
+  images: MarqueeImage[];
+  onClose: () => void;
+  startIndex: number;
+  reduceMotion: boolean | null;
+};
+
+function GalleryLightboxLayer({
   images,
-  open,
   onClose,
-  startIndex = 0,
-}: GalleryViewerProps) {
+  startIndex,
+  reduceMotion,
+}: GalleryLightboxLayerProps) {
   const titleId = useId();
+  const liveId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [activeIndex, setActiveIndex] = useState(startIndex);
-  const reduceMotion = usePrefersReducedMotion();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
@@ -53,10 +133,10 @@ export function GalleryViewer({
     loop: images.length > 1,
     startIndex,
     dragFree: false,
+    skipSnaps: false,
   });
 
-  useEmblaSlideTween(emblaApi, reduceMotion);
-  useFocusTrap(dialogRef, open);
+  useFocusTrap(dialogRef, true);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -67,6 +147,7 @@ export function GalleryViewer({
     if (!emblaApi) return;
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
+    onSelect();
     return () => {
       emblaApi.off("select", onSelect);
       emblaApi.off("reInit", onSelect);
@@ -74,26 +155,35 @@ export function GalleryViewer({
   }, [emblaApi, onSelect]);
 
   useEffect(() => {
-    if (!open || !emblaApi) return;
+    if (!emblaApi) return;
     emblaApi.scrollTo(startIndex, true);
     setActiveIndex(startIndex);
-  }, [emblaApi, open, startIndex]);
+  }, [emblaApi, startIndex]);
 
   useEffect(() => {
-    if (!open) return;
+    return preloadImages(images, neighborIndices(activeIndex, images.length));
+  }, [activeIndex, images]);
 
+  useEffect(() => {
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
 
+    const onResize = () => emblaApi?.reInit();
+
+    document.documentElement.dataset.galleryOpen = "true";
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("resize", onResize);
+    closeButtonRef.current?.focus();
 
     return () => {
+      delete document.documentElement.dataset.galleryOpen;
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("resize", onResize);
     };
-  }, [open, onClose]);
+  }, [emblaApi, onClose]);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -113,74 +203,80 @@ export function GalleryViewer({
     [emblaApi, scrollNext, scrollPrev],
   );
 
-  if (!open || images.length === 0) return null;
-
   const activeImage = images[activeIndex];
+  const folderLabel = activeImage?.eraLabel ?? null;
 
   return (
-    <div
-      className="fixed inset-0 z-[70] flex flex-col bg-background/94 backdrop-blur-md motion-reduce:backdrop-blur-none"
-      role="presentation"
-      onClick={onClose}
-    >
-      <div
+    <>
+      <m.button
+        type="button"
+        aria-label="Fechar galeria"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.25, ease: LIGHTBOX_EASE }}
+        className="gallery-lightbox-backdrop fixed inset-0 z-[90] cursor-default"
+        onClick={onClose}
+      />
+
+      <m.div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-roledescription="carrossel"
         tabIndex={-1}
-        className="relative flex min-h-0 flex-1 flex-col outline-none"
-        onClick={(event) => event.stopPropagation()}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.22, ease: LIGHTBOX_EASE }}
+        className="gallery-lightbox-stage pointer-events-none fixed inset-0 z-[91] flex flex-col outline-none"
         onKeyDown={handleKeyDown}
       >
-        <div className="flex shrink-0 items-center justify-between gap-4 px-5 pb-4 pt-[max(1rem,env(safe-area-inset-top))] sm:px-8">
-          <p id={titleId} className="section-caption">
-            Galeria · {activeIndex + 1} / {images.length}
+        <div className="gallery-lightbox-glow pointer-events-none" aria-hidden />
+
+        <header className="gallery-lightbox-header pointer-events-auto relative z-20 mx-auto flex w-full max-w-6xl items-center justify-between px-5 sm:px-6 md:px-8">
+          <p id={titleId} className="gallery-lightbox-counter section-caption">
+            <span className="sr-only">Galeria — foto </span>
+            {activeIndex + 1}
+            <span aria-hidden> / </span>
+            {images.length}
           </p>
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={onClose}
             aria-label="Fechar galeria"
-            className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full border border-hairline text-foreground-muted transition-colors hover:border-accent/35 hover:text-accent"
+            className="gallery-lightbox-control focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground-muted"
           >
-            <X size={18} strokeWidth={1.5} aria-hidden />
+            <X size={17} strokeWidth={1.5} aria-hidden />
           </button>
-        </div>
+        </header>
 
-        <div className="relative flex min-h-0 flex-1 items-center py-2">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-background to-transparent sm:w-20 md:w-28" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-background to-transparent sm:w-20 md:w-28" />
+        <p id={liveId} className="sr-only" aria-live="polite" aria-atomic="true">
+          Foto {activeIndex + 1} de {images.length}
+          {folderLabel ? ` — ${folderLabel}` : ""}
+        </p>
 
+        <div className="pointer-events-auto relative flex min-h-0 flex-1 items-center">
           <div ref={emblaRef} className="w-full overflow-hidden">
-            <div className="flex touch-pan-y gap-4 px-[max(5vw,0.75rem)] sm:gap-6 md:gap-8">
+            <div className="gallery-lightbox-track flex">
               {images.map((image, index) => {
-                const isActive = activeIndex === index;
-                const aspectRatio = galleryImageAspectRatio(image);
+                const distance = loopDistance(activeIndex, index, images.length);
+                const isActive = distance === 0;
+                const isAdjacent = distance === 1;
 
                 return (
                   <div
-                    key={`viewer-${image.src}-${index}`}
-                    className="gallery-viewer-slide flex min-w-0 shrink-0 basis-[min(84vw,40rem)] items-center justify-center sm:basis-[min(72vw,36rem)] lg:basis-[min(58vw,32rem)]"
+                    key={`viewer-${image.previewSrc}-${index}`}
+                    className={`gallery-lightbox-slide${isActive ? " is-active" : ""}${isAdjacent ? " is-adjacent" : ""}`}
                     aria-hidden={!isActive}
                   >
-                    <div
-                      className={`flex max-h-[min(68vh,640px)] w-full items-center justify-center overflow-hidden rounded-xl bg-[color-mix(in_srgb,var(--foreground)_6%,var(--background))] transition-[box-shadow,ring-color] duration-500 motion-reduce:transition-none ${
-                        isActive
-                          ? "shadow-[0_16px_56px_rgba(0,0,0,0.42)] ring-1 ring-accent/25"
-                          : "shadow-[0_8px_28px_rgba(0,0,0,0.28)] ring-1 ring-hairline"
-                      }`}
-                      style={{ aspectRatio }}
-                    >
-                      <img
-                        src={image.viewerSrc}
-                        alt={isActive ? image.alt : ""}
-                        width={image.width}
-                        height={image.height}
-                        decoding="async"
-                        loading={Math.abs(index - startIndex) <= 2 ? "eager" : "lazy"}
-                        draggable={false}
-                        className="max-h-[min(68vh,640px)] w-full object-contain"
+                    <div className="gallery-lightbox-photo-frame">
+                      <LightboxPhoto
+                        image={image}
+                        isActive={isActive}
+                        distance={distance}
                       />
                     </div>
                   </div>
@@ -195,34 +291,67 @@ export function GalleryViewer({
                 type="button"
                 onClick={scrollPrev}
                 aria-label="Foto anterior"
-                className="focus-ring absolute left-3 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-hairline bg-background/75 text-foreground-muted backdrop-blur-sm transition-colors hover:border-accent/35 hover:text-accent sm:left-5 md:left-8"
+                className="gallery-lightbox-control gallery-lightbox-control--nav focus-ring absolute left-2 top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-foreground-muted sm:inline-flex md:left-4"
               >
-                <ChevronLeft size={20} strokeWidth={1.5} aria-hidden />
+                <ChevronLeft size={18} strokeWidth={1.5} aria-hidden />
               </button>
               <button
                 type="button"
                 onClick={scrollNext}
                 aria-label="Próxima foto"
-                className="focus-ring absolute right-3 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-hairline bg-background/75 text-foreground-muted backdrop-blur-sm transition-colors hover:border-accent/35 hover:text-accent sm:right-5 md:right-8"
+                className="gallery-lightbox-control gallery-lightbox-control--nav focus-ring absolute right-2 top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-foreground-muted sm:inline-flex md:right-4"
               >
-                <ChevronRight size={20} strokeWidth={1.5} aria-hidden />
+                <ChevronRight size={18} strokeWidth={1.5} aria-hidden />
               </button>
             </>
           ) : null}
         </div>
 
-        <div className="shrink-0 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4 sm:px-8">
-          {activeImage?.folder ? (
-            <p className="section-caption text-center sm:text-left">
-              {activeImage.folder === "antigas" ? "Arquivo histórico" : "Savassi hoje"}
+        <footer className="gallery-lightbox-footer pointer-events-none relative z-20 shrink-0 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 text-center sm:px-6 md:px-8">
+          {folderLabel ? (
+            <p className="gallery-lightbox-era section-caption">
+              <span className="gallery-lightbox-era__dot" aria-hidden />
+              {folderLabel}
             </p>
           ) : (
-            <p className="section-caption text-center opacity-0 sm:text-left" aria-hidden>
+            <p className="section-caption opacity-0" aria-hidden>
               &nbsp;
             </p>
           )}
+        </footer>
+      </m.div>
+    </>
+  );
+}
+
+export function GalleryViewer({
+  images,
+  open,
+  onClose,
+  startIndex = 0,
+}: GalleryViewerProps) {
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (!open || images.length === 0) return;
+    return preloadImages(images, neighborIndices(startIndex, images.length));
+  }, [open, images, startIndex]);
+
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
+    <AnimatePresence>
+      {open && images.length > 0 ? (
+        <div key="gallery-lightbox" className="gallery-lightbox-root">
+          <GalleryLightboxLayer
+            images={images}
+            onClose={onClose}
+            startIndex={startIndex}
+            reduceMotion={reduceMotion}
+          />
         </div>
-      </div>
-    </div>
+      ) : null}
+    </AnimatePresence>,
+    document.body,
   );
 }
