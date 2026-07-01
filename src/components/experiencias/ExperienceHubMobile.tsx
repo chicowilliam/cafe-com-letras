@@ -23,6 +23,9 @@ export function ExperienceHubMobile({
       <h2 className="exp-hub-mobile__detail-title font-display">{activeEntry.title}</h2>
       <p className="exp-hub-mobile__detail-schedule">{activeEntry.scheduleShort}</p>
       <p className="exp-hub-mobile__detail-tagline">{activeEntry.tagline}</p>
+      {activeEntry.conversionHint ? (
+        <p className="exp-hub-mobile__detail-conversion">{activeEntry.conversionHint}</p>
+      ) : null}
       <ul className="exp-hub-mobile__detail-highlights">
         {activeEntry.highlights.map((item) => (
           <li key={item}>{item}</li>
@@ -116,6 +119,14 @@ export function ExperienceHubMobile({
             <m.p className="exp-hub-mobile__detail-tagline" variants={hubContentItemVariants}>
               {activeEntry.tagline}
             </m.p>
+            {activeEntry.conversionHint ? (
+              <m.p
+                className="exp-hub-mobile__detail-conversion"
+                variants={hubContentItemVariants}
+              >
+                {activeEntry.conversionHint}
+              </m.p>
+            ) : null}
             <m.ul className="exp-hub-mobile__detail-highlights" variants={hubContentItemVariants}>
               {activeEntry.highlights.map((item) => (
                 <li key={item}>{item}</li>

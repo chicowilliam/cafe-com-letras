@@ -20,7 +20,7 @@ npm run preview
 
 | Comando | Descrição |
 |---------|-----------|
-| `npm run sync:gallery` | Sincroniza fotos do Cloudinary → `gallery-manifest.json` |
+| `npm run sync:gallery` | Sincroniza fotos do Cloudinary → `gallery-manifest.json` (preserva `alt`, `caption`, `year`) |
 | `npm run optimize:images` | Otimiza imagens locais |
 | `npm run lint` | ESLint |
 
@@ -45,3 +45,19 @@ Rodar Lighthouse mobile nas rotas principais:
 - `/#galeria`
 
 Meta orientativa: LCP < 2,8s em 4G, CLS < 0,1.
+
+## Galeria — legendas
+
+Edite `src/data/gallery-manifest.json` por `publicId`:
+
+```json
+{
+  "publicId": "...",
+  "folder": "antigas",
+  "alt": "Descrição acessível",
+  "caption": "Legenda curta exibida no lightbox",
+  "year": 2024
+}
+```
+
+`npm run sync:gallery` atualiza dimensões e IDs do Cloudinary, mas **mantém** `alt`, `caption` e `year` já preenchidos. Não invente datas históricas — use só o que for verificável.

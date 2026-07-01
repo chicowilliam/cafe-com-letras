@@ -28,4 +28,5 @@ export const EXPERIENCIA_ROUTES = [
 export const ABOUT_PARAGRAPHS = [
   "A jornada do Café com Letras começou em 1996, um sonho cultivado na charmosa Rua Antônio de Albuquerque, no coração da Savassi. O que nasceu de uma paixão por unir a boa literatura, um cardápio refinado e encontros culturais, rapidamente se tornou um patrimônio da vida artística de Belo Horizonte.",
   "Hoje, sob a liderança de Bruno Golgher, o Café não é apenas uma referência de sucesso; ele transformou o ritmo cultural da cidade. O espaço é um ponto de encontro dinâmico e atemporal, onde lançamentos de livros, mostras de arte e apresentações musicais de altíssimo nível convivem em perfeita harmonia.",
+  "Trinta anos após a inauguração na Rua Antônio de Albuquerque, a casa segue no mesmo endereço da Savassi — mesa, jazz e literatura no mesmo compasso.",
 ] as const;

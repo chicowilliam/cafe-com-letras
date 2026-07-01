@@ -41,6 +41,9 @@ function PanelContent({
             <h2 className="exp-hub-editorial__title font-display">{entry.title}</h2>
             <p className="exp-hub-editorial__schedule">{entry.scheduleShort}</p>
             <p className="exp-hub-editorial__tagline">{entry.tagline}</p>
+            {entry.conversionHint ? (
+              <p className="exp-hub-editorial__conversion-hint">{entry.conversionHint}</p>
+            ) : null}
             <ul className="exp-hub-editorial__highlights">
               {entry.highlights.map((item) => (
                 <li key={item}>{item}</li>
@@ -88,6 +91,14 @@ function PanelContent({
             <m.p className="exp-hub-editorial__tagline" variants={hubContentItemVariants}>
               {entry.tagline}
             </m.p>
+            {entry.conversionHint ? (
+              <m.p
+                className="exp-hub-editorial__conversion-hint"
+                variants={hubContentItemVariants}
+              >
+                {entry.conversionHint}
+              </m.p>
+            ) : null}
             <m.ul className="exp-hub-editorial__highlights" variants={hubContentItemVariants}>
               {entry.highlights.map((item) => (
                 <li key={item}>{item}</li>

@@ -477,6 +477,16 @@ html[data-exp-hub-transitioning] [data-page="experiencias-hub"] .exp-hub-command
   color: rgba(255, 255, 255, 0.88);
 }
 
+[data-page="experiencias-hub"] .exp-hub-editorial__conversion-hint,
+[data-page="experiencias-hub"] .exp-hub-mobile__detail-conversion {
+  margin-top: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(212, 163, 115, 0.92);
+}
+
 [data-page="experiencias-hub"] .exp-hub-editorial__highlights {
   margin-top: 0.5rem;
   display: flex;

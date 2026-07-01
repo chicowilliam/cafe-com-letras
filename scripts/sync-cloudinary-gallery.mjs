@@ -4,7 +4,7 @@
  *
  * Uso: CLOUDINARY_API_KEY=... CLOUDINARY_API_SECRET=... npm run sync:gallery
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { v2 as cloudinary } from "cloudinary";
@@ -76,7 +76,21 @@ async function listFolderImages(folderLabel) {
   return [];
 }
 
-function toManifestEntry(resource, folderKey) {
+function loadExistingManifest() {
+  try {
+    const raw = readFileSync(OUT_PATH, "utf8");
+    const parsed = JSON.parse(raw);
+    const map = new Map();
+    for (const entry of parsed.images ?? []) {
+      if (entry?.publicId) map.set(entry.publicId, entry);
+    }
+    return map;
+  } catch {
+    return new Map();
+  }
+}
+
+function toManifestEntry(resource, folderKey, existingById) {
   const publicId = resource.public_id ?? resource.asset_id;
   const context = resource.context?.custom ?? resource.context ?? {};
   const altFromContext =
@@ -84,18 +98,23 @@ function toManifestEntry(resource, folderKey) {
       ? context.alt ?? context.caption ?? context.title
       : undefined;
 
+  const previous = existingById.get(publicId);
+
   return {
     publicId,
     folder: folderKey,
     width: resource.width ?? null,
     height: resource.height ?? null,
-    alt: altFromContext ?? null,
+    alt: previous?.alt ?? altFromContext ?? null,
+    caption: previous?.caption ?? null,
+    year: previous?.year ?? null,
   };
 }
 
 async function main() {
   console.log(`Cloudinary gallery sync — ${CLOUD_NAME}\n`);
 
+  const existingById = loadExistingManifest();
   const images = [];
 
   for (const { key, label } of FOLDERS) {
@@ -108,7 +127,7 @@ async function main() {
     }
 
     for (const resource of resources.slice(0, MAX_PER_FOLDER)) {
-      images.push(toManifestEntry(resource, key));
+      images.push(toManifestEntry(resource, key, existingById));
     }
   }
 

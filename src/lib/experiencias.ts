@@ -37,6 +37,10 @@ export type ExperienciaCatalogEntry = {
   tagline: string;
   /** Destaques curtos no hub (2–3 itens). */
   highlights: readonly string[];
+  /** Linha de conversão no hub — preço/horário sem repetir a subpágina. */
+  conversionHint?: string;
+  /** Rótulo do CTA de reserva nesta experiência. */
+  reserveLabel?: string;
   weekdays: readonly Weekday[];
   startsAt: string;
   description: string;
@@ -59,6 +63,8 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     scheduleLong: "Sábados e domingos, das 15h às 17h",
     tagline: "Bolos do dia, quiches e pausa entre capítulos na livraria.",
     highlights: ["Bolos do dia", "Quiches e empadas", "Sábado e domingo"],
+    conversionHint: "Sáb–dom · bolos a partir de R$ 14",
+    reserveLabel: "Reservar mesa",
     weekdays: [0, 6],
     startsAt: "15:00",
     description:
@@ -80,6 +86,8 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     scheduleLong: "Quintas, sextas, sábados e domingos",
     tagline: "Chopp gelado, fatia de laranja e petiscos na Savassi.",
     highlights: ["Blue Moon Belgian White", "Petiscos e chopps", "Quinta a domingo"],
+    conversionHint: "Qui–dom · chopp a partir de R$ 32",
+    reserveLabel: "Reservar mesa",
     weekdays: [0, 4, 5, 6],
     startsAt: "",
     description:
@@ -101,6 +109,8 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     scheduleLong: "Experiência sob reserva, com jazz ao vivo e menu degustação para dois",
     tagline: "Menu degustação, jazz ao vivo e luz baixa para dois.",
     highlights: ["Menu degustação para dois", "Jazz ao vivo", "Sob reserva"],
+    conversionHint: "Sob reserva · a partir de R$ 269 por casal",
+    reserveLabel: "Garantir experiência",
     weekdays: [0, 1, 2, 3, 4, 5, 6],
     startsAt: "19:00",
     description:

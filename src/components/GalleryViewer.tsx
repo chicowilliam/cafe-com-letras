@@ -12,6 +12,10 @@ import {
 import { createPortal } from "react-dom";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import type { MarqueeImage } from "@/lib/gallery-images";
+import {
+  galleryLightboxCaption,
+  galleryLightboxYear,
+} from "@/lib/gallery-images";
 import "@/styles/gallery-lightbox.css";
 
 type GalleryViewerProps = {
@@ -204,7 +208,8 @@ function GalleryLightboxLayer({
   );
 
   const activeImage = images[activeIndex];
-  const folderLabel = activeImage?.eraLabel ?? null;
+  const caption = activeImage ? galleryLightboxCaption(activeImage) : null;
+  const year = activeImage ? galleryLightboxYear(activeImage) : null;
 
   return (
     <>
@@ -255,7 +260,8 @@ function GalleryLightboxLayer({
 
         <p id={liveId} className="sr-only" aria-live="polite" aria-atomic="true">
           Foto {activeIndex + 1} de {images.length}
-          {folderLabel ? ` — ${folderLabel}` : ""}
+          {caption ? ` — ${caption}` : ""}
+          {year ? ` (${year})` : ""}
         </p>
 
         <div className="pointer-events-auto relative flex min-h-0 flex-1 items-center">
@@ -308,11 +314,18 @@ function GalleryLightboxLayer({
         </div>
 
         <footer className="gallery-lightbox-footer pointer-events-none relative z-20 shrink-0 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 text-center sm:px-6 md:px-8">
-          {folderLabel ? (
-            <p className="gallery-lightbox-era section-caption">
-              <span className="gallery-lightbox-era__dot" aria-hidden />
-              {folderLabel}
-            </p>
+          {caption ? (
+            <>
+              <p className="gallery-lightbox-era section-caption">
+                <span className="gallery-lightbox-era__dot" aria-hidden />
+                {caption}
+              </p>
+              {year ? (
+                <p className="gallery-lightbox-year mt-1 font-sans text-[0.6875rem] uppercase tracking-[0.14em] text-foreground-muted/80">
+                  {year}
+                </p>
+              ) : null}
+            </>
           ) : (
             <p className="section-caption opacity-0" aria-hidden>
               &nbsp;

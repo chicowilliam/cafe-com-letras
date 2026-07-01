@@ -114,6 +114,13 @@ export function ImageMarquee() {
                       onMouseEnter={() => preloadViewerImage(imageIndex)}
                       onFocus={() => preloadViewerImage(imageIndex)}
                       aria-label={`Abrir foto ${imageIndex + 1} de ${images.length}${image.eraLabel ? ` — ${image.eraLabel}` : ""}`}
+                      title={
+                        image.caption && image.caption !== "[LEGENDA PENDENTE]"
+                          ? image.year
+                            ? `${image.caption} · ${image.year}`
+                            : image.caption
+                          : undefined
+                      }
                       className={`gallery-marquee-card focus-ring h-[220px] md:h-[260px] ${eraClass}${featured ? " gallery-marquee-card--featured" : ""}`}
                       style={{ width: cardWidth }}
                     >

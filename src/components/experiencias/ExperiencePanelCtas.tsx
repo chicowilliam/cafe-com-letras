@@ -21,8 +21,9 @@ export function ExperiencePanelCtas({
   const { open: openReservation } = useReservation();
   const { open: openCheckout } = useExperienceCheckout();
 
-  const reserveLabel =
-    entry.id === "noite-dos-dates" ? "Garantir experiência" : "Reservar";
+  const reserveLabel = entry.reserveLabel ?? (
+    entry.id === "noite-dos-dates" ? "Garantir experiência" : "Reservar"
+  );
 
   const handleReserve = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();

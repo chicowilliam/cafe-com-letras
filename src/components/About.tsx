@@ -1,4 +1,5 @@
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { AnniversaryRibbon } from "@/components/AnniversaryRibbon";
 import { SectionReveal } from "@/components/SectionReveal";
 import { HISTORIA_IMAGE } from "@/lib/about-images";
 import { ABOUT_PARAGRAPHS } from "@/lib/constants";
@@ -64,7 +65,9 @@ export function About() {
           </div>
         </SectionReveal>
 
-        <p className="section-caption mt-8 md:mt-10">
+        <AnniversaryRibbon className="mt-8 md:mt-10" />
+
+        <p className="section-caption mt-5 md:mt-6">
           Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte
         </p>
       </div>

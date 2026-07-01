@@ -13,6 +13,8 @@ export type GalleryManifestEntry = {
   width: number | null;
   height: number | null;
   alt: string | null;
+  caption?: string | null;
+  year?: number | null;
 };
 
 type GalleryManifest = {
@@ -24,6 +26,8 @@ type GalleryManifest = {
     width: number | null;
     height: number | null;
     alt: string | null;
+    caption?: string | null;
+    year?: number | null;
   }>;
 };
 
@@ -36,7 +40,11 @@ export type MarqueeImage = {
   viewerSrc: string;
   alt: string;
   folder?: GalleryFolder;
+  /** Rótulo curto no marquee / fallback no lightbox. */
   eraLabel?: string;
+  /** Legenda editorial — prioridade sobre eraLabel na UI. */
+  caption?: string;
+  year?: number;
   width: number;
   height: number;
 };
@@ -61,6 +69,8 @@ const ALT_BY_FOLDER: Record<GalleryFolder, string> = {
   novas: "Café com Letras — Savassi hoje",
 };
 
+const DEV_CAPTION_PLACEHOLDER = "[LEGENDA PENDENTE]";
+
 function isGalleryFolder(value: string): value is GalleryFolder {
   return value === "antigas" || value === "novas";
 }
@@ -71,13 +81,60 @@ function resolveDimensions(entry: GalleryManifestEntry) {
   return { width, height };
 }
 
+function resolveCaption(entry: GalleryManifestEntry): string | undefined {
+  const caption = entry.caption?.trim();
+  if (caption) return caption;
+  if (import.meta.env.DEV && entry.folder === "antigas") return DEV_CAPTION_PLACEHOLDER;
+  return undefined;
+}
+
+function resolveYear(entry: GalleryManifestEntry): number | undefined {
+  if (typeof entry.year === "number" && entry.year > 0) return entry.year;
+  return undefined;
+}
+
 function buildAlt(entry: GalleryManifestEntry, index: number) {
   if (entry.alt?.trim()) return entry.alt.trim();
+  const caption = entry.caption?.trim();
+  if (caption) return caption;
   return `${ALT_BY_FOLDER[entry.folder]} (${index + 1})`;
+}
+
+function buildMarqueeLabel(
+  entry: GalleryManifestEntry,
+  caption: string | undefined,
+  year: number | undefined,
+) {
+  if (caption && caption !== DEV_CAPTION_PLACEHOLDER) {
+    return year ? `${caption} · ${year}` : caption;
+  }
+  return ERA_LABEL[entry.folder];
+}
+
+/** Texto principal no lightbox — legenda ou pasta. */
+export function galleryLightboxCaption(image: MarqueeImage) {
+  if (image.caption && image.caption !== DEV_CAPTION_PLACEHOLDER) {
+    return image.caption;
+  }
+  if (import.meta.env.DEV && image.caption === DEV_CAPTION_PLACEHOLDER) {
+    return DEV_CAPTION_PLACEHOLDER;
+  }
+  return image.eraLabel ?? null;
+}
+
+/** Meta secundária — ano quando há legenda real. */
+export function galleryLightboxYear(image: MarqueeImage) {
+  if (!image.year) return null;
+  if (image.caption && image.caption !== DEV_CAPTION_PLACEHOLDER) {
+    return image.year;
+  }
+  return null;
 }
 
 function toMarqueeImage(entry: GalleryManifestEntry, index: number): MarqueeImage {
   const { width, height } = resolveDimensions(entry);
+  const caption = resolveCaption(entry);
+  const year = resolveYear(entry);
 
   return {
     src: cloudinaryImageUrl(entry.publicId, {
@@ -104,7 +161,9 @@ function toMarqueeImage(entry: GalleryManifestEntry, index: number): MarqueeImag
     ),
     alt: buildAlt(entry, index),
     folder: entry.folder,
-    eraLabel: ERA_LABEL[entry.folder],
+    eraLabel: buildMarqueeLabel(entry, caption, year),
+    caption,
+    year,
     width,
     height,
   };
