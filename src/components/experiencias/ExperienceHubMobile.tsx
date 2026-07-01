@@ -1,6 +1,5 @@
-import { AppLink } from "@/components/AppLink";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ExperiencePanelCtas } from "@/components/experiencias/ExperiencePanelCtas";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 import { hubContentContainerVariants, hubContentItemVariants } from "@/lib/motion-presets";
 
@@ -29,13 +28,12 @@ export function ExperienceHubMobile({
           <li key={item}>{item}</li>
         ))}
       </ul>
-      <AppLink
-        to={activeEntry.href}
-        className="exp-hub-mobile__detail-cta btn-primary focus-ring"
-      >
-        Explorar experiência
-        <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
-      </AppLink>
+      <ExperiencePanelCtas
+        entry={activeEntry}
+        className="exp-hub-mobile__cta-row"
+        primaryClassName="exp-hub-mobile__detail-cta btn-primary focus-ring"
+        ghostClassName="exp-hub-mobile__detail-cta-ghost btn-ghost-minimal focus-ring"
+      />
     </>
   );
 
@@ -124,13 +122,12 @@ export function ExperienceHubMobile({
               ))}
             </m.ul>
             <m.div variants={hubContentItemVariants}>
-              <AppLink
-                to={activeEntry.href}
-                className="exp-hub-mobile__detail-cta btn-primary focus-ring"
-              >
-                Explorar experiência
-                <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
-              </AppLink>
+              <ExperiencePanelCtas
+                entry={activeEntry}
+                className="exp-hub-mobile__cta-row"
+                primaryClassName="exp-hub-mobile__detail-cta btn-primary focus-ring"
+                ghostClassName="exp-hub-mobile__detail-cta-ghost btn-ghost-minimal focus-ring"
+              />
             </m.div>
           </m.article>
         </AnimatePresence>

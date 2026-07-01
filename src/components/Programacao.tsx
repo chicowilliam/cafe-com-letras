@@ -448,10 +448,19 @@ export function Programacao() {
         {getExperienciasAtivasHoje().length > 0 && (
           <SectionReveal variant="subtle">
             <div className="mb-6 space-y-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="section-caption !mb-0">Hoje na casa</p>
+                <AppLink
+                  to="/experiencias"
+                  className="focus-ring text-xs font-medium text-accent transition-colors hover:text-accent/80"
+                >
+                  Ver hub de experiências
+                </AppLink>
+              </div>
               {getExperienciasAtivasHoje().map((experiencia) => (
                 <AppLink
                   key={experiencia.id}
-                  to={experiencia.href}
+                  to={`/experiencias?highlight=${experiencia.id}`}
                   className="focus-ring flex items-center gap-4 rounded-md border border-accent/20 bg-accent/8 px-5 py-4 transition-colors hover:border-accent/35 hover:bg-accent/12"
                 >
                   <span className="relative flex h-2.5 w-2.5 shrink-0">

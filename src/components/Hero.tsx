@@ -3,20 +3,11 @@ import { AppLink } from "@/components/AppLink";
 import { HeroBackgroundVideo } from "@/components/HeroBackgroundVideo";
 import { useReservation } from "@/hooks/useReservation";
 
-function scrollToDates() {
-  const target = document.getElementById("noite-dos-dates");
-  if (!target) return;
-  const prefersReduced = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-  target.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth" });
-}
-
 const ctaPrimary =
-  "btn-primary focus-ring rounded-md px-8 py-3.5 transition-all duration-300 hover:scale-[1.01]";
+  "btn-primary focus-ring min-h-[44px] rounded-md px-8 py-3.5 transition-all duration-300 hover:scale-[1.01]";
 
 const ctaGhost =
-  "btn-ghost-minimal focus-ring rounded-md px-6 py-3 transition-all duration-300 hover:scale-[1.01]";
+  "btn-ghost-minimal focus-ring inline-flex min-h-[44px] items-center justify-center rounded-md px-6 py-3 transition-all duration-300 hover:scale-[1.01]";
 
 const cardapioLinkClass =
   "focus-ring hero-cardapio-link font-garamond text-base italic text-foreground-muted/70 transition-colors duration-300 hover:text-accent";
@@ -65,13 +56,13 @@ function HeroCopy() {
         className="fade-in-up is-visible mt-10 flex w-full flex-col items-center gap-5 md:mt-12"
         style={{ transitionDelay: "0.3s" }}
       >
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
           <button type="button" onClick={openReservation} className={ctaPrimary}>
-            Fazer reserva
+            Reservar
           </button>
-          <button type="button" onClick={scrollToDates} className={ctaGhost}>
-            Noite dos Dates
-          </button>
+          <AppLink to="/experiencias" className={ctaGhost}>
+            Ver experiências
+          </AppLink>
         </div>
         <div className="flex items-center gap-4">
           <span aria-hidden className="h-px w-10 bg-white/15" />
@@ -105,7 +96,7 @@ export function Hero() {
       </div>
 
       <a
-        href="#noite-dos-dates"
+        href="#hoje-na-casa"
         aria-label="Rolar para a próxima seção"
         className="focus-ring absolute inset-x-0 bottom-5 z-20 mx-auto flex w-fit flex-col items-center gap-1 text-foreground-muted transition-colors duration-300 hover:text-accent md:bottom-7"
       >

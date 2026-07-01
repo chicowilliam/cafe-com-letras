@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 
 import { Hero } from "@/components/Hero";
 
+import { HomeTodayRibbon } from "@/components/HomeTodayRibbon";
+
 import { SectionHandoff } from "@/components/SectionBridge";
 
 import { SectionSkeleton } from "@/components/SectionSkeleton";
@@ -135,6 +137,8 @@ export default function App() {
       <main id="main">
 
         <Hero />
+
+        <HomeTodayRibbon />
 
         <SectionHandoff variant="breath" from="background" to="background" overlap="sm" />
 

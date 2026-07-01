@@ -24,8 +24,23 @@ function timeBandHour(timeBand: "tarde" | "entardecer" | "noite") {
   return 19;
 }
 
-/** Índice inicial — prioriza experiências ativas hoje e proximidade do horário. */
+/** Índice do painel a partir de ?highlight= no hub. */
+export function getHubIndexFromHighlight(
+  highlight: string | null | undefined,
+): number | null {
+  if (!highlight) return null;
+  const index = EXPERIENCIAS_CATALOG.findIndex((entry) => entry.id === highlight);
+  return index >= 0 ? index : null;
+}
+
+/** Índice inicial — prioriza ?highlight=, depois experiências ativas hoje e proximidade do horário. */
 export function getInitialActiveIndex(date = new Date()) {
+  if (typeof window !== "undefined") {
+    const highlight = new URLSearchParams(window.location.search).get("highlight");
+    const fromQuery = getHubIndexFromHighlight(highlight);
+    if (fromQuery !== null) return fromQuery;
+  }
+
   const activeToday = getExperienciasAtivasHoje(date);
 
   if (activeToday.length === 1) {

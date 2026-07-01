@@ -25,6 +25,8 @@ export default function CafeDaTardePage() {
           title={info.title}
           schedule={info.scheduleLong}
           subtitle="Bolos do dia, quiches dourados e sucos frescos — uma pausa lenta entre as estantes da livraria."
+          conversionHint="Bolos a partir de R$ 14"
+          onReserve={openReservation}
         />
 
         <CafeDaTardeIntro

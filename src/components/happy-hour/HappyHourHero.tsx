@@ -7,10 +7,19 @@ import {
 
 type HappyHourHeroProps = {
   eyebrow: string;
+  schedule: string;
   subtitle: string;
+  conversionHint?: string;
+  onReserve?: () => void;
 };
 
-export function HappyHourHero({ eyebrow, subtitle }: HappyHourHeroProps) {
+export function HappyHourHero({
+  eyebrow,
+  schedule,
+  subtitle,
+  conversionHint,
+  onReserve,
+}: HappyHourHeroProps) {
   return (
     <section className="hh-hero-full relative min-h-[60dvh] w-full overflow-hidden md:min-h-[68vh]">
       <div className="hh-hero-moon" aria-hidden />
@@ -31,9 +40,26 @@ export function HappyHourHero({ eyebrow, subtitle }: HappyHourHeroProps) {
           <span className="hh-hero-title__line block">Happy Hour</span>
           <span className="hh-hero-title__brand block">Blue Moon</span>
         </h1>
+        <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-accent md:text-sm">
+          {schedule}
+        </p>
         <p className="hh-hero-subtitle mt-5 max-w-lg font-garamond text-lg italic leading-relaxed text-foreground/85 md:mt-6 md:text-xl">
           {subtitle}
         </p>
+        {conversionHint ? (
+          <p className="mt-4 text-sm font-medium text-foreground-muted md:mt-5">
+            {conversionHint}
+          </p>
+        ) : null}
+        {onReserve ? (
+          <button
+            type="button"
+            onClick={onReserve}
+            className="btn-primary focus-ring mt-6 inline-flex min-h-[44px] items-center rounded-sm px-8 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+          >
+            Reservar
+          </button>
+        ) : null}
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { AppLink } from "@/components/AppLink";
 import { useCallback, useEffect, useRef, useState, startTransition } from "react";
+import { useSearchParams } from "react-router-dom";
 import { ExperienceHubAmbientStack } from "@/components/experiencias/ExperienceHubAmbientStack";
 import { ExperienceHubCommandBar } from "@/components/experiencias/ExperienceHubCommandBar";
 import { ExperienceHubMobile } from "@/components/experiencias/ExperienceHubMobile";
@@ -8,6 +9,7 @@ import { useExpHubPerfMode } from "@/hooks/useExpHubPerfMode";
 import {
   DESKTOP_BP,
   getInitialActiveIndex,
+  getHubIndexFromHighlight,
   HUB_TOTAL,
 } from "@/lib/experience-hub-utils";
 import {
@@ -55,6 +57,7 @@ export function ExperienceHub() {
   const reduceMotion = useReducedMotion();
   const perfMode = useExpHubPerfMode(reduceMotion);
   const isDesktop = useIsDesktopLayout();
+  const [searchParams] = useSearchParams();
   const [activeIndex, setActiveIndex] = useState(getInitialActiveIndex);
 
   const activeEntry = EXPERIENCIAS_CATALOG[activeIndex] ?? EXPERIENCIAS_CATALOG[0];
@@ -89,6 +92,13 @@ export function ExperienceHub() {
   }, [activeEntry.id]);
 
   useEffect(() => () => resetExpHubChrome(), []);
+
+  useEffect(() => {
+    const highlightIndex = getHubIndexFromHighlight(searchParams.get("highlight"));
+    if (highlightIndex !== null) {
+      goToIndex(highlightIndex);
+    }
+  }, [searchParams, goToIndex]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {

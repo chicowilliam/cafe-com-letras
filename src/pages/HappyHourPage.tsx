@@ -22,7 +22,10 @@ export default function HappyHourPage() {
       <main>
         <HappyHourHero
           eyebrow={info.eyebrow}
+          schedule={info.scheduleLong}
           subtitle="Chopp gelado, fatia de laranja e petiscos para o entardecer na Savassi."
+          conversionHint="Chopp a partir de R$ 32"
+          onReserve={openReservation}
         />
 
         <HappyHourIntro

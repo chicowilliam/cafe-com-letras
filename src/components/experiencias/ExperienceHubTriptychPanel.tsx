@@ -1,7 +1,6 @@
-import { AppLink } from "@/components/AppLink";
-import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 import { memo } from "react";
+import { ExperiencePanelCtas } from "@/components/experiencias/ExperiencePanelCtas";
 import { useExpHubChrome } from "@/hooks/useExpHubChrome";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 import {
@@ -47,14 +46,7 @@ function PanelContent({
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <AppLink
-              to={entry.href}
-              className="exp-hub-editorial__cta btn-primary focus-ring"
-              onClick={(event) => event.stopPropagation()}
-            >
-              Explorar experiência
-              <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
-            </AppLink>
+            <ExperiencePanelCtas entry={entry} />
           </>
         ) : (
           <>
@@ -102,14 +94,7 @@ function PanelContent({
               ))}
             </m.ul>
             <m.div variants={hubContentItemVariants}>
-              <AppLink
-                to={entry.href}
-                className="exp-hub-editorial__cta btn-primary focus-ring"
-                onClick={(event) => event.stopPropagation()}
-              >
-                Explorar experiência
-                <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
-              </AppLink>
+              <ExperiencePanelCtas entry={entry} />
             </m.div>
           </m.div>
         ) : (

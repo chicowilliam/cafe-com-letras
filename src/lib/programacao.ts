@@ -369,3 +369,29 @@ export function groupEventsByDay(
     events: dayEvents,
   }));
 }
+
+export function toIsoDateLocal(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+/** Eventos culturais e recorrentes de um dia específico (inclui experiências). */
+export function getProgramacaoForDay(date = new Date()): ProgramacaoEvento[] {
+  const viewMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  const isoDate = toIsoDateLocal(date);
+
+  return filterProgramacao(PROGRAMACAO_EVENTOS, viewMonth, "all").filter(
+    (event) => event.date === isoDate,
+  );
+}
+
+export function formatTodayRibbonDate(date = new Date()): string {
+  const weekday = new Intl.DateTimeFormat("pt-BR", { weekday: "short" }).format(date);
+  const day = date.getDate();
+  const month = new Intl.DateTimeFormat("pt-BR", { month: "short" }).format(date);
+  const weekdayLabel = weekday.charAt(0).toUpperCase() + weekday.slice(1).replace(/\.$/, "");
+  const monthLabel = month.replace(/\.$/, "");
+  return `${weekdayLabel} ${day} ${monthLabel}`;
+}

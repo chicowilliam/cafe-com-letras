@@ -11,6 +11,8 @@ type CafeDaTardeHeroProps = {
   title: string;
   schedule: string;
   subtitle: string;
+  conversionHint?: string;
+  onReserve?: () => void;
 };
 
 export function CafeDaTardeHero({
@@ -18,6 +20,8 @@ export function CafeDaTardeHero({
   title,
   schedule,
   subtitle,
+  conversionHint,
+  onReserve,
 }: CafeDaTardeHeroProps) {
   return (
     <section className="cdt-hero-full relative min-h-[60dvh] w-full overflow-hidden md:min-h-[68vh]">
@@ -46,6 +50,20 @@ export function CafeDaTardeHero({
         <p className="cdt-hero-subtitle mt-4 max-w-lg font-garamond text-lg italic leading-relaxed text-foreground/85 md:mt-5 md:text-xl">
           {subtitle}
         </p>
+        {conversionHint ? (
+          <p className="mt-4 text-sm font-medium text-foreground-muted md:mt-5">
+            {conversionHint}
+          </p>
+        ) : null}
+        {onReserve ? (
+          <button
+            type="button"
+            onClick={onReserve}
+            className="btn-primary focus-ring mt-6 inline-flex min-h-[44px] items-center rounded-sm px-8 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+          >
+            Reservar
+          </button>
+        ) : null}
       </div>
     </section>
   );

@@ -67,6 +67,36 @@ export default function NoiteDosDatesPage() {
                 refúgio perfeito para se desconectar do mundo exterior e viver uma noite
                 memorável a dois.
               </p>
+              <p className="mx-auto mt-4 max-w-2xl text-center text-sm font-medium text-foreground-muted md:mx-0 md:text-left">
+                A partir de R$ 269 por casal · sob reserva
+              </p>
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row md:justify-start">
+                <button
+                  type="button"
+                  onClick={() => openWithPackage("complete", { theme: "dates" })}
+                  className="btn-primary focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                >
+                  <Heart size={15} strokeWidth={1.75} aria-hidden />
+                  Garantir experiência
+                </button>
+                <a
+                  href="#pacotes"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    document
+                      .querySelector<HTMLElement>("[data-dates-packages]")
+                      ?.scrollIntoView({
+                        behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                          .matches
+                          ? "auto"
+                          : "smooth",
+                      });
+                  }}
+                  className="btn-ghost-minimal focus-ring inline-flex min-h-[44px] items-center rounded-md px-6 py-3 text-sm transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                >
+                  Ver pacotes
+                </a>
+              </div>
             </FadeIn>
           </div>
         </section>
