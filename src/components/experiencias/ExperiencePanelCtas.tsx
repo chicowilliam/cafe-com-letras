@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import type { MouseEvent } from "react";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
+import { CTA_LABELS } from "@/lib/cta-labels";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 
 type ExperiencePanelCtasProps = {
@@ -21,9 +22,11 @@ export function ExperiencePanelCtas({
   const { open: openReservation } = useReservation();
   const { open: openCheckout } = useExperienceCheckout();
 
-  const reserveLabel = entry.reserveLabel ?? (
-    entry.id === "noite-dos-dates" ? "Garantir experiência" : "Reservar"
-  );
+  const reserveLabel =
+    entry.reserveLabel ??
+    (entry.id === "noite-dos-dates"
+      ? CTA_LABELS.guaranteeExperience
+      : CTA_LABELS.reserve);
 
   const handleReserve = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -41,7 +44,7 @@ export function ExperiencePanelCtas({
         className={primaryClassName}
         onClick={(event) => event.stopPropagation()}
       >
-        Explorar experiência
+        {CTA_LABELS.exploreExperience}
         <ArrowRight size={16} strokeWidth={1.75} aria-hidden />
       </AppLink>
       <button type="button" onClick={handleReserve} className={ghostClassName}>

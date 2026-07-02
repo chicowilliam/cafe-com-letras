@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/FadeIn";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { DATE_PACKAGES, type DatePackageId } from "@/lib/date-experience";
 import { DATE_PACKAGE_IMAGES } from "@/lib/date-package-images";
+import { CTA_LABELS, CTA_HOVER_CLASS } from "@/lib/cta-labels";
 import "@/styles/noite-dos-dates-theme.css";
 
 const BADGE_STYLES: Record<DatePackageId, string> = {
@@ -74,10 +75,10 @@ export default function NoiteDosDatesPage() {
                 <button
                   type="button"
                   onClick={() => openWithPackage("complete", { theme: "dates" })}
-                  className="btn-primary focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                  className={`btn-primary focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
                 >
                   <Heart size={15} strokeWidth={1.75} aria-hidden />
-                  Garantir experiência
+                  {CTA_LABELS.guaranteeExperience}
                 </button>
                 <a
                   href="#pacotes"
@@ -92,9 +93,9 @@ export default function NoiteDosDatesPage() {
                           : "smooth",
                       });
                   }}
-                  className="btn-ghost-minimal focus-ring inline-flex min-h-[44px] items-center rounded-md px-6 py-3 text-sm transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                  className={`btn-ghost-minimal focus-ring inline-flex min-h-[44px] items-center rounded-md px-6 py-3 text-sm ${CTA_HOVER_CLASS}`}
                 >
-                  Ver pacotes
+                  {CTA_LABELS.viewPackages}
                 </a>
               </div>
             </FadeIn>
@@ -194,10 +195,10 @@ export default function NoiteDosDatesPage() {
                         : "smooth",
                     });
                 }}
-                className="btn-primary focus-ring mt-6 inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                className={`btn-primary focus-ring mt-6 inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
               >
                 <Heart size={15} strokeWidth={1.75} aria-hidden />
-                Ver pacotes
+                {CTA_LABELS.viewPackages}
               </a>
             </FadeIn>
           </div>

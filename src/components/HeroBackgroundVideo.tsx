@@ -91,7 +91,7 @@ export const HeroBackgroundVideo = memo(function HeroBackgroundVideo() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         disablePictureInPicture
         controls={false}
         controlsList="nodownload noplaybackrate noremoteplayback"

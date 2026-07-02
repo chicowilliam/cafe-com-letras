@@ -2,6 +2,7 @@ import { AppLink } from "@/components/AppLink";
 import { SectionReveal } from "@/components/SectionReveal";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
+import { CTA_LABELS } from "@/lib/cta-labels";
 import {
   formatTodayRibbonDate,
   getHomeTodayItems,
@@ -38,7 +39,7 @@ function ExperienciaRow({
           onClick={onReserve}
           className="home-today-ribbon__link home-today-ribbon__link--accent focus-ring"
         >
-          Reservar
+          {CTA_LABELS.reserve}
         </button>
       </div>
     </li>
@@ -60,7 +61,7 @@ function EventRow({ item }: { item: HomeTodayEventItem }) {
       </div>
       <div className="home-today-ribbon__actions">
         <AppLink to="/#programacao" className="home-today-ribbon__link focus-ring">
-          Agenda
+          {CTA_LABELS.viewAgenda}
         </AppLink>
       </div>
     </li>
@@ -117,7 +118,7 @@ export function HomeTodayRibbon() {
                   to="/#programacao"
                   className="home-today-ribbon__link home-today-ribbon__link--accent focus-ring self-start sm:self-auto"
                 >
-                  Ver agenda
+                  {CTA_LABELS.viewAgenda}
                 </AppLink>
               </div>
             )}

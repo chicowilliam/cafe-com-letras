@@ -726,6 +726,10 @@ html[data-exp-hub-transitioning] [data-page="experiencias-hub"] .exp-hub-command
   --exp-ambient-duration: 0.35s;
 }
 
+[data-page="experiencias-hub"] .exp-hub-command--perf .exp-hub-command__grain {
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-page="experiencias-hub"] {
     --exp-ambient-duration: 0s;

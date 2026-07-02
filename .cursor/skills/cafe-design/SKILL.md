@@ -50,11 +50,46 @@ Classes canônicas: `.section-title`, `.section-kicker`, `.section-prose`, `.sec
 - `prefers-reduced-motion`: desligar animações decorativas
 - Presets: `src/lib/motion-presets.ts`, `section-transitions.css`
 
+## CTAs canônicos
+
+Usar `src/lib/cta-labels.ts` — não inventar variações:
+
+| Verbo | Quando |
+|-------|--------|
+| **Reservar** | Hero, navbar, popup flutuante, faixa Hoje |
+| **Reservar mesa** | Café da Tarde, Happy Hour, cardápio |
+| **Garantir experiência** | Noite dos Dates / checkout |
+| **Ver agenda** | Programação, eventos culturais |
+| **Explorar experiência** | Hub → subpágina |
+| **Ver experiências** | Hero secundário, links para o hub |
+
+Hover em botões CTA: máx. `scale(1.01)`.
+
+## Funil de conversão
+
+```
+Hero (Reservar) → Hoje na Savassi → Experiências / Programação → Reserva ou checkout
+```
+
+- Um `btn-primary` dominante above the fold no Hero
+- Faixa Hoje com dados reais (`getHomeTodayItems`)
+- Hub + subpáginas repetem reserva nos momentos certos — sem pop-ups agressivos
+
 ## Copy
 
 - Português BR, caloroso e preciso
 - Nomear Savassi, jazz, literatura, mesa quando relevante
 - Evitar marketing vazio (“experiência única”, “o melhor da cidade”)
+- Legendas de galeria: só fatos verificáveis; nunca inventar década/evento histórico
+- `[LEGENDA PENDENTE]` só em dev para fotos do arquivo sem `caption`
+
+## Performance (budget)
+
+Ver `docs/PERFORMANCE.md`. Resumo:
+
+- LCP home < 2,8s · CLS < 0,1
+- Hub/galeria: sem blur runtime fullscreen; hi-res lazy no lightbox
+- `useExpHubPerfMode` + `prefers-reduced-motion` respeitados
 
 ## Nunca
 

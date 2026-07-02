@@ -38,13 +38,18 @@ Regras visuais e de copy: [`.cursor/skills/cafe-design/SKILL.md`](.cursor/skills
 
 ## Performance
 
-Rodar Lighthouse mobile nas rotas principais:
+Orçamento completo e checklist: [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md)
 
-- `/` (home)
-- `/experiencias`
-- `/#galeria`
+**Metas mobile (4G):** LCP < 2,8s · INP < 200ms · CLS < 0,1
 
-Meta orientativa: LCP < 2,8s em 4G, CLS < 0,1.
+**Auditoria rápida:**
+
+```bash
+npm run build && npm run preview
+# Lighthouse mobile em /, /experiencias e /#galeria
+```
+
+Ver [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md) para comandos `npx lighthouse` e checklist do que já está no código.
 
 ## Galeria — legendas
 

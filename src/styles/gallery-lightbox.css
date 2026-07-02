@@ -112,9 +112,8 @@ html[data-gallery-open] .navbar-slide {
 .gallery-lightbox-photo--placeholder {
   position: absolute;
   max-height: min(68vh, 780px);
-  filter: blur(10px) saturate(0.92);
-  transform: scale(1.03);
-  opacity: 1;
+  transform: scale(1.02);
+  opacity: 0.85;
   transition: opacity 260ms ease;
 }
 

@@ -8,6 +8,7 @@ import {
   getCafeDaTardeGalleryImages,
 } from "@/lib/cafe-da-tarde-images";
 import { DATE_PACKAGE_IMAGES } from "@/lib/date-package-images";
+import { CTA_LABELS } from "@/lib/cta-labels";
 
 /** 0 = domingo … 6 = sábado */
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -64,7 +65,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     tagline: "Bolos do dia, quiches e pausa entre capítulos na livraria.",
     highlights: ["Bolos do dia", "Quiches e empadas", "Sábado e domingo"],
     conversionHint: "Sáb–dom · bolos a partir de R$ 14",
-    reserveLabel: "Reservar mesa",
+    reserveLabel: CTA_LABELS.reserveTable,
     weekdays: [0, 6],
     startsAt: "15:00",
     description:
@@ -87,7 +88,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     tagline: "Chopp gelado, fatia de laranja e petiscos na Savassi.",
     highlights: ["Blue Moon Belgian White", "Petiscos e chopps", "Quinta a domingo"],
     conversionHint: "Qui–dom · chopp a partir de R$ 32",
-    reserveLabel: "Reservar mesa",
+    reserveLabel: CTA_LABELS.reserveTable,
     weekdays: [0, 4, 5, 6],
     startsAt: "",
     description:
@@ -110,7 +111,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     tagline: "Menu degustação, jazz ao vivo e luz baixa para dois.",
     highlights: ["Menu degustação para dois", "Jazz ao vivo", "Sob reserva"],
     conversionHint: "Sob reserva · a partir de R$ 269 por casal",
-    reserveLabel: "Garantir experiência",
+    reserveLabel: CTA_LABELS.guaranteeExperience,
     weekdays: [0, 1, 2, 3, 4, 5, 6],
     startsAt: "19:00",
     description:

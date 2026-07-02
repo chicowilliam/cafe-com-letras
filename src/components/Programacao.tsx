@@ -4,6 +4,7 @@ import { AppLink } from "@/components/AppLink";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { SectionReveal } from "@/components/SectionReveal";
 import { useReservation } from "@/hooks/useReservation";
+import { CTA_LABELS } from "@/lib/cta-labels";
 import { getExperienciasAtivasHoje } from "@/lib/experiencias";
 import {
   CATEGORY_CONFIG,
@@ -152,7 +153,7 @@ function EventCta({ event, onReserve, variant = "list" }: EventCtaProps) {
       }`}
       style={{ transitionTimingFunction: PREMIUM_EASE }}
     >
-      Reservar
+      {CTA_LABELS.reserve}
     </button>
   );
 }

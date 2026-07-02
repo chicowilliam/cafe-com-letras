@@ -1,4 +1,5 @@
 import { Coffee } from "lucide-react";
+import { CTA_LABELS, CTA_HOVER_CLASS } from "@/lib/cta-labels";
 import {
   CAFE_DA_TARDE_HERO_ALT,
   CAFE_DA_TARDE_HERO_IMAGE,
@@ -59,9 +60,9 @@ export function CafeDaTardeHero({
           <button
             type="button"
             onClick={onReserve}
-            className="btn-primary focus-ring mt-6 inline-flex min-h-[44px] items-center rounded-sm px-8 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            className={`btn-primary focus-ring mt-6 inline-flex min-h-[44px] items-center rounded-sm px-8 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
           >
-            Reservar
+            {CTA_LABELS.reserve}
           </button>
         ) : null}
       </div>

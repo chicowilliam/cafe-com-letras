@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/FadeIn";
+import { CTA_LABELS, CTA_HOVER_CLASS } from "@/lib/cta-labels";
 import { blueMoonObjectStyle, getBlueMoonImageBySlug } from "@/lib/blue-moon-images";
 
 type HappyHourCtaProps = {
@@ -29,9 +30,9 @@ export function HappyHourCta({ onReserve }: HappyHourCtaProps) {
           <button
             type="button"
             onClick={onReserve}
-            className="btn-primary focus-ring mt-8 inline-flex items-center gap-2 rounded-sm px-8 py-4 text-sm font-medium transition-all duration-300 hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            className={`btn-primary focus-ring mt-8 inline-flex items-center gap-2 rounded-sm px-8 py-4 text-sm font-medium ${CTA_HOVER_CLASS}`}
           >
-            Fazer reserva
+            {CTA_LABELS.reserveTable}
           </button>
         </FadeIn>
       </div>

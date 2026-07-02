@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { AppLink } from "@/components/AppLink";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useReservation } from "@/hooks/useReservation";
+import { CTA_LABELS } from "@/lib/cta-labels";
 import { EXPERIENCIA_ROUTES, NAV_DESKTOP_LINKS, NAV_LINKS } from "@/lib/constants";
 import { compositorStyle, overlaySpring } from "@/lib/motion-presets";
 
@@ -212,7 +213,7 @@ export function Navbar() {
               onClick={openReservation}
               className="btn-primary focus-ring hidden rounded-full px-4 py-1.5 text-sm font-medium md:inline-flex"
             >
-              Reservar
+              {CTA_LABELS.reserve}
             </button>
 
             <button

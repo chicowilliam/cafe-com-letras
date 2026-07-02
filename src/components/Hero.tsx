@@ -2,6 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
 import { HeroBackgroundVideo } from "@/components/HeroBackgroundVideo";
 import { useReservation } from "@/hooks/useReservation";
+import { CTA_LABELS } from "@/lib/cta-labels";
 
 const ctaPrimary =
   "btn-primary focus-ring min-h-[44px] rounded-md px-8 py-3.5 transition-all duration-300 hover:scale-[1.01]";
@@ -58,10 +59,10 @@ function HeroCopy() {
       >
         <div className="flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
           <button type="button" onClick={openReservation} className={ctaPrimary}>
-            Reservar
+            {CTA_LABELS.reserve}
           </button>
           <AppLink to="/experiencias" className={ctaGhost}>
-            Ver experiências
+            {CTA_LABELS.viewExperiences}
           </AppLink>
         </div>
         <div className="flex items-center gap-4">
