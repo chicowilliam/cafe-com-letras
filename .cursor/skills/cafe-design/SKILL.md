@@ -25,6 +25,16 @@ Casa cultural e gastronômica na Savassi desde 1996. Tom: escuro, quente, premiu
 | `--foreground-muted` | `#b3b09c` |
 | `--hairline` | `rgba(255,255,255,0.08)` |
 
+## Textura editorial (papel)
+
+- Grain canônico: `--texture-grain`, `--texture-size`, `--texture-opacity` em `index.css`
+- **Toda seção da home** usa `.section-canvas` (grain + washes dourado/oliva) — **não** só `#sobre`
+- Variantes: `.section-canvas--surface` (tom `--surface`), `.section-canvas--shift` (washes invertidos)
+- `body` leva grain leve nos vazios entre handoffs; cardápio desliga (`data-page-theme="cardapio"`)
+- **Não** adicionar grain/wash local por seção — usar `.section-canvas`
+- Modais/lightbox: fundo sólido `--surface-elevated`
+- História: capítulo 05 no fluxo; mesma classe `.section-canvas` que o resto da home
+
 ## Tipografia
 
 | Papel | Fonte | Onde |

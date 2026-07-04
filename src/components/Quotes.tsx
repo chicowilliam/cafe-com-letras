@@ -39,7 +39,7 @@ function QuoteFigure({
 
 export function Quotes() {
   return (
-    <section className="section-padding bg-surface">
+    <section className="section-canvas section-canvas--surface section-padding">
       <div className="mx-auto max-w-6xl">
         <AnimatedSectionHeading
           eyebrow="Vozes"

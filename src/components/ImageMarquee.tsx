@@ -42,11 +42,8 @@ export function ImageMarquee() {
     <section
       ref={sectionRef}
       id="galeria"
-      className="gallery-marquee-section overflow-hidden bg-surface section-padding"
+      className="gallery-marquee-section section-canvas section-canvas--surface overflow-hidden section-padding"
     >
-      <div className="gallery-marquee-wash pointer-events-none absolute inset-0" aria-hidden />
-      <div className="gallery-marquee-grain pointer-events-none absolute inset-0" aria-hidden />
-
       <div className="relative mx-auto mb-10 max-w-6xl md:mb-14">
         <AnimatedSectionHeading
           eyebrow="Galeria"

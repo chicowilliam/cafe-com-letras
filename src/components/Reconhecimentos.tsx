@@ -12,7 +12,7 @@ export function Reconhecimentos() {
   return (
     <section
       aria-label="Reconhecimentos culturais"
-      className="section-ribbon px-5 py-10 md:px-8 md:py-12"
+      className="section-ribbon relative z-[1] px-5 py-10 md:px-8 md:py-12"
     >
       <SectionReveal variant="subtle">
         <div className="mx-auto max-w-4xl text-center">

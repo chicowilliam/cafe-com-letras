@@ -1,75 +1,64 @@
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { AboutHistoryMediaColumn } from "@/components/AboutHistoryDiptych";
+import { AboutHistoryOrnament } from "@/components/AboutHistoryOrnament";
 import { AnniversaryRibbon } from "@/components/AnniversaryRibbon";
 import { SectionReveal } from "@/components/SectionReveal";
-import { HISTORIA_IMAGE } from "@/lib/about-images";
 import { ABOUT_PARAGRAPHS } from "@/lib/constants";
+import "@/styles/about-history.css";
 
 export function About() {
   return (
     <section
       id="sobre"
-      className="relative flex w-full flex-col items-stretch overflow-hidden bg-surface md:flex-row md:items-center"
+      className="about-history section-canvas section-canvas--shift section-padding relative grid w-full grid-cols-1 items-stretch overflow-hidden md:grid-cols-[46%_54%] lg:grid-cols-[42%_58%]"
     >
-      <SectionReveal variant="subtle" className="relative w-full shrink-0 md:w-[44%] lg:w-[40%]">
-        <div className="relative h-[clamp(220px,48vw,280px)] w-full overflow-hidden sm:h-[clamp(240px,42vw,300px)] md:h-auto md:aspect-[4/3] md:max-h-[min(380px,46vh)] lg:max-h-[min(420px,48vh)]">
-            <img
-              src={HISTORIA_IMAGE}
-              alt="Interior do Café com Letras — mesas, estantes e ambiente acolhedor"
-              className="h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-hairline"
-              aria-hidden
-            />
-            <span className="absolute left-4 top-4 inline-flex items-center rounded-full border border-white/15 bg-black/45 px-3 py-1 font-sans text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-accent backdrop-blur-sm md:left-6 md:top-6">
-              Desde 1996
-            </span>
+      <AboutHistoryMediaColumn />
+
+      <div className="about-history__story about-history-story relative h-full min-h-full">
+        <AboutHistoryOrnament variant="story" />
+
+        <div className="about-history-story__inner relative z-10">
+          <AnimatedSectionHeading
+            index="05"
+            eyebrow="A História"
+            align="left"
+            kicker="De três amigos e um sonho a referência cultural da Savassi — quase três décadas de mesa, música e livros."
+            titleClassName="max-w-xl text-foreground"
+            title={
+              <>
+                Três amigos, um sonho{" "}
+                <span className="italic text-foreground-muted">e a Savassi</span>
+              </>
+            }
+            editorial
+          />
+
+          <div
+            className="mt-7 mb-7 h-px w-16 bg-accent/60 md:mt-8 md:mb-8"
+            aria-hidden
+          />
+
+          <SectionReveal variant="line-mask">
+            <div className="flex max-w-xl flex-col gap-6">
+              {ABOUT_PARAGRAPHS.map((text, index) => (
+                <p
+                  key={index}
+                  className={`font-garamond text-[1.0625rem] leading-relaxed text-foreground-muted md:text-[1.1875rem] ${
+                    index === 0 ? "story-lead" : ""
+                  }`}
+                >
+                  {text}
+                </p>
+              ))}
+            </div>
+          </SectionReveal>
+
+          <AnniversaryRibbon className="mt-8 md:mt-10" />
+
+          <p className="section-caption mt-5 md:mt-6">
+            Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte
+          </p>
         </div>
-      </SectionReveal>
-
-      <div className="flex w-full flex-col justify-center p-8 md:w-[56%] md:p-12 lg:w-[60%] lg:p-20">
-        <AnimatedSectionHeading
-          index="05"
-          eyebrow="A História"
-          align="left"
-          kicker="De três amigos e um sonho a referência cultural da Savassi — quase três décadas de mesa, música e livros."
-          titleClassName="max-w-xl text-foreground"
-          title={
-            <>
-              Três amigos, um sonho{" "}
-              <span className="italic text-foreground-muted">e a Savassi</span>
-            </>
-          }
-          editorial
-        />
-
-        <div
-          className="mt-7 mb-7 h-px w-16 bg-accent/60 md:mt-8 md:mb-8"
-          aria-hidden
-        />
-
-        <SectionReveal variant="line-mask">
-          <div className="flex max-w-xl flex-col gap-6">
-            {ABOUT_PARAGRAPHS.map((text, index) => (
-              <p
-                key={index}
-                className={`font-garamond text-[1.0625rem] leading-relaxed text-foreground-muted md:text-[1.1875rem] ${
-                  index === 0 ? "story-lead" : ""
-                }`}
-              >
-                {text}
-              </p>
-            ))}
-          </div>
-        </SectionReveal>
-
-        <AnniversaryRibbon className="mt-8 md:mt-10" />
-
-        <p className="section-caption mt-5 md:mt-6">
-          Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte
-        </p>
       </div>
     </section>
   );

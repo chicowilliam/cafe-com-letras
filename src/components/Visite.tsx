@@ -88,7 +88,7 @@ export function Visite() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="visite" className="section-padding bg-background">
+    <section id="visite" className="section-canvas section-canvas--shift section-padding">
       <div className="mx-auto max-w-6xl">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"

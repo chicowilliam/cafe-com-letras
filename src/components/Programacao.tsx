@@ -437,7 +437,7 @@ export function Programacao() {
   const filterKey = `${toMonthKey(viewMonth)}-${category}`;
 
   return (
-    <section id="programacao" className="section-padding bg-background">
+    <section id="programacao" className="section-canvas section-padding">
       <div className="mx-auto max-w-6xl">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"

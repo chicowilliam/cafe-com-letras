@@ -1142,7 +1142,7 @@ export function CuradoriaSemanal() {
   }, []);
 
   return (
-    <section id="curadoria-da-semana" className="section-padding bg-background">
+    <section id="curadoria-da-semana" className="section-canvas section-canvas--shift section-padding">
       <div className="mx-auto max-w-6xl">
         {isDesktopLayout ? (
           <div className="grid grid-cols-[minmax(0,1fr)_minmax(11rem,13.5rem)_auto] items-center gap-x-8 xl:gap-x-10">
@@ -1204,10 +1204,6 @@ export function CuradoriaSemanal() {
             <CuradoriaMobileAmbientBackground
               activeIndex={activeIndex}
               reduceMotion={reduceMotion}
-            />
-            <div
-              aria-hidden
-              className="curadoria-mobile-grain pointer-events-none absolute inset-0 z-[1]"
             />
             <div
               aria-hidden

@@ -85,7 +85,7 @@ export function HomeTodayRibbon() {
   return (
     <section
       id="hoje-na-casa"
-      className="home-today-ribbon border-b border-hairline bg-background"
+      className="home-today-ribbon section-canvas border-b border-hairline"
       aria-label="Hoje na Savassi"
     >
       <div className="mx-auto max-w-6xl px-5 py-5 md:px-8 md:py-6">

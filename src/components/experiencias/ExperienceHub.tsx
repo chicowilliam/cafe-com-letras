@@ -139,7 +139,6 @@ export function ExperienceHub() {
       data-active-theme={activeEntry.id as ExperienciaId}
     >
       <ExperienceHubAmbientStack />
-      <div className="exp-hub-command__grain" aria-hidden />
       <div className="exp-hub-command__inner">
         <header className="exp-hub-command__header">
           <p className="exp-hub-command__eyebrow">Como viver a casa</p>

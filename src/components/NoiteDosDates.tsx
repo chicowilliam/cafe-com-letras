@@ -6,7 +6,7 @@ import { DATE_PACKAGES } from "@/lib/date-experience";
 
 export function NoiteDosDates() {
   return (
-    <section id="noite-dos-dates" className="section-padding bg-background">
+    <section id="noite-dos-dates" className="section-canvas section-padding">
       <div className="mx-auto max-w-6xl">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"

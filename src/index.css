@@ -53,6 +53,9 @@
   --selection-bg-on-accent: rgba(20, 20, 19, 0.16);
   --selection-color-on-accent: var(--accent-foreground);
   --tap-highlight: rgba(255, 255, 255, 0.1);
+  --texture-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --texture-size: 180px;
+  --texture-opacity: 0.05;
   --hero-overlay-bottom: var(--background);
   --hero-foreground: var(--foreground);
   --hero-foreground-muted: var(--foreground-muted);
@@ -175,11 +178,22 @@ html::-webkit-scrollbar-thumb:active {
 }
 
 body {
+  position: relative;
   margin: 0;
   min-height: 100vh;
-  background: var(--background);
+  background-color: var(--background);
+  background-image: var(--texture-grain);
+  background-size: var(--texture-size);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+#root {
+  position: relative;
+}
+
+html[data-page-theme="cardapio"] body {
+  background-image: none;
 }
 
 button:not(:disabled),
@@ -197,6 +211,54 @@ button:not(:disabled),
   .section-padding {
     padding-inline: 2rem;
   }
+}
+
+/* Papel editorial — grain + washes em cada seção (não só História) */
+.section-canvas {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      ellipse 75% 55% at 20% 32%,
+      color-mix(in srgb, var(--accent) 5%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 58% 48% at 84% 70%,
+      color-mix(in srgb, var(--accent-2) 3.5%, transparent),
+      transparent 68%
+    );
+  background-size: 100% 100%, 100% 100%;
+}
+
+.section-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--texture-opacity);
+  background-image: var(--texture-grain);
+  background-size: var(--texture-size);
+}
+
+.section-canvas--surface {
+  background-color: var(--surface);
+}
+
+.section-canvas--shift {
+  background-image:
+    radial-gradient(
+      ellipse 72% 52% at 82% 26%,
+      color-mix(in srgb, var(--accent) 4.5%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 54% 46% at 14% 78%,
+      color-mix(in srgb, var(--accent-2) 4%, transparent),
+      transparent 66%
+    );
 }
 
 .section-eyebrow {
@@ -457,19 +519,6 @@ button:not(:disabled),
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-}
-
-.curadoria-mobile-grain {
-  opacity: 0.04;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .curadoria-mobile-grain {
-    opacity: 0.025;
   }
 }
 

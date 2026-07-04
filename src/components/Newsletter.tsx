@@ -22,7 +22,7 @@ export function Newsletter() {
   };
 
   return (
-    <section className="section-padding bg-background">
+    <section className="section-canvas section-padding">
       <div className="mx-auto max-w-xl px-1">
         <SectionReveal variant="editorial">
           <div className="editorial-inset-panel editorial-inset-panel--soft rounded-2xl px-6 py-8 sm:px-8 sm:py-10">

@@ -165,12 +165,25 @@
 
 /* Faixa de reconhecimento — ribbon, não caixa com bordas */
 .section-ribbon {
+  position: relative;
+  isolation: isolate;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--surface) 92%, var(--accent) 8%) 0%,
-    var(--surface) 50%,
-    color-mix(in srgb, var(--surface) 92%, var(--accent) 8%) 100%
+    color-mix(in srgb, var(--background) 65%, var(--surface) 35%) 0%,
+    color-mix(in srgb, var(--background) 50%, var(--surface) 50%) 50%,
+    color-mix(in srgb, var(--background) 65%, var(--surface) 35%) 100%
   );
+}
+
+.section-ribbon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--texture-opacity);
+  background-image: var(--texture-grain);
+  background-size: var(--texture-size);
 }
 
 /* Painel editorial inset — newsletter, FAQ, blocos de apoio */

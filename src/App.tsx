@@ -187,7 +187,14 @@ export default function App() {
           </Suspense>
         </div>
 
-        <SectionHandoff variant="wash" from="background" to="surface" />
+        <SectionHandoff
+          variant="chapter"
+          from="background"
+          to="background"
+          chapterIndex="05"
+          chapterLabel="A História"
+          overlap="sm"
+        />
 
         <div className="section-below-fold">
           <Suspense fallback={<SectionSkeleton className="min-h-[60vh]" />}>
@@ -195,13 +202,15 @@ export default function App() {
           </Suspense>
         </div>
 
+        <SectionHandoff variant="breath" from="background" to="background" />
+
         <div className="section-below-fold">
           <Suspense fallback={<SectionSkeleton className="min-h-[5rem]" />}>
             <Reconhecimentos />
           </Suspense>
         </div>
 
-        <SectionHandoff variant="accent-band" from="surface" to="surface" />
+        <SectionHandoff variant="accent-band" from="background" to="background" />
 
         <div className="section-below-fold">
           <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
