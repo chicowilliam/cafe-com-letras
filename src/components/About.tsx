@@ -10,7 +10,7 @@ export function About() {
   return (
     <section
       id="sobre"
-      className="about-history section-canvas section-canvas--shift section-padding relative grid w-full grid-cols-1 items-stretch overflow-hidden md:grid-cols-[46%_54%] lg:grid-cols-[42%_58%]"
+      className="about-history section-canvas section-canvas--history section-padding relative grid w-full grid-cols-1 items-stretch overflow-hidden md:grid-cols-[46%_54%] lg:grid-cols-[42%_58%]"
     >
       <AboutHistoryMediaColumn />
 
