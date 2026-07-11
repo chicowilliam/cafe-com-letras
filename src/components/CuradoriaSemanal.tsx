@@ -831,44 +831,22 @@ function CuradoriaEditorialPanel({
       <AnimatePresence mode="wait" initial={false}>
         <m.div
           key={prato.id}
-          className="relative z-[1] mx-auto max-w-[18rem] px-4 py-8"
+          className="relative z-[1] max-w-[15.5rem] px-1 xl:max-w-[17rem]"
           style={compositorStyle}
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
           transition={motionTransition}
         >
-          <div className="flex items-start gap-4">
-            <div className="flex flex-col">
-              <p className="section-caption !text-accent [writing-mode:vertical-rl] rotate-180">
-                {prato.tag}
-              </p>
-              <span aria-hidden className="mt-3 h-px w-8 bg-accent/40" />
-            </div>
-            
-            <div className="flex-1 space-y-6">
-              <div className="relative">
-                <span
-                  aria-hidden
-                  className="absolute -left-3 top-0 h-full w-px bg-gradient-to-b from-transparent via-accent/30 to-transparent"
-                />
-                <h3 className="font-display text-[clamp(1.5rem,2.2vw,2rem)] leading-[1.06] tracking-tight text-foreground text-balance pl-4">
-                  {prato.nome}
-                </h3>
-              </div>
-              
-              <p className="font-garamond text-[1.0625rem] italic leading-relaxed text-foreground-muted/90 pl-4">
-                {prato.descricao}
-              </p>
-              
-              <div className="flex items-center gap-4 pl-4">
-                <span aria-hidden className="h-px w-12 bg-gradient-to-r from-accent/40 to-transparent" />
-                <p className="section-caption text-foreground-muted/70">
-                  {padIndex(activeIndex + 1)} · Seleção da semana
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className="section-caption !text-accent">{prato.tag}</p>
+          <span aria-hidden className="mt-3 block h-px w-10 bg-accent/55" />
+          <h3 className="mt-4 font-display text-[clamp(1.375rem,2vw,1.875rem)] leading-[1.08] tracking-tight text-foreground text-balance">
+            {prato.nome}
+          </h3>
+          <p className="section-prose mt-4 leading-relaxed">{prato.descricao}</p>
+          <p className="section-caption mt-7 text-foreground-muted/70">
+            {padIndex(activeIndex + 1)} · Seleção da semana
+          </p>
         </m.div>
       </AnimatePresence>
     </div>
@@ -1167,7 +1145,7 @@ export function CuradoriaSemanal() {
     <section id="curadoria-da-semana" className="section-canvas section-canvas--shift section-padding">
       <div className="mx-auto max-w-6xl">
         {isDesktopLayout ? (
-          <div className="grid grid-cols-[minmax(0,1fr)_minmax(16rem,19rem)_auto] items-center gap-x-8 xl:gap-x-10">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(11rem,13.5rem)_auto] items-center gap-x-8 xl:gap-x-10">
             <aside className="relative mb-0 self-start pr-6 text-left xl:pr-8 lg:sticky lg:top-24">
               <span
                 aria-hidden

@@ -11,6 +11,6 @@
       "source": "/politica-de-privacidade",
       "destination": "/politica-de-privacidade.html"
     },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

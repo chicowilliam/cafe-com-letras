@@ -53,15 +53,9 @@
   --selection-bg-on-accent: rgba(20, 20, 19, 0.16);
   --selection-color-on-accent: var(--accent-foreground);
   --tap-highlight: rgba(255, 255, 255, 0.1);
-  --texture-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --texture-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --texture-size: 180px;
-  --texture-opacity: 0.035;
-  --wash-home-accent: color-mix(in srgb, var(--accent) 5%, transparent);
-  --wash-home-accent-2: color-mix(in srgb, var(--accent-2) 3.5%, transparent);
-  --wash-history: color-mix(in srgb, #c9a66b 4%, transparent);
-  --wash-cardapio: transparent;
-  --wash-experiencias: color-mix(in srgb, var(--accent-2) 3%, transparent);
-  --wash-galeria: color-mix(in srgb, var(--foreground) 2%, transparent);
+  --texture-opacity: 0.05;
   --hero-overlay-bottom: var(--background);
   --hero-foreground: var(--foreground);
   --hero-foreground-muted: var(--foreground-muted);
@@ -265,47 +259,6 @@ button:not(:disabled),
       color-mix(in srgb, var(--accent-2) 4%, transparent),
       transparent 66%
     );
-}
-
-.section-canvas--history {
-  background-image:
-    radial-gradient(
-      ellipse 68% 50% at 25% 35%,
-      var(--wash-history),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 55% 45% at 80% 65%,
-      color-mix(in srgb, var(--accent) 2.5%, transparent),
-      transparent 65%
-    );
-}
-
-.section-canvas--experiencias {
-  background-image:
-    radial-gradient(
-      ellipse 70% 52% at 30% 40%,
-      var(--wash-experiencias),
-      transparent 68%
-    ),
-    radial-gradient(
-      ellipse 56% 46% at 75% 70%,
-      color-mix(in srgb, var(--accent) 2%, transparent),
-      transparent 64%
-    );
-}
-
-.section-canvas--galeria {
-  background-image:
-    radial-gradient(
-      ellipse 65% 48% at 50% 50%,
-      var(--wash-galeria),
-      transparent 72%
-    );
-}
-
-.section-canvas--cardapio {
-  background-image: none;
 }
 
 .section-eyebrow {
@@ -618,14 +571,6 @@ button:not(:disabled),
 
   .card-experience:hover {
     transform: none;
-  }
-
-  body {
-    background-image: none;
-  }
-
-  .section-canvas::before {
-    display: none;
   }
 }
 

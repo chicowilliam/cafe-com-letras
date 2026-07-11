@@ -6,7 +6,7 @@ import { SectionReveal } from "@/components/SectionReveal";
 
 export function Cardapio() {
   return (
-    <section id="cardapio" className="section-canvas section-canvas--cardapio section-padding">
+    <section id="cardapio" className="section-canvas section-canvas--shift section-padding">
       <div className="mx-auto max-w-6xl text-center">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"
