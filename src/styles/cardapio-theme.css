@@ -50,14 +50,7 @@
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"]::before {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.035;
-  background-image: var(--texture-grain);
-  background-size: var(--texture-size);
-  content: "";
+  content: none;
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"][data-cardapio-skin="print"]::before {

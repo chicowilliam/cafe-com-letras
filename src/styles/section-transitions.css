@@ -176,14 +176,7 @@
 }
 
 .section-ribbon::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: var(--texture-opacity);
-  background-image: var(--texture-grain);
-  background-size: var(--texture-size);
+  content: none;
 }
 
 /* Painel editorial inset — newsletter, FAQ, blocos de apoio */

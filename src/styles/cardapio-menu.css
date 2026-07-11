@@ -80,15 +80,7 @@
 }
 
 [data-page="cardapio"] .cardapio-sheet__frame::before {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.065;
-  mix-blend-mode: multiply;
-  background-image: var(--texture-grain);
-  background-size: var(--texture-size);
-  content: "";
+  content: none;
 }
 
 [data-page="cardapio"] .cardapio-sheet__image {

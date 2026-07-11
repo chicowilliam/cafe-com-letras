@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "./styles/route-transitions.css";
 @import "./styles/section-transitions.css";
+@import "./styles/section-ornament.css";
+@import "./styles/site-wallpaper.css";
 @import "./styles/cardapio-theme.css";
 @import "./styles/cardapio-menu.css";
 @import "./styles/cardapio-list.css";
@@ -53,9 +55,10 @@
   --selection-bg-on-accent: rgba(20, 20, 19, 0.16);
   --selection-color-on-accent: var(--accent-foreground);
   --tap-highlight: rgba(255, 255, 255, 0.1);
-  --texture-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Grain global desativado — textura SVG ficava gritante (“granizo”); washes das seções permanecem. */
+  --texture-grain: none;
   --texture-size: 180px;
-  --texture-opacity: 0.05;
+  --texture-opacity: 0;
   --hero-overlay-bottom: var(--background);
   --hero-foreground: var(--foreground);
   --hero-foreground-muted: var(--foreground-muted);
@@ -182,8 +185,6 @@ body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--background);
-  background-image: var(--texture-grain);
-  background-size: var(--texture-size);
   color: var(--foreground);
   font-family: var(--font-sans);
 }
@@ -213,7 +214,7 @@ button:not(:disabled),
   }
 }
 
-/* Papel editorial — grain + washes em cada seção (não só História) */
+/* Papel editorial — washes em cada seção (grain desativado). */
 .section-canvas {
   position: relative;
   isolation: isolate;
@@ -233,14 +234,7 @@ button:not(:disabled),
 }
 
 .section-canvas::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: var(--texture-opacity);
-  background-image: var(--texture-grain);
-  background-size: var(--texture-size);
+  content: none;
 }
 
 .section-canvas--surface {
