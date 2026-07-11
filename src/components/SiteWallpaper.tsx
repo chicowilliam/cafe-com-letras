@@ -149,14 +149,36 @@ export function SiteWallpaper() {
         <path className="site-wallpaper__flourish" d="M 680 2480 C 704 2474 724 2478 744 2486" />
       </g>
 
-      {/* História — leve (About já tem ornamento local) */}
+      {/* História → cena cultural — traço contínuo além do fim da seção About */}
       <g className="site-wallpaper__motif site-wallpaper__motif--arquivo">
         <path
           className="site-wallpaper__stroke"
-          d="M 760 2480 C 740 2560 748 2650 728 2740"
+          d="M 760 2480 C 740 2560 748 2650 728 2740 C 712 2820 720 2900 705 2980"
+        />
+        <path className="site-wallpaper__thorn" d="M 728 2740 L 742 2730 M 728 2740 L 738 2750" />
+        <path
+          className="site-wallpaper__stroke site-wallpaper__stroke--accent-2"
+          d="M 60 2700 C 90 2745 100 2810 88 2875 C 78 2930 50 2975 22 3010"
         />
         <path className="site-wallpaper__flourish" d="M 40 2620 C 68 2614 90 2618 112 2628" />
         <path className="site-wallpaper__flourish" d="M 40 2636 C 64 2630 86 2634 106 2642" />
+        <path className="site-wallpaper__flourish" d="M 680 2860 C 704 2854 724 2858 744 2866" />
+        <ellipse
+          className="site-wallpaper__chain"
+          cx="330"
+          cy="2780"
+          rx="10"
+          ry="5.5"
+          transform="rotate(-16 330 2780)"
+        />
+        <ellipse
+          className="site-wallpaper__chain"
+          cx="310"
+          cy="2804"
+          rx="10"
+          ry="5.5"
+          transform="rotate(-16 310 2804)"
+        />
       </g>
 
       {/* Galeria — flourishes abertos / moldura */}

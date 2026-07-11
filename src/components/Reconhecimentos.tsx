@@ -1,3 +1,4 @@
+import { SectionOrnament } from "@/components/SectionOrnament";
 import { SectionReveal } from "@/components/SectionReveal";
 
 const RECONHECIMENTOS = [
@@ -12,10 +13,11 @@ export function Reconhecimentos() {
   return (
     <section
       aria-label="Reconhecimentos culturais"
-      className="section-ribbon relative z-[1] px-5 py-10 md:px-8 md:py-12"
+      className="section-ribbon section-canvas relative z-[1] overflow-x-clip px-5 py-10 md:px-8 md:py-12"
     >
+      <SectionOrnament variant="editorial" />
       <SectionReveal variant="subtle">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="relative z-[1] mx-auto max-w-4xl text-center">
           <p className="section-caption">Na cena cultural</p>
           <p className="mx-auto mt-3 max-w-2xl text-lead md:text-lg">
             Três décadas entre festivais, imprensa e encontros que marcaram a Savassi.

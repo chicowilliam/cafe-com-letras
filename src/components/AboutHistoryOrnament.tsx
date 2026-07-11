@@ -15,7 +15,7 @@ export function AboutHistoryOrnament({ variant }: AboutHistoryOrnamentProps) {
         <g className="about-history-ornament__vine">
           <path
             className="about-history-ornament__stem"
-            d="M 368 12 C 352 88 358 168 342 248 C 326 328 334 408 318 488 C 306 548 298 608 292 668"
+            d="M 368 12 C 352 88 358 168 342 248 C 326 328 334 408 318 488 C 306 548 298 608 292 668 C 286 720 278 760 270 800"
           />
           <path className="about-history-ornament__thorn" d="M 342 248 L 356 238 M 342 248 L 352 258" />
           <path className="about-history-ornament__thorn" d="M 318 488 L 332 478 M 318 488 L 328 498" />

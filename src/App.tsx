@@ -136,7 +136,7 @@ export default function App() {
             </Suspense>
           </div>
 
-          <SectionHandoff variant="breath" from="background" to="background" />
+          <SectionHandoff variant="wash" from="background" to="background" overlap="sm" />
 
           <div className="section-below-fold">
             <Suspense fallback={<SectionSkeleton className="min-h-[5rem]" />}>
