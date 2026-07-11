@@ -1,0 +1,161 @@
+/* Papel de parede contínuo — atravessa seções, handoffs e footer da home */
+
+.home-shell {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--background);
+}
+
+.site-wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.home-shell > *:not(.site-wallpaper) {
+  position: relative;
+  z-index: 1;
+}
+
+.home-shell .section-handoff {
+  z-index: 2;
+}
+
+/* Deixa o traço vazar pelas seções (washes permanecem) */
+.home-shell .section-canvas {
+  background-color: color-mix(in srgb, var(--background) 72%, transparent);
+}
+
+.home-shell .section-canvas--surface {
+  background-color: color-mix(in srgb, var(--surface) 78%, transparent);
+}
+
+/* Handoffs sem “corte” opaco no papel */
+.home-shell .section-handoff-wash {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--handoff-from, var(--background)) 55%, transparent) 0%,
+    color-mix(in srgb, var(--handoff-from) 35%, var(--handoff-to)) 42%,
+    color-mix(in srgb, var(--handoff-from) 12%, var(--handoff-to)) 72%,
+    color-mix(in srgb, var(--handoff-to, var(--surface)) 55%, transparent) 100%
+  );
+}
+
+.home-shell .section-handoff-wave {
+  background: color-mix(in srgb, var(--handoff-from, var(--background)) 45%, transparent);
+}
+
+.home-shell .section-handoff-wave-fill {
+  fill: color-mix(in srgb, var(--handoff-to, var(--surface)) 70%, transparent);
+}
+
+.home-shell .section-handoff-chapter {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--handoff-from, var(--background)) 50%, transparent) 0%,
+    color-mix(in srgb, var(--handoff-from) 40%, var(--handoff-to)) 100%
+  );
+}
+
+.home-shell .section-ribbon {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--background) 40%, transparent) 0%,
+    color-mix(in srgb, var(--surface) 35%, transparent) 50%,
+    color-mix(in srgb, var(--background) 40%, transparent) 100%
+  );
+}
+
+.site-wallpaper__stroke {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.15;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.site-wallpaper__stroke--accent-2 {
+  stroke: var(--accent-2);
+  stroke-opacity: 0.13;
+}
+
+.site-wallpaper__thorn {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.13;
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.site-wallpaper__thorn--accent-2 {
+  stroke: var(--accent-2);
+  stroke-opacity: 0.11;
+}
+
+.site-wallpaper__flourish,
+.site-wallpaper__staff {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-opacity: 0.11;
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.site-wallpaper__clef {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.1;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.site-wallpaper__leaf,
+.site-wallpaper__chain {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-opacity: 0.12;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.site-wallpaper__node {
+  fill: color-mix(in srgb, var(--accent) 35%, transparent);
+  stroke: none;
+}
+
+.site-wallpaper__motif--hero .site-wallpaper__stroke {
+  stroke-opacity: 0.08;
+}
+
+/* Programação — traço um pouco mais presente na faixa musical */
+.site-wallpaper__motif--musica .site-wallpaper__staff,
+.site-wallpaper__motif--musica .site-wallpaper__clef {
+  stroke-opacity: 0.16;
+}
+
+.site-wallpaper__motif--musica .site-wallpaper__stroke {
+  stroke-opacity: 0.17;
+}
+
+.site-wallpaper__motif--musica .site-wallpaper__stroke--accent-2 {
+  stroke-opacity: 0.15;
+}
+
+.site-wallpaper__motif--musica .site-wallpaper__chain {
+  stroke-opacity: 0.14;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-wallpaper {
+    opacity: 0.9;
+  }
+}

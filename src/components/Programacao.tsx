@@ -2,6 +2,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AppLink } from "@/components/AppLink";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { SectionOrnament } from "@/components/SectionOrnament";
 import { SectionReveal } from "@/components/SectionReveal";
 import { useReservation } from "@/hooks/useReservation";
 import { CTA_LABELS } from "@/lib/cta-labels";
@@ -438,6 +439,7 @@ export function Programacao() {
 
   return (
     <section id="programacao" className="section-canvas section-padding">
+      <SectionOrnament variant="programacao" />
       <div className="mx-auto max-w-6xl">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"
@@ -490,7 +492,7 @@ export function Programacao() {
           </SectionReveal>
         )}
 
-        <div className="sticky top-14 z-20 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background/95 px-5 py-4 backdrop-blur-md md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
+        <div className="sticky top-14 z-20 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background/55 px-5 py-4 backdrop-blur-sm md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
           <MonthNav
             viewMonth={viewMonth}
             onPrev={() => setViewMonth((current) => shiftMonth(current, -1))}

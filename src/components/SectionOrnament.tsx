@@ -1,4 +1,6 @@
-type SectionOrnamentVariant =
+import "@/styles/section-ornament.css";
+
+export type SectionOrnamentVariant =
   | "home"
   | "today"
   | "dates"
@@ -14,9 +16,11 @@ type SectionOrnamentProps = {
   className?: string;
 };
 
+/** Cipó / flourish editorial — papel de parede sutil atrás do conteúdo da seção. */
 export function SectionOrnament({ variant, className = "" }: SectionOrnamentProps) {
   const baseClass = "section-ornament";
   const variantClass = `${baseClass}--${variant}`;
+  const svgClass = `${baseClass} ${variantClass}${className ? ` ${className}` : ""}`;
 
   if (variant === "silent") return null;
 
@@ -24,7 +28,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "home":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 400"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden
@@ -49,7 +53,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "today":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 200"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden
@@ -66,7 +70,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "dates":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 400"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden
@@ -96,7 +100,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "experiencias":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 400"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden
@@ -127,7 +131,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "programacao":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 400"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden
@@ -161,7 +165,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "curadoria":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 400"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden
@@ -183,7 +187,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "visite":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 400"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden
@@ -208,7 +212,7 @@ export function SectionOrnament({ variant, className = "" }: SectionOrnamentProp
     case "editorial":
       return (
         <svg
-          className={`${baseClass} ${variantClass}`}
+          className={svgClass}
           viewBox="0 0 600 400"
           preserveAspectRatio="xMidYMid slice"
           aria-hidden

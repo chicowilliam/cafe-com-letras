@@ -1,0 +1,101 @@
+/* Papel de parede editorial — mesma família linear da História (cipó / flourish). */
+.section-ornament {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.section-canvas:has(> .section-ornament) > *:not(.section-ornament),
+footer.section-canvas:has(> .section-ornament) > *:not(.section-ornament) {
+  position: relative;
+  z-index: 1;
+}
+
+.section-ornament__stem {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.16;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.section-ornament__stem--accent-2 {
+  stroke: var(--accent-2);
+  stroke-opacity: 0.13;
+}
+
+.section-ornament__thorn {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.14;
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.section-ornament__thorn--accent-2 {
+  stroke: var(--accent-2);
+  stroke-opacity: 0.12;
+}
+
+.section-ornament__chain ellipse {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.12;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.section-ornament__staff path,
+.section-ornament__flourish path {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-opacity: 0.12;
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.section-ornament__clef {
+  stroke-opacity: 0.1;
+}
+
+/* Variantes mais quietas (faixas curtas / galeria) */
+.section-ornament--today .section-ornament__stem,
+.section-ornament--home .section-ornament__stem {
+  stroke-opacity: 0.12;
+}
+
+.section-ornament--today .section-ornament__stem--accent-2,
+.section-ornament--home .section-ornament__stem--accent-2 {
+  stroke-opacity: 0.1;
+}
+
+.section-ornament--programacao .section-ornament__stem {
+  stroke-opacity: 0.18;
+}
+
+.section-ornament--programacao .section-ornament__stem--accent-2 {
+  stroke-opacity: 0.15;
+}
+
+.section-ornament--programacao .section-ornament__staff path,
+.section-ornament--programacao .section-ornament__flourish path {
+  stroke-opacity: 0.15;
+}
+
+.section-ornament--programacao .section-ornament__clef {
+  stroke-opacity: 0.14;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-ornament {
+    opacity: 0.85;
+  }
+}
