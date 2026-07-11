@@ -624,7 +624,7 @@ function ReelFrostedCaption({
         </h3>
 
         <p
-          className={`mt-1.5 line-clamp-2 text-[12px] leading-relaxed text-stone-300 transition-opacity duration-500 motion-reduce:transition-none ${
+          className={`mt-1.5 line-clamp-2 font-garamond text-[12.5px] italic leading-[1.45] text-stone-200/90 transition-opacity duration-500 motion-reduce:transition-none ${
             visible ? "opacity-100" : "opacity-0"
           }`}
           style={stagger(220)}
@@ -796,7 +796,7 @@ function CuradoriaEditorialPanel({
 
   return (
     <div
-      className="relative flex min-w-0 flex-col justify-center self-stretch py-4"
+      className="relative flex min-w-0 flex-col items-center justify-center self-stretch px-1 py-6"
       style={{ minHeight: TRIPTYCH_HEIGHT }}
       aria-live="polite"
       aria-atomic="true"
@@ -831,7 +831,7 @@ function CuradoriaEditorialPanel({
       <AnimatePresence mode="wait" initial={false}>
         <m.div
           key={prato.id}
-          className="relative z-[1] max-w-[15.5rem] px-1 xl:max-w-[17rem]"
+          className="relative z-[1] mx-auto flex w-full max-w-[14.5rem] flex-col items-center text-center xl:max-w-[16rem]"
           style={compositorStyle}
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -839,12 +839,21 @@ function CuradoriaEditorialPanel({
           transition={motionTransition}
         >
           <p className="section-caption !text-accent">{prato.tag}</p>
-          <span aria-hidden className="mt-3 block h-px w-10 bg-accent/55" />
-          <h3 className="mt-4 font-display text-[clamp(1.375rem,2vw,1.875rem)] leading-[1.08] tracking-tight text-foreground text-balance">
+          <span
+            aria-hidden
+            className="mt-3.5 block h-px w-8 bg-gradient-to-r from-transparent via-accent/70 to-transparent"
+          />
+          <h3 className="mt-5 font-display text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.05] tracking-tight text-foreground text-balance">
             {prato.nome}
           </h3>
-          <p className="section-prose mt-4 leading-relaxed">{prato.descricao}</p>
-          <p className="section-caption mt-7 text-foreground-muted/70">
+          <p className="text-lead mx-auto mt-4 max-w-[13.5rem] text-[clamp(0.9375rem,1.35vw,1.0625rem)] leading-[1.62] text-pretty xl:max-w-[14.5rem]">
+            {prato.descricao}
+          </p>
+          <span
+            aria-hidden
+            className="mt-6 block h-px w-6 bg-accent/35"
+          />
+          <p className="section-caption mt-3 text-foreground-muted/65">
             {padIndex(activeIndex + 1)} · Seleção da semana
           </p>
         </m.div>
@@ -1145,7 +1154,7 @@ export function CuradoriaSemanal() {
     <section id="curadoria-da-semana" className="section-canvas section-canvas--shift section-padding">
       <div className="mx-auto max-w-6xl">
         {isDesktopLayout ? (
-          <div className="grid grid-cols-[minmax(0,1fr)_minmax(11rem,13.5rem)_auto] items-center gap-x-8 xl:gap-x-10">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(12.5rem,15.5rem)_auto] items-center gap-x-8 xl:gap-x-10">
             <aside className="relative mb-0 self-start pr-6 text-left xl:pr-8 lg:sticky lg:top-24">
               <span
                 aria-hidden
@@ -1160,7 +1169,7 @@ export function CuradoriaSemanal() {
                 editorial
               />
               <SectionReveal variant="line-mask">
-                <p className="section-prose mt-4 max-w-sm lg:text-base">
+                <p className="text-lead mt-5 max-w-[22rem] text-[clamp(1.0625rem,1.9vw,1.2rem)] leading-[1.55]">
                   Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                   semanal do que há de mais refinado no Café com Letras.
                 </p>
@@ -1222,7 +1231,7 @@ export function CuradoriaSemanal() {
                 editorial
               />
               <SectionReveal variant="line-mask">
-                <p className="section-prose mx-auto mt-2 max-w-md text-center drop-shadow-sm">
+                <p className="text-lead mx-auto mt-3 max-w-md text-center text-[clamp(1.0625rem,3.4vw,1.1875rem)] leading-[1.55] drop-shadow-sm">
                   Três escolhas da cozinha e do bar, capturadas em vídeo — uma vitrine
                   semanal do que há de mais refinado no Café com Letras.
                 </p>
