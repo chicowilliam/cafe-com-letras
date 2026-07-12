@@ -1,4 +1,4 @@
-/* Papel de parede editorial — mesma família linear da História (cipó / flourish). */
+/* Papel de parede editorial — eco local (nunca guilhotina nas bordas). */
 .section-ornament {
   position: absolute;
   inset: 0;
@@ -7,6 +7,21 @@
   height: 100%;
   overflow: hidden;
   pointer-events: none;
+  /* Some no ar no topo e no rodapé — evita costura entre seções */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
 }
 
 .section-canvas:has(> .section-ornament) > *:not(.section-ornament),
@@ -18,7 +33,7 @@ footer.section-canvas:has(> .section-ornament) > *:not(.section-ornament) {
 .section-ornament__stem {
   fill: none;
   stroke: var(--accent);
-  stroke-opacity: 0.16;
+  stroke-opacity: 0.2;
   stroke-width: 1.15;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -27,7 +42,7 @@ footer.section-canvas:has(> .section-ornament) > *:not(.section-ornament) {
 
 .section-ornament__stem--accent-2 {
   stroke: var(--accent-2);
-  stroke-opacity: 0.13;
+  stroke-opacity: 0.17;
 }
 
 .section-ornament__thorn {
@@ -92,6 +107,25 @@ footer.section-canvas:has(> .section-ornament) > *:not(.section-ornament) {
 
 .section-ornament--programacao .section-ornament__clef {
   stroke-opacity: 0.14;
+}
+
+/* Rodapé da Programação — papel some no ar antes do capítulo 05 */
+#programacao > .section-ornament--programacao {
+  inset: 0 0 -1.5rem 0;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 62%,
+    rgba(0, 0, 0, 0.5) 82%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 62%,
+    rgba(0, 0, 0, 0.5) 82%,
+    transparent 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -13,7 +13,7 @@ export function Reconhecimentos() {
   return (
     <section
       aria-label="Reconhecimentos culturais"
-      className="section-ribbon section-canvas relative z-[1] overflow-x-clip px-5 py-10 md:px-8 md:py-12"
+      className="section-ribbon section-canvas relative z-[1] overflow-hidden px-5 py-10 md:px-8 md:py-12"
     >
       <SectionOrnament variant="editorial" />
       <SectionReveal variant="subtle">
