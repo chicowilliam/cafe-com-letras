@@ -53,14 +53,6 @@ export function ExperienceHubTriptych({
     [activeIndex, clearHoverTimer, onActiveIndexChange, perfMode, reduceMotion],
   );
 
-  const handlePanelActivate = useCallback(
-    (index: number) => {
-      clearHoverTimer();
-      onActiveIndexChange(index);
-    },
-    [clearHoverTimer, onActiveIndexChange],
-  );
-
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowLeft") {
@@ -78,7 +70,7 @@ export function ExperienceHubTriptych({
   return (
     <div
       className="exp-hub-editorial-wrap"
-      role="tablist"
+      role="list"
       aria-label="Experiências — tríptico editorial"
       onKeyDown={handleKeyDown}
       onMouseLeave={clearHoverTimer}
@@ -93,7 +85,6 @@ export function ExperienceHubTriptych({
               isActive={activeIndex === index}
               reduceMotion={reduceMotion || perfMode}
               onHover={() => handlePanelHover(index)}
-              onActivate={() => handlePanelActivate(index)}
             />
           ))}
         </div>
