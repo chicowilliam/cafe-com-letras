@@ -17,6 +17,7 @@ import CardapioPage from "@/pages/CardapioPage";
 import ExperienciasPage from "@/pages/ExperienciasPage";
 import HappyHourPage from "@/pages/HappyHourPage";
 import NoiteDosDatesPage from "@/pages/NoiteDosDatesPage";
+import ProgramacaoPage from "@/pages/ProgramacaoPage";
 import "./index.css";
 
 if (import.meta.env.DEV) {
@@ -43,6 +44,7 @@ function Root() {
             <Routes>
               <Route element={<AppShell />}>
                 <Route path="/" element={<App />} />
+                <Route path="/programacao" element={<ProgramacaoPage />} />
                 <Route path="/cardapio" element={<CardapioPage />} />
                 <Route path="/experiencias" element={<ExperienciasPage />} />
                 <Route path="/cafe-da-tarde" element={<CafeDaTardePage />} />
