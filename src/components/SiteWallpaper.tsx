@@ -1,10 +1,16 @@
-/** Papel de parede contínuo — motivos densos nas laterais, ao longo de toda a home. */
-export function SiteWallpaper() {
+/** Papel de parede contínuo — motivos densos nas laterais. */
+type SiteWallpaperProps = {
+  /** fixed = viewport (AppShell); absolute = bounded by home-shell (legacy). */
+  mode?: "fixed" | "absolute";
+};
+
+export function SiteWallpaper({ mode = "fixed" }: SiteWallpaperProps) {
   return (
     <svg
-      className="site-wallpaper"
+      className={`site-wallpaper site-wallpaper--${mode}`}
       viewBox="0 0 800 4800"
-      preserveAspectRatio="xMidYMin slice"
+      /* No viewport, slice mantém as laterais (altura da tela << arte). */
+      preserveAspectRatio="xMidYMid slice"
       aria-hidden
     >
       {/* Hero — mínimo */}
