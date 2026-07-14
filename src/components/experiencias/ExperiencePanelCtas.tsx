@@ -29,6 +29,7 @@ export function ExperiencePanelCtas({
       : CTA_LABELS.reserve);
 
   const handleReserve = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     event.stopPropagation();
     if (entry.id === "noite-dos-dates") {
       openCheckout({ theme: "dates" });
@@ -38,7 +39,7 @@ export function ExperiencePanelCtas({
   };
 
   return (
-    <div className={className}>
+    <div className={`${className} exp-hub-editorial__cta-row--interactive`}>
       <AppLink
         to={entry.href}
         className={primaryClassName}
