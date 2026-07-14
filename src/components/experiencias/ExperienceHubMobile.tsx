@@ -1,4 +1,6 @@
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
+import { AppLink } from "@/components/AppLink";
 import { ExperiencePanelCtas } from "@/components/experiencias/ExperiencePanelCtas";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 import { hubContentContainerVariants, hubContentItemVariants } from "@/lib/motion-presets";
@@ -7,12 +9,15 @@ type ExperienceHubMobileProps = {
   entries: readonly ExperienciaCatalogEntry[];
   activeIndex: number;
   onSelect: (index: number) => void;
+  /** Filtros logo abaixo da grade — evita distância do detalhe expandido. */
+  filters?: ReactNode;
 };
 
 export function ExperienceHubMobile({
   entries,
   activeIndex,
   onSelect,
+  filters,
 }: ExperienceHubMobileProps) {
   const reduceMotion = useReducedMotion();
   const activeEntry = entries[activeIndex] ?? entries[0];
@@ -44,20 +49,20 @@ export function ExperienceHubMobile({
     <div className="exp-hub-mobile">
       <div
         className="exp-hub-mobile__grid"
-        role="tablist"
+        role="list"
         aria-label="Experiências gastronômicas"
       >
         {entries.map((entry, index) => {
           const isActive = activeIndex === index;
           return (
-            <button
+            <AppLink
               key={entry.id}
-              type="button"
-              role="tab"
+              to={entry.href}
               id={`exp-hub-mobile-tab-${entry.id}`}
-              aria-selected={isActive}
-              aria-controls="exp-hub-mobile-detail"
-              onClick={() => onSelect(index)}
+              aria-current={isActive ? "page" : undefined}
+              aria-label={`${entry.title} — ${entry.timeBandLabel}. Ver experiência`}
+              onFocus={() => onSelect(index)}
+              onMouseEnter={() => onSelect(index)}
               className={`exp-hub-mobile__card exp-hub-mobile__card--${entry.id} focus-ring ${
                 isActive ? "is-active" : ""
               }`}
@@ -75,17 +80,21 @@ export function ExperienceHubMobile({
                 <span className="exp-hub-mobile__card-copy">
                   <span className="exp-hub-mobile__card-band">{entry.timeBandLabel}</span>
                   <span className="exp-hub-mobile__card-title">{entry.title}</span>
+                  <span className="exp-hub-mobile__card-meta">
+                    {entry.conversionHint ?? entry.scheduleShort}
+                  </span>
                 </span>
               </span>
-            </button>
+            </AppLink>
           );
         })}
       </div>
 
+      {filters ? <div className="exp-hub-mobile__filters">{filters}</div> : null}
+
       {reduceMotion ? (
         <article
           id="exp-hub-mobile-detail"
-          role="tabpanel"
           aria-labelledby={`exp-hub-mobile-tab-${activeEntry.id}`}
           className={`exp-hub-mobile__detail exp-hub-mobile__detail--${activeEntry.id}`}
         >
@@ -96,7 +105,6 @@ export function ExperienceHubMobile({
           <m.article
             key={activeEntry.id}
             id="exp-hub-mobile-detail"
-            role="tabpanel"
             aria-labelledby={`exp-hub-mobile-tab-${activeEntry.id}`}
             className={`exp-hub-mobile__detail exp-hub-mobile__detail--${activeEntry.id}`}
             variants={hubContentContainerVariants}
