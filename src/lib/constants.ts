@@ -3,7 +3,7 @@ export const NAV_LINKS = [
   { label: "Experiências", href: "/experiencias" },
   { label: "Cardápio", href: "/cardapio" },
   { label: "Curadoria da Semana", href: "#curadoria-da-semana" },
-  { label: "Programação", href: "#programacao" },
+  { label: "Programação", href: "/programacao" },
   { label: "História", href: "#sobre" },
   { label: "Galeria", href: "#galeria" },
 ] as const;
@@ -13,7 +13,7 @@ export const NAV_DESKTOP_LINKS = [
   { label: "Início", href: "#inicio" },
   { label: "Cardápio", href: "/cardapio" },
   { label: "Experiências", href: "/experiencias" },
-  { label: "Programação", href: "#programacao" },
+  { label: "Programação", href: "/programacao" },
   { label: "História", href: "#sobre" },
 ] as const;
 
