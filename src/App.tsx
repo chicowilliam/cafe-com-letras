@@ -5,9 +5,9 @@ import { ExecutiveLunchFab } from "@/components/ExecutiveLunchFab";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { HomeTodayRibbon } from "@/components/HomeTodayRibbon";
+import { Programacao } from "@/components/Programacao";
 import { SectionHandoff } from "@/components/SectionBridge";
 import { SectionSkeleton } from "@/components/SectionSkeleton";
-import { SiteWallpaper } from "@/components/SiteWallpaper";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 // PaletteSwitcher é ferramenta de preview: só carrega em desenvolvimento.
@@ -43,11 +43,6 @@ const CuradoriaSemanal = lazy(() =>
     default: module.CuradoriaSemanal,
   })),
 );
-const Programacao = lazy(() =>
-  import("@/components/Programacao").then((module) => ({
-    default: module.Programacao,
-  })),
-);
 const ImageMarquee = lazy(() =>
   import("@/components/ImageMarquee").then((module) => ({
     default: module.ImageMarquee,
@@ -69,8 +64,7 @@ export default function App() {
   return (
     <>
       <div className="home-shell">
-        <SiteWallpaper />
-
+        {/* Padrão decorativo: camada fixa no AppShell (não aqui) — evita sumir no scroll */}
         <main id="main">
           <Hero />
           <HomeTodayRibbon />
@@ -113,12 +107,11 @@ export default function App() {
             chapterIndex="04"
             chapterLabel="Programação"
             overlap="sm"
+            className="home-programacao-chapter"
           />
 
-          <div className="section-below-fold">
-            <Suspense fallback={<SectionSkeleton className="min-h-[80vh]" />}>
-              <Programacao />
-            </Suspense>
+          <div className="section-below-fold home-programacao-block">
+            <Programacao />
           </div>
 
           <SectionHandoff
