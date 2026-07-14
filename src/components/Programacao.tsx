@@ -1,9 +1,8 @@
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AppLink } from "@/components/AppLink";
-import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { SectionHeading } from "@/components/SectionHeading";
 import { SectionOrnament } from "@/components/SectionOrnament";
-import { SectionReveal } from "@/components/SectionReveal";
 import { useReservation } from "@/hooks/useReservation";
 import { CTA_LABELS } from "@/lib/cta-labels";
 import { getExperienciasAtivasHoje } from "@/lib/experiencias";
@@ -168,61 +167,59 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
   const dateTimeLabel = formatEventDateTime(event.date, event.time);
 
   return (
-    <SectionReveal variant="subtle">
-      <article className="mx-auto w-full max-w-4xl overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface-elevated shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_12px_32px_rgba(0,0,0,0.28)]">
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-stretch">
-          {event.image ? (
-            <div className="relative aspect-[2/1] overflow-hidden md:aspect-auto md:h-full md:min-h-0">
-              <img
-                src={event.image}
-                alt={event.title}
-                className="h-full w-full object-cover object-center"
-                loading="lazy"
-                decoding="async"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-surface/40"
-              />
-              <span className="absolute left-2.5 top-2.5">
-                <CategoryTag category={event.category} />
-              </span>
-            </div>
-          ) : (
+    <article className="relative z-0 mx-auto w-full max-w-4xl overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface-elevated shadow-[var(--shadow-card)]">
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-stretch">
+        {event.image ? (
+          <div className="relative aspect-[2/1] overflow-hidden md:aspect-auto md:h-full md:min-h-0">
+            <img
+              src={event.image}
+              alt={event.title}
+              className="h-full w-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
+            />
             <div
               aria-hidden
-              className="flex aspect-[2/1] items-end bg-gradient-to-br from-accent/10 to-surface p-3 md:aspect-auto md:h-full md:min-h-0"
-            >
+              className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-surface/40"
+            />
+            <span className="absolute left-2.5 top-2.5">
               <CategoryTag category={event.category} />
-            </div>
-          )}
+            </span>
+          </div>
+        ) : (
+          <div
+            aria-hidden
+            className="flex aspect-[2/1] items-end bg-gradient-to-br from-accent/10 to-surface p-3 md:aspect-auto md:h-full md:min-h-0"
+          >
+            <CategoryTag category={event.category} />
+          </div>
+        )}
 
-          <div className="flex flex-col justify-center p-4 md:p-5">
-            <p className="section-eyebrow mb-1.5 !text-[10px]">Destaque do mês</p>
-            <h3 className="font-display text-xl leading-tight tracking-tight text-foreground md:text-[1.375rem]">
-              {event.title}
-            </h3>
-            <p className="mt-1.5 text-[13px] text-foreground-muted">
-              <time dateTime={event.time ? `${event.date}T${event.time}` : event.date}>
-                {dateTimeLabel}
-              </time>
+        <div className="flex flex-col justify-center p-4 md:p-5">
+          <p className="section-eyebrow mb-1.5 !text-[10px]">Destaque do mês</p>
+          <h3 className="font-display text-xl leading-tight tracking-tight text-foreground md:text-[1.375rem]">
+            {event.title}
+          </h3>
+          <p className="mt-1.5 text-[13px] text-foreground-muted">
+            <time dateTime={event.time ? `${event.date}T${event.time}` : event.date}>
+              {dateTimeLabel}
+            </time>
+          </p>
+          {event.artist ? (
+            <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-foreground-muted">
+              {event.artist}
             </p>
-            {event.artist ? (
-              <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-foreground-muted">
-                {event.artist}
-              </p>
-            ) : event.description ? (
-              <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-foreground-muted">
-                {event.description}
-              </p>
-            ) : null}
-            <div className="mt-3.5 flex items-center gap-3">
-              <EventCta event={event} onReserve={onReserve} variant="featured" />
-            </div>
+          ) : event.description ? (
+            <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-foreground-muted">
+              {event.description}
+            </p>
+          ) : null}
+          <div className="mt-3.5 flex items-center gap-3">
+            <EventCta event={event} onReserve={onReserve} variant="featured" />
           </div>
         </div>
-      </article>
-    </SectionReveal>
+      </div>
+    </article>
   );
 }
 
@@ -336,8 +333,10 @@ type DayGroupProps = {
 
 function DayGroup({ date, events, onReserve, staggerIndex }: DayGroupProps) {
   return (
-    <SectionReveal variant="subtle" delay={0.04 * staggerIndex}>
-      <div className="grid grid-cols-1 gap-0 md:grid-cols-[5.5rem_minmax(0,1fr)] md:gap-x-8">
+    <div
+      className="grid grid-cols-1 gap-0 md:grid-cols-[5.5rem_minmax(0,1fr)] md:gap-x-8"
+      style={{ transitionDelay: `${0.04 * staggerIndex}s` }}
+    >
         <header className="mb-3 flex items-baseline gap-2 md:mb-0 md:flex-col md:gap-0 md:pt-5">
           <span
             aria-hidden
@@ -360,8 +359,7 @@ function DayGroup({ date, events, onReserve, staggerIndex }: DayGroupProps) {
             />
           ))}
         </div>
-      </div>
-    </SectionReveal>
+    </div>
   );
 }
 
@@ -377,29 +375,27 @@ function EmptyState({
   const monthLabel = formatMonthLabel(viewMonth);
 
   return (
-    <SectionReveal variant="subtle">
-      <div className="rounded-[var(--radius-md)] border border-dashed border-hairline bg-white/[0.02] px-6 py-14 text-center">
-        <span
-          aria-hidden
-          className="mx-auto mb-4 block h-px w-10 bg-accent/60"
-        />
-        <p className="font-display text-lg text-foreground">
-          {hasEventsInMonth
-            ? "Nenhum evento nesta categoria"
-            : `Nenhum evento em ${monthLabel}`}
+    <div className="rounded-[var(--radius-md)] border border-dashed border-hairline bg-white/[0.02] px-6 py-14 text-center">
+      <span
+        aria-hidden
+        className="mx-auto mb-4 block h-px w-10 bg-accent/60"
+      />
+      <p className="font-display text-lg text-foreground">
+        {hasEventsInMonth
+          ? "Nenhum evento nesta categoria"
+          : `Nenhum evento em ${monthLabel}`}
+      </p>
+      <p className="mx-auto mt-2 max-w-sm text-sm text-foreground-muted">
+        {hasEventsInMonth
+          ? "Experimente outro filtro ou volte para ver toda a programação do mês."
+          : "A agenda deste mês ainda está sendo curada. Navegue para outro mês ou volte em breve."}
+      </p>
+      {category !== "all" && hasEventsInMonth ? (
+        <p className="mt-3 text-xs text-foreground-muted/70">
+          Filtro ativo: {CATEGORY_CONFIG[category].label}
         </p>
-        <p className="mx-auto mt-2 max-w-sm text-sm text-foreground-muted">
-          {hasEventsInMonth
-            ? "Experimente outro filtro ou volte para ver toda a programação do mês."
-            : "A agenda deste mês ainda está sendo curada. Navegue para outro mês ou volte em breve."}
-        </p>
-        {category !== "all" && hasEventsInMonth ? (
-          <p className="mt-3 text-xs text-foreground-muted/70">
-            Filtro ativo: {CATEGORY_CONFIG[category].label}
-          </p>
-        ) : null}
-      </div>
-    </SectionReveal>
+      ) : null}
+    </div>
   );
 }
 
@@ -434,6 +430,7 @@ export function Programacao() {
   );
 
   const groupedDays = useMemo(() => groupEventsByDay(listEvents), [listEvents]);
+  const activeExperienciasHoje = useMemo(() => getExperienciasAtivasHoje(), []);
 
   const filterKey = `${toMonthKey(viewMonth)}-${category}`;
 
@@ -441,58 +438,55 @@ export function Programacao() {
     <section id="programacao" className="section-canvas section-padding overflow-x-hidden">
       <SectionOrnament variant="programacao" />
       <div className="mx-auto max-w-6xl">
-        <AnimatedSectionHeading
+        <SectionHeading
           className="mb-8 md:mb-10"
           eyebrow="Agenda cultural"
           title="Programação"
           kicker="Jazz, piano bar, lançamentos e saraus — curada mês a mês na Savassi."
-          editorial
         />
-        {getExperienciasAtivasHoje().length > 0 && (
-          <SectionReveal variant="subtle">
-            <div className="mb-6 space-y-3">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="section-caption !mb-0">Hoje na casa</p>
-                <AppLink
-                  to="/experiencias"
-                  className="focus-ring text-xs font-medium text-accent transition-colors hover:text-accent/80"
-                >
-                  Ver hub de experiências
-                </AppLink>
-              </div>
-              {getExperienciasAtivasHoje().map((experiencia) => (
-                <AppLink
-                  key={experiencia.id}
-                  to={`/experiencias?highlight=${experiencia.id}`}
-                  className="focus-ring flex items-center gap-4 rounded-md border border-accent/20 bg-accent/8 px-5 py-4 transition-colors hover:border-accent/35 hover:bg-accent/12"
-                >
-                  <span className="relative flex h-2.5 w-2.5 shrink-0">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
-                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-foreground">
-                      Hoje: {experiencia.title}
-                    </p>
-                    <p className="mt-0.5 text-xs text-foreground-muted">
-                      {experiencia.scheduleShort}
-                    </p>
-                  </div>
-                  <img
-                    src={experiencia.image}
-                    alt=""
-                    aria-hidden
-                    className="ml-auto hidden h-12 w-12 shrink-0 rounded-sm object-cover sm:block"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </AppLink>
-              ))}
+        {activeExperienciasHoje.length > 0 && (
+          <div className="relative z-0 mb-6 space-y-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="section-caption !mb-0">Hoje na casa</p>
+              <AppLink
+                to="/experiencias"
+                className="focus-ring text-xs font-medium text-accent transition-colors hover:text-accent/80"
+              >
+                Ver hub de experiências
+              </AppLink>
             </div>
-          </SectionReveal>
+            {activeExperienciasHoje.map((experiencia) => (
+              <AppLink
+                key={experiencia.id}
+                to={`/experiencias?highlight=${experiencia.id}`}
+                className="focus-ring relative z-0 flex items-center gap-4 rounded-md border border-accent/20 bg-accent/8 px-5 py-4 shadow-[var(--shadow-card)] transition-colors hover:border-accent/35 hover:bg-accent/12"
+              >
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-foreground">
+                    Hoje: {experiencia.title}
+                  </p>
+                  <p className="mt-0.5 text-xs text-foreground-muted">
+                    {experiencia.scheduleShort}
+                  </p>
+                </div>
+                <img
+                  src={experiencia.image}
+                  alt=""
+                  aria-hidden
+                  className="ml-auto hidden h-12 w-12 shrink-0 rounded-sm object-cover sm:block"
+                  loading="eager"
+                  decoding="async"
+                />
+              </AppLink>
+            ))}
+          </div>
         )}
 
-        <div className="sticky top-14 z-20 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background/55 px-5 py-4 backdrop-blur-sm md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
+        <div className="sticky top-16 z-30 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background/92 px-5 py-4 shadow-[0_10px_28px_rgba(0,0,0,0.22)] md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:shadow-none">
           <MonthNav
             viewMonth={viewMonth}
             onPrev={() => setViewMonth((current) => shiftMonth(current, -1))}
@@ -503,7 +497,7 @@ export function Programacao() {
 
         <div
           key={filterKey}
-          className="motion-safe:animate-[programacao-fade_0.45s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+          className="relative z-0"
         >
           {filteredEvents.length === 0 ? (
             <EmptyState
