@@ -8,6 +8,7 @@ export type SubpageChromeConfig = {
   backLabel?: string;
   navEyebrow?: string;
   scrollAware?: boolean;
+  endAction?: "brand" | "home" | "none";
 };
 
 export const SUBPAGE_CHROME: Record<string, SubpageChromeConfig> = {
@@ -15,11 +16,20 @@ export const SUBPAGE_CHROME: Record<string, SubpageChromeConfig> = {
     title: "Cardápio",
     backHref: "/",
     backLabel: "Voltar",
+    navEyebrow: "Savassi · Belo Horizonte",
+    endAction: "home",
   },
   "/experiencias": {
     title: "Experiências",
     backHref: "/",
     backLabel: "Voltar",
+  },
+  "/programacao": {
+    title: "Programação",
+    backHref: "/",
+    backLabel: "Voltar",
+    navEyebrow: "Agenda cultural",
+    endAction: "home",
   },
   "/cafe-da-tarde": {
     title: "Café da Tarde",
