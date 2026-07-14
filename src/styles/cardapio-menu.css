@@ -62,9 +62,8 @@
   border: 1px solid var(--cardapio-paper-edge);
   background: var(--cardapio-paper);
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.03),
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    0 10px 28px rgba(0, 0, 0, 0.22);
+    0 0 0 1px color-mix(in srgb, var(--print-ink, #2a2820) 5%, transparent),
+    var(--shadow-image-contact);
   transition:
     box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -73,10 +72,8 @@
 [data-page="cardapio"] .cardapio-sheet--active .cardapio-sheet__frame {
   transform: translateY(-2px) scale(1.005);
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.04),
-    0 4px 8px rgba(0, 0, 0, 0.12),
-    0 16px 40px rgba(0, 0, 0, 0.28),
-    0 28px 56px rgba(0, 0, 0, 0.16);
+    0 0 0 1px color-mix(in srgb, var(--print-price, #6b4f1a) 12%, transparent),
+    var(--shadow-contact-strong);
 }
 
 [data-page="cardapio"] .cardapio-sheet__frame::before {
@@ -223,38 +220,261 @@
   border-radius: var(--cardapio-sheet-radius);
   border: 1px solid var(--cardapio-paper-edge, #d4cdc0);
   background: var(--cardapio-paper-warm, #f5f0e6);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--print-ink, #2a2820) 4%, transparent),
-    0 4px 16px rgba(18, 17, 13, 0.08);
+  box-shadow: var(--shadow-contact);
   transition:
     box-shadow 0.35s ease,
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
 }
 
 [data-page="cardapio"] .cardapio-lang-card:hover {
   transform: translateY(-2px) scale(1.01);
+  border-color: color-mix(in srgb, var(--print-price, #6b4f1a) 35%, var(--cardapio-paper-edge, #d4cdc0));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--print-price, #6b4f1a) 20%, transparent),
-    0 8px 24px rgba(18, 17, 13, 0.12);
+    0 0 0 1px color-mix(in srgb, var(--print-price, #6b4f1a) 18%, transparent),
+    var(--shadow-contact-strong);
 }
 
 [data-page="cardapio"] .cardapio-lang-card__cover {
+  position: relative;
   overflow: hidden;
-  aspect-ratio: 3 / 4;
+  /* ~+10% altura vs 3/4; object-fit: cover preserva a foto */
+  aspect-ratio: 3 / 4.4;
   border-bottom: 1px solid var(--cardapio-paper-edge);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
+[data-page="cardapio"] .cardapio-lang-card__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  /* Favorece o centro da foto; a faixa tipográfica da capa fica na base e é mascarada */
+  object-position: center 28%;
+  transform: scale(1);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-page="cardapio"] .cardapio-lang-card:hover .cardapio-lang-card__image {
+  transform: scale(1.045);
+}
+
+/* Máscara opaca — esconde "PORTUGUÊS" / "ENGLISH" embutidos na imagem */
+[data-page="cardapio"] .cardapio-lang-card__band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, #16130f 72%, transparent) 28%,
+    #16130f 58%,
+    #16130f 100%
+  );
+  pointer-events: none;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 48%,
+      color-mix(in srgb, #1a1712 28%, transparent) 78%,
+      color-mix(in srgb, #1a1712 55%, transparent) 100%
+    );
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+[data-page="cardapio"] .cardapio-lang-card:hover .cardapio-lang-card__scrim {
+  opacity: 1;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, #1a1712 14%, transparent) 0%,
+      color-mix(in srgb, #1a1712 38%, transparent) 55%,
+      color-mix(in srgb, #1a1712 62%, transparent) 100%
+    );
+}
+
+[data-page="cardapio"] .cardapio-lang-card__caption {
+  position: absolute;
+  left: 0.875rem;
+  right: 0.875rem;
+  bottom: 0.95rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 1px solid color-mix(in srgb, var(--print-price, #d4a373) 70%, #fff);
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: color-mix(in srgb, #f7f1e6 92%, transparent);
+  background: color-mix(in srgb, #1a1712 28%, transparent);
+  transform: rotate(-8deg);
+}
+
+[data-page="cardapio"] .cardapio-lang-card__language {
+  margin: 0;
+  font-family: var(--font-garamond);
+  font-size: clamp(1.35rem, 3.8vw, 1.75rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  text-transform: none;
+  color: #f7f1e6;
+  text-shadow: 0 1px 10px color-mix(in srgb, #1a1712 45%, transparent);
+}
+
+[data-page="cardapio"] .cardapio-lang-card__rule {
+  display: block;
+  width: 2.25rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--print-price, #d4a373) 85%, #fff);
+  opacity: 0.9;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-page="cardapio"] .cardapio-lang-card:hover .cardapio-lang-card__rule {
+  width: 3.25rem;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__arrow {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, #f7f1e6 35%, transparent);
+  background: color-mix(in srgb, #1a1712 42%, transparent);
+  color: #f7f1e6;
+  opacity: 0;
+  transform: translate(4px, -4px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+[data-page="cardapio"] .cardapio-lang-card:hover .cardapio-lang-card__arrow,
+[data-page="cardapio"] .cardapio-lang-card:focus-visible .cardapio-lang-card__arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 [data-page="cardapio"] .cardapio-lang-card__footer {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
   border-top: 1px solid var(--cardapio-paper-edge, #d4cdc0);
-  background: color-mix(in srgb, var(--cardapio-paper-edge, #d4cdc0) 22%, var(--cardapio-paper, #ede8dc));
-  padding: 0.875rem 1rem;
+  padding: 0.9rem 1rem 1rem;
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--cardapio-paper-warm, #f5f0e6) 88%, #fff) 0%,
+      color-mix(in srgb, var(--cardapio-paper, #ede8dc) 92%, var(--cardapio-paper-edge, #d4cdc0)) 100%
+    );
+  isolation: isolate;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.14;
+  background-image: repeating-linear-gradient(
+    -12deg,
+    transparent,
+    transparent 11px,
+    color-mix(in srgb, var(--print-ink, #2a2820) 22%, transparent) 11px,
+    color-mix(in srgb, var(--print-ink, #2a2820) 22%, transparent) 12px
+  );
+  pointer-events: none;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__icon,
+[data-page="cardapio"] .cardapio-lang-card__meta {
+  position: relative;
+  z-index: 1;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__meta {
+  min-width: 0;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: color-mix(in srgb, var(--print-price, #6b4f1a) 88%, var(--print-ink, #2a2820));
+  opacity: 0.85;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--print-ink, #2a2820);
+}
+
+[data-page="cardapio"] .cardapio-lang-card__hint {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 450;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  color: var(--print-ink-muted, #5c574c);
+}
+
+@media (min-width: 768px) {
+  [data-page="cardapio"] .cardapio-lang-card__title {
+    font-size: 1.0625rem;
+  }
+
+  [data-page="cardapio"] .cardapio-lang-card__hint {
+    font-size: 0.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   [data-page="cardapio"] .cardapio-sheet,
   [data-page="cardapio"] .cardapio-sheet__frame,
-  [data-page="cardapio"] .cardapio-lang-card {
+  [data-page="cardapio"] .cardapio-lang-card,
+  [data-page="cardapio"] .cardapio-lang-card__image,
+  [data-page="cardapio"] .cardapio-lang-card__scrim,
+  [data-page="cardapio"] .cardapio-lang-card__rule,
+  [data-page="cardapio"] .cardapio-lang-card__arrow {
     transition: none;
   }
 
@@ -267,6 +487,15 @@
   }
 
   [data-page="cardapio"] .cardapio-lang-card:hover {
+    transform: none;
+  }
+
+  [data-page="cardapio"] .cardapio-lang-card:hover .cardapio-lang-card__image {
+    transform: none;
+  }
+
+  [data-page="cardapio"] .cardapio-lang-card__arrow {
+    opacity: 1;
     transform: none;
   }
 }
