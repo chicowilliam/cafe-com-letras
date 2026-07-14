@@ -8,6 +8,7 @@ type ExperienceHubCommandBarProps = {
   onSelect: (index: number) => void;
 };
 
+/** Intro acima dos cards: subtítulo + badge “Hoje na casa”. */
 export function ExperienceHubCommandBar({
   entries,
   activeIndex,
@@ -22,37 +23,14 @@ export function ExperienceHubCommandBar({
 
   return (
     <div className="exp-hub-command-bar">
-      <p className="exp-hub-command-bar__subtitle">
-        Da tarde descontraída ao romance da noite — três momentos na Savassi.
-      </p>
+      <div className="exp-hub-command-bar__intro">
+        <p className="exp-hub-command-bar__subtitle">
+          Da tarde descontraída ao romance da noite — três momentos na Savassi.
+        </p>
 
-      <div className="exp-hub-command-bar__row">
         <div
-          className="exp-hub-command-bar__pills"
-          role="tablist"
-          aria-label="Seleção de experiências"
+          className={`exp-hub-command-bar__today exp-hub-command-bar__today--${entries[activeIndex]?.id ?? "cafe-da-tarde"}`}
         >
-          {entries.map((entry, index) => (
-            <button
-              key={entry.id}
-              type="button"
-              role="tab"
-              id={`exp-hub-control-tab-${entry.id}`}
-              aria-selected={activeIndex === index}
-              aria-controls={`exp-hub-panel-${entry.id}`}
-              aria-label={`Ir para ${entry.title}`}
-              onClick={() => onSelect(index)}
-              className={`exp-hub-command-bar__pill exp-hub-command-bar__pill--${entry.id} focus-ring ${
-                activeIndex === index ? "is-active" : ""
-              }`}
-              style={{ transitionTimingFunction: PREMIUM_EASE }}
-            >
-              {entry.timeBandLabel}
-            </button>
-          ))}
-        </div>
-
-        <div className="exp-hub-command-bar__today">
           <span className="exp-hub-command-bar__today-label">Hoje na casa</span>
           {activeToday.length > 0 ? (
             <div className="exp-hub-command-bar__today-chips">
@@ -76,6 +54,46 @@ export function ExperienceHubCommandBar({
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+type ExperienceHubFiltersProps = {
+  entries: readonly ExperienciaCatalogEntry[];
+  activeIndex: number;
+  onSelect: (index: number) => void;
+};
+
+/** Filtros TARDE / ENTARDECER / NOITE — abaixo da grade de cards. */
+export function ExperienceHubFilters({
+  entries,
+  activeIndex,
+  onSelect,
+}: ExperienceHubFiltersProps) {
+  return (
+    <div
+      className="exp-hub-command-bar__filters"
+      role="tablist"
+      aria-label="Seleção de experiências"
+    >
+      {entries.map((entry, index) => (
+        <button
+          key={entry.id}
+          type="button"
+          role="tab"
+          id={`exp-hub-control-tab-${entry.id}`}
+          aria-selected={activeIndex === index}
+          aria-controls={`exp-hub-panel-${entry.id}`}
+          aria-label={`Destacar ${entry.title}`}
+          onClick={() => onSelect(index)}
+          className={`exp-hub-command-bar__pill exp-hub-command-bar__pill--${entry.id} focus-ring ${
+            activeIndex === index ? "is-active" : ""
+          }`}
+          style={{ transitionTimingFunction: PREMIUM_EASE }}
+        >
+          {entry.timeBandLabel}
+        </button>
+      ))}
     </div>
   );
 }
