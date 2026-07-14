@@ -1,5 +1,6 @@
 import { AnimatePresence, m } from "framer-motion";
 import { memo } from "react";
+import { AppLink } from "@/components/AppLink";
 import { ExperiencePanelCtas } from "@/components/experiencias/ExperiencePanelCtas";
 import { useExpHubChrome } from "@/hooks/useExpHubChrome";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
@@ -19,7 +20,6 @@ type ExperienceHubTriptychPanelProps = {
   index: number;
   isActive: boolean;
   reduceMotion: boolean;
-  onActivate: () => void;
   onHover: () => void;
 };
 
@@ -57,7 +57,15 @@ function PanelContent({
             <h2 className="exp-hub-editorial__title exp-hub-editorial__title--compact font-display">
               {entry.title}
             </h2>
-            <p className="exp-hub-editorial__schedule">{entry.scheduleShort}</p>
+            <p className="exp-hub-editorial__compact-tagline">{entry.tagline}</p>
+            <p className="exp-hub-editorial__compact-meta">
+              {entry.conversionHint ?? entry.scheduleShort}
+            </p>
+            <ul className="exp-hub-editorial__compact-highlights" aria-hidden>
+              {entry.highlights.slice(0, 2).map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </>
         )}
       </div>
@@ -121,7 +129,15 @@ function PanelContent({
             <h2 className="exp-hub-editorial__title exp-hub-editorial__title--compact font-display">
               {entry.title}
             </h2>
-            <p className="exp-hub-editorial__schedule">{entry.scheduleShort}</p>
+            <p className="exp-hub-editorial__compact-tagline">{entry.tagline}</p>
+            <p className="exp-hub-editorial__compact-meta">
+              {entry.conversionHint ?? entry.scheduleShort}
+            </p>
+            <ul className="exp-hub-editorial__compact-highlights" aria-hidden>
+              {entry.highlights.slice(0, 2).map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </m.div>
         )}
       </AnimatePresence>
@@ -134,13 +150,12 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
   index,
   isActive,
   reduceMotion,
-  onActivate,
   onHover,
 }: ExperienceHubTriptychPanelProps) {
   const { isTransitioning } = useExpHubChrome();
   const simplifyMotion = reduceMotion || isTransitioning;
   const flexGrow = isActive ? ACTIVE_PANEL_FLEX : INACTIVE_PANEL_FLEX;
-  const panelClassName = `exp-hub-editorial__panel exp-hub-editorial__panel--${entry.id} focus-ring${
+  const panelClassName = `exp-hub-editorial__panel exp-hub-editorial__panel--${entry.id}${
     isActive ? " is-active" : ""
   }`;
   const overlayClassName = `exp-hub-editorial__overlay${
@@ -149,22 +164,22 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
   const imageLoading = index === 0 || isActive ? "eager" : "lazy";
 
   return (
-    <button
-      type="button"
-      role="tab"
+    <article
       id={`exp-hub-tab-${entry.id}`}
-      aria-selected={isActive}
-      aria-controls={`exp-hub-panel-${entry.id}`}
-      aria-label={`${entry.title} — ${entry.timeBandLabel}`}
-      onClick={onActivate}
-      onMouseEnter={onHover}
       className={panelClassName}
       style={{ flexGrow, flexBasis: 0 }}
+      onMouseEnter={onHover}
+      onFocusCapture={onHover}
     >
+      {/* Hit area — card inteiro navega; CTAs ficam acima (z-index) */}
+      <AppLink
+        to={entry.href}
+        className="exp-hub-editorial__panel-hit focus-ring"
+        aria-label={`${entry.title} — ${entry.timeBandLabel}. Ver experiência`}
+      />
+
       <div
         id={`exp-hub-panel-${entry.id}`}
-        role="tabpanel"
-        aria-labelledby={`exp-hub-tab-${entry.id}`}
         className="exp-hub-editorial__panel-inner"
       >
         {simplifyMotion ? (
@@ -201,6 +216,6 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
       <span className="sr-only">
         Painel {index + 1}: {entry.title}
       </span>
-    </button>
+    </article>
   );
 });
