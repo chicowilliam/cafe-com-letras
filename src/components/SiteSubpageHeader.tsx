@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Home } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
 import { ExperienceHubNavAmbient } from "@/components/experiencias/ExperienceHubNavAmbient";
 import { useScrollNavbarVisibility } from "@/hooks/useScrollNavbarVisibility";
@@ -11,6 +11,8 @@ type SiteSubpageHeaderProps = {
   onBack?: () => void;
   scrollAware?: boolean;
   variant?: "default" | "exp-hub";
+  /** Right slot: brand name (default), discreet home, or empty. */
+  endAction?: "brand" | "home" | "none";
 };
 
 export function SiteSubpageHeader({
@@ -21,6 +23,7 @@ export function SiteSubpageHeader({
   onBack,
   scrollAware = false,
   variant = "default",
+  endAction = "brand",
 }: SiteSubpageHeaderProps) {
   const navVisible = useScrollNavbarVisibility({ enabled: scrollAware });
   const isExpHub = variant === "exp-hub";
@@ -40,6 +43,9 @@ export function SiteSubpageHeader({
   const brandClassName = isExpHub
     ? "site-subpage-header__link focus-ring justify-self-end font-display text-xs tracking-tight sm:text-sm"
     : "focus-ring justify-self-end font-display text-xs tracking-tight text-foreground-muted transition-colors hover:text-foreground sm:text-sm";
+
+  const homeClassName =
+    "focus-ring inline-flex size-9 items-center justify-center justify-self-end rounded-md text-foreground-muted transition-colors hover:text-foreground";
 
   const backContent = (
     <>
@@ -87,9 +93,17 @@ export function SiteSubpageHeader({
           )}
         </div>
 
-        <AppLink to="/" className={brandClassName}>
-          Café com Letras
-        </AppLink>
+        {endAction === "home" ? (
+          <AppLink to="/" aria-label="Ir para a página inicial" className={homeClassName}>
+            <Home size={16} strokeWidth={1.6} aria-hidden />
+          </AppLink>
+        ) : endAction === "brand" ? (
+          <AppLink to="/" className={brandClassName}>
+            Café com Letras
+          </AppLink>
+        ) : (
+          <span aria-hidden className="justify-self-end" />
+        )}
       </nav>
     </header>
   );
