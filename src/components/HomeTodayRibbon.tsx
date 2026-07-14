@@ -60,7 +60,7 @@ function EventRow({ item }: { item: HomeTodayEventItem }) {
         <p className="home-today-ribbon__meta">Programação cultural</p>
       </div>
       <div className="home-today-ribbon__actions">
-        <AppLink to="/#programacao" className="home-today-ribbon__link focus-ring">
+        <AppLink to="/programacao" className="home-today-ribbon__link focus-ring">
           {CTA_LABELS.viewAgenda}
         </AppLink>
       </div>
@@ -115,7 +115,7 @@ export function HomeTodayRibbon() {
                   Nada em destaque agora — confira a agenda do mês.
                 </p>
                 <AppLink
-                  to="/#programacao"
+                  to="/programacao"
                   className="home-today-ribbon__link home-today-ribbon__link--accent focus-ring self-start sm:self-auto"
                 >
                   {CTA_LABELS.viewAgenda}
