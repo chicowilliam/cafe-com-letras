@@ -3,6 +3,7 @@
 @import "./styles/section-transitions.css";
 @import "./styles/section-ornament.css";
 @import "./styles/site-wallpaper.css";
+@import "./styles/background-pattern.css";
 @import "./styles/cardapio-theme.css";
 @import "./styles/cardapio-menu.css";
 @import "./styles/cardapio-list.css";
@@ -45,10 +46,17 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --font-garamond: "Garamond", serif;
   --radius-md: 12px;
-  --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.04),
-    0 4px 8px rgba(0, 0, 0, 0.1);
-  --shadow-card-hover: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.08),
-    0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-contact: 0 1px 2px rgba(0, 0, 0, 0.24), 0 8px 18px rgba(0, 0, 0, 0.18),
+    0 24px 56px rgba(0, 0, 0, 0.14);
+  --shadow-contact-strong: 0 2px 5px rgba(0, 0, 0, 0.26),
+    0 14px 32px rgba(0, 0, 0, 0.2), 0 34px 76px rgba(0, 0, 0, 0.18);
+  --shadow-image-contact: 0 1px 2px rgba(0, 0, 0, 0.28),
+    0 10px 28px rgba(0, 0, 0, 0.22), 0 28px 64px rgba(0, 0, 0, 0.16);
+  --shadow-card: var(--shadow-contact);
+  --shadow-card-hover: var(--shadow-contact-strong);
+  --depth-surface-opacity: 0.72;
+  --depth-pattern-open: 0.42;
+  --depth-pattern-dense: 0.24;
   --section-space: 2rem;
   --selection-bg: rgba(255, 255, 255, 0.18);
   --selection-color: var(--foreground);
@@ -158,6 +166,10 @@ html::-webkit-scrollbar-thumb:active {
   scroll-margin-top: 4rem;
 }
 
+#programacao {
+  scroll-margin-top: 5rem;
+}
+
 ::selection {
   background-color: var(--selection-bg);
   color: var(--selection-color);
@@ -234,14 +246,52 @@ button:not(:disabled),
 }
 
 .section-canvas::before {
-  content: none;
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: clamp(0.75rem, 2.5vw, 2rem) clamp(0.75rem, 4vw, 3rem);
+  z-index: 0;
+  border-radius: clamp(1.25rem, 4vw, 2.75rem);
+  background:
+    radial-gradient(
+      ellipse 70% 54% at 26% 28%,
+      color-mix(in srgb, var(--accent) 6%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 58% 46% at 76% 74%,
+      color-mix(in srgb, var(--accent-2) 5%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--surface) 22%, transparent),
+      color-mix(in srgb, var(--background) 20%, transparent)
+    );
+  opacity: var(--depth-surface-opacity);
+}
+
+.section-canvas > :not(.background-pattern):not(.section-ornament) {
+  position: relative;
+  z-index: 1;
+}
+
+.section-canvas :where(figure, div):has(> img) {
+  box-shadow: var(--shadow-image-contact);
+}
+
+.section-canvas:has(.card-experience),
+.section-canvas:has(img) {
+  --depth-surface-opacity: 0.86;
 }
 
 .section-canvas--surface {
   background-color: var(--surface);
+  --depth-surface-opacity: 0.82;
 }
 
 .section-canvas--shift {
+  --depth-surface-opacity: 0.68;
   background-image:
     radial-gradient(
       ellipse 72% 52% at 82% 26%,
@@ -458,6 +508,7 @@ button:not(:disabled),
   border-radius: var(--radius-md);
   border: 1px solid var(--hairline);
   background: var(--surface);
+  box-shadow: var(--shadow-card);
   transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease,
     border-color 0.3s ease;
 }
@@ -490,8 +541,9 @@ button:not(:disabled),
 }
 
 .section-below-fold {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 520px;
+  /* Evita que content-visibility altere a altura do ancestral e
+     dispare recálculos que afetavam camadas decorativas absolutas. */
+  content-visibility: visible;
 }
 
 @keyframes curadoria-counter {
