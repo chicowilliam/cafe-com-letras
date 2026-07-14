@@ -14,6 +14,7 @@ export type SubpageChromeOverride = {
   onBack?: () => void;
   title?: string;
   navEyebrow?: string;
+  endAction?: "brand" | "home" | "none";
 };
 
 type SubpageChromeContextValue = {
