@@ -1,10 +1,13 @@
 import { AppLink } from "@/components/AppLink";
 import { useCallback, useEffect, useRef, useState, startTransition } from "react";
 import { useSearchParams } from "react-router-dom";
-import { ExperienceHubAmbientStack } from "@/components/experiencias/ExperienceHubAmbientStack";
-import { ExperienceHubCommandBar } from "@/components/experiencias/ExperienceHubCommandBar";
+import {
+  ExperienceHubCommandBar,
+  ExperienceHubFilters,
+} from "@/components/experiencias/ExperienceHubCommandBar";
 import { ExperienceHubMobile } from "@/components/experiencias/ExperienceHubMobile";
 import { ExperienceHubTriptych } from "@/components/experiencias/ExperienceHubTriptych";
+import { SectionHandoff } from "@/components/SectionBridge";
 import { useExpHubPerfMode } from "@/hooks/useExpHubPerfMode";
 import {
   DESKTOP_BP,
@@ -133,12 +136,28 @@ export function ExperienceHub() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [goNext, goPrev, goToIndex]);
 
+  const filtersBlock = (
+    <>
+      <SectionHandoff
+        variant="breath"
+        from="background"
+        to="background"
+        dividerCurve="swell"
+        className="exp-hub-command__handoff exp-hub-command__handoff--filters"
+      />
+      <ExperienceHubFilters
+        entries={EXPERIENCIAS_CATALOG}
+        activeIndex={activeIndex}
+        onSelect={goToIndex}
+      />
+    </>
+  );
+
   return (
     <section
       className={`exp-hub-command${perfMode ? " exp-hub-command--perf" : ""}`}
       data-active-theme={activeEntry.id as ExperienciaId}
     >
-      <ExperienceHubAmbientStack />
       <div className="exp-hub-command__inner">
         <header className="exp-hub-command__header">
           <p className="exp-hub-command__eyebrow">Como viver a casa</p>
@@ -151,27 +170,39 @@ export function ExperienceHub() {
           onSelect={goToIndex}
         />
 
+        <SectionHandoff
+          variant="breath"
+          from="background"
+          to="background"
+          dividerCurve="swell"
+          className="exp-hub-command__handoff exp-hub-command__handoff--intro"
+        />
+
         <div className="exp-hub-command__body">
           {isDesktop ? (
-            <ExperienceHubTriptych
-              entries={EXPERIENCIAS_CATALOG}
-              activeIndex={activeIndex}
-              reduceMotion={reduceMotion}
-              perfMode={perfMode}
-              onActiveIndexChange={goToIndex}
-            />
+            <>
+              <ExperienceHubTriptych
+                entries={EXPERIENCIAS_CATALOG}
+                activeIndex={activeIndex}
+                reduceMotion={reduceMotion}
+                perfMode={perfMode}
+                onActiveIndexChange={goToIndex}
+              />
+              {filtersBlock}
+            </>
           ) : (
             <ExperienceHubMobile
               entries={EXPERIENCIAS_CATALOG}
               activeIndex={activeIndex}
               onSelect={goToIndex}
+              filters={filtersBlock}
             />
           )}
         </div>
 
         <p className="exp-hub-command__footer">
           Jazz e programação cultural na{" "}
-          <AppLink to="/#programacao">
+          <AppLink to="/programacao">
             agenda do site
           </AppLink>
           .
