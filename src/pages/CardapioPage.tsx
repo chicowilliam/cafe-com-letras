@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { CardapioMenuViewer } from "@/components/cardapio/CardapioMenuViewer";
 import { CardapioPrintContextPanel } from "@/components/cardapio/CardapioPrintContextPanel";
@@ -6,6 +7,8 @@ import { CardapioPrintViewer } from "@/components/cardapio/CardapioPrintViewer";
 import { CardapioViewToggle } from "@/components/cardapio/CardapioViewToggle";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
 import { FadeIn } from "@/components/FadeIn";
+import { BackgroundPattern } from "@/components/BackgroundPattern";
+import { SectionHandoff } from "@/components/SectionBridge";
 import { useCardapioSectionSpy } from "@/hooks/useCardapioSectionSpy";
 import { useCardapioViewMode } from "@/hooks/useCardapioViewMode";
 import { useSubpageChrome } from "@/hooks/useSubpageChrome";
@@ -23,6 +26,24 @@ function toNavSections(
 ): CardapioSection[] {
   return entries.map((entry) => ({ ...entry, src: "" }));
 }
+
+const LANG_CARD_COPY = {
+  pt: {
+    language: "Português",
+    title: "Cardápio",
+    hint: "Carta completa · Ler ou folhear",
+    stamp: "BR",
+  },
+  en: {
+    language: "English",
+    title: "Menu",
+    hint: "Full menu · Read or browse",
+    stamp: "EN",
+  },
+} as const;
+
+/** Âmbar do site (selos / divisores) — contraste real sobre o bege do papel */
+const CARDAPIO_PATTERN_COLOR = "#6b4f1a";
 
 export default function CardapioPage() {
   const navigate = useNavigate();
@@ -58,9 +79,10 @@ export default function CardapioPage() {
     () => ({
       backLabel: lang ? "Escolher idioma" : "Voltar",
       onBack: handleBack,
-      ...(lang
-        ? { navEyebrow: "da cozinha mineira ao café autoral" }
-        : {}),
+      endAction: "home" as const,
+      navEyebrow: lang
+        ? "da cozinha mineira ao café autoral"
+        : "Savassi · Belo Horizonte",
     }),
     [lang, handleBack],
   );
@@ -72,6 +94,13 @@ export default function CardapioPage() {
       : "sheet";
 
   useSubpageChrome(chromeOverride);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-cardapio-skin", cardapioSkin);
+    return () => {
+      document.documentElement.removeAttribute("data-cardapio-skin");
+    };
+  }, [cardapioSkin]);
 
   useEffect(() => {
     if (!lang) return;
@@ -87,60 +116,127 @@ export default function CardapioPage() {
       data-page="cardapio"
       data-cardapio-skin={cardapioSkin}
     >
+      {cardapioSkin !== "print" ? (
+        <BackgroundPattern
+          variant="constellation"
+          mode="absolute"
+          opacity={0.14}
+          color={CARDAPIO_PATTERN_COLOR}
+          weight="strong"
+          parallax
+          className="cardapio-page__pattern"
+        />
+      ) : null}
+
+      {!lang ? <h1 className="sr-only">Cardápio</h1> : null}
+
       {!lang && (
-        <div className="section-padding cardapio-picker">
-          <FadeIn className="mx-auto max-w-2xl text-center">
-            <p className="cardapio-picker__kicker">Savassi · Belo Horizonte</p>
-            <h1 className="cardapio-picker__title font-display">Cardápio</h1>
+        <div className="cardapio-picker">
+          <FadeIn className="cardapio-picker__intro">
             <p className="cardapio-picker__tagline font-garamond">
               da cozinha mineira ao café autoral
             </p>
             <p className="cardapio-picker__edition">
-              Edição {new Date("2026-06-01").toLocaleDateString("pt-BR", { month: "long", year: "numeric" })}
+              Edição{" "}
+              {new Date("2026-06-01").toLocaleDateString("pt-BR", {
+                month: "long",
+                year: "numeric",
+              })}
             </p>
           </FadeIn>
 
-          <div className="mx-auto mt-10 grid max-w-2xl grid-cols-2 gap-4 md:gap-6">
-            {(["pt", "en"] as CardapioLang[]).map((key) => {
-              const capa = CARDAPIO_CAPAS[key];
-              return (
-                <FadeIn key={key} delay={key === "en" ? 0.1 : 0}>
-                  <button
-                    type="button"
-                    onClick={() => setLang(key)}
-                    className="cardapio-lang-card focus-ring group w-full text-left"
-                  >
-                    <div className="cardapio-lang-card__cover">
-                      <img
-                        src={capa.src}
-                        alt={capa.label}
-                        loading="eager"
-                        decoding="async"
-                        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:transform-none"
-                      />
-                    </div>
+          <SectionHandoff
+            variant="breath"
+            from="background"
+            to="background"
+            dividerCurve="swell"
+            className="cardapio-picker__handoff"
+          />
 
-                    <div className="cardapio-lang-card__footer">
-                      <p className="font-display text-sm text-foreground md:text-base">
-                        {capa.label}
-                      </p>
-                      <p className="mt-0.5 text-xs text-foreground-muted">
-                        {key === "pt"
-                          ? "Carta completa · Ler ou folhear"
-                          : "Full menu · Read or browse"}
-                      </p>
-                    </div>
-                  </button>
-                </FadeIn>
-              );
-            })}
+          <div className="cardapio-picker__stage">
+            <div className="cardapio-picker__rail cardapio-picker__rail--left" aria-hidden>
+              <BackgroundPattern
+                variant="constellation"
+                mode="absolute"
+                opacity={0.17}
+                color={CARDAPIO_PATTERN_COLOR}
+                weight="strong"
+                focus="left"
+                parallax={false}
+                className="cardapio-picker__rail-pattern"
+              />
+            </div>
+
+            <div className="cardapio-picker__grid">
+              {(["pt", "en"] as CardapioLang[]).map((key) => {
+                const capa = CARDAPIO_CAPAS[key];
+                const copy = LANG_CARD_COPY[key];
+                return (
+                  <FadeIn key={key} delay={key === "en" ? 0.1 : 0}>
+                    <button
+                      type="button"
+                      onClick={() => setLang(key)}
+                      className="cardapio-lang-card focus-ring group w-full text-left"
+                    >
+                      <div className="cardapio-lang-card__cover">
+                        <img
+                          src={capa.src}
+                          alt={`${copy.title} — ${copy.language}`}
+                          loading="eager"
+                          decoding="async"
+                          className="cardapio-lang-card__image"
+                        />
+                        {/* Cobre tipografia embutida na foto (PORTUGUÊS / ENGLISH) */}
+                        <div className="cardapio-lang-card__band" aria-hidden />
+                        <div className="cardapio-lang-card__scrim" aria-hidden />
+                        <div className="cardapio-lang-card__caption">
+                          <span className="cardapio-lang-card__stamp" aria-hidden>
+                            {copy.stamp}
+                          </span>
+                          <p className="cardapio-lang-card__language">
+                            {copy.language}
+                          </p>
+                          <span className="cardapio-lang-card__rule" aria-hidden />
+                        </div>
+                        <span className="cardapio-lang-card__arrow" aria-hidden>
+                          <ArrowUpRight size={16} strokeWidth={1.5} />
+                        </span>
+                      </div>
+
+                      <div className="cardapio-lang-card__footer">
+                        <span className="cardapio-lang-card__icon" aria-hidden>
+                          <BookOpen size={15} strokeWidth={1.5} />
+                        </span>
+                        <div className="cardapio-lang-card__meta">
+                          <p className="cardapio-lang-card__title">{copy.title}</p>
+                          <p className="cardapio-lang-card__hint">{copy.hint}</p>
+                        </div>
+                      </div>
+                    </button>
+                  </FadeIn>
+                );
+              })}
+            </div>
+
+            <div className="cardapio-picker__rail cardapio-picker__rail--right" aria-hidden>
+              <BackgroundPattern
+                variant="constellation"
+                mode="absolute"
+                opacity={0.17}
+                color={CARDAPIO_PATTERN_COLOR}
+                weight="strong"
+                focus="right"
+                parallax={false}
+                className="cardapio-picker__rail-pattern"
+              />
+            </div>
           </div>
         </div>
       )}
 
       {lang && (
         <div ref={menuRef} className="cardapio-page__stage">
-          <div className="sticky top-14 z-40 lg:hidden">
+          <div className="sticky top-12 z-40 lg:hidden">
             <CardapioSectionNav
               sections={navSections}
               activeId={activeSectionId}
