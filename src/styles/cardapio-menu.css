@@ -58,12 +58,15 @@
 [data-page="cardapio"] .cardapio-sheet__frame {
   position: relative;
   overflow: hidden;
-  border-radius: var(--cardapio-sheet-radius);
-  border: 1px solid var(--cardapio-paper-edge);
-  background: var(--cardapio-paper);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--print-ink, #2a2820) 5%, transparent),
-    var(--shadow-image-contact);
+  border-radius: var(--radius-paper);
+  border: 1px solid color-mix(in srgb, #6b4f1a 20%, transparent);
+  background-color: #f3ece0;
+  background-image:
+    linear-gradient(180deg, #f7f1e6 0%, #f3ece0 100%),
+    var(--texture-card-noise);
+  background-size: auto, 160px 160px;
+  background-blend-mode: normal, multiply;
+  box-shadow: var(--shadow-contact);
   transition:
     box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -120,7 +123,6 @@
   justify-content: center;
   padding: 0;
   background: rgba(8, 8, 6, 0.92);
-  backdrop-filter: blur(6px);
 }
 
 .cardapio-sheet-zoom__panel {
@@ -198,7 +200,7 @@
 
 /* Section nav — base layout (cores no cardapio-theme.css) */
 [data-page="cardapio"] .cardapio-section-nav--mobile {
-  backdrop-filter: blur(10px);
+  background: var(--cardapio-paper);
 }
 
 [data-page="cardapio"] .cardapio-section-nav--mobile .cardapio-section-nav__pill {
@@ -217,9 +219,14 @@
 /* Seletor de idioma */
 [data-page="cardapio"] .cardapio-lang-card {
   overflow: hidden;
-  border-radius: var(--cardapio-sheet-radius);
-  border: 1px solid var(--cardapio-paper-edge, #d4cdc0);
-  background: var(--cardapio-paper-warm, #f5f0e6);
+  border-radius: var(--radius-paper);
+  border: 1px solid color-mix(in srgb, #6b4f1a 22%, transparent);
+  background-color: #f3ece0;
+  background-image:
+    linear-gradient(180deg, #f7f1e6 0%, #f3ece0 100%),
+    var(--texture-card-noise);
+  background-size: auto, 160px 160px;
+  background-blend-mode: normal, multiply;
   box-shadow: var(--shadow-contact);
   transition:
     box-shadow 0.35s ease,
@@ -402,6 +409,16 @@
       color-mix(in srgb, var(--cardapio-paper, #ede8dc) 92%, var(--cardapio-paper-edge, #d4cdc0)) 100%
     );
   isolation: isolate;
+  overflow: hidden;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__footer > .card-accent {
+  z-index: 1;
+}
+
+[data-page="cardapio"] .cardapio-lang-card__footer > *:not(.card-accent) {
+  position: relative;
+  z-index: 1;
 }
 
 [data-page="cardapio"] .cardapio-lang-card__footer::before {
