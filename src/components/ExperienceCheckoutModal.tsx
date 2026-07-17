@@ -79,7 +79,7 @@ export function ExperienceCheckoutModal() {
       <button
         type="button"
         aria-label="Fechar"
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/70"
         onClick={close}
       />
 
@@ -89,7 +89,7 @@ export function ExperienceCheckoutModal() {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-hairline bg-surface-elevated shadow-2xl outline-none"
+        className="relative z-10 flex max-h-[min(560px,90dvh)] w-full max-w-sm flex-col overflow-hidden rounded-xl border border-hairline bg-surface-elevated shadow-contact-strong outline-none"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-white/5 px-4 py-3">
           <div>
