@@ -59,7 +59,7 @@ export function HappyHourSpreadCarousel({ images }: HappyHourSpreadCarouselProps
     >
       <div
         aria-hidden
-        className="hh-spread-carousel__glow pointer-events-none absolute left-0 top-1/2 z-0 h-[min(72vw,300px)] w-[min(88vw,320px)] -translate-y-1/2 rounded-full bg-accent-2/12 blur-[64px] motion-reduce:opacity-50"
+        className="hh-spread-carousel__glow pointer-events-none absolute left-0 top-1/2 z-0 h-[min(72vw,300px)] w-[min(88vw,320px)] -translate-y-1/2 rounded-full bg-accent-2/8 blur-[42px] motion-reduce:opacity-50"
       />
 
       <div
@@ -69,7 +69,7 @@ export function HappyHourSpreadCarousel({ images }: HappyHourSpreadCarouselProps
         aria-label="Galeria editorial do happy hour"
       >
         <div
-          className="hh-spread-carousel__card relative aspect-[2/3] w-[min(88vw,320px)] max-w-[320px] overflow-hidden rounded-xl bg-surface-elevated ring-1 ring-accent-2/35 shadow-[0_10px_28px_rgba(0,0,0,0.42)] shadow-[0_0_52px_color-mix(in_srgb,var(--accent-2)_22%,transparent)]"
+          className="hh-spread-carousel__card relative aspect-[2/3] w-[min(88vw,320px)] max-w-[320px] overflow-hidden rounded-xl bg-surface-elevated ring-1 ring-accent-2/30 shadow-[var(--shadow-image-contact)]"
           aria-live="polite"
         >
           {images.map((image, index) => {
