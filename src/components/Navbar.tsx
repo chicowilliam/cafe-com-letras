@@ -136,9 +136,9 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${
+        className={`navbar-slide fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ease-out motion-reduce:transition-none ${
           showSolidNav
-            ? "navbar--solid border-b border-white/10 bg-background/70 backdrop-blur-md"
+            ? "navbar--solid border-b border-white/10 bg-background"
             : "border-b border-transparent bg-transparent"
         } ${visible ? "navbar-slide--visible" : "navbar-slide--hidden"}`}
       >
@@ -221,7 +221,7 @@ export function Navbar() {
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((open) => !open)}
-              className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white backdrop-blur-sm transition-colors active:bg-black/55 md:hidden"
+              className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-surface text-white transition-colors active:bg-surface-elevated md:hidden"
             >
               {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
             </button>
@@ -232,7 +232,7 @@ export function Navbar() {
       {reduceMotion ? (
         menuOpen ? (
           <div
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-background md:hidden"
             aria-hidden={false}
           >
             <div className="flex h-full flex-col px-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))]">
@@ -286,7 +286,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={overlaySpring}
-              className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-background md:hidden"
               style={compositorStyle}
               aria-hidden={false}
             >
