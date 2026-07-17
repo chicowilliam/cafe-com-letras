@@ -1,6 +1,7 @@
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { AppLink } from "@/components/AppLink";
+import { CardAccent, cardAccentVariantFromIndex } from "@/components/CardAccent";
 import { ExperiencePanelCtas } from "@/components/experiencias/ExperiencePanelCtas";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 import { hubContentContainerVariants, hubContentItemVariants } from "@/lib/motion-presets";
@@ -67,6 +68,7 @@ export function ExperienceHubMobile({
                 isActive ? "is-active" : ""
               }`}
             >
+              <CardAccent variant={cardAccentVariantFromIndex(index)} />
               <span className="exp-hub-mobile__card-media">
                 <img
                   src={entry.image}
