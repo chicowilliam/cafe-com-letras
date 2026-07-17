@@ -4,6 +4,7 @@
 @import "./styles/section-ornament.css";
 @import "./styles/site-wallpaper.css";
 @import "./styles/background-pattern.css";
+@import "./styles/card-accent.css";
 @import "./styles/cardapio-theme.css";
 @import "./styles/cardapio-menu.css";
 @import "./styles/cardapio-list.css";
@@ -46,17 +47,29 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --font-garamond: "Garamond", serif;
   --radius-md: 12px;
-  --shadow-contact: 0 1px 2px rgba(0, 0, 0, 0.24), 0 8px 18px rgba(0, 0, 0, 0.18),
-    0 24px 56px rgba(0, 0, 0, 0.14);
-  --shadow-contact-strong: 0 2px 5px rgba(0, 0, 0, 0.26),
-    0 14px 32px rgba(0, 0, 0, 0.2), 0 34px 76px rgba(0, 0, 0, 0.18);
-  --shadow-image-contact: 0 1px 2px rgba(0, 0, 0, 0.28),
-    0 10px 28px rgba(0, 0, 0, 0.22), 0 28px 64px rgba(0, 0, 0, 0.16);
+  /* Sombra de contato — peso físico, não UI flutuante */
+  --shadow-contact: 0 2px 4px rgba(10, 7, 3, 0.28),
+    0 14px 36px -8px rgba(10, 7, 3, 0.38),
+    0 0 0 1px rgba(212, 163, 115, 0.04);
+  --shadow-contact-strong: 0 3px 6px rgba(10, 7, 3, 0.3),
+    0 20px 48px -10px rgba(10, 7, 3, 0.42),
+    0 0 0 1px rgba(212, 163, 115, 0.06);
+  --shadow-image-contact: 0 2px 4px rgba(10, 7, 3, 0.3),
+    0 16px 40px -8px rgba(10, 7, 3, 0.4);
   --shadow-card: var(--shadow-contact);
   --shadow-card-hover: var(--shadow-contact-strong);
+  --radius-paper: 2px;
+  --material-card-bg: #1c1d15;
+  --material-card-bg-elevated: #24251c;
+  --material-card-border: color-mix(in srgb, #8a6a3a 28%, transparent);
+  --texture-card-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   --depth-surface-opacity: 0.72;
   --depth-pattern-open: 0.42;
   --depth-pattern-dense: 0.24;
+  /* Painel de seção — fundo 100% sólido/opaco (sem transparência nem blur) */
+  --section-panel-color: var(--background);
+  --section-panel-wash-accent: 5%;
+  --section-panel-wash-olive: 3.5%;
   --section-space: 2rem;
   --selection-bg: rgba(255, 255, 255, 0.18);
   --selection-color: var(--foreground);
@@ -102,6 +115,38 @@
   --font-french: var(--font-display);
   --font-garamond: var(--font-garamond);
   --radius-md: var(--radius-md);
+}
+
+.skip-to-content {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 70;
+  width: auto;
+  height: auto;
+  margin: 0;
+  clip: auto;
+  overflow: visible;
+  white-space: normal;
+  border-radius: 9999px;
+  background: var(--surface-elevated);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+  box-shadow: var(--shadow-contact);
 }
 
 html {
@@ -226,51 +271,41 @@ button:not(:disabled),
   }
 }
 
-/* Papel editorial — washes em cada seção (grain desativado). */
+/*
+ * Sistema global de seção — fundo 100% sólido/opaco.
+ * BackgroundPattern fica só nos vazios (handoffs / body), nunca “vazando” por painéis.
+ * Tokens: --section-panel-* em :root.
+ */
+.section-stack > section:not(#inicio),
+.section-stack > footer,
 .section-canvas {
   position: relative;
   isolation: isolate;
-  background-color: var(--background);
+  background-color: var(--section-panel-color);
   background-image:
     radial-gradient(
       ellipse 75% 55% at 20% 32%,
-      color-mix(in srgb, var(--accent) 5%, transparent),
+      color-mix(in srgb, var(--accent) var(--section-panel-wash-accent), transparent),
       transparent 72%
     ),
     radial-gradient(
       ellipse 58% 48% at 84% 70%,
-      color-mix(in srgb, var(--accent-2) 3.5%, transparent),
+      color-mix(in srgb, var(--accent-2) var(--section-panel-wash-olive), transparent),
       transparent 68%
     );
   background-size: 100% 100%, 100% 100%;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
+.section-stack > section:not(#inicio)::before,
+.section-stack > footer::before,
 .section-canvas::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: clamp(0.75rem, 2.5vw, 2rem) clamp(0.75rem, 4vw, 3rem);
-  z-index: 0;
-  border-radius: clamp(1.25rem, 4vw, 2.75rem);
-  background:
-    radial-gradient(
-      ellipse 70% 54% at 26% 28%,
-      color-mix(in srgb, var(--accent) 6%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      ellipse 58% 46% at 76% 74%,
-      color-mix(in srgb, var(--accent-2) 5%, transparent),
-      transparent 70%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--surface) 22%, transparent),
-      color-mix(in srgb, var(--background) 20%, transparent)
-    );
-  opacity: var(--depth-surface-opacity);
+  content: none;
 }
 
+.section-stack > section:not(#inicio) > :not(.background-pattern):not(.section-ornament),
+.section-stack > footer > :not(.background-pattern):not(.section-ornament),
 .section-canvas > :not(.background-pattern):not(.section-ornament) {
   position: relative;
   z-index: 1;
@@ -280,29 +315,117 @@ button:not(:disabled),
   box-shadow: var(--shadow-image-contact);
 }
 
-.section-canvas:has(.card-experience),
-.section-canvas:has(img) {
-  --depth-surface-opacity: 0.86;
-}
-
 .section-canvas--surface {
-  background-color: var(--surface);
-  --depth-surface-opacity: 0.82;
+  --section-panel-color: var(--surface);
+  --section-panel-wash-accent: 4%;
+  --section-panel-wash-olive: 3%;
 }
 
 .section-canvas--shift {
-  --depth-surface-opacity: 0.68;
+  --section-panel-wash-accent: 3.5%;
+  --section-panel-wash-olive: 5%;
   background-image:
     radial-gradient(
       ellipse 72% 52% at 82% 26%,
-      color-mix(in srgb, var(--accent) 4.5%, transparent),
+      color-mix(in srgb, var(--accent) var(--section-panel-wash-accent), transparent),
       transparent 70%
     ),
     radial-gradient(
       ellipse 54% 46% at 14% 78%,
-      color-mix(in srgb, var(--accent-2) 4%, transparent),
+      color-mix(in srgb, var(--accent-2) var(--section-panel-wash-olive), transparent),
       transparent 66%
     );
+}
+
+.section-ribbon.section-canvas,
+.section-lifted-panel.section-canvas {
+  background-color: var(--section-panel-color);
+}
+
+/* Lift legado — sem elevação/vidro; herda o painel sólido */
+.section-lifted-panel {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  border-radius: 0;
+  border: none;
+  background-image: none;
+  box-shadow: none;
+}
+
+.section-lifted-panel::before {
+  content: none;
+}
+
+.surface-anchor {
+  position: relative;
+  isolation: isolate;
+}
+
+.surface-anchor::before {
+  content: none;
+}
+
+.surface-anchor--light::before {
+  content: none;
+}
+
+.shadow-contact {
+  box-shadow: var(--shadow-contact);
+}
+
+.shadow-contact-strong {
+  box-shadow: var(--shadow-contact-strong);
+}
+
+/* Card físico — opaco, canto de página, textura, sombra de contato */
+.material-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-paper);
+  border: 1px solid var(--material-card-border);
+  background-color: var(--material-card-bg);
+  background-image:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--material-card-bg-elevated) 88%, transparent) 0%,
+      var(--material-card-bg) 100%
+    ),
+    var(--texture-card-noise);
+  background-size: auto, 160px 160px;
+  background-blend-mode: normal, soft-light;
+  box-shadow: var(--shadow-contact);
+}
+
+.material-card::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(242, 239, 226, 0.05);
+  opacity: 0.9;
+}
+
+.material-card > *:not(.card-accent) {
+  position: relative;
+  z-index: 2;
+}
+
+.material-card--light {
+  --material-card-bg: #f3ece0;
+  --material-card-bg-elevated: #f7f1e6;
+  --material-card-border: color-mix(in srgb, #6b4f1a 22%, transparent);
+  background-image:
+    linear-gradient(
+      180deg,
+      #f7f1e6 0%,
+      #f3ece0 100%
+    ),
+    var(--texture-card-noise);
+  background-blend-mode: normal, multiply;
 }
 
 .section-eyebrow {
@@ -442,13 +565,12 @@ button:not(:disabled),
 .btn-ghost {
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface);
   color: var(--foreground);
   font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: -0.01em;
-  backdrop-filter: blur(8px);
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
@@ -505,19 +627,65 @@ button:not(:disabled),
 
 .card-experience {
   overflow: hidden;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--hairline);
-  background: var(--surface);
+  border-radius: var(--radius-paper);
+  border: 1px solid var(--material-card-border);
+  background-color: var(--material-card-bg);
+  background-image:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--material-card-bg-elevated) 88%, transparent) 0%,
+      var(--material-card-bg) 100%
+    ),
+    var(--texture-card-noise);
+  background-size: auto, 160px 160px;
+  background-blend-mode: normal, soft-light;
   box-shadow: var(--shadow-card);
   transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease,
     border-color 0.3s ease;
 }
 
 .card-experience:hover {
-  background: var(--surface-elevated);
+  background-color: var(--material-card-bg-elevated);
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+}
+
+.curadoria-paper-stack,
+.curadoria-paper-slide {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--material-card-border);
+  border-radius: var(--radius-paper);
+  background-color: #12130e;
+  background-image:
+    linear-gradient(180deg, #1a1b14 0%, #12130e 100%),
+    var(--texture-card-noise);
+  background-size: auto, 140px 140px;
+  background-blend-mode: normal, soft-light;
+  box-shadow: var(--shadow-contact);
+}
+
+.curadoria-paper-stack::after,
+.curadoria-paper-slide::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 40%),
+    var(--texture-card-noise);
+  background-size: auto, 120px 120px;
+  opacity: 0.28;
+  mix-blend-mode: soft-light;
+}
+
+.curadoria-paper-slide.is-active {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: var(--shadow-contact-strong);
 }
 
 @media (prefers-reduced-motion: reduce) {
