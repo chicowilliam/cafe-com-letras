@@ -30,12 +30,18 @@
   --ink: var(--print-ink);
   --selection-bg: rgba(107, 79, 26, 0.15);
   --selection-color: var(--print-ink);
-  --shadow-contact: 0 1px 2px rgba(42, 40, 32, 0.14),
-    0 10px 24px rgba(42, 40, 32, 0.12), 0 28px 64px rgba(42, 40, 32, 0.1);
-  --shadow-contact-strong: 0 2px 5px rgba(42, 40, 32, 0.16),
-    0 16px 34px rgba(42, 40, 32, 0.14), 0 38px 78px rgba(42, 40, 32, 0.12);
-  --shadow-image-contact: 0 1px 2px rgba(42, 40, 32, 0.18),
-    0 12px 30px rgba(42, 40, 32, 0.16), 0 34px 72px rgba(42, 40, 32, 0.12);
+  --shadow-contact: 0 2px 4px rgba(65, 48, 24, 0.16),
+    0 14px 32px -8px rgba(65, 48, 24, 0.22),
+    0 0 0 1px rgba(107, 79, 26, 0.06);
+  --shadow-contact-strong: 0 3px 6px rgba(65, 48, 24, 0.18),
+    0 20px 44px -10px rgba(65, 48, 24, 0.26),
+    0 0 0 1px rgba(107, 79, 26, 0.08);
+  --shadow-image-contact: 0 2px 4px rgba(65, 48, 24, 0.18),
+    0 16px 36px -8px rgba(65, 48, 24, 0.24);
+  /* Mesmo sistema de painel global, tom papel claro sólido */
+  --section-panel-color: var(--cardapio-paper);
+  --section-panel-wash-accent: 3%;
+  --section-panel-wash-olive: 2%;
 
   color: var(--foreground);
   background-color: var(--background);
@@ -62,28 +68,11 @@
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"]::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: clamp(2.75rem, 7vw, 5rem) clamp(0.75rem, 7vw, 5rem);
-  z-index: 0;
-  border-radius: clamp(1.5rem, 5vw, 3.5rem);
-  background:
-    radial-gradient(
-      ellipse 72% 50% at 50% 18%,
-      color-mix(in srgb, var(--cardapio-paper-warm) 72%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      ellipse 58% 42% at 50% 84%,
-      color-mix(in srgb, var(--print-price) 10%, transparent),
-      transparent 74%
-    );
-  opacity: 0.8;
+  content: none;
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"][data-cardapio-skin="print"]::before {
-  display: none;
+  content: none;
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"] > *:not(.background-pattern) {
@@ -185,8 +174,7 @@
 /* Nav de seções — mobile */
 [data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--mobile {
   border-bottom: 1px solid var(--cardapio-paper-edge);
-  background: color-mix(in srgb, var(--cardapio-paper) 92%, #fff);
-  backdrop-filter: none;
+  background: var(--cardapio-paper);
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-section-nav--mobile .cardapio-section-nav__pill {
@@ -309,8 +297,7 @@
 
 [data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-discreet-search__panel {
   border-color: var(--cardapio-paper-edge);
-  background: color-mix(in srgb, var(--cardapio-paper-warm) 96%, #fff);
-  backdrop-filter: blur(8px);
+  background: var(--cardapio-paper-warm);
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-discreet-search__input {
@@ -459,22 +446,46 @@
   min-height: clamp(0.75rem, 1.5vh, 1.1rem);
 }
 
-[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-picker__handoff .background-pattern {
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-picker__handoff .section-handoff__pattern {
   opacity: 0.2;
 }
 
-[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-picker__handoff .background-pattern__divider-stroke {
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-picker__handoff .section-handoff__filet {
   stroke: var(--print-price);
   stroke-opacity: 0.45;
 }
 
 [data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-picker__grid {
+  position: relative;
+  isolation: isolate;
   margin-inline: auto;
   display: grid;
   width: 100%;
   max-width: 42rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.15rem;
+}
+
+[data-page-theme="cardapio"] [data-page="cardapio"] .cardapio-picker__grid::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: clamp(-1.25rem, -4vw, -0.75rem);
+  z-index: -1;
+  border-radius: clamp(1.25rem, 4vw, 2.5rem);
+  background:
+    radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--cardapio-paper-warm) 86%, transparent) 0%,
+      color-mix(in srgb, var(--cardapio-paper-edge) 32%, transparent) 44%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse at 50% 82%,
+      color-mix(in srgb, var(--print-price) 10%, transparent) 0%,
+      transparent 66%
+    );
+  opacity: 0.88;
 }
 
 /* Trilhos laterais — cipó vertical nas colunas vazias */
