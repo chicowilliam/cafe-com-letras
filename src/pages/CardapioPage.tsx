@@ -5,6 +5,7 @@ import { CardapioMenuViewer } from "@/components/cardapio/CardapioMenuViewer";
 import { CardapioPrintContextPanel } from "@/components/cardapio/CardapioPrintContextPanel";
 import { CardapioPrintViewer } from "@/components/cardapio/CardapioPrintViewer";
 import { CardapioViewToggle } from "@/components/cardapio/CardapioViewToggle";
+import { CardAccent, cardAccentVariantFromIndex } from "@/components/CardAccent";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
 import { FadeIn } from "@/components/FadeIn";
 import { BackgroundPattern } from "@/components/BackgroundPattern";
@@ -41,9 +42,6 @@ const LANG_CARD_COPY = {
     stamp: "EN",
   },
 } as const;
-
-/** Âmbar do site (selos / divisores) — contraste real sobre o bege do papel */
-const CARDAPIO_PATTERN_COLOR = "#6b4f1a";
 
 export default function CardapioPage() {
   const navigate = useNavigate();
@@ -112,19 +110,16 @@ export default function CardapioPage() {
 
   return (
     <main
-      className="min-h-dvh"
+      className="section-stack min-h-dvh"
       data-page="cardapio"
       data-cardapio-skin={cardapioSkin}
     >
       {cardapioSkin !== "print" ? (
         <BackgroundPattern
-          variant="constellation"
-          mode="absolute"
-          opacity={0.14}
-          color={CARDAPIO_PATTERN_COLOR}
-          weight="strong"
-          parallax
-          className="cardapio-page__pattern"
+          variant="leaf-cluster"
+          tone="light"
+          density="sparse"
+          className="cardapio-page__pattern background-pattern--absolute"
         />
       ) : null}
 
@@ -156,14 +151,10 @@ export default function CardapioPage() {
           <div className="cardapio-picker__stage">
             <div className="cardapio-picker__rail cardapio-picker__rail--left" aria-hidden>
               <BackgroundPattern
-                variant="constellation"
-                mode="absolute"
-                opacity={0.17}
-                color={CARDAPIO_PATTERN_COLOR}
-                weight="strong"
-                focus="left"
-                parallax={false}
-                className="cardapio-picker__rail-pattern"
+                variant="vine"
+                tone="light"
+                density="default"
+                className="cardapio-picker__rail-pattern background-pattern--absolute background-pattern--focus-left"
               />
             </div>
 
@@ -176,7 +167,7 @@ export default function CardapioPage() {
                     <button
                       type="button"
                       onClick={() => setLang(key)}
-                      className="cardapio-lang-card focus-ring group w-full text-left"
+                      className="cardapio-lang-card focus-ring group relative w-full text-left"
                     >
                       <div className="cardapio-lang-card__cover">
                         <img
@@ -204,6 +195,11 @@ export default function CardapioPage() {
                       </div>
 
                       <div className="cardapio-lang-card__footer">
+                        <CardAccent
+                          variant={cardAccentVariantFromIndex(key === "pt" ? 0 : 1)}
+                          tone="light"
+                          corner="br"
+                        />
                         <span className="cardapio-lang-card__icon" aria-hidden>
                           <BookOpen size={15} strokeWidth={1.5} />
                         </span>
@@ -220,14 +216,10 @@ export default function CardapioPage() {
 
             <div className="cardapio-picker__rail cardapio-picker__rail--right" aria-hidden>
               <BackgroundPattern
-                variant="constellation"
-                mode="absolute"
-                opacity={0.17}
-                color={CARDAPIO_PATTERN_COLOR}
-                weight="strong"
-                focus="right"
-                parallax={false}
-                className="cardapio-picker__rail-pattern"
+                variant="vine"
+                tone="light"
+                density="default"
+                className="cardapio-picker__rail-pattern background-pattern--absolute background-pattern--focus-right"
               />
             </div>
           </div>
