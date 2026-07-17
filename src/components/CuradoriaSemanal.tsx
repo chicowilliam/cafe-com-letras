@@ -10,6 +10,8 @@ import {
   type KeyboardEvent,
 } from "react";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { CardAccent, cardAccentVariantFromIndex } from "@/components/CardAccent";
+import { MaterialCard } from "@/components/MaterialCard";
 import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
 import { useEmblaSlideTween } from "@/hooks/useEmblaSlideTween";
 import {
@@ -567,7 +569,7 @@ function ReelFrostedCaption({
       />
 
       <div
-        className={`relative max-w-[88%] rounded-[var(--radius-md)] border border-white/12 bg-[color-mix(in_srgb,var(--surface)_88%,transparent)] p-3.5 shadow-[0_4px_24px_rgba(0,0,0,0.28)] backdrop-blur-md motion-reduce:transition-none ${
+        className={`relative max-w-[88%] overflow-hidden rounded-[var(--radius-md)] border border-white/12 bg-surface p-3.5 shadow-contact motion-reduce:transition-none ${
           isBottom ? "mb-3 ml-3" : "ml-3 mt-3"
         } ${
           reduceMotion
@@ -578,15 +580,14 @@ function ReelFrostedCaption({
               ? "-translate-y-1 opacity-100"
               : "translate-y-4 opacity-0"
         } transition-[opacity,transform,box-shadow] duration-700 ${
-          visible && !reduceMotion
-            ? "shadow-[0_10px_36px_rgba(0,0,0,0.42)]"
-            : ""
+          visible && !reduceMotion ? "shadow-contact-strong" : ""
         }`}
         style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
       >
+        <CardAccent variant={cardAccentVariantFromIndex(prato.id)} corner="tr" />
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-[2px] overflow-hidden rounded-b-[var(--radius-md)] bg-white/10"
+          className="absolute inset-x-0 bottom-0 z-[2] h-[2px] overflow-hidden rounded-b-[var(--radius-md)] bg-white/10"
         >
           <div
             className="h-full origin-left bg-accent transition-[width] duration-150 motion-reduce:transition-none"
@@ -597,6 +598,7 @@ function ReelFrostedCaption({
           />
         </div>
 
+        <div className="relative z-[2]">
         <p
           className={`section-eyebrow mb-0 !text-accent transition-opacity duration-500 motion-reduce:transition-none ${
             visible ? "opacity-100" : "opacity-0"
@@ -631,6 +633,7 @@ function ReelFrostedCaption({
         >
           {prato.descricao}
         </p>
+        </div>
       </div>
     </div>
   );
@@ -831,31 +834,36 @@ function CuradoriaEditorialPanel({
       <AnimatePresence mode="wait" initial={false}>
         <m.div
           key={prato.id}
-          className="relative z-[1] mx-auto flex w-full max-w-[14.5rem] flex-col items-center text-center xl:max-w-[16rem]"
+          className="relative z-[1] mx-auto w-full max-w-[14.5rem] xl:max-w-[16rem]"
           style={compositorStyle}
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
           transition={motionTransition}
         >
-          <p className="section-caption !text-accent">{prato.tag}</p>
-          <span
-            aria-hidden
-            className="mt-3.5 block h-px w-8 bg-gradient-to-r from-transparent via-accent/70 to-transparent"
-          />
-          <h3 className="mt-5 font-display text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.05] tracking-tight text-foreground text-balance">
-            {prato.nome}
-          </h3>
-          <p className="text-lead mx-auto mt-4 max-w-[13.5rem] text-[clamp(0.9375rem,1.35vw,1.0625rem)] leading-[1.62] text-pretty xl:max-w-[14.5rem]">
-            {prato.descricao}
-          </p>
-          <span
-            aria-hidden
-            className="mt-6 block h-px w-6 bg-accent/35"
-          />
-          <p className="section-caption mt-3 text-foreground-muted/65">
-            {padIndex(activeIndex + 1)} · Seleção da semana
-          </p>
+          <MaterialCard
+            accent={cardAccentVariantFromIndex(activeIndex)}
+            className="flex flex-col items-center px-4 py-5 text-center"
+          >
+            <p className="section-caption !text-accent">{prato.tag}</p>
+            <span
+              aria-hidden
+              className="mt-3.5 block h-px w-8 bg-gradient-to-r from-transparent via-accent/70 to-transparent"
+            />
+            <h3 className="mt-5 font-display text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.05] tracking-tight text-foreground text-balance">
+              {prato.nome}
+            </h3>
+            <p className="text-lead mx-auto mt-4 max-w-[13.5rem] text-[clamp(0.9375rem,1.35vw,1.0625rem)] leading-[1.62] text-pretty xl:max-w-[14.5rem]">
+              {prato.descricao}
+            </p>
+            <span
+              aria-hidden
+              className="mt-6 block h-px w-6 bg-accent/35"
+            />
+            <p className="section-caption mt-3 text-foreground-muted/65">
+              {padIndex(activeIndex + 1)} · Seleção da semana
+            </p>
+          </MaterialCard>
         </m.div>
       </AnimatePresence>
     </div>
@@ -907,7 +915,7 @@ function CuradoriaDesktopTriptych({
       >
         <div
           ref={containerRef}
-          className="mx-auto flex w-fit overflow-hidden rounded-xl border border-hairline bg-black shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_12px_36px_rgba(0,0,0,0.4)] lg:mx-0"
+          className="curadoria-paper-stack mx-auto flex w-fit overflow-hidden lg:mx-0"
           style={{ height: TRIPTYCH_HEIGHT }}
         >
           {PRATOS_DA_SEMANA.map((prato, index) => (
@@ -967,10 +975,8 @@ const MobileTriptychSlide = memo(function MobileTriptychSlide({
       aria-label={`${index + 1} de ${total}: ${prato.nome}`}
       id={`curadoria-mobile-slide-${prato.id}`}
       aria-hidden={!isActive}
-      className={`relative aspect-[9/16] w-[min(88vw,360px)] shrink-0 overflow-hidden rounded-xl bg-background will-change-transform ${
-        isActive
-          ? "ring-1 ring-accent/30 shadow-[0_0_52px_color-mix(in_srgb,var(--accent)_24%,transparent)]"
-          : "shadow-[0_10px_28px_rgba(0,0,0,0.42)]"
+      className={`curadoria-paper-slide relative aspect-[9/16] w-[min(88vw,360px)] shrink-0 overflow-hidden will-change-transform ${
+        isActive ? "is-active" : ""
       }`}
     >
       <div
