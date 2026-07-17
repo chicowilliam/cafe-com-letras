@@ -436,9 +436,8 @@
   width: min(18rem, calc(100vw - 2rem));
   border-radius: 999px;
   border: 1px solid var(--cardapio-paper-edge, #d4cdc0);
-  background: color-mix(in srgb, var(--cardapio-paper-warm, #f5f0e6) 96%, #fff);
+  background: var(--cardapio-paper-warm, #f5f0e6);
   padding: 0.375rem 0.5rem;
-  backdrop-filter: blur(8px);
 }
 
 [data-page="cardapio"][data-cardapio-skin="print"] .cardapio-discreet-search__field {
