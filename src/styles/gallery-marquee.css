@@ -87,8 +87,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--foreground);
-  background: color-mix(in srgb, var(--background) 55%, transparent);
-  backdrop-filter: blur(8px);
+  background: var(--surface-elevated);
   opacity: 0;
   transform: translateY(4px);
   transition:
