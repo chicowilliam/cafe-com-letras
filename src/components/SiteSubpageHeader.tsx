@@ -31,10 +31,10 @@ export function SiteSubpageHeader({
   const headerClassName = isExpHub
     ? "site-subpage-header site-subpage-header--exp-hub"
     : scrollAware
-      ? `site-subpage-header hh-nav-slide fixed inset-x-0 top-0 z-50 border-b border-hairline bg-background/80 backdrop-blur-md ${
+      ? `site-subpage-header hh-nav-slide fixed inset-x-0 top-0 z-50 border-b border-hairline bg-background ${
           navVisible ? "hh-nav-slide--visible" : "hh-nav-slide--hidden"
         }`
-      : "site-subpage-header sticky top-0 z-50 border-b border-hairline bg-background/90 backdrop-blur-md";
+      : "site-subpage-header sticky top-0 z-50 border-b border-hairline bg-background";
 
   const backClassName = isExpHub
     ? "site-subpage-header__link focus-ring inline-flex min-w-0 items-center gap-2 justify-self-start rounded-md py-1 text-sm"
