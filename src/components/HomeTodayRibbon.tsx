@@ -1,4 +1,5 @@
 import { AppLink } from "@/components/AppLink";
+import { MaterialCard } from "@/components/MaterialCard";
 import { SectionReveal } from "@/components/SectionReveal";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
@@ -90,7 +91,7 @@ export function HomeTodayRibbon() {
     >
       <div className="mx-auto max-w-6xl px-5 py-5 md:px-8 md:py-6">
         <SectionReveal variant="subtle">
-          <div className="home-today-ribbon__panel rounded-md border border-hairline bg-surface/80 px-4 py-4 md:px-5 md:py-5">
+          <MaterialCard className="home-today-ribbon__panel rounded-md px-4 py-4 md:px-5 md:py-5">
             <p className="home-today-ribbon__header section-caption !mb-3">
               Hoje na Savassi · {dateLabel}
             </p>
@@ -122,7 +123,7 @@ export function HomeTodayRibbon() {
                 </AppLink>
               </div>
             )}
-          </div>
+          </MaterialCard>
         </SectionReveal>
       </div>
     </section>
