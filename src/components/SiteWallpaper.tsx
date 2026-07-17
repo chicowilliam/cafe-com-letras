@@ -171,7 +171,14 @@ export function SiteWallpaper({ mode = "fixed" }: SiteWallpaperProps) {
           className="site-wallpaper__stroke site-wallpaper__stroke--accent-2"
           d="M 400 3920 C 440 3940 470 3980 480 4030 C 488 4070 478 4110 455 4145"
         />
-        <circle className="site-wallpaper__node" cx="400" cy="3920" r="3.5" />
+        <ellipse
+          className="site-wallpaper__leaf"
+          cx="398"
+          cy="3918"
+          rx="8"
+          ry="4"
+          transform="rotate(28 398 3918)"
+        />
         <path className="site-wallpaper__flourish" d="M 40 4580 C 70 4572 95 4578 120 4590" />
       </g>
     </svg>
