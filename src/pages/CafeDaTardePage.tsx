@@ -19,7 +19,7 @@ export default function CafeDaTardePage() {
 
   return (
     <ExperiencePageShell>
-      <main>
+      <main className="section-stack">
         <CafeDaTardeHero
           eyebrow={info.eyebrow}
           title={info.title}
