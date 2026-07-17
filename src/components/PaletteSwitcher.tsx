@@ -123,7 +123,7 @@ export function PaletteSwitcher() {
           id={panelId}
           role="dialog"
           aria-label="Seletor de paletas de cores"
-          className="mb-3 w-[min(18rem,calc(100vw-2.5rem))] overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface-elevated shadow-[0_12px_40px_rgba(0,0,0,0.45)] motion-safe:animate-[programacao-fade_0.35s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+          className="mb-3 w-[min(18rem,calc(100vw-2.5rem))] overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface-elevated shadow-contact-strong motion-safe:animate-[programacao-fade_0.35s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
         >
           <div className="flex items-center justify-between border-b border-hairline px-3.5 py-2.5">
             <p className="text-xs font-medium tracking-wide text-foreground">
@@ -211,7 +211,7 @@ export function PaletteSwitcher() {
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
         onClick={() => setOpen((value) => !value)}
-        className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-elevated text-foreground shadow-lg shadow-black/35 transition-[transform,opacity,background-color] duration-300 hover:border-accent/35 hover:text-accent motion-reduce:transition-none active:scale-[0.97]"
+        className="focus-ring flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-elevated text-foreground shadow-contact transition-[transform,opacity,background-color] duration-300 hover:border-accent/35 hover:text-accent motion-reduce:transition-none active:scale-[0.97]"
       >
         <Palette className="h-5 w-5" strokeWidth={1.75} aria-hidden />
       </button>
