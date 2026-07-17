@@ -1,5 +1,6 @@
 .home-today-ribbon__panel {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-contact);
 }
 
 .home-today-ribbon__list {
