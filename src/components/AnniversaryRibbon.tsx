@@ -8,7 +8,7 @@ type AnniversaryRibbonProps = {
 export function AnniversaryRibbon({ className = "" }: AnniversaryRibbonProps) {
   return (
     <div
-      className={`inline-flex items-center gap-3 rounded-full border border-hairline bg-black/25 px-3 py-2 ${className}`.trim()}
+      className={`inline-flex items-center gap-3 rounded-full border border-hairline bg-surface px-3 py-2 ${className}`.trim()}
     >
       <img
         className="h-7 w-auto opacity-90"
