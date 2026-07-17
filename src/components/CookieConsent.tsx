@@ -15,7 +15,7 @@ export function CookieConsent() {
     <div
       role="region"
       aria-label="Aviso de cookies"
-      className="fixed inset-x-0 bottom-0 z-[65] border-t border-hairline bg-surface-elevated/95 px-4 pb-[max(0.875rem,env(safe-area-inset-bottom))] pt-3.5 backdrop-blur-md motion-safe:animate-[programacao-fade_0.4s_ease-out_both]"
+      className="fixed inset-x-0 bottom-0 z-[65] border-t border-hairline bg-surface-elevated px-4 pb-[max(0.875rem,env(safe-area-inset-bottom))] pt-3.5 motion-safe:animate-[programacao-fade_0.4s_ease-out_both]"
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 sm:flex-row sm:justify-between">
         <p className="text-center text-xs leading-relaxed text-foreground-muted sm:text-left">
