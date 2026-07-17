@@ -103,11 +103,10 @@ function AppShellBackground() {
   if (theme === "experiencias") {
     return (
       <BackgroundPattern
-        variant="constellation"
-        opacity={0.38}
-        color="var(--accent)"
-        mode="fixed"
-        parallax
+        variant="leaf-cluster"
+        tone="dark"
+        density="sparse"
+        className="background-pattern--fixed"
       />
     );
   }
@@ -116,21 +115,18 @@ function AppShellBackground() {
     <>
       {/* Camada global — fora do PageTransition (translateZ) para permanecer no viewport */}
       <BackgroundPattern
-        variant="constellation"
-        opacity={isHome ? 0.42 : 0.5}
-        color="var(--accent)"
-        mode="fixed"
-        parallax
+        variant="branch"
+        tone="dark"
+        density={isHome ? "default" : "sparse"}
+        className="background-pattern--fixed"
       />
       {isHome ? (
         <>
           <BackgroundPattern
-            variant="vines"
-            mode="fixed"
-            opacity={0.3}
-            color="var(--accent)"
-            parallax
-            className="background-pattern--home-vines"
+            variant="vine"
+            tone="dark"
+            density="sparse"
+            className="background-pattern--fixed background-pattern--home-vines"
           />
           <SiteWallpaper mode="fixed" />
         </>
@@ -147,7 +143,7 @@ export function AppShell() {
         <div className="site-root">
           <a
             href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-surface-elevated focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent"
+            className="skip-to-content focus-ring"
           >
             Pular para o conteúdo
           </a>
