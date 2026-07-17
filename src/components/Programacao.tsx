@@ -1,8 +1,10 @@
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AppLink } from "@/components/AppLink";
+import { MaterialCard } from "@/components/MaterialCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionOrnament } from "@/components/SectionOrnament";
+import { Surface } from "@/components/Surface";
 import { useReservation } from "@/hooks/useReservation";
 import { CTA_LABELS } from "@/lib/cta-labels";
 import { getExperienciasAtivasHoje } from "@/lib/experiencias";
@@ -167,10 +169,11 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
   const dateTimeLabel = formatEventDateTime(event.date, event.time);
 
   return (
-    <article className="relative z-0 mx-auto w-full max-w-4xl overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface-elevated shadow-[var(--shadow-card)]">
-      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-stretch">
+    <Surface className="mx-auto w-full max-w-4xl rounded-[2px]">
+      <MaterialCard as="article" accentCorner="br" className="relative z-0 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-stretch">
         {event.image ? (
-          <div className="relative aspect-[2/1] overflow-hidden md:aspect-auto md:h-full md:min-h-0">
+          <div className="relative z-[3] aspect-[2/1] overflow-hidden md:aspect-auto md:h-full md:min-h-0">
             <img
               src={event.image}
               alt={event.title}
@@ -189,13 +192,13 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
         ) : (
           <div
             aria-hidden
-            className="flex aspect-[2/1] items-end bg-gradient-to-br from-accent/10 to-surface p-3 md:aspect-auto md:h-full md:min-h-0"
+            className="relative z-[3] flex aspect-[2/1] items-end bg-gradient-to-br from-accent/10 to-surface p-3 md:aspect-auto md:h-full md:min-h-0"
           >
             <CategoryTag category={event.category} />
           </div>
         )}
 
-        <div className="flex flex-col justify-center p-4 md:p-5">
+        <div className="relative flex flex-col justify-center p-4 md:p-5">
           <p className="section-eyebrow mb-1.5 !text-[10px]">Destaque do mês</p>
           <h3 className="font-display text-xl leading-tight tracking-tight text-foreground md:text-[1.375rem]">
             {event.title}
@@ -214,12 +217,13 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
               {event.description}
             </p>
           ) : null}
-          <div className="mt-3.5 flex items-center gap-3">
+          <div className="relative z-[3] mt-3.5 flex items-center gap-3">
             <EventCta event={event} onReserve={onReserve} variant="featured" />
           </div>
         </div>
-      </div>
-    </article>
+        </div>
+      </MaterialCard>
+    </Surface>
   );
 }
 
@@ -375,7 +379,7 @@ function EmptyState({
   const monthLabel = formatMonthLabel(viewMonth);
 
   return (
-    <div className="rounded-[var(--radius-md)] border border-dashed border-hairline bg-white/[0.02] px-6 py-14 text-center">
+    <MaterialCard className="px-6 py-14 text-center">
       <span
         aria-hidden
         className="mx-auto mb-4 block h-px w-10 bg-accent/60"
@@ -395,7 +399,7 @@ function EmptyState({
           Filtro ativo: {CATEGORY_CONFIG[category].label}
         </p>
       ) : null}
-    </div>
+    </MaterialCard>
   );
 }
 
@@ -456,37 +460,40 @@ export function Programacao() {
               </AppLink>
             </div>
             {activeExperienciasHoje.map((experiencia) => (
-              <AppLink
+              <Surface
                 key={experiencia.id}
-                to={`/experiencias?highlight=${experiencia.id}`}
-                className="focus-ring relative z-0 flex items-center gap-4 rounded-md border border-accent/20 bg-accent/8 px-5 py-4 shadow-[var(--shadow-card)] transition-colors hover:border-accent/35 hover:bg-accent/12"
+                className="rounded-[2px]"
               >
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-foreground">
-                    Hoje: {experiencia.title}
-                  </p>
-                  <p className="mt-0.5 text-xs text-foreground-muted">
-                    {experiencia.scheduleShort}
-                  </p>
-                </div>
-                <img
-                  src={experiencia.image}
-                  alt=""
-                  aria-hidden
-                  className="ml-auto hidden h-12 w-12 shrink-0 rounded-sm object-cover sm:block"
-                  loading="eager"
-                  decoding="async"
-                />
-              </AppLink>
+                <MaterialCard className="relative z-0 transition-colors hover:border-accent/35">
+                  <AppLink
+                    to={`/experiencias?highlight=${experiencia.id}`}
+                    className="focus-ring relative z-[3] flex items-center gap-4 px-5 py-4"
+                  >
+                    <span className="h-8 w-px shrink-0 rounded-full bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-foreground">
+                        Hoje: {experiencia.title}
+                      </p>
+                      <p className="mt-0.5 text-xs text-foreground-muted">
+                        {experiencia.scheduleShort}
+                      </p>
+                    </div>
+                    <img
+                      src={experiencia.image}
+                      alt=""
+                      aria-hidden
+                      className="ml-auto hidden h-12 w-12 shrink-0 rounded-sm object-cover sm:block"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </AppLink>
+                </MaterialCard>
+              </Surface>
             ))}
           </div>
         )}
 
-        <div className="sticky top-16 z-30 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background/92 px-5 py-4 shadow-[0_10px_28px_rgba(0,0,0,0.22)] md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:shadow-none">
+        <div className="sticky top-16 z-30 -mx-5 mb-8 space-y-4 border-b border-hairline bg-background px-5 py-4 shadow-[var(--shadow-contact)] md:static md:mx-0 md:mb-10 md:border-b-0 md:bg-transparent md:px-0 md:py-0 md:shadow-none">
           <MonthNav
             viewMonth={viewMonth}
             onPrev={() => setViewMonth((current) => shiftMonth(current, -1))}
