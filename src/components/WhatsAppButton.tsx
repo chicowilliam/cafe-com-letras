@@ -5,7 +5,7 @@ import { buildWhatsAppUrl } from "@/lib/contact";
 import { revealSpring } from "@/lib/motion-presets";
 
 const fabClassName =
-  "focus-ring fixed z-40 right-[max(1.25rem,env(safe-area-inset-right))] bottom-[calc(max(1.25rem,env(safe-area-inset-bottom))+4.25rem)] flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/12 bg-background/60 p-0 text-foreground shadow-[0_4px_20px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-md transition-[transform,box-shadow,background-color,border-color] duration-300 ease-out hover:border-white/22 hover:bg-background/78 hover:shadow-[0_6px_28px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.1)] active:scale-[0.96] motion-reduce:transition-none";
+  "focus-ring fixed z-40 right-[max(1.25rem,env(safe-area-inset-right))] bottom-[calc(max(1.25rem,env(safe-area-inset-bottom))+4.25rem)] flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/12 bg-surface p-0 text-foreground shadow-contact transition-[transform,box-shadow,background-color,border-color] duration-300 ease-out hover:border-white/22 hover:bg-surface-elevated hover:shadow-contact-strong active:scale-[0.96] motion-reduce:transition-none";
 
 export function WhatsAppButton() {
   const reduceMotion = useReducedMotion();
