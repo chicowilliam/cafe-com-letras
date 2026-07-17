@@ -1,331 +1,222 @@
-import { useEffect, useRef, type CSSProperties } from "react";
+import { m, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState, type CSSProperties } from "react";
 
-export type BackgroundPatternVariant =
-  | "constellation"
-  | "vines"
-  | "soft"
-  | "divider";
-
-/** Curvas divisórias — mesma família, ritmo diferente. */
-export type DividerCurveId = "arch" | "valley" | "swell" | "glide";
-
-type BackgroundPatternProps = {
-  /** 0–1 visual strength. Default: 0.55 for root, higher for dividers. */
-  opacity?: number;
-  /** Stroke color — defaults to accent gold. */
-  color?: string;
-  variant?: BackgroundPatternVariant;
-  /** fixed = viewport layer; absolute = parent-bounded; static = flow (handoffs). */
-  mode?: "fixed" | "absolute" | "static";
-  /** Subtle scroll parallax (ignored when prefers-reduced-motion). */
-  parallax?: boolean;
-  /** Preset curve for `variant="divider"`. Ignored if `path` is set. */
-  curve?: DividerCurveId;
-  /** Custom SVG path `d` (ex.: export Haikei) — viewBox 0 0 1440 48. */
-  path?: string;
-  /**
-   * Alinha o crop do SVG em colunas estreitas (trilhos).
-   * left/right favorecem o cipó correspondente; center = padrão.
-   */
-  focus?: "left" | "right" | "center";
-  /** Espessura do traço — `strong` ~1.6–1.8× (fundos claros). */
-  weight?: "regular" | "strong";
+export interface BackgroundPatternProps {
+  variant?: "branch" | "leaf-cluster" | "vine";
+  tone?: "dark" | "light";
+  density?: "sparse" | "default" | "dense";
   className?: string;
-};
-
-/**
- * Curvas amplas (1–2 cubic beziers). viewBox 1440×48.
- * Amplitude ~12–16 unidades — proporcional, não “nervosa”.
- */
-export const DIVIDER_CURVES: Record<DividerCurveId, string> = {
-  // Arco suave: sobe no terço esquerdo, desce no direito
-  arch: "M 0 30 C 360 12 720 12 1080 30 C 1260 39 1380 36 1440 30",
-  // Vale espelhado
-  valley: "M 0 24 C 360 42 720 42 1080 24 C 1260 15 1380 18 1440 24",
-  // Uma onda ampla (S suave)
-  swell: "M 0 28 C 480 10 960 46 1440 28",
-  // Quase plana com leve respiração
-  glide: "M 0 26 C 400 18 800 34 1200 26 C 1320 23 1400 24 1440 26",
-};
-
-function ConstellationMotif({
-  color,
-  weight = "regular",
-}: {
-  color: string;
-  weight?: "regular" | "strong";
-}) {
-  const w = weight === "strong" ? 1.7 : 1;
-  return (
-    <>
-      <g fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round">
-        <path
-          strokeWidth={1.1 * w}
-          d="M 40 80 C 120 40 200 120 280 90 C 360 60 420 140 500 110 C 580 80 640 160 720 130 C 800 100 860 180 940 150"
-        />
-        <path
-          strokeWidth={1 * w}
-          d="M 60 320 C 140 280 220 360 300 330 C 380 300 460 380 540 350 C 620 320 700 400 780 370 C 860 340 920 420 980 390"
-        />
-        <path
-          strokeWidth={1 * w}
-          d="M 20 560 C 100 520 180 600 260 570 C 340 540 420 620 500 590 C 580 560 660 640 740 610 C 820 580 900 660 980 630"
-        />
-        <path
-          strokeWidth={0.9 * w}
-          d="M 80 200 C 160 240 240 180 320 220 C 400 260 480 200 560 240 C 640 280 720 220 800 260"
-        />
-        <path
-          strokeWidth={0.9 * w}
-          d="M 100 440 C 180 400 260 480 340 450 C 420 420 500 500 580 470 C 660 440 740 520 820 490"
-        />
-      </g>
-      <g fill={color}>
-        <circle cx="120" cy="70" r={2.2 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="280" cy="95" r={1.6 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="460" cy="125" r={2 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="640" cy="145" r={1.5 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="820" cy="120" r={2.1 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="180" cy="310" r={1.8 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="360" cy="340" r={2.2 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="540" cy="355" r={1.5 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="720" cy="380" r={2 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="900" cy="365" r={1.7 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="140" cy="545" r={1.9 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="320" cy="575" r={2.1 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="500" cy="595" r={1.6 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="680" cy="620" r={2 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="860" cy="605" r={1.8 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="240" cy="210" r={1.4 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="480" cy="230" r={1.7 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="700" cy="250" r={1.5 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="260" cy="450" r={1.6 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="500" cy="480" r={1.9 * (weight === "strong" ? 1.15 : 1)} />
-        <circle cx="760" cy="500" r={1.5 * (weight === "strong" ? 1.15 : 1)} />
-      </g>
-    </>
-  );
 }
 
-function VinesMotif({ color }: { color: string }) {
-  const accent2 = "var(--accent-2)";
+const DENSITY_OPACITY = {
+  sparse: 0.24,
+  default: 0.38,
+  dense: 0.52,
+} as const;
+
+function useIsCompactViewport() {
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsCompact(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return isCompact;
+}
+
+function BranchMotif() {
   return (
-    <g
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      // Evita que o traço some/engrosse ao esticar o SVG em páginas altas
-      vectorEffect="nonScalingStroke"
-    >
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke">
       <path
-        stroke={accent2}
-        strokeWidth="1.2"
-        d="M 48 40 C 90 120 70 220 110 320 C 145 410 100 510 130 610 C 155 690 120 790 150 890 C 175 980 140 1080 165 1180"
+        className="background-pattern__stem background-pattern__stem--olive"
+        d="M 94 680 C 128 570 112 452 164 340 C 210 242 290 178 338 72"
       />
       <path
-        stroke={color}
-        strokeWidth="1.2"
-        d="M 952 20 C 910 110 930 210 890 310 C 855 400 900 500 870 600 C 845 690 880 780 850 880 C 825 970 860 1070 835 1170"
+        className="background-pattern__stem"
+        d="M 622 710 C 650 602 630 506 676 404 C 718 312 790 242 828 132"
       />
       <path
-        stroke={color}
-        strokeWidth="1"
-        d="M 880 180 L 896 168 M 880 180 L 892 190 M 870 520 L 886 508 M 870 520 L 882 530"
+        className="background-pattern__stem background-pattern__stem--quiet"
+        d="M 426 650 C 492 560 534 470 546 364 C 558 260 528 172 564 76"
+      />
+
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 170 340 C 104 314 78 264 94 208 C 154 216 200 260 214 326 C 198 318 184 310 166 304"
       />
       <path
-        stroke={accent2}
-        strokeWidth="1"
-        d="M 130 280 L 116 268 M 130 280 L 118 288 M 150 720 L 136 708 M 150 720 L 138 728"
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 220 240 C 196 174 220 116 278 84 C 314 132 306 196 252 244 C 244 230 234 216 220 202"
       />
-      <ellipse
-        cx="118"
-        cy="400"
-        rx="14"
-        ry="7"
-        stroke={accent2}
-        strokeWidth="1"
-        transform="rotate(-26 118 400)"
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 132 512 C 76 474 64 414 96 364 C 152 386 184 438 172 506 C 160 496 148 486 132 478"
       />
-      <ellipse
-        cx="870"
-        cy="640"
-        rx="13"
-        ry="6"
-        stroke={color}
-        strokeWidth="1"
-        transform="rotate(18 870 640)"
+
+      <path
+        className="background-pattern__leaf"
+        d="M 690 402 C 754 360 820 366 862 414 C 818 466 758 482 696 448 C 712 432 728 418 746 406"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 670 560 C 732 532 792 548 824 602 C 774 638 714 638 668 590 C 684 580 700 570 718 562"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 784 234 C 842 188 904 184 950 224 C 920 282 862 312 792 290 C 806 272 822 256 840 238"
+      />
+
+      <path
+        className="background-pattern__vein"
+        d="M 104 212 C 134 244 152 274 166 304 M 224 122 C 242 154 252 190 252 232 M 704 448 C 750 428 790 416 836 414 M 792 290 C 834 264 872 242 920 224"
       />
     </g>
   );
 }
 
-function SoftMotif({ color }: { color: string }) {
+function LeafClusterMotif() {
   return (
-    <g fill={color}>
-      {Array.from({ length: 28 }, (_, i) => {
-        const x = 60 + ((i * 137) % 880);
-        const y = 50 + ((i * 97) % 650);
-        const r = 1.2 + (i % 3) * 0.45;
-        return <circle key={i} cx={x} cy={y} r={r} opacity={0.55 + (i % 4) * 0.1} />;
-      })}
-      <g fill="none" stroke={color} strokeWidth="0.8" strokeLinecap="round" opacity="0.7">
-        <path d="M 80 120 C 200 80 320 160 440 120" />
-        <path d="M 520 400 C 640 360 760 440 880 400" />
-        <path d="M 140 560 C 280 520 420 600 560 560" />
-      </g>
-    </g>
-  );
-}
-
-function DividerMotif({
-  color,
-  curve = "swell",
-  path,
-}: {
-  color: string;
-  curve?: DividerCurveId;
-  path?: string;
-}) {
-  const d = path?.trim() || DIVIDER_CURVES[curve];
-
-  return (
-    <g fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round">
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke">
       <path
-        className="background-pattern__divider-stroke"
-        strokeWidth="1.15"
-        vectorEffect="non-scaling-stroke"
-        d={d}
+        className="background-pattern__stem"
+        d="M 116 606 C 214 542 270 444 300 322 C 322 232 312 154 356 72"
+      />
+      <path
+        className="background-pattern__stem background-pattern__stem--olive"
+        d="M 862 78 C 790 160 746 250 742 356 C 738 470 790 560 764 682"
+      />
+      <path
+        className="background-pattern__stem background-pattern__stem--quiet"
+        d="M 456 688 C 420 590 426 490 474 390 C 516 302 588 236 626 142"
+      />
+
+      <path
+        className="background-pattern__leaf"
+        d="M 292 322 C 220 320 170 284 154 224 C 218 202 278 230 318 292 C 300 288 282 284 262 278"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 314 224 C 262 170 260 106 306 58 C 366 92 388 150 354 216 C 340 204 328 190 314 174"
+      />
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 228 470 C 156 454 112 406 108 342 C 176 334 230 374 254 444 C 236 438 220 430 202 420"
+      />
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 748 354 C 804 300 872 292 926 332 C 896 398 838 436 760 418 C 774 396 792 376 812 356"
+      />
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 770 516 C 838 496 900 524 926 590 C 862 620 800 600 764 542 C 784 536 802 530 824 526"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 488 390 C 548 348 612 352 656 398 C 616 452 556 470 494 438 C 510 422 526 408 546 394"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 448 552 C 504 520 562 532 596 584 C 546 624 488 618 448 570 C 464 562 480 556 498 550"
+      />
+      <path
+        className="background-pattern__vein"
+        d="M 164 224 C 208 246 248 270 304 292 M 306 58 C 326 104 342 148 350 202 M 762 418 C 814 394 858 366 910 334 M 764 542 C 818 552 864 566 912 590 M 494 438 C 540 416 580 402 640 398"
       />
     </g>
   );
 }
 
-function PatternSvg({
-  variant,
-  color,
-  curve,
-  path,
-  focus = "center",
-  weight = "regular",
-}: {
-  variant: BackgroundPatternVariant;
-  color: string;
-  curve?: DividerCurveId;
-  path?: string;
-  focus?: "left" | "right" | "center";
-  weight?: "regular" | "strong";
-}) {
-  if (variant === "divider") {
-    return (
-      <svg
-        className="background-pattern__svg background-pattern__svg--divider"
-        viewBox="0 0 1440 48"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <DividerMotif color={color} curve={curve} path={path} />
-      </svg>
-    );
-  }
+function VineMotif() {
+  return (
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke">
+      <path
+        className="background-pattern__stem background-pattern__stem--olive"
+        d="M 72 24 C 118 132 82 248 132 358 C 178 458 116 560 158 668 C 196 766 140 880 180 990 C 216 1090 164 1180 196 1280"
+      />
+      <path
+        className="background-pattern__stem"
+        d="M 928 18 C 874 120 910 238 860 340 C 812 438 878 550 834 654 C 790 758 844 860 802 962 C 768 1046 804 1158 764 1282"
+      />
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 138 356 C 82 330 60 282 78 230 C 132 240 170 280 180 342 C 164 336 150 328 134 320"
+      />
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 156 666 C 96 640 70 590 88 536 C 146 546 188 590 196 654 C 180 648 166 640 148 630"
+      />
+      <path
+        className="background-pattern__leaf background-pattern__leaf--olive"
+        d="M 178 990 C 116 962 94 910 116 856 C 174 870 214 918 218 982 C 202 974 188 966 170 956"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 858 340 C 916 304 976 312 1014 360 C 972 410 914 424 856 390 C 872 374 888 360 906 348"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 834 654 C 894 626 952 644 982 698 C 932 734 874 726 834 678 C 850 670 866 662 884 656"
+      />
+      <path
+        className="background-pattern__leaf"
+        d="M 802 962 C 860 930 920 942 954 994 C 904 1034 846 1030 802 982 C 818 974 834 968 854 960"
+      />
+      <path
+        className="background-pattern__vein"
+        d="M 84 232 C 116 260 138 288 150 320 M 90 538 C 124 572 146 602 160 632 M 858 390 C 902 370 944 360 996 360 M 836 678 C 882 684 924 690 966 698"
+      />
+    </g>
+  );
+}
 
-  const viewBox = variant === "vines" ? "0 0 1000 1200" : "0 0 1000 700";
-  const preserveAspectRatio =
-    focus === "left"
-      ? "xMinYMid slice"
-      : focus === "right"
-        ? "xMaxYMid slice"
-        : "xMidYMid slice";
+function PatternSvg({ variant }: { variant: NonNullable<BackgroundPatternProps["variant"]> }) {
+  const viewBox = variant === "vine" ? "0 0 1000 1300" : "0 0 1000 760";
 
   return (
     <svg
       className="background-pattern__svg"
       viewBox={viewBox}
-      preserveAspectRatio={preserveAspectRatio}
+      preserveAspectRatio="xMidYMid slice"
       aria-hidden
     >
-      {variant === "constellation" ? (
-        <ConstellationMotif color={color} weight={weight} />
-      ) : null}
-      {variant === "vines" ? <VinesMotif color={color} /> : null}
-      {variant === "soft" ? <SoftMotif color={color} /> : null}
+      {variant === "branch" ? <BranchMotif /> : null}
+      {variant === "leaf-cluster" ? <LeafClusterMotif /> : null}
+      {variant === "vine" ? <VineMotif /> : null}
     </svg>
   );
 }
 
-/**
- * Camada decorativa de fundo (constelação / cipó / soft).
- * Fica atrás do conteúdo; use no AppShell ou em handoffs.
- */
 export function BackgroundPattern({
-  opacity = 0.55,
-  color = "var(--accent)",
-  variant = "constellation",
-  mode = "fixed",
-  parallax = false,
-  curve = "swell",
-  path,
-  focus = "center",
-  weight = "regular",
+  variant = "branch",
+  tone = "dark",
+  density = "default",
   className = "",
 }: BackgroundPatternProps) {
-  const layerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!parallax || mode === "static") return;
-
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const compact = window.matchMedia("(max-width: 767px)");
-    if (reduce.matches || compact.matches) return;
-
-    const node = layerRef.current;
-    if (!node) return;
-
-    let frame = 0;
-    let latest = window.scrollY;
-
-    const paint = () => {
-      frame = 0;
-      // Movimento mínimo — reforça profundidade sem custo de layout.
-      const y = Math.max(-34, Math.min(34, latest * -0.035));
-      node.style.transform = `translate3d(0, ${y}px, 0)`;
-    };
-
-    const onScroll = () => {
-      latest = window.scrollY;
-      if (frame) return;
-      frame = window.requestAnimationFrame(paint);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    paint();
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, [parallax, mode]);
-
+  const reduceMotion = useReducedMotion();
+  const isCompact = useIsCompactViewport();
+  const { scrollYProgress } = useScroll();
+  const parallaxY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion || isCompact ? ["0%", "0%"] : ["0%", "20%"],
+  );
   const style = {
-    "--bg-pattern-opacity": String(opacity),
-    "--bg-pattern-color": color,
+    "--bg-pattern-opacity": String(DENSITY_OPACITY[density]),
   } as CSSProperties;
 
   return (
-    <div
-      ref={layerRef}
-      className={`background-pattern background-pattern--${mode} background-pattern--${variant}${focus !== "center" ? ` background-pattern--focus-${focus}` : ""}${className ? ` ${className}` : ""}`}
-      style={style}
+    <m.div
+      className={`background-pattern background-pattern--${tone} background-pattern--${variant}${className ? ` ${className}` : ""}`}
+      style={{ ...style, y: parallaxY }}
       aria-hidden
     >
-      <PatternSvg
-        variant={variant}
-        color={color}
-        curve={curve}
-        path={path}
-        focus={focus}
-        weight={weight}
-      />
-      {variant === "divider" ? null : <div className="background-pattern__veil" />}
-    </div>
+      <PatternSvg variant={variant} />
+      <div className="background-pattern__veil" />
+    </m.div>
   );
 }
