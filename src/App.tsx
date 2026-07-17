@@ -65,7 +65,7 @@ export default function App() {
     <>
       <div className="home-shell">
         {/* Padrão decorativo: camada fixa no AppShell (não aqui) — evita sumir no scroll */}
-        <main id="main">
+        <main id="main" className="section-stack">
           <Hero />
           <HomeTodayRibbon />
           <SectionHandoff variant="breath" from="background" to="background" overlap="sm" />
