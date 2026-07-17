@@ -3,7 +3,7 @@
 .home-shell {
   position: relative;
   isolation: isolate;
-  /* Transparente: deixa ver constellation/vines/wallpaper fixos do AppShell */
+  /* Transparente: deixa ver gravura botânica/cipós/wallpaper fixos do AppShell */
   background-color: transparent;
 }
 
@@ -37,13 +37,15 @@
   z-index: 1;
 }
 
-/* Deixa o trilho global atravessar seções e handoffs */
-.home-shell .section-canvas {
-  background-color: color-mix(in srgb, var(--background) 48%, transparent);
-}
-
-.home-shell .section-canvas--surface {
-  background-color: color-mix(in srgb, var(--surface) 52%, transparent);
+/* Seções sólidas — padrão botânico só nos handoffs / vazios entre painéis */
+.home-shell .section-canvas,
+.home-shell .section-canvas--surface,
+.home-shell .section-canvas--shift,
+.home-shell .section-lifted-panel.section-canvas,
+.home-shell .section-ribbon.section-canvas {
+  background-color: var(--section-panel-color);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 /* Handoffs — quase sem tinta, sem faixa que vira costura */
@@ -88,16 +90,15 @@
 }
 
 .home-shell .section-ribbon {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--background) 18%, transparent) 0%,
-    color-mix(in srgb, var(--surface) 14%, transparent) 50%,
-    color-mix(in srgb, var(--background) 18%, transparent) 100%
-  );
+  background: var(--section-panel-color);
 }
 
 .home-shell .section-lifted-panel {
-  background-color: color-mix(in srgb, var(--surface) 55%, transparent);
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  border: none;
+  margin-top: 0;
 }
 
 .home-shell #hoje-na-casa {
@@ -176,11 +177,6 @@
   stroke-opacity: 0.16;
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
-}
-
-.site-wallpaper__node {
-  fill: color-mix(in srgb, var(--accent) 35%, transparent);
-  stroke: none;
 }
 
 .site-wallpaper__motif--hero .site-wallpaper__stroke {
