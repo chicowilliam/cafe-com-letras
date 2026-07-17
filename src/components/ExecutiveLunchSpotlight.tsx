@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AppLink } from "@/components/AppLink";
+import { MaterialCard } from "@/components/MaterialCard";
 import { SectionReveal } from "@/components/SectionReveal";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { buildWhatsAppUrl } from "@/lib/contact";
@@ -37,9 +38,10 @@ export function ExecutiveLunchSpotlight() {
 
   return (
     <SectionReveal variant="subtle" className="mx-auto mt-8 max-w-2xl text-left md:mt-10">
-      <article
+      <MaterialCard
+        as="article"
         id={EXECUTIVE_LUNCH_ANCHOR}
-        className="overflow-hidden rounded-[var(--radius-md)] border border-hairline bg-surface shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_12px_32px_rgba(0,0,0,0.22)]"
+        className="overflow-hidden"
       >
         <div className="border-b border-hairline bg-accent/5 px-5 py-4 md:px-6">
           <div className="flex flex-wrap items-center gap-2">
@@ -63,7 +65,7 @@ export function ExecutiveLunchSpotlight() {
             {EXECUTIVE_LUNCH_COPY.description}
           </p>
 
-          <div className="mt-5 rounded-md border border-hairline bg-background/60 px-4 py-3.5">
+          <div className="mt-5 rounded-md border border-hairline bg-surface px-4 py-3.5">
             <p className="font-sans text-[0.625rem] font-medium uppercase tracking-[0.12em] text-foreground-muted">
               {today?.label ?? "Hoje"}
             </p>
@@ -119,7 +121,7 @@ export function ExecutiveLunchSpotlight() {
             </a>
           </div>
         </div>
-      </article>
+      </MaterialCard>
     </SectionReveal>
   );
 }
