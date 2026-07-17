@@ -1,6 +1,7 @@
 import { AnimatePresence, m } from "framer-motion";
 import { memo } from "react";
 import { AppLink } from "@/components/AppLink";
+import { CardAccent, cardAccentVariantFromIndex } from "@/components/CardAccent";
 import { ExperiencePanelCtas } from "@/components/experiencias/ExperiencePanelCtas";
 import { useExpHubChrome } from "@/hooks/useExpHubChrome";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
@@ -182,6 +183,7 @@ export const ExperienceHubTriptychPanel = memo(function ExperienceHubTriptychPan
         id={`exp-hub-panel-${entry.id}`}
         className="exp-hub-editorial__panel-inner"
       >
+        <CardAccent variant={cardAccentVariantFromIndex(index)} />
         {simplifyMotion ? (
           <img
             src={entry.image}
