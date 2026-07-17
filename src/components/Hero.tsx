@@ -14,7 +14,7 @@ const cardapioLinkClass =
   "focus-ring hero-cardapio-link font-garamond text-base italic text-foreground-muted/70 transition-colors duration-300 hover:text-accent";
 
 const locationBadgeClass =
-  "mb-5 inline-flex items-center rounded-full border border-white/10 bg-black/45 px-3 py-1 font-sans text-xs font-medium tracking-tight text-accent backdrop-blur-sm";
+  "mb-5 inline-flex items-center rounded-full border border-white/10 bg-[#1a1512] px-3 py-1 font-sans text-xs font-medium tracking-tight text-accent";
 
 const taglineClass =
   "hero-tagline font-sans text-sm leading-relaxed md:text-base";
