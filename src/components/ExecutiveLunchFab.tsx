@@ -9,7 +9,7 @@ import {
 import { revealSpring } from "@/lib/motion-presets";
 
 const fabClassName =
-  "focus-ring group flex max-w-[calc(100vw-5.5rem)] items-center gap-2.5 rounded-full border border-white/12 bg-background/60 py-2 pl-3 pr-3.5 text-foreground shadow-[0_4px_20px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-md transition-[transform,box-shadow,background-color,border-color] duration-300 ease-out hover:border-accent/30 hover:bg-background/78 hover:shadow-[0_6px_28px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.1)] active:scale-[0.98] motion-reduce:transition-none sm:pl-3.5 sm:pr-4";
+  "focus-ring group flex max-w-[calc(100vw-5.5rem)] items-center gap-2.5 rounded-full border border-white/12 bg-surface py-2 pl-3 pr-3.5 text-foreground shadow-contact transition-[transform,box-shadow,background-color,border-color] duration-300 ease-out hover:border-accent/30 hover:bg-surface-elevated hover:shadow-contact-strong active:scale-[0.98] motion-reduce:transition-none sm:pl-3.5 sm:pr-4";
 
 function scrollToExecutiveLunch() {
   const target = document.getElementById(EXECUTIVE_LUNCH_ANCHOR);
