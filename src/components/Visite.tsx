@@ -1,6 +1,7 @@
 import { ChevronDown, ExternalLink, MapPin } from "lucide-react";
 import { useState } from "react";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
+import { CardAccent } from "@/components/CardAccent";
 import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
 
 const ADDRESS = "Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte — MG";
@@ -130,7 +131,9 @@ export function Visite() {
             </StaggerItem>
 
             <StaggerItem index={1}>
-              <div className="editorial-inset-panel editorial-inset-panel--soft rounded-2xl px-5 py-6 md:px-6 md:py-7">
+              <div className="editorial-inset-panel editorial-inset-panel--soft relative px-5 py-6 md:px-6 md:py-7">
+                <CardAccent variant="sprig-b" />
+                <div className="relative z-[2]">
                 <p className="section-caption">Perguntas frequentes</p>
                 <div className="mt-3">
                   {FAQ_ITEMS.map((item, index) => (
@@ -144,6 +147,7 @@ export function Visite() {
                       }
                     />
                   ))}
+                </div>
                 </div>
               </div>
             </StaggerItem>
