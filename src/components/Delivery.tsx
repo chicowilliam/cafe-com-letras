@@ -9,7 +9,7 @@ export function Delivery() {
   return (
     <section
       id="delivery"
-      className="section-lifted-panel section-surface-enter section-canvas section-canvas--surface section-padding"
+      className="section-canvas section-padding"
     >
       <div className="relative z-[1] mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-[2fr_3fr] md:items-center md:gap-16">
         <div className="flex flex-col">
