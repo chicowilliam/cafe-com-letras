@@ -1,9 +1,7 @@
-import {
-  BackgroundPattern,
-  type DividerCurveId,
-} from "@/components/BackgroundPattern";
+import { type CSSProperties } from "react";
 
 type HandoffTone = "background" | "surface";
+export type DividerCurveId = "arch" | "valley" | "swell" | "glide";
 
 export type SectionHandoffVariant =
   | "breath"
@@ -53,6 +51,13 @@ const HANDOFF_CURVE: Record<SectionHandoffVariant, DividerCurveId> = {
   "accent-band": "glide",
 };
 
+const DIVIDER_CURVES: Record<DividerCurveId, string> = {
+  arch: "M 0 30 C 360 12 720 12 1080 30 C 1260 39 1380 36 1440 30",
+  valley: "M 0 24 C 360 42 720 42 1080 24 C 1260 15 1380 18 1440 24",
+  swell: "M 0 28 C 480 10 960 46 1440 28",
+  glide: "M 0 26 C 400 18 800 34 1200 26 C 1320 23 1400 24 1440 26",
+};
+
 function toneClasses(from: HandoffTone, to: HandoffTone) {
   return `${FROM_CLASS[from]} ${TO_CLASS[to]}`;
 }
@@ -66,16 +71,32 @@ function HandoffPattern({
   path?: string;
   boost?: boolean;
 }) {
+  const d = path?.trim() || DIVIDER_CURVES[curve];
+  const opacity = boost ? 0.42 : 0.32;
+
   return (
-    <BackgroundPattern
-      variant="divider"
-      mode="static"
-      curve={curve}
-      path={path}
-      opacity={boost ? 0.42 : 0.32}
-      color="var(--accent)"
+    <svg
+      viewBox="0 0 1440 48"
+      preserveAspectRatio="none"
+      aria-hidden
       className="section-handoff__pattern"
-    />
+      style={{ "--section-handoff-pattern-opacity": String(opacity) } as CSSProperties}
+    >
+      <g fill="none" stroke="var(--accent)" strokeLinecap="round" strokeLinejoin="round">
+        <path
+          className="section-handoff__filet"
+          strokeWidth="1.15"
+          vectorEffect="non-scaling-stroke"
+          d={d}
+        />
+        <path
+          className="section-handoff__fleuron"
+          strokeWidth="0.9"
+          vectorEffect="non-scaling-stroke"
+          d="M 650 24 C 676 10 704 10 720 24 C 736 38 764 38 790 24 M 704 24 C 712 16 728 16 736 24 M 704 24 C 712 32 728 32 736 24"
+        />
+      </g>
+    </svg>
   );
 }
 
