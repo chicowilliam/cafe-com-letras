@@ -9,8 +9,8 @@ import { CTA_LABELS, CTA_HOVER_CLASS } from "@/lib/cta-labels";
 import "@/styles/noite-dos-dates-theme.css";
 
 const BADGE_STYLES: Record<DatePackageId, string> = {
-  complete: "border-accent/35 bg-black/55 text-accent",
-  vegan: "border-accent-2/35 bg-black/55 text-accent-2",
+  complete: "border-accent/35 bg-[#1a1512] text-accent",
+  vegan: "border-accent-2/35 bg-[#1a1512] text-accent-2",
 };
 
 const ATMOSPHERE = [
@@ -36,7 +36,7 @@ export default function NoiteDosDatesPage() {
 
   return (
     <ExperiencePageShell className="noite-dos-dates-page">
-      <main>
+      <main className="section-stack">
         <section className="ndd-hero section-padding border-b border-hairline bg-surface">
           <div className="ndd-hero-glow" aria-hidden />
           <div className="relative mx-auto max-w-4xl">
