@@ -4,8 +4,11 @@
   pointer-events: none;
   overflow: hidden;
   opacity: var(--bg-pattern-opacity, 0.55);
-  color: var(--bg-pattern-color, var(--accent));
   will-change: transform;
+  --bg-pattern-stem: var(--accent);
+  --bg-pattern-leaf: var(--accent);
+  --bg-pattern-olive: var(--accent-2);
+  --bg-pattern-quiet: color-mix(in srgb, var(--foreground) 26%, transparent);
 }
 
 .background-pattern--fixed {
@@ -14,6 +17,20 @@
   z-index: 0;
   width: 100%;
   height: 100%;
+}
+
+.background-pattern--dark {
+  --bg-pattern-stem: color-mix(in srgb, var(--accent) 78%, transparent);
+  --bg-pattern-leaf: color-mix(in srgb, var(--accent) 70%, transparent);
+  --bg-pattern-olive: color-mix(in srgb, var(--accent-2) 70%, transparent);
+  --bg-pattern-quiet: color-mix(in srgb, var(--foreground) 18%, transparent);
+}
+
+.background-pattern--light {
+  --bg-pattern-stem: color-mix(in srgb, var(--print-price, #6b4f1a) 72%, transparent);
+  --bg-pattern-leaf: color-mix(in srgb, var(--print-price, #6b4f1a) 64%, transparent);
+  --bg-pattern-olive: color-mix(in srgb, var(--accent-2) 74%, transparent);
+  --bg-pattern-quiet: color-mix(in srgb, var(--print-ink, #2a2820) 20%, transparent);
 }
 
 /* Cipó da home — reforço lateral, mesmo stacking do wallpaper */
@@ -33,57 +50,86 @@
   height: 100%;
 }
 
-.background-pattern--static {
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  min-height: inherit;
-}
-
 .background-pattern__svg {
   display: block;
   width: 100%;
   height: 100%;
   max-width: none;
   opacity: 0.85;
-}
-
-.background-pattern__svg--divider {
-  height: 100%;
-  min-height: 2rem;
-  opacity: 1;
-}
-
-.background-pattern__divider-stroke {
-  stroke-opacity: 0.55;
-}
-
-.background-pattern--divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.background-pattern--divider .background-pattern__veil {
-  display: none;
-}
-
-/* Véu leve — protege contraste AA do texto sobre o padrão */
-.background-pattern__veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--background) 42%, transparent) 0%,
-    color-mix(in srgb, var(--background) 18%, transparent) 35%,
-    color-mix(in srgb, var(--background) 18%, transparent) 65%,
-    color-mix(in srgb, var(--background) 48%, transparent) 100%
+  /* Mais presente nas margens; atenuado no centro onde os cards pousam */
+  -webkit-mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 50%,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.72) 45%,
+    #000 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 50%,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.72) 45%,
+    #000 78%
   );
 }
 
-.background-pattern--soft .background-pattern__svg {
-  opacity: 0.7;
+.background-pattern--focus-left .background-pattern__svg {
+  width: 132%;
+  transform: translateX(-18%);
+}
+
+.background-pattern--focus-right .background-pattern__svg {
+  width: 132%;
+  transform: translateX(-6%);
+}
+
+.background-pattern__stem {
+  stroke: var(--bg-pattern-stem);
+  stroke-width: 1.08;
+  stroke-opacity: 0.82;
+}
+
+.background-pattern__stem--olive {
+  stroke: var(--bg-pattern-olive);
+}
+
+.background-pattern__stem--quiet {
+  stroke: var(--bg-pattern-quiet);
+  stroke-opacity: 0.72;
+}
+
+.background-pattern__leaf {
+  stroke: var(--bg-pattern-leaf);
+  stroke-width: 0.92;
+  stroke-opacity: 0.76;
+}
+
+.background-pattern__leaf--olive {
+  stroke: var(--bg-pattern-olive);
+}
+
+.background-pattern__vein {
+  stroke: var(--bg-pattern-quiet);
+  stroke-width: 0.58;
+  stroke-opacity: 0.58;
+}
+
+/* Véu — padrão mais presente nas margens, mais quieto no centro (sob os cards) */
+.background-pattern__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 58% 52% at 50% 48%,
+      color-mix(in srgb, var(--background) 58%, transparent) 0%,
+      color-mix(in srgb, var(--background) 28%, transparent) 42%,
+      transparent 72%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--background) 38%, transparent) 0%,
+      color-mix(in srgb, var(--background) 12%, transparent) 28%,
+      color-mix(in srgb, var(--background) 12%, transparent) 72%,
+      color-mix(in srgb, var(--background) 42%, transparent) 100%
+    );
 }
 
 /* Shell do site — conteúdo acima do padrão fixo */
@@ -99,47 +145,70 @@ body {
   background-color: var(--background);
 }
 
-/* Home + subpáginas: seções deixam o padrão vazar */
-.site-root .section-canvas {
-  background-color: color-mix(in srgb, var(--background) 42%, transparent);
-}
-
-.site-root .section-canvas--surface {
-  background-color: color-mix(in srgb, var(--surface) 48%, transparent);
+/* Home + subpáginas: painel sólido sobre o BackgroundPattern (padrão só nos vazios) */
+.site-root .section-canvas,
+.site-root .section-canvas--surface,
+.site-root .section-canvas--shift,
+.site-root .section-ribbon.section-canvas {
+  background-color: var(--section-panel-color);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .site-root .section-lifted-panel {
-  background-color: color-mix(in srgb, var(--surface) 52%, transparent);
-  box-shadow: var(--shadow-contact);
+  background: transparent;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  margin-top: 0;
 }
 
 .site-root .editorial-inset-panel,
 .site-root .home-today-ribbon__panel {
+  background-color: var(--material-card-bg);
+  background-image:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--material-card-bg-elevated) 88%, transparent) 0%,
+      var(--material-card-bg) 100%
+    ),
+    var(--texture-card-noise);
+  background-size: auto, 160px 160px;
+  background-blend-mode: normal, soft-light;
+  border: 1px solid var(--material-card-border);
+  border-radius: var(--radius-paper);
   box-shadow: var(--shadow-contact);
 }
 
 .site-root .section-ribbon {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--background) 16%, transparent) 0%,
-    color-mix(in srgb, var(--surface) 12%, transparent) 50%,
-    color-mix(in srgb, var(--background) 16%, transparent) 100%
-  );
+  background: var(--section-panel-color);
 }
 
-/* Handoffs — reforço do padrão (shape divider) */
+/* Handoffs — filetes editoriais independentes do BackgroundPattern */
 .section-handoff {
   position: relative;
   overflow: hidden;
 }
 
-.section-handoff .background-pattern {
+.section-handoff__pattern {
   position: absolute;
   inset: 0;
   z-index: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  opacity: var(--section-handoff-pattern-opacity, 0.32);
 }
 
-.section-handoff > :not(.background-pattern) {
+.section-handoff__filet {
+  stroke-opacity: 0.55;
+}
+
+.section-handoff__fleuron {
+  stroke-opacity: 0.34;
+}
+
+.section-handoff > :not(.section-handoff__pattern) {
   position: relative;
   z-index: 1;
 }
@@ -200,7 +269,7 @@ html[data-page-theme="cardapio"][data-cardapio-skin="print"] .cardapio-page__pat
   visibility: hidden;
 }
 
-/* Hub experiências — constellation sobre fundo neutro */
+/* Hub experiências — gravura botânica sobre fundo neutro */
 html[data-page-theme="experiencias"] .background-pattern--fixed {
   opacity: var(--bg-pattern-opacity, 0.38);
 }
