@@ -14,10 +14,8 @@
   --accent-2-active: #245a96;
   --hairline: rgba(120, 180, 255, 0.1);
   --ink: #0e1419;
-  --shadow-card: 0 0 0 1px rgba(120, 180, 255, 0.05), 0 2px 8px rgba(0, 0, 0, 0.22),
-    0 4px 16px rgba(8, 12, 20, 0.35);
-  --shadow-card-hover: 0 0 0 1px rgba(232, 135, 46, 0.1), 0 4px 16px rgba(0, 0, 0, 0.28),
-    0 8px 32px rgba(10, 16, 28, 0.45);
+  --shadow-card: var(--shadow-contact);
+  --shadow-card-hover: var(--shadow-contact-strong);
   color: var(--foreground);
   background-color: var(--background);
 }
