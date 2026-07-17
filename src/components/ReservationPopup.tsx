@@ -28,7 +28,7 @@ export function ReservationPopup() {
       onClick={open}
       aria-label={CTA_LABELS.reserve}
       aria-hidden={!pastHero}
-      className={`btn-primary focus-ring fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-40 flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium shadow-lg shadow-black/40 transition-[transform,opacity] duration-500 ease-out motion-reduce:transition-none ${
+      className={`btn-primary focus-ring fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-40 flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium shadow-contact transition-[transform,opacity] duration-500 ease-out motion-reduce:transition-none ${
         pastHero
           ? "translate-x-0 opacity-100"
           : "pointer-events-none -translate-x-[120%] opacity-0"
