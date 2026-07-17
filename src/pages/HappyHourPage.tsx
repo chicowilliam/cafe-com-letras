@@ -19,7 +19,7 @@ export default function HappyHourPage() {
 
   return (
     <ExperiencePageShell>
-      <main>
+      <main className="section-stack">
         <HappyHourHero
           eyebrow={info.eyebrow}
           schedule={info.scheduleLong}
