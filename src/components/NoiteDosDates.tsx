@@ -2,12 +2,14 @@ import { ArrowRight, Heart, Sparkles } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { SectionReveal } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { DATE_PACKAGES } from "@/lib/date-experience";
 
 export function NoiteDosDates() {
   return (
-    <section id="noite-dos-dates" className="section-canvas section-padding">
-      <div className="mx-auto max-w-6xl">
+    <section id="noite-dos-dates" className="section-canvas section-padding patterned-surface">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto max-w-6xl">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"
           index="01"
