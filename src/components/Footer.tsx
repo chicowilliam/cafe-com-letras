@@ -3,6 +3,7 @@ import { track } from "@vercel/analytics/react";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon } from "@/components/InstagramIcon";
 import { SpotifyIcon } from "@/components/SpotifyIcon";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import {
   INSTAGRAM_BRAND,
@@ -33,8 +34,9 @@ export function Footer() {
   const open = isOpenNow();
 
   return (
-    <footer className="section-canvas section-padding !pb-[max(var(--section-space),env(safe-area-inset-bottom))]">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:gap-8">
+    <footer className="section-canvas section-padding patterned-surface !pb-[max(var(--section-space),env(safe-area-inset-bottom))]">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row md:gap-8">
         <div>
           <p className="font-display text-lg text-foreground">Café com Letras</p>
           <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
