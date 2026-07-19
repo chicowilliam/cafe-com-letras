@@ -2,6 +2,7 @@ import { Camera, Images } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { GalleryViewer } from "@/components/GalleryViewer";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { useInView } from "@/hooks/useInView";
 import {
   GALLERY_MARQUEE_IMAGES,
@@ -42,9 +43,10 @@ export function ImageMarquee() {
     <section
       ref={sectionRef}
       id="galeria"
-      className="gallery-marquee-section section-canvas section-canvas--surface overflow-hidden section-padding"
+      className="gallery-marquee-section section-canvas section-canvas--surface patterned-surface overflow-hidden section-padding"
     >
-      <div className="relative mx-auto mb-10 max-w-6xl md:mb-14">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto mb-10 max-w-6xl md:mb-14">
         <AnimatedSectionHeading
           eyebrow="Galeria"
           title="Café, cultura e encontros"
