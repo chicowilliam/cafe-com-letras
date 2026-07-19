@@ -5,10 +5,10 @@ import { CardapioMenuViewer } from "@/components/cardapio/CardapioMenuViewer";
 import { CardapioPrintContextPanel } from "@/components/cardapio/CardapioPrintContextPanel";
 import { CardapioPrintViewer } from "@/components/cardapio/CardapioPrintViewer";
 import { CardapioViewToggle } from "@/components/cardapio/CardapioViewToggle";
-import { CardAccent, cardAccentVariantFromIndex } from "@/components/CardAccent";
 import { CardapioSectionNav } from "@/components/CardapioSectionNav";
 import { FadeIn } from "@/components/FadeIn";
 import { BackgroundPattern } from "@/components/BackgroundPattern";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { SectionHandoff } from "@/components/SectionBridge";
 import { useCardapioSectionSpy } from "@/hooks/useCardapioSectionSpy";
 import { useCardapioViewMode } from "@/hooks/useCardapioViewMode";
@@ -194,16 +194,12 @@ export default function CardapioPage() {
                         </span>
                       </div>
 
-                      <div className="cardapio-lang-card__footer">
-                        <CardAccent
-                          variant={cardAccentVariantFromIndex(key === "pt" ? 0 : 1)}
-                          tone="light"
-                          corner="br"
-                        />
-                        <span className="cardapio-lang-card__icon" aria-hidden>
+                      <div className="cardapio-lang-card__footer patterned-surface relative">
+                        <SurfacePattern tone="light" />
+                        <span className="cardapio-lang-card__icon relative z-[1]" aria-hidden>
                           <BookOpen size={15} strokeWidth={1.5} />
                         </span>
-                        <div className="cardapio-lang-card__meta">
+                        <div className="cardapio-lang-card__meta relative z-[1]">
                           <p className="cardapio-lang-card__title">{copy.title}</p>
                           <p className="cardapio-lang-card__hint">{copy.hint}</p>
                         </div>
