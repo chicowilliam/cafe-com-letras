@@ -1,8 +1,8 @@
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { AppLink } from "@/components/AppLink";
-import { CardAccent, cardAccentVariantFromIndex } from "@/components/CardAccent";
 import { ExperiencePanelCtas } from "@/components/experiencias/ExperiencePanelCtas";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import type { ExperienciaCatalogEntry } from "@/lib/experiencias";
 import { hubContentContainerVariants, hubContentItemVariants } from "@/lib/motion-presets";
 
@@ -64,11 +64,11 @@ export function ExperienceHubMobile({
               aria-label={`${entry.title} — ${entry.timeBandLabel}. Ver experiência`}
               onFocus={() => onSelect(index)}
               onMouseEnter={() => onSelect(index)}
-              className={`exp-hub-mobile__card exp-hub-mobile__card--${entry.id} focus-ring ${
+              className={`exp-hub-mobile__card exp-hub-mobile__card--${entry.id} patterned-surface focus-ring ${
                 isActive ? "is-active" : ""
               }`}
             >
-              <CardAccent variant={cardAccentVariantFromIndex(index)} />
+              <SurfacePattern />
               <span className="exp-hub-mobile__card-media">
                 <img
                   src={entry.image}
