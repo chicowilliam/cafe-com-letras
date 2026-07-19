@@ -4,7 +4,6 @@
 @import "./styles/section-ornament.css";
 @import "./styles/site-wallpaper.css";
 @import "./styles/background-pattern.css";
-@import "./styles/card-accent.css";
 @import "./styles/cardapio-theme.css";
 @import "./styles/cardapio-menu.css";
 @import "./styles/cardapio-list.css";
@@ -304,9 +303,9 @@ button:not(:disabled),
   content: none;
 }
 
-.section-stack > section:not(#inicio) > :not(.background-pattern):not(.section-ornament),
-.section-stack > footer > :not(.background-pattern):not(.section-ornament),
-.section-canvas > :not(.background-pattern):not(.section-ornament) {
+.section-stack > section:not(#inicio) > :not(.background-pattern):not(.section-ornament):not(.surface-pattern-layer),
+.section-stack > footer > :not(.background-pattern):not(.section-ornament):not(.surface-pattern-layer),
+.section-canvas > :not(.background-pattern):not(.section-ornament):not(.surface-pattern-layer) {
   position: relative;
   z-index: 1;
 }
@@ -409,7 +408,7 @@ button:not(:disabled),
   opacity: 0.9;
 }
 
-.material-card > *:not(.card-accent) {
+.material-card > *:not(.surface-pattern-layer) {
   position: relative;
   z-index: 2;
 }
