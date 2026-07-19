@@ -11,6 +11,7 @@ export function SiteWallpaper({ mode = "fixed" }: SiteWallpaperProps) {
       viewBox="0 0 800 4800"
       /* No viewport, slice mantém as laterais (altura da tela << arte). */
       preserveAspectRatio="xMidYMid slice"
+      overflow="hidden"
       aria-hidden
     >
       {/* Hero — mínimo */}
