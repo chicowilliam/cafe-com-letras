@@ -1,16 +1,15 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { track } from "@vercel/analytics/react";
 import { Check, Mail } from "lucide-react";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
-import { CardAccent, nextCardAccentVariant } from "@/components/CardAccent";
 import { SectionReveal } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { buildWhatsAppUrl } from "@/lib/contact";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const accentRef = useRef(nextCardAccentVariant());
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,11 +23,12 @@ export function Newsletter() {
   };
 
   return (
-    <section className="section-canvas section-padding">
-      <div className="mx-auto max-w-xl px-1">
+    <section className="section-canvas section-padding patterned-surface">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto max-w-xl px-1">
         <SectionReveal variant="editorial">
-          <div className="editorial-inset-panel editorial-inset-panel--soft relative px-6 py-8 sm:px-8 sm:py-10">
-            <CardAccent variant={accentRef.current} />
+          <div className="editorial-inset-panel editorial-inset-panel--soft patterned-surface relative px-6 py-8 sm:px-8 sm:py-10">
+            <SurfacePattern />
             <div className="relative z-[2] flex flex-col items-center text-center">
               <span
                 className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-white/[0.04] text-accent"
