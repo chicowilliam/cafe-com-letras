@@ -1,5 +1,6 @@
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 
 type Quote = { text: string; source: string; featured?: boolean };
 
@@ -39,8 +40,9 @@ function QuoteFigure({
 
 export function Quotes() {
   return (
-    <section className="section-canvas section-canvas--surface section-padding">
-      <div className="mx-auto max-w-6xl">
+    <section className="section-canvas section-canvas--surface section-padding patterned-surface">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto max-w-6xl">
         <AnimatedSectionHeading
           eyebrow="Vozes"
           title="Quem fala da casa"
