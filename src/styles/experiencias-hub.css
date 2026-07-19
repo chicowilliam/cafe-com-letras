@@ -446,14 +446,12 @@
   width: 100%;
 }
 
-[data-page="experiencias-hub"] .exp-hub-editorial__panel-inner > .card-accent {
+[data-page="experiencias-hub"] .exp-hub-editorial__panel-inner > .surface-pattern-layer {
   z-index: 2;
-  opacity: 0.12;
 }
 
-[data-page="experiencias-hub"] .exp-hub-mobile__card > .card-accent {
+[data-page="experiencias-hub"] .exp-hub-mobile__card > .surface-pattern-layer {
   z-index: 2;
-  opacity: 0.12;
 }
 
 [data-page="experiencias-hub"] .exp-hub-editorial__image {
