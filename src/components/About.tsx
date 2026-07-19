@@ -3,6 +3,7 @@ import { AboutHistoryMediaColumn } from "@/components/AboutHistoryDiptych";
 import { AboutHistoryOrnament } from "@/components/AboutHistoryOrnament";
 import { AnniversaryRibbon } from "@/components/AnniversaryRibbon";
 import { SectionReveal } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { ABOUT_PARAGRAPHS } from "@/lib/constants";
 import "@/styles/about-history.css";
 
@@ -10,8 +11,9 @@ export function About() {
   return (
     <section
       id="sobre"
-      className="about-history section-canvas section-canvas--shift section-padding relative grid w-full grid-cols-1 items-stretch overflow-x-hidden md:grid-cols-[46%_54%] lg:grid-cols-[42%_58%]"
+      className="about-history section-canvas section-canvas--shift section-padding patterned-surface relative grid w-full grid-cols-1 items-stretch overflow-x-hidden md:grid-cols-[46%_54%] lg:grid-cols-[42%_58%]"
     >
+      <SurfacePattern />
       <AboutHistoryMediaColumn />
 
       <div className="about-history__story about-history-story relative h-full min-h-full">
