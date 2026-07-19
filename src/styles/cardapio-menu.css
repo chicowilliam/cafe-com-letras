@@ -412,11 +412,11 @@
   overflow: hidden;
 }
 
-[data-page="cardapio"] .cardapio-lang-card__footer > .card-accent {
-  z-index: 1;
+[data-page="cardapio"] .cardapio-lang-card__footer > .surface-pattern-layer {
+  z-index: 0;
 }
 
-[data-page="cardapio"] .cardapio-lang-card__footer > *:not(.card-accent) {
+[data-page="cardapio"] .cardapio-lang-card__footer > *:not(.surface-pattern-layer) {
   position: relative;
   z-index: 1;
 }
