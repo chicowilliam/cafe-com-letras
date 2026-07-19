@@ -18,6 +18,10 @@
   z-index: 0;
   width: 100%;
   height: 100%;
+  max-width: 100vw;
+  max-height: 100dvh;
+  overflow: hidden;
+  contain: strict;
 }
 
 .site-wallpaper--absolute {
@@ -125,8 +129,8 @@
 .site-wallpaper__stroke {
   fill: none;
   stroke: var(--accent);
-  stroke-opacity: 0.22;
-  stroke-width: 1.3;
+  stroke-opacity: 0.12;
+  stroke-width: 1.15;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
@@ -134,29 +138,29 @@
 
 .site-wallpaper__stroke--accent-2 {
   stroke: var(--accent-2);
-  stroke-opacity: 0.2;
+  stroke-opacity: 0.1;
 }
 
 .site-wallpaper__thorn {
   fill: none;
   stroke: var(--accent);
-  stroke-opacity: 0.17;
-  stroke-width: 1;
+  stroke-opacity: 0.1;
+  stroke-width: 0.95;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
 .site-wallpaper__thorn--accent-2 {
   stroke: var(--accent-2);
-  stroke-opacity: 0.15;
+  stroke-opacity: 0.09;
 }
 
 .site-wallpaper__flourish,
 .site-wallpaper__staff {
   fill: none;
   stroke: var(--accent-2);
-  stroke-opacity: 0.15;
-  stroke-width: 1;
+  stroke-opacity: 0.09;
+  stroke-width: 0.95;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
@@ -164,8 +168,8 @@
 .site-wallpaper__clef {
   fill: none;
   stroke: var(--accent);
-  stroke-opacity: 0.14;
-  stroke-width: 1.1;
+  stroke-opacity: 0.09;
+  stroke-width: 1;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
@@ -174,31 +178,31 @@
 .site-wallpaper__chain {
   fill: none;
   stroke: var(--accent-2);
-  stroke-opacity: 0.16;
-  stroke-width: 1;
+  stroke-opacity: 0.1;
+  stroke-width: 0.95;
   vector-effect: non-scaling-stroke;
 }
 
 .site-wallpaper__motif--hero .site-wallpaper__stroke {
-  stroke-opacity: 0.08;
+  stroke-opacity: 0.05;
 }
 
 /* Programação — traço um pouco mais presente na faixa musical */
 .site-wallpaper__motif--musica .site-wallpaper__staff,
 .site-wallpaper__motif--musica .site-wallpaper__clef {
-  stroke-opacity: 0.16;
+  stroke-opacity: 0.11;
 }
 
 .site-wallpaper__motif--musica .site-wallpaper__stroke {
-  stroke-opacity: 0.17;
+  stroke-opacity: 0.11;
 }
 
 .site-wallpaper__motif--musica .site-wallpaper__stroke--accent-2 {
-  stroke-opacity: 0.15;
+  stroke-opacity: 0.1;
 }
 
 .site-wallpaper__motif--musica .site-wallpaper__chain {
-  stroke-opacity: 0.14;
+  stroke-opacity: 0.09;
 }
 
 @media (prefers-reduced-motion: reduce) {
