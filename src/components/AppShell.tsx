@@ -1,5 +1,5 @@
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { BackgroundPattern } from "@/components/BackgroundPattern";
 import { Navbar } from "@/components/Navbar";
@@ -10,6 +10,7 @@ import {
   SubpageChromeProvider,
   useSubpageChromeContext,
 } from "@/hooks/useSubpageChrome";
+import { PatternSheetProvider, type PatternSheetValue } from "@/hooks/usePatternSheet";
 import { RouteScrollProvider } from "@/hooks/useRouteScroll";
 import {
   getPageTheme,
@@ -90,10 +91,27 @@ function AppShellChrome() {
   );
 }
 
+function useRoutePatternSheet(): PatternSheetValue {
+  const { pathname } = useLocation();
+  const theme = getPageTheme(pathname);
+
+  return useMemo(() => {
+    if (theme === "cardapio") {
+      return { variant: "leaf-cluster", tone: "light" };
+    }
+    if (theme === "experiencias") {
+      return { variant: "leaf-cluster", tone: "dark" };
+    }
+    // Home: branch — mesma folha dominante do BackgroundPattern fixed
+    return { variant: "branch", tone: "dark" };
+  }, [theme]);
+}
+
 function AppShellBackground() {
   const { pathname } = useLocation();
   const theme = getPageTheme(pathname);
   const isHome = pathname === "/";
+  const sheet = useRoutePatternSheet();
 
   if (theme === "cardapio") {
     // Padrão fica na própria página (absolute) — fundo claro + stacking do paper.
@@ -103,8 +121,8 @@ function AppShellBackground() {
   if (theme === "experiencias") {
     return (
       <BackgroundPattern
-        variant="leaf-cluster"
-        tone="dark"
+        variant={sheet.variant}
+        tone={sheet.tone}
         density="sparse"
         className="background-pattern--fixed"
       />
@@ -113,7 +131,7 @@ function AppShellBackground() {
 
   return (
     <>
-      {/* Camada global — fora do PageTransition (translateZ) para permanecer no viewport */}
+      {/* Camada global — branch (+ vine na home); SurfacePattern herda branch via PatternSheet */}
       <BackgroundPattern
         variant="branch"
         tone="dark"
@@ -139,18 +157,25 @@ export function AppShell() {
   return (
     <SubpageChromeProvider>
       <RouteScrollProvider>
-        <AppShellBackground />
-        <div className="site-root">
-          <a
-            href="#main"
-            className="skip-to-content focus-ring"
-          >
-            Pular para o conteúdo
-          </a>
-          <AppShellChrome />
-          <PageTransition />
-        </div>
+        <AppShellInner />
       </RouteScrollProvider>
     </SubpageChromeProvider>
+  );
+}
+
+function AppShellInner() {
+  const sheet = useRoutePatternSheet();
+
+  return (
+    <PatternSheetProvider value={sheet}>
+      <AppShellBackground />
+      <div className="site-root">
+        <a href="#main" className="skip-to-content focus-ring">
+          Pular para o conteúdo
+        </a>
+        <AppShellChrome />
+        <PageTransition />
+      </div>
+    </PatternSheetProvider>
   );
 }
