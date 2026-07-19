@@ -1,6 +1,7 @@
 /* Papel de parede editorial — eco local (nunca guilhotina nas bordas). */
 .section-ornament {
-  position: absolute;
+  /* !important: stacking de .patterned-surface / .section-canvas não pode puxar o SVG pro fluxo */
+  position: absolute !important;
   inset: 0;
   z-index: 0;
   width: 100%;
@@ -24,8 +25,8 @@
   );
 }
 
-.section-canvas:has(> .section-ornament) > *:not(.section-ornament),
-footer.section-canvas:has(> .section-ornament) > *:not(.section-ornament) {
+.section-canvas:has(> .section-ornament) > *:not(.section-ornament):not(.surface-pattern-layer):not(.background-pattern),
+footer.section-canvas:has(> .section-ornament) > *:not(.section-ornament):not(.surface-pattern-layer):not(.background-pattern) {
   position: relative;
   z-index: 1;
 }
