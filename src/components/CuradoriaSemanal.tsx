@@ -10,9 +10,9 @@ import {
   type KeyboardEvent,
 } from "react";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
-import { CardAccent, cardAccentVariantFromIndex } from "@/components/CardAccent";
 import { MaterialCard } from "@/components/MaterialCard";
 import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { useEmblaSlideTween } from "@/hooks/useEmblaSlideTween";
 import {
   cloudinaryVideoPoster,
@@ -584,7 +584,6 @@ function ReelFrostedCaption({
         }`}
         style={reduceMotion ? undefined : { transitionTimingFunction: PREMIUM_EASE }}
       >
-        <CardAccent variant={cardAccentVariantFromIndex(prato.id)} corner="tr" />
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 z-[2] h-[2px] overflow-hidden rounded-b-[var(--radius-md)] bg-white/10"
@@ -841,10 +840,7 @@ function CuradoriaEditorialPanel({
           exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
           transition={motionTransition}
         >
-          <MaterialCard
-            accent={cardAccentVariantFromIndex(activeIndex)}
-            className="flex flex-col items-center px-4 py-5 text-center"
-          >
+          <MaterialCard className="flex flex-col items-center px-4 py-5 text-center">
             <p className="section-caption !text-accent">{prato.tag}</p>
             <span
               aria-hidden
@@ -1157,8 +1153,9 @@ export function CuradoriaSemanal() {
   }, []);
 
   return (
-    <section id="curadoria-da-semana" className="section-canvas section-canvas--shift section-padding">
-      <div className="mx-auto max-w-6xl">
+    <section id="curadoria-da-semana" className="section-canvas section-canvas--shift section-padding patterned-surface">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto max-w-6xl">
         {isDesktopLayout ? (
           <div className="grid grid-cols-[minmax(0,1fr)_minmax(12.5rem,15.5rem)_auto] items-center gap-x-8 xl:gap-x-10">
             <aside className="relative mb-0 self-start pr-6 text-left xl:pr-8 lg:sticky lg:top-24">
