@@ -36,7 +36,6 @@ export function ExperienceCard({
     <Surface className="h-full rounded-[2px]">
       <MaterialCard
         as="article"
-        accentCorner="br"
         className="card-experience group flex h-full flex-col overflow-hidden md:flex-row"
       >
         <div className="relative z-[3] h-48 w-full shrink-0 overflow-hidden md:h-auto md:w-1/3 md:min-h-[168px]">
