@@ -1,8 +1,8 @@
 import { ChevronDown, ExternalLink, MapPin } from "lucide-react";
 import { useState } from "react";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
-import { CardAccent } from "@/components/CardAccent";
 import { SectionReveal, StaggerItem } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 
 const ADDRESS = "Rua Antônio de Albuquerque, 781 · Savassi · Belo Horizonte — MG";
 
@@ -89,8 +89,9 @@ export function Visite() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="visite" className="section-canvas section-canvas--shift section-padding">
-      <div className="mx-auto max-w-6xl">
+    <section id="visite" className="section-canvas section-canvas--shift section-padding patterned-surface">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto max-w-6xl">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"
           eyebrow="Visite"
@@ -131,8 +132,8 @@ export function Visite() {
             </StaggerItem>
 
             <StaggerItem index={1}>
-              <div className="editorial-inset-panel editorial-inset-panel--soft relative px-5 py-6 md:px-6 md:py-7">
-                <CardAccent variant="sprig-b" />
+              <div className="editorial-inset-panel editorial-inset-panel--soft patterned-surface relative px-5 py-6 md:px-6 md:py-7">
+                <SurfacePattern />
                 <div className="relative z-[2]">
                 <p className="section-caption">Perguntas frequentes</p>
                 <div className="mt-3">
