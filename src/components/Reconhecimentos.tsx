@@ -1,5 +1,6 @@
 import { SectionOrnament } from "@/components/SectionOrnament";
 import { SectionReveal } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 
 const RECONHECIMENTOS = [
   "Jazz com Todas as Letras",
@@ -13,8 +14,9 @@ export function Reconhecimentos() {
   return (
     <section
       aria-label="Reconhecimentos culturais"
-      className="section-ribbon section-canvas relative z-[1] overflow-hidden px-5 py-10 md:px-8 md:py-12"
+      className="section-ribbon section-canvas patterned-surface relative z-[1] overflow-hidden px-5 py-10 md:px-8 md:py-12"
     >
+      <SurfacePattern />
       <SectionOrnament variant="editorial" />
       <SectionReveal variant="subtle">
         <div className="relative z-[1] mx-auto max-w-4xl text-center">
