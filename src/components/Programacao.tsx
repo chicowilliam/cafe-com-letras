@@ -5,6 +5,7 @@ import { MaterialCard } from "@/components/MaterialCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionOrnament } from "@/components/SectionOrnament";
 import { Surface } from "@/components/Surface";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { useReservation } from "@/hooks/useReservation";
 import { CTA_LABELS } from "@/lib/cta-labels";
 import { getExperienciasAtivasHoje } from "@/lib/experiencias";
@@ -170,7 +171,7 @@ function FeaturedEventCard({ event, onReserve }: FeaturedEventCardProps) {
 
   return (
     <Surface className="mx-auto w-full max-w-4xl rounded-[2px]">
-      <MaterialCard as="article" accentCorner="br" className="relative z-0 overflow-hidden">
+      <MaterialCard as="article" className="relative z-0 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-stretch">
         {event.image ? (
           <div className="relative z-[3] aspect-[2/1] overflow-hidden md:aspect-auto md:h-full md:min-h-0">
@@ -439,9 +440,10 @@ export function Programacao() {
   const filterKey = `${toMonthKey(viewMonth)}-${category}`;
 
   return (
-    <section id="programacao" className="section-canvas section-padding overflow-x-hidden">
+    <section id="programacao" className="section-canvas section-padding patterned-surface overflow-x-hidden">
+      <SurfacePattern />
       <SectionOrnament variant="programacao" />
-      <div className="mx-auto max-w-6xl">
+      <div className="relative z-[1] mx-auto max-w-6xl">
         <SectionHeading
           className="mb-8 md:mb-10"
           eyebrow="Agenda cultural"
