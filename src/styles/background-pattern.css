@@ -1,14 +1,132 @@
-/* BackgroundPattern — camada decorativa global (atrás do conteúdo) */
+/* BackgroundPattern — folha contínua (página + recorte nos blocos sólidos) */
 
 .background-pattern {
   pointer-events: none;
   overflow: hidden;
   opacity: var(--bg-pattern-opacity, 0.55);
-  will-change: transform;
   --bg-pattern-stem: var(--accent);
   --bg-pattern-leaf: var(--accent);
   --bg-pattern-olive: var(--accent-2);
   --bg-pattern-quiet: color-mix(in srgb, var(--foreground) 26%, transparent);
+}
+
+/*
+ * SVG botânico estático no painel + BackgroundPattern fixed no site.
+ * Sem sync JS no scroll (performance).
+ */
+.patterned-surface {
+  position: relative;
+  isolation: isolate;
+  --surface-pattern-opacity: 0.28;
+  --surface-pattern-stem-width: 1.08;
+  --surface-pattern-leaf-width: 0.92;
+  --surface-pattern-vein-width: 0.58;
+}
+
+.surface-pattern-layer {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0 !important;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  opacity: var(--surface-pattern-opacity);
+  /* paint: recorta a folha viewport-sized e evita inflar scrollHeight */
+  contain: paint;
+}
+
+/* Folha alinhada ao viewport (sync JS); o host só “abre a janela”. */
+.surface-pattern-layer__sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.surface-pattern-layer__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  /* Mesmo véu do padrão global — laterais mais presentes, centro quieto */
+  -webkit-mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 50%,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.72) 45%,
+    #000 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 50%,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.72) 45%,
+    #000 78%
+  );
+}
+
+/* Cards aninhados numa seção já patterned — mesma folha, traço mais leve */
+.patterned-surface .material-card.patterned-surface > .surface-pattern-layer,
+.patterned-surface .editorial-inset-panel.patterned-surface > .surface-pattern-layer {
+  --surface-pattern-opacity: 0.16;
+}
+
+.surface-pattern-layer--dark {
+  --bg-pattern-stem: color-mix(in srgb, var(--accent) 78%, transparent);
+  --bg-pattern-leaf: color-mix(in srgb, var(--accent) 70%, transparent);
+  --bg-pattern-olive: color-mix(in srgb, var(--accent-2) 70%, transparent);
+  --bg-pattern-quiet: color-mix(in srgb, var(--foreground) 18%, transparent);
+}
+
+.surface-pattern-layer--light {
+  --bg-pattern-stem: color-mix(in srgb, var(--print-price, #6b4f1a) 72%, transparent);
+  --bg-pattern-leaf: color-mix(in srgb, var(--print-price, #6b4f1a) 64%, transparent);
+  --bg-pattern-olive: color-mix(in srgb, var(--accent-2) 74%, transparent);
+  --bg-pattern-quiet: color-mix(in srgb, var(--print-ink, #2a2820) 20%, transparent);
+}
+
+.surface-pattern-layer .background-pattern__stem {
+  stroke: var(--bg-pattern-stem);
+  stroke-width: var(--surface-pattern-stem-width);
+  stroke-opacity: 0.82;
+}
+
+.surface-pattern-layer .background-pattern__stem--olive {
+  stroke: var(--bg-pattern-olive);
+}
+
+.surface-pattern-layer .background-pattern__stem--quiet {
+  stroke: var(--bg-pattern-quiet);
+  stroke-opacity: 0.72;
+}
+
+.surface-pattern-layer .background-pattern__leaf {
+  stroke: var(--bg-pattern-leaf);
+  stroke-width: var(--surface-pattern-leaf-width);
+  stroke-opacity: 0.76;
+}
+
+.surface-pattern-layer .background-pattern__leaf--olive {
+  stroke: var(--bg-pattern-olive);
+}
+
+.surface-pattern-layer .background-pattern__vein {
+  stroke: var(--bg-pattern-quiet);
+  stroke-width: var(--surface-pattern-vein-width);
+  stroke-opacity: 0.58;
+}
+
+html[data-surface-pattern-debug] .surface-pattern-layer {
+  opacity: 1 !important;
+}
+
+html[data-surface-pattern-debug] .surface-pattern-layer .background-pattern__stem,
+html[data-surface-pattern-debug] .surface-pattern-layer .background-pattern__leaf,
+html[data-surface-pattern-debug] .surface-pattern-layer .background-pattern__vein {
+  stroke: #ff0000 !important;
+  stroke-opacity: 1 !important;
 }
 
 .background-pattern--fixed {
@@ -17,6 +135,11 @@
   z-index: 0;
   width: 100%;
   height: 100%;
+  max-width: 100vw;
+  max-height: 100dvh;
+  overflow: hidden;
+  contain: strict;
+  /* Sem parallax: a folha fica estacionária e os recortes dos blocos alinham */
 }
 
 .background-pattern--dark {
@@ -33,9 +156,10 @@
   --bg-pattern-quiet: color-mix(in srgb, var(--print-ink, #2a2820) 20%, transparent);
 }
 
-/* Cipó da home — reforço lateral, mesmo stacking do wallpaper */
+/* Cipó da home — reforço lateral discreto (a folha branch domina) */
 .background-pattern--home-vines {
   z-index: 0;
+  opacity: 0.55;
 }
 
 .background-pattern--home-vines .background-pattern__veil {
@@ -145,7 +269,7 @@ body {
   background-color: var(--background);
 }
 
-/* Home + subpáginas: painel sólido sobre o BackgroundPattern (padrão só nos vazios) */
+/* Home + subpáginas: painel sólido; SurfacePattern reproduz o desenho por cima */
 .site-root .section-canvas,
 .site-root .section-canvas--surface,
 .site-root .section-canvas--shift,
@@ -153,6 +277,15 @@ body {
   background-color: var(--section-panel-color);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+}
+
+/* Nunca puxar section-ornament / background-pattern pro fluxo — isso cria o “espaço fantasma”. */
+.site-root .section-canvas.patterned-surface > :not(.surface-pattern-layer):not(.section-ornament):not(.background-pattern),
+.site-root .editorial-inset-panel.patterned-surface > :not(.surface-pattern-layer):not(.section-ornament):not(.background-pattern),
+.site-root .material-card.patterned-surface > :not(.surface-pattern-layer):not(.section-ornament):not(.background-pattern),
+.site-root .surface-anchor.patterned-surface > :not(.surface-pattern-layer):not(.section-ornament):not(.background-pattern) {
+  position: relative;
+  z-index: 1;
 }
 
 .site-root .section-lifted-panel {
