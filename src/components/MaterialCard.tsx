@@ -2,57 +2,41 @@ import {
   type ComponentPropsWithoutRef,
   type ElementType,
   type ReactNode,
-  useRef,
 } from "react";
-import {
-  CardAccent,
-  nextCardAccentVariant,
-  type CardAccentTone,
-  type CardAccentVariant,
-} from "@/components/CardAccent";
+import { SurfacePattern } from "@/components/SurfacePattern";
+import type { BackgroundPatternVariant } from "@/components/BackgroundPattern";
+import type { PatternSheetTone } from "@/hooks/usePatternSheet";
 
 type MaterialCardProps<T extends ElementType = "div"> = {
   as?: T;
-  tone?: CardAccentTone;
-  /** Fixa a variante; senão alterna automaticamente entre sprig-a/b/c */
-  accent?: CardAccentVariant;
-  /** Canto do ornamento; senão cada variante usa o canto canônico */
-  accentCorner?: "tr" | "tl" | "br" | "bl";
-  /** Desliga o ornamento (ex.: card 100% imagem) */
-  accentEnabled?: boolean;
+  tone?: PatternSheetTone;
+  variant?: BackgroundPatternVariant;
+  /** Desliga a camada botânica (ex.: card 100% imagem) */
+  pattern?: boolean;
   children?: ReactNode;
   className?: string;
 } & Omit<ComponentPropsWithoutRef<T>, "as" | "children" | "className">;
 
 /**
- * Card sólido opaco com ornamento botânico impresso (CardAccent).
- * Use no lugar de `className="material-card"` para herdar o acento automaticamente.
+ * Card sólido opaco com o mesmo SVG botânico das seções (folha contínua).
  */
 export function MaterialCard<T extends ElementType = "div">({
   as,
   tone = "dark",
-  accent,
-  accentCorner,
-  accentEnabled = true,
+  variant,
+  pattern = true,
   className = "",
   children,
   ...props
 }: MaterialCardProps<T>) {
   const Tag = (as ?? "div") as ElementType;
-  const variantRef = useRef<CardAccentVariant | null>(null);
-  if (variantRef.current === null) {
-    variantRef.current = accent ?? nextCardAccentVariant();
-  }
-  const variant = accent ?? variantRef.current;
 
   return (
     <Tag
-      className={`material-card${className ? ` ${className}` : ""}`}
+      className={`material-card${pattern ? " patterned-surface" : ""}${className ? ` ${className}` : ""}`}
       {...props}
     >
-      {accentEnabled ? (
-        <CardAccent variant={variant} tone={tone} corner={accentCorner} />
-      ) : null}
+      {pattern ? <SurfacePattern variant={variant} tone={tone} /> : null}
       {children}
     </Tag>
   );
