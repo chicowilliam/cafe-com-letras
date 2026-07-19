@@ -3,11 +3,13 @@ import { AppLink } from "@/components/AppLink";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { ExecutiveLunchSpotlight } from "@/components/ExecutiveLunchSpotlight";
 import { SectionReveal } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 
 export function Cardapio() {
   return (
-    <section id="cardapio" className="section-canvas section-canvas--shift section-padding">
-      <div className="mx-auto max-w-6xl text-center">
+    <section id="cardapio" className="section-canvas section-canvas--shift section-padding patterned-surface">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto max-w-6xl text-center">
         <AnimatedSectionHeading
           className="mb-8 md:mb-10"
           index="02"
