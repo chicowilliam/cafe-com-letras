@@ -1,6 +1,7 @@
 import { AppLink } from "@/components/AppLink";
 import { MaterialCard } from "@/components/MaterialCard";
 import { SectionReveal } from "@/components/SectionReveal";
+import { SurfacePattern } from "@/components/SurfacePattern";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
 import { useReservation } from "@/hooks/useReservation";
 import { CTA_LABELS } from "@/lib/cta-labels";
@@ -86,10 +87,11 @@ export function HomeTodayRibbon() {
   return (
     <section
       id="hoje-na-casa"
-      className="home-today-ribbon section-canvas border-b border-hairline"
+      className="home-today-ribbon section-canvas patterned-surface border-b border-hairline"
       aria-label="Hoje na Savassi"
     >
-      <div className="mx-auto max-w-6xl px-5 py-5 md:px-8 md:py-6">
+      <SurfacePattern />
+      <div className="relative z-[1] mx-auto max-w-6xl px-5 py-5 md:px-8 md:py-6">
         <SectionReveal variant="subtle">
           <MaterialCard className="home-today-ribbon__panel rounded-md px-4 py-4 md:px-5 md:py-5">
             <p className="home-today-ribbon__header section-caption !mb-3">
