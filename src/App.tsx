@@ -12,7 +12,7 @@ import { SectionSkeleton } from "@/components/SectionSkeleton";
 import { SiteWallpaper } from "@/components/SiteWallpaper";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
-// PaletteSwitcher ├® ferramenta de preview: s├│ carrega em desenvolvimento.
+// PaletteSwitcher é ferramenta de preview: só carrega em desenvolvimento.
 const PaletteSwitcher = import.meta.env.DEV
   ? lazy(() =>
       import("@/components/PaletteSwitcher").then((module) => ({
@@ -39,6 +39,11 @@ const Cardapio = lazy(() =>
 );
 const Delivery = lazy(() =>
   import("@/components/Delivery").then((module) => ({ default: module.Delivery })),
+);
+const TemporadaFestival = lazy(() =>
+  import("@/components/TemporadaFestival").then((module) => ({
+    default: module.TemporadaFestival,
+  })),
 );
 const CuradoriaSemanal = lazy(() =>
   import("@/components/CuradoriaSemanal").then((module) => ({
@@ -96,6 +101,15 @@ export default function App() {
             </Suspense>
           </div>
 
+          {/* Temporada entre Delivery e Curadoria: comida em cartaz sem roubar o hub de experiências */}
+          <SectionHandoff variant="breath" from="background" to="background" />
+
+          <div className="section-below-fold">
+            <Suspense fallback={<SectionSkeleton className="min-h-[40vh]" />}>
+              <TemporadaFestival />
+            </Suspense>
+          </div>
+
           <SectionHandoff variant="wave" from="surface" to="background" overlap="sm" />
 
           <div className="section-below-fold">
@@ -109,7 +123,7 @@ export default function App() {
             from="background"
             to="background"
             chapterIndex="04"
-            chapterLabel="Programa├º├úo"
+            chapterLabel="Programação"
             overlap="sm"
             className="home-programacao-chapter"
           />
@@ -123,7 +137,7 @@ export default function App() {
             from="background"
             to="background"
             chapterIndex="05"
-            chapterLabel="A Hist├│ria"
+            chapterLabel="A História"
             overlap="sm"
           />
 
