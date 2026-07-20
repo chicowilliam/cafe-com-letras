@@ -87,6 +87,17 @@ export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
       alt: "Sanduíche caprese vegano, R$47 — queijo de castanha, rúcula, tomate sweet e pesto na baguete",
       width: 1080,
       height: 1350,
+    },
+{
+      id: "presunto-cru",
+      image: itemPresunto,
+      title: "Sanduíche de presunto cru",
+      priceLabel: "R$67",
+      description:
+        "Presunto de parma e queijo brie com mostarda dijon, rúcula e fio de mel, na baguete",
+      alt: "Sanduíche de presunto cru, R$67 — parma, brie, mostarda dijon, rúcula e mel na baguete",
+      width: 1080,
+      height: 1350,
     }
   ],
 };
