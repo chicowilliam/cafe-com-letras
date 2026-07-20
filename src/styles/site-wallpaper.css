@@ -3,8 +3,35 @@
 .home-shell {
   position: relative;
   isolation: isolate;
-  /* Transparente: deixa ver gravura botânica/cipós/wallpaper fixos do AppShell */
+  /* Transparente: deixa a folha contínua (.home-botanical-sheet) atravessar handoffs */
   background-color: transparent;
+}
+
+/* Folha única da home — origem de coordenadas compartilhada (repeat-y), rola com a página */
+.home-botanical-sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: paint;
+  background-image: var(--home-botanical-branch), var(--home-botanical-vine);
+  background-repeat: repeat-y, repeat-y;
+  background-position: center top, center 18%;
+  background-size: min(100%, 90rem) auto, min(100%, 90rem) auto;
+  opacity: 0.72;
+  -webkit-mask-image: radial-gradient(
+    ellipse 74% 70% at 50% 42%,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.78) 48%,
+    #000 82%
+  );
+  mask-image: radial-gradient(
+    ellipse 74% 70% at 50% 42%,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.78) 48%,
+    #000 82%
+  );
 }
 
 .site-wallpaper {
@@ -30,9 +57,10 @@
   z-index: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-.home-shell > *:not(.site-wallpaper):not(.background-pattern) {
+.home-shell > *:not(.site-wallpaper):not(.background-pattern):not(.home-botanical-sheet) {
   position: relative;
   z-index: 1;
 }
@@ -41,60 +69,70 @@
   z-index: 1;
 }
 
-/* Seções sólidas — padrão botânico só nos handoffs / vazios entre painéis */
-.home-shell .section-canvas,
-.home-shell .section-canvas--surface,
-.home-shell .section-canvas--shift,
-.home-shell .section-lifted-panel.section-canvas,
-.home-shell .section-ribbon.section-canvas {
-  background-color: var(--section-panel-color);
+/* Painéis da home: tinta suficiente p/ legibilidade, mas a folha única continua por baixo */
+.site-root .home-shell .section-canvas,
+.site-root .home-shell .section-canvas--surface,
+.site-root .home-shell .section-canvas--shift,
+.site-root .home-shell .section-lifted-panel.section-canvas,
+.site-root .home-shell .section-ribbon.section-canvas {
+  background-color: color-mix(in srgb, var(--section-panel-color) 88%, transparent);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
-/* Handoffs — quase sem tinta, sem faixa que vira costura */
+/* Evita segundo sistema de crop (SurfacePattern) competindo com a folha contínua */
+.site-root .home-shell .surface-pattern-layer {
+  display: none;
+}
+
+/* Handoffs — quase sem tinta: a folha atravessa a divisa sem costura */
+.home-shell .section-handoff-breath,
+.site-root .home-shell .section-handoff-breath {
+  background: transparent;
+}
+
 .home-shell .section-handoff-wash {
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--handoff-from, var(--background)) 28%, transparent) 0%,
-    color-mix(in srgb, var(--handoff-from) 18%, var(--handoff-to)) 50%,
-    color-mix(in srgb, var(--handoff-to, var(--surface)) 28%, transparent) 100%
+    color-mix(in srgb, var(--handoff-from, var(--background)) 14%, transparent) 0%,
+    color-mix(in srgb, var(--handoff-from) 8%, var(--handoff-to)) 50%,
+    color-mix(in srgb, var(--handoff-to, var(--surface)) 14%, transparent) 100%
   );
 }
 
 .home-shell .section-handoff-wash::after {
-  opacity: 0.35;
+  opacity: 0.28;
 }
 
 .home-shell .section-handoff-wave {
-  background: color-mix(in srgb, var(--handoff-from, var(--background)) 22%, transparent);
+  background: color-mix(in srgb, var(--handoff-from, var(--background)) 10%, transparent);
 }
 
 .home-shell .section-handoff-wave-fill {
-  fill: color-mix(in srgb, var(--handoff-to, var(--surface)) 45%, transparent);
+  fill: color-mix(in srgb, var(--handoff-to, var(--surface)) 32%, transparent);
 }
 
 .home-shell .section-handoff-chapter {
   overflow: visible;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--handoff-from, var(--background)) 12%, transparent) 0%,
-    color-mix(in srgb, var(--background) 8%, transparent) 50%,
-    color-mix(in srgb, var(--handoff-to, var(--background)) 14%, transparent) 100%
+    color-mix(in srgb, var(--handoff-from, var(--background)) 6%, transparent) 0%,
+    color-mix(in srgb, var(--background) 4%, transparent) 50%,
+    color-mix(in srgb, var(--handoff-to, var(--background)) 8%, transparent) 100%
   );
 }
 
 .home-shell .section-handoff-chapter::before,
 .home-shell .section-handoff-chapter::after {
-  opacity: 0.45;
+  opacity: 0.4;
 }
 
 .home-shell .section-handoff-accent-band {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .home-shell .section-ribbon {
-  background: var(--section-panel-color);
+  background: color-mix(in srgb, var(--section-panel-color) 88%, transparent);
 }
 
 .home-shell .section-lifted-panel {
