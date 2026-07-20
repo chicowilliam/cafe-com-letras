@@ -1,7 +1,7 @@
 /**
  * Data-URI da folha botânica para CSS background-repeat (home contínua).
  * Uma única origem de coordenadas ao longo de toda a altura do .home-shell —
- * sem sync JS / sem parallax.
+ * sem sync JS, sem parallax e sem translate no scroll.
  */
 
 import {
