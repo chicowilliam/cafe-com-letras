@@ -6,16 +6,21 @@ Este documento mapeia a estrutura, as páginas, o sistema botânico contínuo, o
 
 ## Folha Botânica Contínua (Home)
 
-1. `HomeBotanicalSheet` — camada absolute no `.home-shell`, `repeat-y` via `botanicalSheetUri` (mesmos paths de `botanicalPaths.ts`).
-2. `SiteWallpaper` absolute no `.home-shell` (não fixed).
-3. Painéis `.section-canvas` ~88% opacos — a folha atravessa handoffs.
-4. `SurfacePattern` desligado na home (CSS) — evita segundo crop.
-5. AppShell não monta BackgroundPattern/SiteWallpaper fixed na home.
-
-**Removido:** `surface-pattern-sync.ts` (parallax / jank).
-
-Fonte de paths: `src/lib/botanicalPaths.ts` + `src/lib/botanicalSheetUri.ts`.
+1. `HomeBotanicalSheet` — camada absolute no `.home-shell`, `repeat-y` via `botanicalSheetUri`.
+2. `SiteWallpaper` absolute no `.home-shell`.
+3. Painéis ~88% opacos; `SurfacePattern` off na home; AppShell sem fixed na home.
+4. Removido: `surface-pattern-sync.ts`.
 
 ---
 
-(Mapa completo segue nas próximas atualizações.)
+## Temporadas / festivais
+
+Camada separada de experiências (hub) e agenda cultural.
+Fonte: `src/lib/temporadas.ts` · UI: `TemporadaFestival` (+ lightbox) após Delivery · prioridade na faixa Hoje.
+Não misturar com `/experiencias` nem com programação cultural.
+
+Ordem Home (trecho): Delivery → TemporadaFestival (se ativa) → CuradoriaSemanal.
+
+---
+
+(Mapa completo na próxima atualização.)
