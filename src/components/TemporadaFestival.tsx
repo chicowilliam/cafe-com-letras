@@ -1,5 +1,10 @@
+import { useState } from "react";
 import { SectionReveal } from "@/components/SectionReveal";
 import { SurfacePattern } from "@/components/SurfacePattern";
+import {
+  TemporadaLightbox,
+  type TemporadaLightboxSlide,
+} from "@/components/TemporadaLightbox";
 import { useReservation } from "@/hooks/useReservation";
 import { CTA_HOVER_CLASS, CTA_LABELS } from "@/lib/cta-labels";
 import { getTemporadaAtiva, type Temporada } from "@/lib/temporadas";
@@ -8,6 +13,7 @@ import "@/styles/temporada.css";
 function TemporadaContent({ temporada }: { temporada: Temporada }) {
   const { open: openReservation } = useReservation();
   const headline = temporada.headline ?? temporada.title;
+  const [lightbox, setLightbox] = useState<TemporadaLightboxSlide | null>(null);
 
   return (
     <section
@@ -45,17 +51,28 @@ function TemporadaContent({ temporada }: { temporada: Temporada }) {
               </div>
             </div>
 
-            <figure className="temporada-frame temporada-cover mx-auto w-full max-w-[11.5rem] sm:max-w-[12.5rem] md:mx-0 md:max-w-[14rem] md:justify-self-end">
+            <button
+              type="button"
+              className="temporada-frame temporada-cover temporada-frame--clickable mx-auto w-full max-w-[11.5rem] sm:max-w-[12.5rem] md:mx-0 md:max-w-[14rem] md:justify-self-end"
+              onClick={() =>
+                setLightbox({
+                  src: temporada.cover.src,
+                  alt: temporada.cover.alt,
+                  title: temporada.title,
+                })
+              }
+              aria-label={`Ampliar capa: ${temporada.title}`}
+            >
               <img
                 src={temporada.cover.src}
-                alt={temporada.cover.alt}
+                alt=""
                 width={temporada.cover.width}
                 height={temporada.cover.height}
                 loading="lazy"
                 decoding="async"
                 className="temporada-frame__img"
               />
-            </figure>
+            </button>
           </div>
         </SectionReveal>
 
@@ -70,25 +87,39 @@ function TemporadaContent({ temporada }: { temporada: Temporada }) {
           <ul className="temporada-thumbs grid grid-cols-2 gap-2 sm:gap-2.5 md:grid-cols-4 md:gap-2.5">
             {temporada.items.map((item) => (
               <li key={item.id}>
-                <figure className="temporada-frame temporada-frame--item">
+                <button
+                  type="button"
+                  className="temporada-frame temporada-frame--item temporada-frame--clickable"
+                  onClick={() =>
+                    setLightbox({
+                      src: item.image,
+                      alt: item.alt,
+                      title: item.title,
+                      caption: `${item.priceLabel} · ${item.description}`,
+                    })
+                  }
+                  aria-label={`Ampliar ${item.title}`}
+                >
                   <img
                     src={item.image}
-                    alt={item.alt}
+                    alt=""
                     width={item.width}
                     height={item.height}
                     loading="lazy"
                     decoding="async"
                     className="temporada-frame__img"
                   />
-                  <figcaption className="sr-only">
+                  <span className="sr-only">
                     {item.title} · {item.priceLabel}. {item.description}
-                  </figcaption>
-                </figure>
+                  </span>
+                </button>
               </li>
             ))}
           </ul>
         </div>
       </div>
+
+      <TemporadaLightbox slide={lightbox} onClose={() => setLightbox(null)} />
     </section>
   );
 }
