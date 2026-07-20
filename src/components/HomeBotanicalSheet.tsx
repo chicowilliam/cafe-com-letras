@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 
 /**
  * Folha botânica contínua da home: uma camada absoluta no .home-shell,
- * tiled verticalmente. Rola com a página (sem parallax / sem sync).
+ * tiled verticalmente. Rola com a página (sem parallax e sem sync de viewport).
  * Seções semi-translúcidas deixam a mesma origem de coordenadas atravessar
  * handoffs e painéis.
  */
