@@ -66,7 +66,7 @@ export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
   },
   detailHref: "#temporada-festival-hamburguer-cardapio",
   items: [
-{
+    {
       id: "file-cheddar",
       image: itemFileCheddar,
       title: "Sanduíche de filé com cheddar",
@@ -77,7 +77,7 @@ export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
       width: 1080,
       height: 1350,
     },
-{
+    {
       id: "caprese-vegano",
       image: itemCaprese,
       title: "Sanduíche caprese vegano",
@@ -88,7 +88,7 @@ export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
       width: 1080,
       height: 1350,
     },
-{
+    {
       id: "presunto-cru",
       image: itemPresunto,
       title: "Sanduíche de presunto cru",
@@ -98,7 +98,17 @@ export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
       alt: "Sanduíche de presunto cru, R$67 — parma, brie, mostarda dijon, rúcula e mel na baguete",
       width: 1080,
       height: 1350,
-    }
+    },
+    {
+      id: "milkshakes",
+      image: itemMilkshakes,
+      title: "Milk shakes",
+      priceLabel: "R$25",
+      description: "Oreo, morango ou doce de leite",
+      alt: "Milk shakes Oreo, morango e doce de leite, R$25 cada",
+      width: 1080,
+      height: 1350,
+    },
   ],
 };
 
