@@ -1,0 +1,88 @@
+/* Temporada / festival — compacta na dobra + lightbox */
+
+.temporada-section {
+  /* Anti-scroll: cabe capa + thumbs + CTAs na dobra desktop */
+  padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.temporada-inner {
+  max-height: none;
+}
+
+@media (min-width: 768px) {
+  .temporada-section {
+    min-height: unset;
+  }
+}
+
+.temporada-frame {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  background: color-mix(in srgb, var(--background) 55%, var(--surface) 45%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.temporada-frame--clickable {
+  width: 100%;
+  padding: 0;
+  cursor: zoom-in;
+  text-align: inherit;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.temporada-frame--clickable:hover {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+.temporada-frame--clickable:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .temporada-frame--clickable {
+    transition: none;
+  }
+}
+
+.temporada-frame__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+/* Capa compacta — crop calibrado (arte completa no lightbox) */
+.temporada-cover {
+  aspect-ratio: 3 / 4;
+}
+
+.temporada-cover .temporada-frame__img {
+  object-position: center 38%;
+}
+
+/* Thumbs densos — object-cover com foco no burger */
+.temporada-frame--item {
+  aspect-ratio: 4 / 5;
+}
+
+.temporada-frame--item .temporada-frame__img {
+  object-position: center 45%;
+}
+
+@media (min-width: 768px) {
+  .temporada-thumbs {
+    max-width: none;
+  }
+
+  .temporada-frame--item {
+    aspect-ratio: 1 / 1.05;
+  }
+}
