@@ -4,13 +4,15 @@ import { BackToTop } from "@/components/BackToTop";
 import { ExecutiveLunchFab } from "@/components/ExecutiveLunchFab";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
+import { HomeBotanicalSheet } from "@/components/HomeBotanicalSheet";
 import { HomeTodayRibbon } from "@/components/HomeTodayRibbon";
 import { Programacao } from "@/components/Programacao";
 import { SectionHandoff } from "@/components/SectionBridge";
 import { SectionSkeleton } from "@/components/SectionSkeleton";
+import { SiteWallpaper } from "@/components/SiteWallpaper";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
-// PaletteSwitcher é ferramenta de preview: só carrega em desenvolvimento.
+// PaletteSwitcher ├® ferramenta de preview: s├│ carrega em desenvolvimento.
 const PaletteSwitcher = import.meta.env.DEV
   ? lazy(() =>
       import("@/components/PaletteSwitcher").then((module) => ({
@@ -64,7 +66,9 @@ export default function App() {
   return (
     <>
       <div className="home-shell">
-        {/* Padrão decorativo: camada fixa no AppShell (não aqui) — evita sumir no scroll */}
+        {/* Folha contínua (absolute + repeat-y): mesma origem em seções e handoffs */}
+        <HomeBotanicalSheet />
+        <SiteWallpaper mode="absolute" />
         <main id="main" className="section-stack">
           <Hero />
           <HomeTodayRibbon />
@@ -105,7 +109,7 @@ export default function App() {
             from="background"
             to="background"
             chapterIndex="04"
-            chapterLabel="Programação"
+            chapterLabel="Programa├º├úo"
             overlap="sm"
             className="home-programacao-chapter"
           />
@@ -119,7 +123,7 @@ export default function App() {
             from="background"
             to="background"
             chapterIndex="05"
-            chapterLabel="A História"
+            chapterLabel="A Hist├│ria"
             overlap="sm"
           />
 
