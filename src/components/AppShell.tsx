@@ -1,11 +1,10 @@
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { BackgroundPattern } from "@/components/BackgroundPattern";
 import { Navbar } from "@/components/Navbar";
 import { PageTransition } from "@/components/PageTransition";
 import { SiteSubpageHeader } from "@/components/SiteSubpageHeader";
-import { SiteWallpaper } from "@/components/SiteWallpaper";
 import {
   SubpageChromeProvider,
   useSubpageChromeContext,
@@ -107,12 +106,16 @@ function useRoutePatternSheet(): PatternSheetValue {
   }, [theme]);
 }
 
-function AppShellBackground() {
-  const { pathname } = useLocation();
-  const theme = getPageTheme(pathname);
-  const isHome = pathname === "/";
-  const sheet = useRoutePatternSheet();
-
+const AppShellBackground = memo(function AppShellBackground({
+  theme,
+  isHome,
+  sheet,
+}: {
+  theme: ReturnType<typeof getPageTheme>;
+  isHome: boolean;
+  sheet: PatternSheetValue;
+}) {
+  // Camada fixed estática: não lê contexto de scroll; só muda com a rota/tema.
   if (theme === "cardapio") {
     // Padrão fica na própria página (absolute) — fundo claro + stacking do paper.
     return null;
@@ -129,29 +132,21 @@ function AppShellBackground() {
     );
   }
 
+  // Home: folha contínua no .home-shell (HomeBotanicalSheet + SiteWallpaper absolute).
+  // Evita fixed no AppShell em paralelo (parallax / quebra nas divisas).
+  if (isHome) {
+    return null;
+  }
+
   return (
-    <>
-      {/* Camada global — branch (+ vine na home); SurfacePattern herda branch via PatternSheet */}
-      <BackgroundPattern
-        variant="branch"
-        tone="dark"
-        density={isHome ? "default" : "sparse"}
-        className="background-pattern--fixed"
-      />
-      {isHome ? (
-        <>
-          <BackgroundPattern
-            variant="vine"
-            tone="dark"
-            density="sparse"
-            className="background-pattern--fixed background-pattern--home-vines"
-          />
-          <SiteWallpaper mode="fixed" />
-        </>
-      ) : null}
-    </>
+    <BackgroundPattern
+      variant="branch"
+      tone="dark"
+      density="sparse"
+      className="background-pattern--fixed"
+    />
   );
-}
+});
 
 export function AppShell() {
   return (
@@ -164,11 +159,14 @@ export function AppShell() {
 }
 
 function AppShellInner() {
+  const { pathname } = useLocation();
   const sheet = useRoutePatternSheet();
+  const theme = getPageTheme(pathname);
+  const isHome = pathname === "/";
 
   return (
     <PatternSheetProvider value={sheet}>
-      <AppShellBackground />
+      <AppShellBackground theme={theme} isHome={isHome} sheet={sheet} />
       <div className="site-root">
         <a href="#main" className="skip-to-content focus-ring">
           Pular para o conteúdo
