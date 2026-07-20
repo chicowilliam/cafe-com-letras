@@ -5,6 +5,12 @@
  * TODO: ajustar startsAt / endsAt para as datas reais do festival.
  */
 
+import capaFestival from "@/assets/images/temporadas/festival-hamburguer/capa-festival.png";
+import itemCaprese from "@/assets/images/temporadas/festival-hamburguer/item-caprese-vegano.png";
+import itemFileCheddar from "@/assets/images/temporadas/festival-hamburguer/item-file-cheddar.png";
+import itemMilkshakes from "@/assets/images/temporadas/festival-hamburguer/item-milkshakes.png";
+import itemPresunto from "@/assets/images/temporadas/festival-hamburguer/item-presunto-cru.png";
+
 export type TemporadaItem = {
   id: string;
   image: string;
@@ -20,9 +26,13 @@ export type TemporadaItem = {
 export type Temporada = {
   id: string;
   kicker: string;
+  /** Nome completo (aria, faixa Hoje) */
   title: string;
+  /** Título curto na seção Home — o cartaz já carrega o nome longo */
   headline?: string;
+  /** Frase curta sob o título (período / tom) */
   periodLabel: string;
+  /** TODO: datas reais do festival */
   startsAt: string;
   endsAt: string;
   cover: {
@@ -32,10 +42,34 @@ export type Temporada = {
     height: number;
   };
   items: TemporadaItem[];
+  /** Âncora do cardápio da temporada na home */
   detailHref: string;
 };
 
-export const TEMPORADAS: readonly Temporada[] = [];
+/** TODO: trocar pelas datas oficiais quando forem confirmadas. */
+const FESTIVAL_STARTS_AT = "2026-07-01T00:00:00-03:00";
+const FESTIVAL_ENDS_AT = "2026-08-31T23:59:59-03:00";
+
+export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
+  id: "festival-hamburguer",
+  kicker: "Temporada",
+  title: "Festival de hambúrguer, sanduíche e milkshake",
+  headline: "Festival de sanduíches e milkshakes",
+  periodLabel: "Por tempo limitado · Savassi",
+  startsAt: FESTIVAL_STARTS_AT,
+  endsAt: FESTIVAL_ENDS_AT,
+  cover: {
+    src: capaFestival,
+    alt: "Cartaz do Festival de hambúrguer, sanduíche e milkshake do Café com Letras — por tempo limitado, 30 anos",
+    width: 1080,
+    height: 1350,
+  },
+  detailHref: "#temporada-festival-hamburguer-cardapio",
+  items: [
+  ],
+};
+
+export const TEMPORADAS: readonly Temporada[] = [TEMPORADA_FESTIVAL_HAMBURGUER];
 
 export function isTemporadaAtiva(temporada: Temporada, date = new Date()): boolean {
   const t = date.getTime();
