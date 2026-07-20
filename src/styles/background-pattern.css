@@ -11,8 +11,8 @@
 }
 
 /*
- * SVG botânico estático no painel + BackgroundPattern fixed no site.
- * Sem sync JS no scroll (performance).
+ * SurfacePattern: gravura estática no painel (rola com o conteúdo).
+ * BackgroundPattern fixed no AppShell cobre só os vazios entre painéis sólidos.
  */
 .patterned-surface {
   position: relative;
@@ -31,20 +31,8 @@
   border-radius: inherit;
   overflow: hidden;
   opacity: var(--surface-pattern-opacity);
-  /* paint: recorta a folha viewport-sized e evita inflar scrollHeight */
-  contain: paint;
-}
-
-/* Folha alinhada ao viewport (sync JS); o host só “abre a janela”. */
-.surface-pattern-layer__sheet {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100dvh;
-  max-width: none;
-  pointer-events: none;
-  will-change: transform;
+  /* Isola layout/paint; mantém a folha fora do fluxo (anti ghost space) */
+  contain: layout paint;
 }
 
 .surface-pattern-layer__svg {
