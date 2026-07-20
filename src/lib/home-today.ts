@@ -7,6 +7,7 @@ import {
   getProgramacaoForDay,
   type ProgramacaoEvento,
 } from "@/lib/programacao";
+import { getTemporadaAtiva, type Temporada } from "@/lib/temporadas";
 
 export type HomeTodayExperienciaItem = {
   kind: "experiencia";
@@ -18,26 +19,45 @@ export type HomeTodayEventItem = {
   event: ProgramacaoEvento;
 };
 
-export type HomeTodayItem = HomeTodayExperienciaItem | HomeTodayEventItem;
+export type HomeTodayTemporadaItem = {
+  kind: "temporada";
+  temporada: Temporada;
+};
+
+export type HomeTodayItem =
+  | HomeTodayExperienciaItem
+  | HomeTodayEventItem
+  | HomeTodayTemporadaItem;
 
 const MAX_ITEMS = 3;
 const RECURRING_EXPERIENCIA_CATEGORIES = new Set(["happy-hour", "cafe-da-tarde"]);
 
 export { formatTodayRibbonDate };
 
-/** Lista compacta para a faixa “Hoje na casa” — experiências primeiro, depois agenda cultural. */
+/**
+ * Lista compacta para a faixa “Hoje na casa”.
+ * Temporada ativa entra primeiro (destaque vivo); depois experiências; depois agenda.
+ */
 export function getHomeTodayItems(date = new Date()): HomeTodayItem[] {
+  const items: HomeTodayItem[] = [];
+
+  const temporada = getTemporadaAtiva(date);
+  if (temporada) {
+    items.push({ kind: "temporada", temporada });
+  }
+
   const experiencias: HomeTodayExperienciaItem[] = getExperienciasAtivasHoje(date).map(
     (entry) => ({ kind: "experiencia", entry }),
   );
+  items.push(...experiencias);
 
-  const remaining = MAX_ITEMS - experiencias.length;
-  if (remaining <= 0) return experiencias.slice(0, MAX_ITEMS);
+  if (items.length >= MAX_ITEMS) return items.slice(0, MAX_ITEMS);
 
+  const remaining = MAX_ITEMS - items.length;
   const events: HomeTodayEventItem[] = getProgramacaoForDay(date)
     .filter((event) => !RECURRING_EXPERIENCIA_CATEGORIES.has(event.category))
     .slice(0, remaining)
     .map((event) => ({ kind: "event", event }));
 
-  return [...experiencias, ...events];
+  return [...items, ...events].slice(0, MAX_ITEMS);
 }
