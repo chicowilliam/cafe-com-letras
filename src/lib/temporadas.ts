@@ -66,6 +66,17 @@ export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
   },
   detailHref: "#temporada-festival-hamburguer-cardapio",
   items: [
+{
+      id: "file-cheddar",
+      image: itemFileCheddar,
+      title: "Sanduíche de filé com cheddar",
+      priceLabel: "R$92",
+      description:
+        "150g de filé mignon com cebola roxa, cheddar cremoso e tomate confit na baguete",
+      alt: "Sanduíche de filé com cheddar, R$92 — filé mignon, cebola roxa, cheddar e tomate confit na baguete",
+      width: 1080,
+      height: 1350,
+    }
   ],
 };
 
