@@ -76,6 +76,17 @@ export const TEMPORADA_FESTIVAL_HAMBURGUER: Temporada = {
       alt: "Sanduíche de filé com cheddar, R$92 — filé mignon, cebola roxa, cheddar e tomate confit na baguete",
       width: 1080,
       height: 1350,
+    },
+{
+      id: "caprese-vegano",
+      image: itemCaprese,
+      title: "Sanduíche caprese vegano",
+      priceLabel: "R$47",
+      description:
+        "Queijo de castanha de caju, rúcula, tomate sweet e pesto de manjericão na baguete",
+      alt: "Sanduíche caprese vegano, R$47 — queijo de castanha, rúcula, tomate sweet e pesto na baguete",
+      width: 1080,
+      height: 1350,
     }
   ],
 };
