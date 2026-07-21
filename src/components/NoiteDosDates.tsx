@@ -1,58 +1,71 @@
-import { ArrowRight, Heart, Sparkles } from "lucide-react";
+import { Heart } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
 import { AnimatedSectionHeading } from "@/components/AnimatedSectionHeading";
 import { SectionReveal } from "@/components/SectionReveal";
 import { SurfacePattern } from "@/components/SurfacePattern";
-import { DATE_PACKAGES } from "@/lib/date-experience";
+import { DATE_PACKAGE_IMAGES } from "@/lib/date-package-images";
+import { CTA_LABELS, CTA_HOVER_CLASS } from "@/lib/cta-labels";
+import "@/styles/noite-dos-dates-theme.css";
 
 export function NoiteDosDates() {
   return (
-    <section id="noite-dos-dates" className="section-canvas section-padding patterned-surface">
+    <section
+      id="noite-dos-dates"
+      className="ndd-home-section ndd-theme-tokens section-canvas section-padding patterned-surface"
+    >
       <SurfacePattern />
       <div className="relative z-[1] mx-auto max-w-6xl">
-        <AnimatedSectionHeading
-          className="mb-8 md:mb-10"
-          index="01"
-          eyebrow="Experiência exclusiva"
-          title="Noite dos Dates"
-          editorial
-        />
+        <div className="ndd-home-teaser">
+          <div className="ndd-home-teaser__copy order-2 md:order-1">
+            <AnimatedSectionHeading
+              className="mb-5 md:mb-6"
+              index="01"
+              eyebrow="Savassi · sob reserva"
+              title="Noite dos Dates"
+              editorial
+            />
 
-        <SectionReveal variant="line-mask">
-          <p className="section-prose mb-8 max-w-3xl text-center md:mb-10 md:text-left">
-            Conheça a Noite dos Dates, uma experiência imersiva feita para quem busca um
-            romance autêntico e sem pressa na Savassi — jazz ao vivo, luzes baixas e menu
-            degustação exclusivo para compartilhar a dois.
-          </p>
-        </SectionReveal>
+            <SectionReveal variant="line-mask">
+              <p className="section-prose mx-auto mb-3 max-w-xl md:mx-0">
+                Jazz ao vivo, luz baixa e menu a dois — a noite da casa para quem
+                quer a mesa sem pressa.
+              </p>
+              <p className="section-caption !mb-0 !normal-case tracking-normal text-foreground-muted">
+                A partir de R$ 115 por pessoa
+              </p>
+            </SectionReveal>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center md:justify-start">
-          {DATE_PACKAGES.map((pkg) => (
-            <p key={pkg.id} className="text-sm text-foreground-muted">
-              <span className="font-display text-foreground">{pkg.title}</span>
-              {" · "}
-              <span className="text-accent">{pkg.price}</span>
-              <span className="text-foreground-muted/70"> {pkg.priceNote}</span>
-            </p>
-          ))}
-        </div>
+            <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row md:justify-start">
+              <AppLink
+                to="/noite-dos-dates"
+                className={`btn-primary focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
+              >
+                <Heart size={15} strokeWidth={1.75} aria-hidden />
+                {CTA_LABELS.guaranteeExperience}
+              </AppLink>
+              <AppLink
+                to="/experiencias"
+                className={`btn-ghost-minimal focus-ring inline-flex min-h-[44px] items-center rounded-md px-6 py-3 text-sm text-foreground-muted ${CTA_HOVER_CLASS}`}
+              >
+                {CTA_LABELS.viewExperiences}
+              </AppLink>
+            </div>
+          </div>
 
-        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
-          <AppLink
-            to="/noite-dos-dates"
-            className="btn-primary focus-ring inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
+          <SectionReveal
+            variant="subtle"
+            className="ndd-home-teaser__media order-1 md:order-2"
           >
-            <Heart size={15} strokeWidth={1.75} aria-hidden />
-            Conheça a experiência completa
-            <ArrowRight size={15} strokeWidth={1.75} aria-hidden />
-          </AppLink>
-          <AppLink
-            to="/experiencias"
-            className="btn-ghost-minimal focus-ring inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm transition-all duration-300 hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:scale-100"
-          >
-            <Sparkles size={15} strokeWidth={1.75} aria-hidden />
-            Todas as experiências
-          </AppLink>
+            <img
+              src={DATE_PACKAGE_IMAGES.casa}
+              alt="Prato da Noite dos Dates no Café com Letras"
+              width={880}
+              height={1100}
+              loading="lazy"
+              decoding="async"
+              className="ndd-home-teaser__img"
+            />
+          </SectionReveal>
         </div>
       </div>
     </section>
