@@ -144,8 +144,8 @@ html[data-exp-hub-theme="noite-dos-dates"] .site-subpage-header--exp-hub {
 }
 
 [data-page-theme="noite-dos-dates"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
-  border-bottom-color: color-mix(in srgb, var(--accent-2) 26%, transparent) !important;
-  background: var(--background) !important;
+  border-bottom-color: color-mix(in srgb, #ef6b55 45%, transparent) !important;
+  background: #1f0a12 !important;
 }
 
 [data-page-theme="cafe-da-tarde"] .site-subpage-header:not(.site-subpage-header--exp-hub) a:hover,
