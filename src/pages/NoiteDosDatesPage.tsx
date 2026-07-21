@@ -1,99 +1,82 @@
-import { Heart, Music, Sparkles, Wine } from "lucide-react";
+import type { MouseEvent } from "react";
+import { Heart } from "lucide-react";
 import { ExperiencePageShell } from "@/components/experiencias/ExperiencePageShell";
-import { ExperienceCard } from "@/components/ExperienceCard";
 import { FadeIn } from "@/components/FadeIn";
 import { useExperienceCheckout } from "@/hooks/useExperienceCheckout";
-import { DATE_PACKAGES, type DatePackageId } from "@/lib/date-experience";
+import {
+  DATE_PACKAGES,
+  DATE_PACKAGE_ANCHOR_ID,
+  type DatePackageId,
+} from "@/lib/date-experience";
 import { DATE_PACKAGE_IMAGES } from "@/lib/date-package-images";
 import { CTA_LABELS, CTA_HOVER_CLASS } from "@/lib/cta-labels";
 import "@/styles/noite-dos-dates-theme.css";
 
-const BADGE_STYLES: Record<DatePackageId, string> = {
-  complete: "border-accent/35 bg-[#1a1512] text-accent",
-  vegan: "border-accent-2/35 bg-[#1a1512] text-accent-2",
-};
-
-const ATMOSPHERE = [
-  {
-    icon: Music,
-    title: "Jazz ao vivo",
-    text: "O ritmo da noite dita o compasso enquanto vocês desfrutam do menu, sob luzes baixas e clima íntimo.",
-  },
-  {
-    icon: Wine,
-    title: "Harmonização",
-    text: "Vinhos selecionados e alta coquetelaria pensados para compartilhar — cada gole prolonga o encontro.",
-  },
-  {
-    icon: Sparkles,
-    title: "Savassi à noite",
-    text: "Um refúgio no coração da cidade para se desconectar do mundo exterior e viver uma noite memorável a dois.",
-  },
+const NIGHT_INCLUDES = [
+  "Menu degustação em quatro tempos, para duas pessoas",
+  "Jazz ao vivo sob luz baixa",
+  "Harmonização pensada para a mesa (vinho ou opção sem álcool no vegano)",
+  "Reserva com taxa por pessoa — pacotes Casal Movimento, Casal da Casa e Casal Vegano",
 ] as const;
 
 export default function NoiteDosDatesPage() {
   const { openWithPackage } = useExperienceCheckout();
 
-  return (
-    <ExperiencePageShell className="noite-dos-dates-page">
-      <main className="section-stack">
-        <section className="ndd-hero section-padding border-b border-hairline bg-surface">
-          <div className="ndd-hero-glow" aria-hidden />
-          <div className="relative mx-auto max-w-4xl">
-            <FadeIn>
-              <div className="mb-8 overflow-hidden rounded-md border border-hairline md:mb-10">
-                <img
-                  src={DATE_PACKAGE_IMAGES.complete}
-                  alt=""
-                  aria-hidden
-                  className="ndd-hero-image h-48 w-full object-cover object-center md:h-64"
-                  decoding="async"
-                />
-              </div>
+  const openAnchor = () =>
+    openWithPackage(DATE_PACKAGE_ANCHOR_ID, { theme: "dates" });
 
-              <span className="section-eyebrow flex items-center justify-center gap-1.5 md:justify-start">
-                <Heart size={12} strokeWidth={1.75} aria-hidden />
-                Experiência exclusiva
-              </span>
-              <h1 className="section-title mt-2 text-center text-foreground md:text-left">
+  const scrollToPackages = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    document.querySelector<HTMLElement>("[data-dates-packages]")?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  };
+
+  return (
+    <ExperiencePageShell className="noite-dos-dates-page ndd-theme-tokens">
+      <main className="section-stack">
+        {/* Hero full-bleed — uma composição de desejo */}
+        <section className="ndd-hero" aria-label="Noite dos Dates">
+          <div className="ndd-hero__media" aria-hidden>
+            <img
+              src={DATE_PACKAGE_IMAGES.casa}
+              alt=""
+              width={1600}
+              height={1000}
+              className="ndd-hero__img"
+              decoding="async"
+              fetchPriority="high"
+            />
+            <div className="ndd-hero__veil" />
+          </div>
+
+          <div className="ndd-hero__content section-padding">
+            <FadeIn>
+              <p className="section-kicker !mb-2 text-left">Savassi · sob reserva</p>
+              <h1 className="font-display text-[2.35rem] leading-[1.05] tracking-[-0.02em] text-foreground sm:text-5xl md:text-[3.25rem]">
                 Noite dos Dates
               </h1>
-              <p className="mx-auto mt-5 max-w-2xl text-center font-garamond text-xl italic leading-relaxed text-foreground-muted md:mx-0 md:text-left md:text-2xl">
-                Uma experiência imersiva feita para quem busca um romance autêntico e sem
-                pressa na Savassi.
+              <p className="mt-4 max-w-xl font-garamond text-xl italic leading-snug text-foreground/90 md:text-2xl">
+                Jazz ao vivo, luz baixa e menu a dois no Café com Letras.
               </p>
-              <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-foreground-muted md:mx-0 md:text-left md:text-base">
-                Enquanto o jazz ao vivo dita o ritmo sob luzes baixas, vocês desfrutam de um
-                menu degustação exclusivo e alta coquetelaria desenhada para compartilhar. O
-                refúgio perfeito para se desconectar do mundo exterior e viver uma noite
-                memorável a dois.
+              <p className="mt-3 text-sm text-foreground-muted md:text-base">
+                A partir de R$ 115 por pessoa
               </p>
-              <p className="mx-auto mt-4 max-w-2xl text-center text-sm font-medium text-foreground-muted md:mx-0 md:text-left">
-                A partir de R$ 269 por casal · sob reserva
-              </p>
-              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row md:justify-start">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <button
                   type="button"
-                  onClick={() => openWithPackage("complete", { theme: "dates" })}
-                  className={`btn-primary focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
+                  onClick={openAnchor}
+                  className={`btn-primary focus-ring inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
                 >
                   <Heart size={15} strokeWidth={1.75} aria-hidden />
                   {CTA_LABELS.guaranteeExperience}
                 </button>
                 <a
                   href="#pacotes"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    document
-                      .querySelector<HTMLElement>("[data-dates-packages]")
-                      ?.scrollIntoView({
-                        behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-                          .matches
-                          ? "auto"
-                          : "smooth",
-                      });
-                  }}
-                  className={`btn-ghost-minimal focus-ring inline-flex min-h-[44px] items-center rounded-md px-6 py-3 text-sm ${CTA_HOVER_CLASS}`}
+                  onClick={scrollToPackages}
+                  className={`btn-ghost-minimal focus-ring inline-flex min-h-[44px] items-center justify-center rounded-md px-6 py-3 text-sm text-foreground-muted ${CTA_HOVER_CLASS}`}
                 >
                   {CTA_LABELS.viewPackages}
                 </a>
@@ -102,104 +85,123 @@ export default function NoiteDosDatesPage() {
           </div>
         </section>
 
+        {/* Escolha dos casais */}
         <section
           id="pacotes"
           data-dates-packages
-          className="section-padding border-b border-hairline"
+          className="section-canvas section-padding"
         >
-          <div className="mx-auto max-w-6xl">
-            <FadeIn className="mb-8 text-center md:mb-10 md:text-left">
+          <div className="mx-auto max-w-5xl">
+            <FadeIn className="mb-8 md:mb-10">
               <h2 className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
-                Escolha seu pacote
+                Escolha o casal
               </h2>
-              <p className="mt-2 font-garamond text-base italic text-foreground-muted md:text-lg">
-                Menu degustação em quatro tempos · para 2 pessoas
+              <p className="section-caption mt-2 !mb-0 !normal-case tracking-normal text-foreground-muted">
+                Três leituras da mesma noite — taxa por pessoa, para duas pessoas à mesa.
               </p>
             </FadeIn>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+            <ul className="ndd-packages">
               {DATE_PACKAGES.map((pkg, index) => (
-                <FadeIn key={pkg.id} delay={0.06 + index * 0.06}>
-                  <ExperienceCard
-                    image={pkg.image}
-                    imageAlt={pkg.imageAlt}
-                    badge={pkg.badge}
-                    badgeClassName={BADGE_STYLES[pkg.id]}
-                    title={pkg.title}
-                    subtitle={pkg.subtitle}
-                    description={pkg.description}
-                    highlights={pkg.highlights}
-                    price={pkg.price}
-                    priceNote={pkg.priceNote}
-                    ctaLabel="Selecionar pacote"
-                    onCta={() =>
-                      openWithPackage(pkg.id, { theme: "dates" })
-                    }
-                  />
-                </FadeIn>
+                <li key={pkg.id}>
+                  <FadeIn delay={0.04 + index * 0.05}>
+                    <article
+                      className={`ndd-package${pkg.featured ? " ndd-package--featured" : ""}`}
+                    >
+                      <div className="ndd-package__media">
+                        <img
+                          src={pkg.image}
+                          alt={pkg.imageAlt}
+                          width={640}
+                          height={800}
+                          loading="lazy"
+                          decoding="async"
+                          className="ndd-package__img"
+                          style={{ objectPosition: pkg.imagePosition }}
+                        />
+                      </div>
+                      <div className="ndd-package__body">
+                        <div className="ndd-package__top">
+                          <div className="min-w-0">
+                            <p className="section-caption !mb-1">{pkg.badge}</p>
+                            <h3 className="font-display text-xl text-foreground md:text-2xl">
+                              {pkg.title}
+                            </h3>
+                            <p className="mt-1 font-garamond text-base italic text-foreground-muted">
+                              {pkg.subtitle}
+                            </p>
+                          </div>
+                          <div className="ndd-package__price shrink-0 text-right">
+                            <p className="font-display text-xl text-accent md:text-2xl">
+                              {pkg.price}
+                            </p>
+                            <p className="text-[11px] text-foreground-muted">
+                              {pkg.priceNote}
+                            </p>
+                          </div>
+                        </div>
+                        <p className="mt-3 max-w-prose text-sm leading-relaxed text-foreground-muted">
+                          {pkg.description}
+                        </p>
+                        <ul className="ndd-package__facts">
+                          {pkg.highlights.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openWithPackage(pkg.id as DatePackageId, {
+                              theme: "dates",
+                            })
+                          }
+                          className={`btn-primary focus-ring mt-5 inline-flex min-h-[44px] w-full items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium sm:w-auto ${CTA_HOVER_CLASS}`}
+                        >
+                          {CTA_LABELS.guaranteeExperience}
+                        </button>
+                      </div>
+                    </article>
+                  </FadeIn>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 
-        <section className="section-padding border-b border-hairline bg-surface">
-          <div className="mx-auto max-w-4xl">
-            <FadeIn className="mb-8 text-center md:text-left">
-              <h2 className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
-                A atmosfera da noite
-              </h2>
-              <p className="mt-2 font-garamond text-base italic text-foreground-muted">
-                Cultura, gastronomia e intimidade no coração da Savassi
-              </p>
-            </FadeIn>
-
-            <div className="grid gap-4 md:grid-cols-3 md:gap-5">
-              {ATMOSPHERE.map((item, index) => (
-                <FadeIn key={item.title} delay={0.05 * index}>
-                  <article className="ndd-atmosphere-card p-5">
-                    <item.icon
-                      size={20}
-                      strokeWidth={1.5}
-                      className="text-accent"
-                      aria-hidden
-                    />
-                    <h3 className="mt-3 font-display text-base text-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
-                      {item.text}
-                    </p>
-                  </article>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section-padding">
-          <div className="mx-auto max-w-2xl text-center">
+        {/* O que a noite inclui — lista editorial, sem icon row */}
+        <section className="section-canvas section-canvas--surface section-padding">
+          <div className="mx-auto max-w-3xl">
             <FadeIn>
-              <p className="font-garamond text-lg italic text-foreground-muted md:text-xl">
-                Reserve sua mesa e viva uma noite inesquecível a dois.
+              <h2 className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
+                A noite na mesa
+              </h2>
+              <p className="mt-2 font-garamond text-lg italic text-foreground-muted">
+                O ritual é o mesmo; muda o casal que vocês escolhem.
               </p>
-              <a
-                href="#pacotes"
-                onClick={(event) => {
-                  event.preventDefault();
-                  document
-                    .querySelector<HTMLElement>("[data-dates-packages]")
-                    ?.scrollIntoView({
-                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-                        .matches
-                        ? "auto"
-                        : "smooth",
-                    });
-                }}
-                className={`btn-primary focus-ring mt-6 inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
+              <ul className="ndd-includes mt-8">
+                {NIGHT_INCLUDES.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </FadeIn>
+          </div>
+        </section>
+
+        {/* Fecho de conversão */}
+        <section className="section-padding">
+          <div className="mx-auto max-w-xl text-center">
+            <FadeIn>
+              <p className="font-garamond text-xl italic leading-snug text-foreground-muted md:text-2xl">
+                Mesa a dois, jazz e a Savassi do lado de fora.
+              </p>
+              <button
+                type="button"
+                onClick={openAnchor}
+                className={`btn-primary focus-ring mt-8 inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
               >
                 <Heart size={15} strokeWidth={1.75} aria-hidden />
-                {CTA_LABELS.viewPackages}
-              </a>
+                {CTA_LABELS.guaranteeExperience}
+              </button>
             </FadeIn>
           </div>
         </section>
