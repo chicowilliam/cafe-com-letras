@@ -110,7 +110,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     scheduleLong: "Experiência sob reserva, com jazz ao vivo e menu degustação para dois",
     tagline: "Menu degustação, jazz ao vivo e luz baixa para dois.",
     highlights: ["Menu degustação para dois", "Jazz ao vivo", "Sob reserva"],
-    conversionHint: "Sob reserva · a partir de R$ 269 por casal",
+    conversionHint: "Sob reserva · a partir de R$ 115 por pessoa",
     reserveLabel: CTA_LABELS.guaranteeExperience,
     weekdays: [0, 1, 2, 3, 4, 5, 6],
     startsAt: "19:00",
@@ -118,7 +118,7 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
       "Romance autêntico sob luzes baixas: menu degustação em quatro tempos, " +
       "alta coquetelaria e jazz ao vivo — o refúgio perfeito para uma noite memorável a dois.",
     href: "/noite-dos-dates",
-    image: DATE_PACKAGE_IMAGES.complete,
+    image: DATE_PACKAGE_IMAGES.casa,
     imageAlt: "Experiência Noite dos Dates no Café com Letras",
     theme: "noite-dos-dates",
   },
