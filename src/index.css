@@ -8,6 +8,7 @@
 @import "./styles/cardapio-menu.css";
 @import "./styles/cardapio-list.css";
 @import "./styles/cardapio-print.css";
+@import "./styles/noite-dos-dates-theme.css";
 
 @font-face {
   font-family: "Gloock";
