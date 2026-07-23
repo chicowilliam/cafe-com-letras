@@ -53,18 +53,18 @@ export default function NoiteDosDatesPage() {
           </div>
 
           <div className="ndd-hero__content section-padding">
-            <FadeIn>
+            <FadeIn className="ndd-hero__lead">
               <p className="section-kicker !mb-2 text-left">Savassi · sob reserva</p>
-              <h1 className="font-display text-[2.35rem] leading-[1.05] tracking-[-0.02em] text-foreground sm:text-5xl md:text-[3.25rem]">
+              <h1 className="ndd-hero__title font-display tracking-[-0.02em] text-foreground">
                 Noite dos Dates
               </h1>
-              <p className="mt-4 max-w-xl font-garamond text-xl italic leading-snug text-foreground/90 md:text-2xl">
+              <p className="ndd-hero__tagline mt-3 font-garamond italic leading-snug text-foreground/90">
                 Jazz ao vivo, luz baixa e menu a dois no Café com Letras.
               </p>
               <p className="mt-3 text-sm text-foreground-muted md:text-base">
                 A partir de R$ 115 por pessoa
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:items-center">
                 <button
                   type="button"
                   onClick={openAnchor}
@@ -81,6 +81,15 @@ export default function NoiteDosDatesPage() {
                   {CTA_LABELS.viewPackages}
                 </a>
               </div>
+            </FadeIn>
+
+            <FadeIn delay={0.08} className="ndd-hero__story">
+              <p className="ndd-hero__story-rule" aria-hidden />
+              <p className="ndd-hero__story-copy font-garamond italic leading-relaxed text-foreground/88">
+                Luz baixa, jazz ao vivo e a mesa só de vocês — quatro tempos,
+                harmonização e a Savassi do lado de fora. Escolham o casal; a
+                noite já está posta.
+              </p>
             </FadeIn>
           </div>
         </section>
@@ -187,17 +196,14 @@ export default function NoiteDosDatesPage() {
           </div>
         </section>
 
-        {/* Fecho de conversão */}
-        <section className="section-padding">
+        {/* Fecho curto — desejo já está no hero */}
+        <section className="ndd-close section-padding">
           <div className="mx-auto max-w-xl text-center">
             <FadeIn>
-              <p className="font-garamond text-xl italic leading-snug text-foreground-muted md:text-2xl">
-                Mesa a dois, jazz e a Savassi do lado de fora.
-              </p>
               <button
                 type="button"
                 onClick={openAnchor}
-                className={`btn-primary focus-ring mt-8 inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
+                className={`btn-primary focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium ${CTA_HOVER_CLASS}`}
               >
                 <Heart size={15} strokeWidth={1.75} aria-hidden />
                 {CTA_LABELS.guaranteeExperience}
