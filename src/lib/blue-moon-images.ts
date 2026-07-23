@@ -1,11 +1,30 @@
 import type { CSSProperties } from "react";
-import img02 from "@/assets/images/blue-moon/blue-moon-02.webp";
-import img03 from "@/assets/images/blue-moon/blue-moon-03.webp";
-import img04 from "@/assets/images/blue-moon/blue-moon-04.webp";
-import img07 from "@/assets/images/blue-moon/blue-moon-07.webp";
-import img08 from "@/assets/images/blue-moon/blue-moon-08.webp";
-import img09 from "@/assets/images/blue-moon/blue-moon-09.webp";
-import img11 from "@/assets/images/blue-moon/blue-moon-11.webp";
+import imgAmbiente from "@/assets/images/blue-moon/blue-moon-ambiente-hi.webp";
+import imgBranding from "@/assets/images/blue-moon/blue-moon-branding-hi.webp";
+import imgBrinde from "@/assets/images/blue-moon/blue-moon-brinde-hi.webp";
+import imgHero from "@/assets/images/blue-moon/blue-moon-hero.webp";
+import imgLaranja from "@/assets/images/blue-moon/blue-moon-laranja-hi.webp";
+import imgMesa from "@/assets/images/blue-moon/blue-moon-mesa-hi.webp";
+import imgPetiscos from "@/assets/images/blue-moon/blue-moon-petiscos-hi.webp";
+import imgServindo from "@/assets/images/blue-moon/blue-moon-servindo-hi.webp";
+import { cloudinaryImageFitUrl } from "@/lib/cloudinary-image";
+
+/**
+ * Pasta Cloudinary de branding Blue Moon (local `src/assets/images/blue-moon/`).
+ */
+export const BLUE_MOON_CLOUDINARY_FOLDER = "blue-moon";
+export const BLUE_MOON_CLOUDINARY_CLOUD = "dmqa0cxay";
+
+/**
+ * Pasta Cloudinary dos pratos oficiais do Happy Hour (DAM Media Library).
+ * PublicIds ficam na raiz do cloud; a pasta organiza no Media Library.
+ */
+export const HAPPY_HOUR_CLOUDINARY_FOLDER = "happy hour";
+
+/** Entrega hi-res dos pratos (portrait ~2323×3480 no DAM). */
+function happyHourDishSrc(publicId: string) {
+  return cloudinaryImageFitUrl(publicId, 1400, 2100, "auto:best");
+}
 
 export type AspectHint = "portrait" | "landscape" | "square";
 export type ImageFit = "cover" | "contain";
@@ -15,20 +34,23 @@ export type BlueMoonImage = {
   alt: string;
   label: string;
   slug: string;
+  /** PublicId Cloudinary completo (quando a foto vem do DAM). */
+  cloudinaryId?: string;
   focalPoint: string;
   aspectHint: AspectHint;
   fit?: ImageFit;
 };
 
-export const BLUE_MOON_HERO_IMAGE = img08;
+/** Hero da página /happy-hour — landscape hi-res (mesa Blue Moon). */
+export const BLUE_MOON_HERO_IMAGE = imgHero;
 
 export const BLUE_MOON_HERO_ALT =
-  "Garçom servindo Blue Moon Belgian White em copo personalizado no happy hour";
+  "Mesa com Blue Moon Belgian White, fatia de laranja e o entardecer na Savassi";
 
 export const BLUE_MOON_IMAGES: BlueMoonImage[] = [
   {
     slug: "ambiente-savassi",
-    src: img03,
+    src: imgAmbiente,
     label: "Entardecer na Savassi",
     alt: "Terraço do Café com Letras à noite com letreiro Blue Moon e guarda-sóis na Savassi",
     focalPoint: "50% 42%",
@@ -36,52 +58,102 @@ export const BLUE_MOON_IMAGES: BlueMoonImage[] = [
   },
   {
     slug: "laranja-no-copo",
-    src: img02,
-    label: "Fatia de laranja",
+    src: imgLaranja,
+    label: "Blue Moon com laranja",
     alt: "Copo de Blue Moon Belgian White com fatia de laranja na borda",
-    focalPoint: "50% 42%",
+    focalPoint: "50% 40%",
     aspectHint: "portrait",
+  },
+  {
+    slug: "batatas-rusticas",
+    src: happyHourDishSrc("Batata_rustica_d9n5jz"),
+    cloudinaryId: "Batata_rustica_d9n5jz",
+    label: "Batatas rústicas",
+    alt: "Batatas rústicas com lâminas de bacon e fonduta de requeijão de raspa",
+    focalPoint: "50% 45%",
+    aspectHint: "portrait",
+    fit: "contain",
   },
   {
     slug: "croquetes-de-carne",
-    src: img04,
+    src: happyHourDishSrc("Croquetes_de_carne_awkkhu"),
+    cloudinaryId: "Croquetes_de_carne_awkkhu",
     label: "Croquetes de carne",
-    alt: "Seis croquetes de carne crocantes com fonduta de requeijão ao lado de chopp Blue Moon com fatia de laranja",
-    focalPoint: "52% 58%",
+    alt: "Seis croquetes de carne crocantes com fonduta de requeijão de raspa",
+    focalPoint: "50% 45%",
     aspectHint: "portrait",
     fit: "contain",
   },
   {
-    slug: "petiscos-para-abrir",
-    src: img07,
-    label: "Petiscos para abrir",
-    alt: "Porção de petiscos fritos com guacamole e carne moída acompanhada de chopp Blue Moon com laranja",
-    focalPoint: "50% 62%",
+    slug: "choripan",
+    src: happyHourDishSrc("Chripan_vegano_pfngya"),
+    cloudinaryId: "Chripan_vegano_pfngya",
+    label: "Choripan vegano",
+    alt: "Choripan vegano acompanhado de baguete no happy hour",
+    focalPoint: "50% 45%",
     aspectHint: "portrait",
     fit: "contain",
+  },
+  {
+    slug: "pastel-camarao",
+    src: happyHourDishSrc("pastel_aberto_de_camarão_rzi3cj"),
+    cloudinaryId: "pastel_aberto_de_camarão_rzi3cj",
+    label: "Pastel aberto de camarão",
+    alt: "Pastel aberto de camarão — quatro unidades",
+    focalPoint: "50% 45%",
+    aspectHint: "portrait",
+    fit: "contain",
+  },
+  {
+    slug: "pastel-provolone",
+    src: happyHourDishSrc(
+      "Pastel_aberto_de_queijo_provolone_e_salaminho_jpmfah",
+    ),
+    cloudinaryId: "Pastel_aberto_de_queijo_provolone_e_salaminho_jpmfah",
+    label: "Pastel aberto de provolone",
+    alt: "Pastel aberto de queijo provolone com salaminho — quatro unidades",
+    focalPoint: "50% 45%",
+    aspectHint: "portrait",
+    fit: "contain",
+  },
+  {
+    slug: "petiscos-board",
+    src: imgPetiscos,
+    label: "Board de petiscos",
+    alt: "Nachos e dips com Blue Moon Belgian White e fatia de laranja sob luz azul e laranja",
+    focalPoint: "50% 48%",
+    aspectHint: "portrait",
   },
   {
     slug: "mesa-blue-moon",
-    src: img09,
+    src: imgMesa,
     label: "Mesa com Blue Moon",
     alt: "Garrafa e copos de Blue Moon Belgian White com fatia de laranja em mesa ao ar livre à noite",
-    focalPoint: "40% 52%",
+    focalPoint: "48% 48%",
     aspectHint: "landscape",
   },
   {
     slug: "servindo-blue-moon",
-    src: img08,
+    src: imgServindo,
     label: "Servindo Blue Moon",
     alt: "Garçom servindo Blue Moon Belgian White em copo personalizado no terraço do Café com Letras",
-    focalPoint: "46% 52%",
+    focalPoint: "46% 42%",
+    aspectHint: "portrait",
+  },
+  {
+    slug: "brinde-blue-moon",
+    src: imgBrinde,
+    label: "Brinde na Savassi",
+    alt: "Dois amigos brindando com Blue Moon Belgian White e fatia de laranja no terraço",
+    focalPoint: "50% 35%",
     aspectHint: "portrait",
   },
   {
     slug: "branding-banco",
-    src: img11,
+    src: imgBranding,
     label: "Parceria Blue Moon",
     alt: "Logotipo Blue Moon em banco de madeira com iluminação azul no ambiente do bar",
-    focalPoint: "54% 68%",
+    focalPoint: "54% 48%",
     aspectHint: "landscape",
   },
 ];
@@ -95,6 +167,11 @@ export function getBlueMoonImageBySlug(slug: BlueMoonImage["slug"]) {
     throw new Error(`Blue Moon image not found: ${slug}`);
   }
   return image;
+}
+
+/** PublicId Cloudinary do asset, quando existir. */
+export function blueMoonCloudinaryPublicId(image: BlueMoonImage) {
+  return image.cloudinaryId ?? null;
 }
 
 export function blueMoonObjectStyle(
@@ -136,4 +213,11 @@ export function blueMoonIntroAspectClass(image: BlueMoonImage) {
     : "hh-aspect-intro-portrait";
 }
 
-export const BLUE_MOON_HERO_IMAGE_META = getBlueMoonImageBySlug("servindo-blue-moon");
+export const BLUE_MOON_HERO_IMAGE_META = {
+  src: BLUE_MOON_HERO_IMAGE,
+  alt: BLUE_MOON_HERO_ALT,
+  label: "Happy Hour Blue Moon",
+  slug: "hero-mesa",
+  focalPoint: "45% 42%",
+  aspectHint: "landscape" as const,
+};
