@@ -1,4 +1,5 @@
 import { type CSSProperties } from "react";
+import { SectionFlourish } from "@/components/SectionFlourish";
 
 type HandoffTone = "background" | "surface";
 export type DividerCurveId = "arch" | "valley" | "swell" | "glide";
@@ -8,7 +9,8 @@ export type SectionHandoffVariant =
   | "wash"
   | "wave"
   | "chapter"
-  | "accent-band";
+  | "accent-band"
+  | "flourish";
 
 type SectionHandoffProps = {
   variant: SectionHandoffVariant;
@@ -23,6 +25,8 @@ type SectionHandoffProps = {
   dividerCurve?: DividerCurveId;
   /** Path `d` custom (Haikei etc.), viewBox 0 0 1440 48. */
   dividerPath?: string;
+  /** Tom do flourish (default / happy-hour / cafe-da-tarde). */
+  flourishTone?: "default" | "happy-hour" | "cafe-da-tarde";
 };
 
 const OVERLAP_CLASS = {
@@ -43,7 +47,10 @@ const TO_CLASS: Record<HandoffTone, string> = {
 };
 
 /** Ritmo por tipo de handoff — mesma família, curvas distintas. */
-const HANDOFF_CURVE: Record<SectionHandoffVariant, DividerCurveId> = {
+const HANDOFF_CURVE: Record<
+  Exclude<SectionHandoffVariant, "flourish">,
+  DividerCurveId
+> = {
   breath: "glide",
   wash: "swell",
   wave: "valley",
@@ -110,23 +117,25 @@ export function SectionHandoff({
   className = "",
   dividerCurve,
   dividerPath,
+  flourishTone = "default",
 }: SectionHandoffProps) {
   const overlapClass = OVERLAP_CLASS[overlap];
   const base = `section-handoff ${toneClasses(from, to)} ${overlapClass} ${className}`.trim();
-  const curve = dividerCurve ?? HANDOFF_CURVE[variant];
 
-  if (variant === "breath") {
+  if (variant === "flourish" || variant === "breath") {
     return (
-      <div aria-hidden className={`${base} section-handoff-breath`}>
-        <HandoffPattern curve={curve} path={dividerPath} />
+      <div aria-hidden className={`${base} section-handoff-flourish`}>
+        <SectionFlourish tone={flourishTone} />
       </div>
     );
   }
 
+  const curve = dividerCurve ?? HANDOFF_CURVE[variant];
+
   if (variant === "wash") {
     return (
       <div aria-hidden className={`${base} section-handoff-wash`}>
-        <HandoffPattern curve={curve} path={dividerPath} boost />
+        <SectionFlourish tone={flourishTone} />
       </div>
     );
   }
@@ -134,7 +143,7 @@ export function SectionHandoff({
   if (variant === "accent-band") {
     return (
       <div aria-hidden className={`${base} section-handoff-accent-band`}>
-        <HandoffPattern curve={curve} path={dividerPath} />
+        <SectionFlourish tone={flourishTone} />
       </div>
     );
   }
@@ -142,7 +151,6 @@ export function SectionHandoff({
   if (variant === "chapter" && chapterIndex) {
     return (
       <div aria-hidden className={`${base} section-handoff-chapter`}>
-        <HandoffPattern curve={curve} path={dividerPath} boost />
         <span className="section-handoff-chapter-index">{chapterIndex}</span>
         {chapterLabel ? (
           <span className="section-handoff-chapter-label">{chapterLabel}</span>
