@@ -25,10 +25,8 @@ export default function HappyHourPage() {
     <ExperiencePageShell className="happy-hour-page hh-theme-tokens">
       <main className="section-stack">
         <HappyHourHero
-          eyebrow={info.eyebrow}
-          schedule={info.scheduleLong}
-          subtitle="Parceria Blue Moon no terraço: cerveja de trigo, petiscos da casa e o ritmo do entardecer."
-          conversionHint={info.conversionHint}
+          schedule={info.scheduleShort}
+          subtitle="Cerveja de trigo, petiscos da casa e o ritmo do terraço ao entardecer."
           onReserve={openReservation}
         />
 
@@ -44,7 +42,6 @@ export default function HappyHourPage() {
             <Fragment key={spread.id}>
               <SectionFlourish tone="happy-hour" />
               <HappyHourSpread
-                index={index}
                 eyebrow={spread.eyebrow}
                 title={spread.title}
                 subtitle={spread.subtitle}
@@ -60,16 +57,18 @@ export default function HappyHourPage() {
 
           <SectionFlourish tone="happy-hour" />
 
-          <p className="hh-footnote hh-section-bridge px-5 py-6 text-center font-garamond text-sm italic leading-relaxed text-foreground-muted md:px-10 md:text-base">
+          <p className="hh-footnote hh-section-bridge hh-rail hh-rail--readable py-6 text-center font-garamond text-sm italic leading-relaxed text-foreground-muted md:text-base">
             {HAPPY_HOUR_PRICE_FOOTNOTE}
           </p>
 
           <SectionFlourish tone="happy-hour" />
 
           <HappyHourFaq />
-        </div>
 
-        <HappyHourCta onReserve={openReservation} />
+          <SectionFlourish tone="happy-hour" />
+
+          <HappyHourCta onReserve={openReservation} />
+        </div>
       </main>
     </ExperiencePageShell>
   );

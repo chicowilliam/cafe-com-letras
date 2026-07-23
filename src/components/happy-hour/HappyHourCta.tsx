@@ -10,7 +10,7 @@ export function HappyHourCta({ onReserve }: HappyHourCtaProps) {
   const backdrop = getBlueMoonImageBySlug("branding-banco");
 
   return (
-    <section className="hh-cta-section relative overflow-hidden py-14 md:py-20">
+    <section className="hh-cta-section relative overflow-hidden">
       <img
         src={backdrop.src}
         alt=""
@@ -22,7 +22,7 @@ export function HappyHourCta({ onReserve }: HappyHourCtaProps) {
       />
       <div className="hh-cta-overlay absolute inset-0" aria-hidden />
 
-      <div className="relative z-10 mx-auto max-w-2xl px-5 text-center md:px-10">
+      <div className="hh-rail hh-rail--readable relative z-10 text-center">
         <FadeIn>
           <p className="hh-cta-eyebrow">Blue Moon · Savassi</p>
           <p className="hh-cta-title mt-3 font-garamond text-2xl italic leading-relaxed text-foreground md:text-[2rem]">

@@ -13,7 +13,6 @@ import { CTA_LABELS, CTA_HOVER_CLASS } from "@/lib/cta-labels";
 import type { HappyHourMenuItem, SpreadVariant } from "@/lib/happy-hour-menu";
 
 type HappyHourSpreadProps = {
-  index: number;
   eyebrow?: string;
   title: string;
   subtitle?: string;
@@ -175,7 +174,6 @@ function SpreadPhotoGrid({
 }
 
 export function HappyHourSpread({
-  index,
   eyebrow,
   title,
   subtitle,
@@ -203,12 +201,10 @@ export function HappyHourSpread({
       className={`hh-spread hh-section-bridge relative ${surface} py-9 md:py-12`.trim()}
     >
       <div
-        className={`mx-auto grid max-w-5xl items-start gap-6 px-5 md:max-w-6xl md:items-center md:gap-10 md:px-10 lg:gap-12 ${
+        className={`hh-rail grid items-start gap-6 md:items-center md:gap-10 lg:gap-14 ${
           hasVisual
-            ? reverse
-              ? "md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
-              : "md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
-            : "md:max-w-3xl"
+            ? "md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
+            : "hh-rail--readable"
         }`}
       >
         {hasVisual ? (

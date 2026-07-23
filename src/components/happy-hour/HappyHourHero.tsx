@@ -7,18 +7,14 @@ import {
 } from "@/lib/blue-moon-images";
 
 type HappyHourHeroProps = {
-  eyebrow: string;
   schedule: string;
   subtitle: string;
-  conversionHint?: string;
   onReserve?: () => void;
 };
 
 export function HappyHourHero({
-  eyebrow,
   schedule,
   subtitle,
-  conversionHint,
   onReserve,
 }: HappyHourHeroProps) {
   return (
@@ -37,28 +33,20 @@ export function HappyHourHero({
       <div className="hh-hero-overlay absolute inset-0" aria-hidden />
       <div className="hh-hero-glow absolute inset-0" aria-hidden />
 
-      <div className="hh-hero-full__inner relative z-10 mx-auto flex max-w-6xl flex-col justify-end px-5 pb-7 pt-20 md:px-10 md:pb-9">
-        <p className="hh-hero-eyebrow">{eyebrow}</p>
-        <h1 className="hh-hero-title mt-2">
-          <span className="hh-hero-title__line block">Happy Hour</span>
-          <span className="hh-hero-title__brand block">Blue Moon</span>
+      <div className="hh-hero-full__inner hh-rail relative z-10 flex flex-col justify-end pb-8 md:pb-10">
+        <p className="hh-hero-eyebrow">Happy Hour</p>
+        <h1 className="hh-hero-title mt-1.5">
+          <span className="hh-hero-title__brand">Blue Moon</span>
         </h1>
-        <p className="mt-3 text-xs font-medium uppercase tracking-[0.18em] text-accent md:text-sm">
-          {schedule}
-        </p>
-        <p className="hh-hero-subtitle mt-3 max-w-lg font-garamond text-base italic leading-relaxed text-foreground/85 md:mt-4 md:text-lg">
+        <p className="hh-hero-schedule mt-3">{schedule}</p>
+        <p className="hh-hero-subtitle mt-3 max-w-md font-garamond text-base italic leading-relaxed text-foreground/85 md:mt-3.5 md:text-lg">
           {subtitle}
         </p>
-        {conversionHint ? (
-          <p className="mt-3 text-sm font-medium text-foreground-muted">
-            {conversionHint}
-          </p>
-        ) : null}
         {onReserve ? (
           <button
             type="button"
             onClick={onReserve}
-            className={`btn-primary focus-ring mt-5 inline-flex min-h-[44px] items-center rounded-sm px-8 py-3 text-sm font-medium ${CTA_HOVER_CLASS}`}
+            className={`btn-primary focus-ring hh-hero-cta mt-5 inline-flex min-h-[44px] w-auto max-w-max items-center rounded-sm px-7 py-3 text-sm font-medium ${CTA_HOVER_CLASS}`}
           >
             {CTA_LABELS.reserveTable}
           </button>

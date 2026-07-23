@@ -13,7 +13,7 @@ type HappyHourIntroProps = {
 export function HappyHourIntro({ description, image }: HappyHourIntroProps) {
   return (
     <section className="hh-intro hh-section-bridge relative py-9 md:py-12">
-      <div className="mx-auto grid max-w-4xl items-center gap-7 px-5 md:grid-cols-[1fr_minmax(0,240px)] md:gap-9 md:px-10 lg:grid-cols-[1fr_minmax(0,260px)]">
+      <div className="hh-rail grid items-center gap-7 md:grid-cols-[1fr_minmax(0,280px)] md:gap-10 lg:grid-cols-[1fr_minmax(0,320px)] lg:gap-12">
         <SectionReveal variant="editorial">
           <p className="hh-intro-eyebrow">Parceria Blue Moon</p>
           <p className="section-kicker mt-3 max-w-prose">{description}</p>
@@ -24,7 +24,7 @@ export function HappyHourIntro({ description, image }: HappyHourIntroProps) {
 
         <SectionReveal
           variant="subtle"
-          className="hh-intro-visual relative mx-auto w-full max-w-[220px] md:mx-0 md:max-w-[240px]"
+          className="hh-intro-visual relative mx-auto w-full md:mx-0"
         >
           <div className="hh-intro-frame overflow-hidden rounded-sm ring-1 ring-accent-2/25">
             <img

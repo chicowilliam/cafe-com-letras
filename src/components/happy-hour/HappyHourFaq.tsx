@@ -74,8 +74,8 @@ export function HappyHourFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="hh-faq hh-section-bridge relative py-10 md:py-12">
-      <div className="mx-auto max-w-2xl px-5 md:px-10">
+    <section className="hh-faq hh-section-bridge relative">
+      <div className="hh-rail hh-rail--readable">
         <FadeIn>
           <p className="hh-faq-eyebrow">Antes de ir</p>
           <h2 className="hh-faq-title mt-2">Dúvidas do happy hour</h2>

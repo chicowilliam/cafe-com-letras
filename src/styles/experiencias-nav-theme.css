@@ -138,9 +138,17 @@ html[data-exp-hub-theme="noite-dos-dates"] .site-subpage-header--exp-hub {
   background: var(--background) !important;
 }
 
+/* HH: chrome legível sobre a foto, sem faixa morta opaca */
 [data-page-theme="happy-hour"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
-  border-bottom-color: color-mix(in srgb, #2d6cb5 32%, transparent) !important;
-  background: #0e1419 !important;
+  border-bottom-color: transparent !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(14, 20, 25, 0.97) 0%,
+    rgba(14, 20, 25, 0.88) 42%,
+    rgba(14, 20, 25, 0.45) 78%,
+    transparent 100%
+  ) !important;
+  backdrop-filter: none !important;
 }
 
 [data-page-theme="noite-dos-dates"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
