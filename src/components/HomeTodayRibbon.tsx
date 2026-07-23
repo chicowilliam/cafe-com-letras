@@ -108,7 +108,7 @@ export function HomeTodayRibbon() {
   return (
     <section
       id="hoje-na-casa"
-      className="home-today-ribbon section-canvas patterned-surface border-b border-hairline"
+      className="home-today-ribbon section-canvas patterned-surface"
       aria-label="Hoje na Savassi"
     >
       <SurfacePattern />
