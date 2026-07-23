@@ -12,17 +12,21 @@ type HappyHourIntroProps = {
 
 export function HappyHourIntro({ description, image }: HappyHourIntroProps) {
   return (
-    <section className="hh-intro hh-section-bridge relative overflow-hidden bg-background py-10 md:py-14">
-      <div className="mx-auto grid max-w-4xl items-center gap-8 px-5 md:grid-cols-[1fr_minmax(0,280px)] md:gap-10 md:px-10 lg:grid-cols-[1fr_minmax(0,320px)]">
+    <section className="hh-intro hh-section-bridge relative py-9 md:py-12">
+      <div className="mx-auto grid max-w-4xl items-center gap-7 px-5 md:grid-cols-[1fr_minmax(0,240px)] md:gap-9 md:px-10 lg:grid-cols-[1fr_minmax(0,260px)]">
         <SectionReveal variant="editorial">
-          <p className="section-kicker max-w-prose">{description}</p>
-          <p className="hh-pull-quote mt-6 border-l-2 border-accent/50 pl-5 font-garamond text-base italic text-foreground/80 md:text-lg">
-            Chopp gelado, fatia de laranja e o entardecer da Savassi.
+          <p className="hh-intro-eyebrow">Parceria Blue Moon</p>
+          <p className="section-kicker mt-3 max-w-prose">{description}</p>
+          <p className="hh-pull-quote mt-5 border-l-2 pl-5 font-garamond text-base italic text-foreground/80 md:text-lg">
+            Não é só chopp: é a mesa compartilhada, a luz azul da parceria e o ritmo lento da Savassi.
           </p>
         </SectionReveal>
 
-        <SectionReveal variant="subtle" className="hh-intro-visual relative mx-auto w-full max-w-xs md:mx-0 md:max-w-sm">
-          <div className="hh-intro-frame overflow-hidden rounded-sm">
+        <SectionReveal
+          variant="subtle"
+          className="hh-intro-visual relative mx-auto w-full max-w-[220px] md:mx-0 md:max-w-[240px]"
+        >
+          <div className="hh-intro-frame overflow-hidden rounded-sm ring-1 ring-accent-2/25">
             <img
               src={image.src}
               alt={image.alt}
