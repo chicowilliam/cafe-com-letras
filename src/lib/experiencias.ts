@@ -83,17 +83,18 @@ export const EXPERIENCIAS_CATALOG: ExperienciaCatalogEntry[] = [
     timeBand: "entardecer",
     timeBandLabel: "Entardecer",
     timeLabel: "Blue Moon",
-    scheduleShort: "Quinta a domingo",
-    scheduleLong: "Quintas, sextas, sábados e domingos",
+    scheduleShort: "Qui–dom · a partir do entardecer",
+    scheduleLong: "Quintas a domingos · terraço, a partir do entardecer",
     tagline: "Chopp gelado, fatia de laranja e petiscos na Savassi.",
-    highlights: ["Blue Moon Belgian White", "Petiscos e chopps", "Quinta a domingo"],
-    conversionHint: "Qui–dom · chopp a partir de R$ 32",
+    highlights: ["Blue Moon", "Petiscos e chopps", "Quinta a domingo"],
+    conversionHint: "Blue Moon R$ 25 · chope a partir de R$ 15",
     reserveLabel: CTA_LABELS.reserveTable,
     weekdays: [0, 4, 5, 6],
     startsAt: "",
     description:
-      "Petiscos e drinks em preço especial, com cardápio que muda a cada dia. " +
-      "Blue Moon gelada, coquetelaria e o clima descontraído da Savassi ao entardecer.",
+      "No terraço da Savassi, a parceria Blue Moon abre o entardecer: " +
+      "cerveja de trigo com fatia de laranja, petiscos da casa e drinks em ritmo de happy hour. " +
+      "O cardápio do dia pode variar — vale chegar cedo e reservar mesa.",
     href: "/happy-hour",
     image: BLUE_MOON_HERO_IMAGE,
     imageAlt: BLUE_MOON_HERO_ALT,
