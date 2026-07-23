@@ -80,7 +80,7 @@ html[data-page-theme="noite-dos-dates"] .section-caption {
   isolation: isolate;
   min-height: min(88dvh, 52rem);
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
   overflow: hidden;
 }
 
@@ -105,19 +105,19 @@ html[data-page-theme="noite-dos-dates"] .section-caption {
   background:
     linear-gradient(
       180deg,
-      rgba(31, 10, 18, 0.25) 0%,
-      rgba(31, 10, 18, 0.45) 38%,
-      rgba(31, 10, 18, 0.88) 72%,
+      rgba(31, 10, 18, 0.55) 0%,
+      rgba(31, 10, 18, 0.35) 32%,
+      rgba(31, 10, 18, 0.72) 68%,
       #1f0a12 100%
     ),
     radial-gradient(
       ellipse 70% 55% at 85% 10%,
-      rgba(196, 59, 85, 0.55),
+      rgba(196, 59, 85, 0.5),
       transparent 58%
     ),
     radial-gradient(
       ellipse 75% 60% at 10% 85%,
-      rgba(239, 107, 85, 0.4),
+      rgba(239, 107, 85, 0.35),
       transparent 60%
     );
 }
@@ -125,14 +125,98 @@ html[data-page-theme="noite-dos-dates"] .section-caption {
 .ndd-hero__content {
   position: relative;
   z-index: 1;
+  display: flex;
   width: 100%;
   max-width: 72rem;
+  min-height: min(88dvh, 52rem);
   margin-inline: auto;
-  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.75rem, 5vh, 3rem);
+  padding-top: calc(5.5rem + env(safe-area-inset-top, 0px));
+  padding-bottom: clamp(2.25rem, 5vw, 3.5rem);
 }
 
 .ndd-hero__content .section-kicker {
   color: #ffb4a8 !important;
+}
+
+.ndd-hero__title {
+  font-size: clamp(2.25rem, 7vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.ndd-hero__tagline {
+  max-width: 22rem;
+  font-size: clamp(1.125rem, 2.4vw, 1.375rem);
+}
+
+.ndd-hero__story {
+  max-width: 26rem;
+}
+
+.ndd-hero__story-rule {
+  width: 2.5rem;
+  height: 1px;
+  margin-bottom: 1rem;
+  background: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.ndd-hero__story-copy {
+  font-size: clamp(1.125rem, 2.6vw, 1.375rem);
+  line-height: 1.45;
+}
+
+@media (min-width: 900px) {
+  .ndd-hero__img {
+    object-position: 22% 42%;
+  }
+
+  .ndd-hero__veil {
+    background:
+      linear-gradient(
+        105deg,
+        rgba(31, 10, 18, 0.12) 0%,
+        rgba(31, 10, 18, 0.2) 38%,
+        rgba(31, 10, 18, 0.82) 58%,
+        #1f0a12 78%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(31, 10, 18, 0.35) 0%,
+        transparent 28%,
+        transparent 62%,
+        rgba(31, 10, 18, 0.55) 100%
+      ),
+      radial-gradient(
+        ellipse 55% 50% at 88% 18%,
+        rgba(196, 59, 85, 0.45),
+        transparent 62%
+      ),
+      radial-gradient(
+        ellipse 50% 45% at 78% 88%,
+        rgba(239, 107, 85, 0.28),
+        transparent 65%
+      );
+  }
+
+  .ndd-hero__content {
+    align-items: flex-end;
+    padding-top: calc(6.25rem + env(safe-area-inset-top, 0px));
+  }
+
+  .ndd-hero__lead,
+  .ndd-hero__story {
+    width: min(28rem, 40vw);
+  }
+
+  .ndd-hero__tagline {
+    max-width: none;
+  }
+}
+
+.ndd-close {
+  padding-block: clamp(2.5rem, 6vw, 3.75rem);
 }
 
 /* ——— Pacotes editoriais ——— */
@@ -274,110 +358,44 @@ html[data-page-theme="noite-dos-dates"] .section-caption {
   border-bottom: 1px solid var(--hairline);
 }
 
-/* ——— Home teaser ——— */
+/* ——— Home: capítulo tipográfico (encaixe no canvas — sem banner fotográfico) ——— */
 
-.ndd-home-section.ndd-theme-tokens {
-  background:
-    radial-gradient(
-      ellipse 80% 50% at 100% 0%,
-      color-mix(in srgb, var(--accent-2) 28%, transparent),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 60% 45% at 0% 100%,
-      color-mix(in srgb, var(--accent) 18%, transparent),
-      transparent 50%
-    ),
-    color-mix(in srgb, var(--surface) 94%, transparent) !important;
+.ndd-home-chapter__eyebrow {
+  color: color-mix(in srgb, #ef6b55 72%, var(--foreground-muted)) !important;
 }
 
-.ndd-home-teaser {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: center;
+.ndd-home-chapter__cta.btn-primary {
+  background: #ef6b55;
+  color: #1f0a12;
 }
 
-@media (min-width: 768px) {
-  .ndd-home-teaser {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 2.5rem;
-  }
+.ndd-home-chapter__cta.btn-primary:hover {
+  background: #ff7f68;
 }
 
-.ndd-home-teaser__media {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0.35rem;
-  aspect-ratio: 4 / 5;
-  max-height: 28rem;
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--hairline));
-  box-shadow: 0 18px 44px rgba(31, 10, 18, 0.5);
-}
-
-.ndd-home-teaser__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse 90% 70% at 50% 110%,
-      color-mix(in srgb, var(--accent-2) 45%, transparent),
-      transparent 65%
-    ),
-    linear-gradient(
-      180deg,
-      transparent 50%,
-      color-mix(in srgb, #1f0a12 55%, transparent) 100%
-    );
-}
-
-.ndd-home-section.ndd-theme-tokens .btn-primary {
-  background: var(--accent);
-  color: var(--accent-foreground);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 40%, transparent);
-}
-
-.ndd-home-section.ndd-theme-tokens .btn-primary:hover {
-  background: var(--accent-hover);
-}
-
-.ndd-home-teaser__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 48%;
-}
-
-.ndd-home-teaser__copy {
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .ndd-home-teaser__copy {
-    text-align: left;
-  }
-
-  .ndd-home-teaser__media {
-    justify-self: end;
-    width: 100%;
-    max-width: 22rem;
-  }
+.ndd-home-chapter__cta.btn-primary:active {
+  background: #d45540;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ndd-hero__veil {
     background: linear-gradient(
       180deg,
-      rgba(31, 10, 18, 0.55) 0%,
+      rgba(31, 10, 18, 0.7) 0%,
+      rgba(31, 10, 18, 0.85) 55%,
       #1f0a12 100%
     );
   }
 
-  .ndd-home-teaser__media::after {
-    background: color-mix(in srgb, #1f0a12 30%, transparent);
+  @media (min-width: 900px) {
+    .ndd-hero__veil {
+      background: linear-gradient(
+        105deg,
+        rgba(31, 10, 18, 0.35) 0%,
+        rgba(31, 10, 18, 0.75) 48%,
+        #1f0a12 72%
+      );
+    }
   }
 
   .ndd-hero__img {
