@@ -544,7 +544,7 @@ export function Programacao() {
           )}
         </div>
 
-        <div className="mt-12 border-t border-hairline pt-6 md:mt-16 md:pt-8">
+        <div className="mt-12 pt-6 md:mt-16 md:pt-8">
           <p className="section-caption !mb-0">Horário de funcionamento</p>
           <p className="section-prose mt-2">
             Aberto todos os dias · Domingo a quinta-feira das 12h às 22h · Sexta-feira
