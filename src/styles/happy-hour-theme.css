@@ -1,23 +1,145 @@
-[data-page-theme="happy-hour"] {
-  --background: #0e1419;
-  --surface: #141c24;
-  --surface-elevated: #1a2530;
-  --foreground: #f2ece4;
-  --foreground-muted: #a8b0bc;
-  --muted: #a8b0bc;
-  --accent: #e8872e;
-  --accent-hover: #f09540;
-  --accent-active: #d07824;
-  --accent-foreground: #0e1419;
-  --accent-2: #2d6cb5;
-  --accent-2-hover: #3a7ec9;
-  --accent-2-active: #245a96;
-  --hairline: rgba(120, 180, 255, 0.1);
-  --ink: #0e1419;
+/* Happy Hour / Blue Moon — azul + laranja (tokens !important p/ vencer :root) */
+
+html[data-page-theme="happy-hour"],
+.hh-theme-tokens {
+  --background: #0e1419 !important;
+  --surface: #141c24 !important;
+  --surface-elevated: #1a2530 !important;
+  --foreground: #f2ece4 !important;
+  --foreground-muted: #a8b0bc !important;
+  --muted: #a8b0bc !important;
+  --accent: #e8872e !important;
+  --accent-hover: #f09540 !important;
+  --accent-active: #d07824 !important;
+  --accent-foreground: #0e1419 !important;
+  --accent-2: #2d6cb5 !important;
+  --accent-2-hover: #3a7ec9 !important;
+  --accent-2-active: #245a96 !important;
+  --hairline: rgba(120, 180, 255, 0.12) !important;
+  --ink: #0e1419 !important;
+  --section-panel-color: #141c24 !important;
+  --section-panel-wash-accent: 10% !important;
+  --section-panel-wash-olive: 0% !important;
+  --selection-bg: rgba(232, 135, 46, 0.32) !important;
+  --selection-color: #f2ece4 !important;
+  --tap-highlight: rgba(45, 108, 181, 0.22) !important;
   --shadow-card: var(--shadow-contact);
   --shadow-card-hover: var(--shadow-contact-strong);
   color: var(--foreground);
   background-color: var(--background);
+}
+
+html[data-page-theme="happy-hour"] body,
+html[data-page-theme="happy-hour"] .site-root {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.happy-hour-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background:
+    radial-gradient(
+      ellipse 90% 55% at 50% -10%,
+      color-mix(in srgb, var(--accent-2) 28%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 100% 40%,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 60%
+    ),
+    var(--background);
+  color: var(--foreground);
+}
+
+/* Gravura Blue Moon — tile contínuo nas laterais (anti ghost space) */
+.hh-surface-pattern {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0 !important;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+  contain: paint;
+  opacity: var(--hh-pattern-opacity, 0.55);
+  background-image: var(--hh-pattern-sheet);
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: min(100%, 72rem) auto;
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 72% at 50% 40%,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.65) 46%,
+    #000 80%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 72% at 50% 40%,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.65) 46%,
+    #000 80%
+  );
+}
+
+@media (max-width: 767px) {
+  .hh-surface-pattern {
+    --hh-pattern-opacity: 0.4;
+    background-size: min(100%, 48rem) auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .hh-surface-pattern {
+    --hh-pattern-opacity: 0.58;
+  }
+}
+
+html[data-page-theme="happy-hour"] .btn-primary {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 32%, transparent);
+}
+
+html[data-page-theme="happy-hour"] .btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+html[data-page-theme="happy-hour"] .text-accent {
+  color: var(--accent) !important;
+}
+
+html[data-page-theme="happy-hour"] .text-accent-2 {
+  color: var(--accent-2) !important;
+}
+
+html[data-page-theme="happy-hour"] .section-kicker,
+html[data-page-theme="happy-hour"] .section-caption {
+  color: color-mix(in srgb, var(--accent-2) 78%, var(--foreground-muted)) !important;
+}
+
+/* ——— Hero ——— */
+
+[data-page-theme="happy-hour"] .hh-hero-full {
+  height: min(46dvh, 22rem);
+  min-height: 17rem;
+  max-height: 24rem;
+}
+
+@media (min-width: 768px) {
+  [data-page-theme="happy-hour"] .hh-hero-full {
+    height: min(48dvh, 26rem);
+    max-height: 28rem;
+  }
+}
+
+[data-page-theme="happy-hour"] .hh-hero-full__inner {
+  height: 100%;
+}
+
+[data-page-theme="happy-hour"] .hh-hero-full__image {
+  object-position: 45% 42%;
+  image-rendering: auto;
 }
 
 [data-page-theme="happy-hour"] .hh-hero-moon {
@@ -26,8 +148,8 @@
   top: 8%;
   right: 10%;
   z-index: 5;
-  width: 7rem;
-  height: 7rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   box-shadow: inset -8px -4px 16px rgba(232, 135, 46, 0.08);
   background: radial-gradient(
@@ -41,8 +163,8 @@
 
 @media (min-width: 768px) {
   [data-page-theme="happy-hour"] .hh-hero-moon {
-    width: 10rem;
-    height: 10rem;
+    width: 7rem;
+    height: 7rem;
     top: 10%;
     right: 14%;
   }
@@ -94,12 +216,12 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--accent-2) 88%, transparent);
+  color: #5a8fd4 !important;
 }
 
 [data-page-theme="happy-hour"] .hh-hero-title__line {
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-size: clamp(1.35rem, 3.5vw, 1.875rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -109,11 +231,11 @@
 
 [data-page-theme="happy-hour"] .hh-hero-title__brand {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-size: clamp(2rem, 6vw, 3.25rem);
   font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 0.95;
-  color: var(--accent-2);
+  color: #2d6cb5 !important;
   text-shadow:
     0 2px 32px rgba(45, 108, 181, 0.35),
     0 2px 28px rgba(0, 0, 0, 0.5);
@@ -123,8 +245,78 @@
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4);
 }
 
+/* ——— Fluxo contínuo (abaixo do hero) ——— */
+
+[data-page-theme="happy-hour"] .hh-flow {
+  position: relative;
+  isolation: isolate;
+  background: var(--background);
+}
+
+/* Pattern atrás; filhos sem stacking layer (evita costura de compositing) */
+[data-page-theme="happy-hour"] .hh-flow > .hh-surface-pattern {
+  z-index: 0;
+}
+
+/* Fade hero → conteúdo (longo, sem aresta) */
+[data-page-theme="happy-hour"] .hh-hero-full::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 6;
+  height: clamp(3.5rem, 12vw, 6rem);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--background) 35%, transparent) 45%,
+    color-mix(in srgb, var(--background) 78%, transparent) 78%,
+    var(--background) 100%
+  );
+}
+
+/* Sem divisores — nenhuma linha / filete entre blocos */
+[data-page-theme="happy-hour"] .hh-flow .hh-section-bridge,
+[data-page-theme="happy-hour"] .hh-flow .hh-section-bridge + .hh-section-bridge {
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none;
+  /* Fundo transparente: a costura vinha do degrau de wash entre seções */
+  background: transparent !important;
+  background-image: none !important;
+}
+
+[data-page-theme="happy-hour"] .hh-flow .hh-section-bridge + .hh-section-bridge::before,
+[data-page-theme="happy-hour"] .hh-flow .hh-section-bridge + .hh-section-bridge::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Acento beer: radial no miolo — morre antes das bordas (sem régua na junção) */
+[data-page-theme="happy-hour"] .hh-flow .hh-spread--beer {
+  background-image: radial-gradient(
+    ellipse 85% 70% at 50% 45%,
+    rgba(45, 108, 181, 0.11) 0%,
+    rgba(45, 108, 181, 0.04) 42%,
+    transparent 72%
+  ) !important;
+}
+
+/* ——— Intro ——— */
+
+[data-page-theme="happy-hour"] .hh-intro-eyebrow {
+  margin-bottom: 0;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a8fd4 !important;
+}
+
 [data-page-theme="happy-hour"] .hh-pull-quote {
-  border-left-color: color-mix(in srgb, var(--accent-2) 45%, transparent);
+  border-left-color: color-mix(in srgb, #2d6cb5 55%, transparent);
   font-size: 1.0625rem;
   line-height: 1.55;
 }
@@ -135,52 +327,79 @@
   }
 }
 
+/* ——— Spreads ——— */
+
 [data-page-theme="happy-hour"] .hh-spread-eyebrow {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--accent-2) 88%, transparent);
+  color: #5a8fd4 !important;
+}
+
+[data-page-theme="happy-hour"] .hh-spread:not(.hh-spread--beer) .hh-spread-eyebrow {
+  color: #e8872e !important;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-title {
   font-family: var(--font-display);
-  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-size: clamp(1.5rem, 3.4vw, 2.125rem);
   font-weight: 400;
   letter-spacing: -0.025em;
-  line-height: 1.08;
+  line-height: 1.1;
   color: var(--foreground);
 }
 
 [data-page-theme="happy-hour"] .hh-spread--beer .hh-spread-title {
-  color: color-mix(in srgb, var(--accent-2) 92%, var(--foreground));
+  color: #3a7ec9 !important;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-subtitle {
-  margin-top: 0.875rem;
+  margin-top: 0.625rem;
   font-family: var(--font-garamond);
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-style: italic;
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--foreground-muted);
 }
 
 @media (min-width: 768px) {
   [data-page-theme="happy-hour"] .hh-spread-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
 }
 
-[data-page-theme="happy-hour"] .hh-section-bridge + .hh-section-bridge {
-  border-top-color: rgba(120, 180, 255, 0.08);
+[data-page-theme="happy-hour"] .hh-spread--tone-a,
+[data-page-theme="happy-hour"] .hh-spread--tone-b,
+[data-page-theme="happy-hour"] .hh-footnote,
+[data-page-theme="happy-hour"] .hh-faq {
+  background: transparent;
 }
 
-[data-page-theme="happy-hour"] .hh-spread--beer {
-  background:
-    linear-gradient(165deg, rgba(45, 108, 181, 0.08) 0%, transparent 55%),
-    var(--surface-elevated);
+/* Fade fluxo → CTA (longo, sem aresta) */
+[data-page-theme="happy-hour"] .hh-cta-section::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 2;
+  height: clamp(3rem, 10vw, 5rem);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--background) 0%,
+    color-mix(in srgb, var(--background) 55%, transparent) 40%,
+    color-mix(in srgb, var(--background) 18%, transparent) 75%,
+    transparent 100%
+  );
+}
+
+[data-page-theme="happy-hour"] .hh-item-badge {
+  border-color: color-mix(in srgb, #2d6cb5 45%, transparent) !important;
+  background: color-mix(in srgb, #2d6cb5 14%, transparent) !important;
+  color: #e8872e !important;
 }
 
 @media (min-width: 768px) {
@@ -196,69 +415,158 @@
 }
 
 [data-page-theme="happy-hour"] .hh-aspect-intro-portrait {
-  aspect-ratio: 2 / 3;
-  max-height: 360px;
+  aspect-ratio: 3 / 4;
+  max-height: 240px;
 }
 
 [data-page-theme="happy-hour"] .hh-aspect-intro-landscape {
   aspect-ratio: 4 / 3;
-  max-height: 280px;
+  max-height: 200px;
 }
 
+/* Grids — altura ditada pelo container, nunca pela foto */
 [data-page-theme="happy-hour"] .hh-spread-grid {
-  max-height: 300px;
+  width: 100%;
+  height: 200px;
+  max-height: 200px;
+  overflow: hidden;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-grid--asymmetric {
-  max-height: 340px;
+  height: 220px;
+  max-height: 220px;
 }
 
-[data-page-theme="happy-hour"] .hh-spread-grid--duo {
+[data-page-theme="happy-hour"] .hh-spread-grid--asymmetric.hh-spread-grid--dishes {
+  height: 280px;
   max-height: 280px;
 }
 
-[data-page-theme="happy-hour"] .hh-spread-grid--duo:has(.hh-spread-cell--portrait) {
+[data-page-theme="happy-hour"] .hh-spread-grid--duo {
+  height: 200px;
+  max-height: 200px;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-grid--duo.hh-spread-grid--dishes {
+  height: 260px;
+  max-height: 260px;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-grid--duo.hh-spread-grid--single {
+  height: 220px;
+  max-height: 220px;
+  max-width: 280px;
+}
+
+/* Trio de pratos: célula 2:3 = proporção do DAM → contain sem faixas laterais */
+[data-page-theme="happy-hour"] .hh-spread-grid--dishes-trio {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-grid--dishes-trio .hh-spread-cell {
+  aspect-ratio: 2 / 3;
+  height: auto;
   max-height: none;
 }
 
 @media (min-width: 768px) {
   [data-page-theme="happy-hour"] .hh-spread-grid {
-    max-height: 400px;
+    height: 260px;
+    max-height: 260px;
   }
 
   [data-page-theme="happy-hour"] .hh-spread-grid--asymmetric {
-    max-height: 440px;
+    height: 280px;
+    max-height: 280px;
+  }
+
+  [data-page-theme="happy-hour"] .hh-spread-grid--asymmetric.hh-spread-grid--dishes {
+    height: 340px;
+    max-height: 340px;
   }
 
   [data-page-theme="happy-hour"] .hh-spread-grid--duo {
-    max-height: 360px;
+    height: 240px;
+    max-height: 240px;
   }
 
-  [data-page-theme="happy-hour"] .hh-spread-grid--duo:has(.hh-spread-cell--portrait) {
-    max-height: none;
+  [data-page-theme="happy-hour"] .hh-spread-grid--duo.hh-spread-grid--dishes {
+    height: 300px;
+    max-height: 300px;
   }
 
-  [data-page-theme="happy-hour"] .hh-spread-cell--portrait {
-    max-height: 400px;
+  [data-page-theme="happy-hour"] .hh-spread-grid--duo.hh-spread-grid--single {
+    height: 260px;
+    max-height: 260px;
     max-width: 300px;
   }
+
+  [data-page-theme="happy-hour"] .hh-spread-grid--dishes-trio {
+    height: auto;
+    max-height: none;
+  }
+}
+
+[data-page-theme="happy-hour"] .hh-spread-cell {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-cell--frame {
+  aspect-ratio: auto;
+  max-height: none;
+  max-width: none;
+  height: 100%;
+  isolation: isolate;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-cell--contain {
   background:
-    linear-gradient(165deg, rgba(45, 108, 181, 0.06) 0%, transparent 55%),
+    linear-gradient(165deg, rgba(45, 108, 181, 0.08) 0%, transparent 55%),
     var(--surface-elevated);
+}
+
+[data-page-theme="happy-hour"] .hh-dish-caption {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 1.35rem 0.55rem 0.4rem;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(14, 20, 25, 0.55) 55%,
+    rgba(14, 20, 25, 0.78) 100%
+  );
+  font-family: var(--font-garamond);
+  font-size: 0.6875rem;
+  font-style: italic;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  [data-page-theme="happy-hour"] .hh-dish-caption {
+    font-size: 0.75rem;
+    padding: 1.5rem 0.65rem 0.45rem;
+  }
 }
 
 [data-page-theme="happy-hour"] .hh-spread-carousel {
   position: relative;
   width: 100%;
-  max-width: 320px;
+  max-width: 220px;
 }
 
 [data-page-theme="happy-hour"] .hh-spread-carousel__card {
   background:
-    linear-gradient(165deg, rgba(45, 108, 181, 0.06) 0%, transparent 55%),
+    linear-gradient(165deg, rgba(45, 108, 181, 0.08) 0%, transparent 55%),
     var(--surface-elevated);
 }
 
@@ -287,38 +595,14 @@
   }
 }
 
-[data-page-theme="happy-hour"] .hh-spread-grid--duo:has(.hh-spread-cell--featured),
-[data-page-theme="happy-hour"] .hh-spread-grid--duo .hh-spread-cell:only-child {
-  max-height: none;
-}
-
-[data-page-theme="happy-hour"] .hh-spread-grid--duo .hh-spread-cell--portrait:only-child {
-  max-height: 420px;
-}
-
-@media (min-width: 768px) {
-  [data-page-theme="happy-hour"] .hh-spread-grid--duo .hh-spread-cell--portrait:only-child {
-    max-height: 480px;
-    max-width: 320px;
-  }
-}
-
-[data-page-theme="happy-hour"] .hh-spread-cell--square {
-  aspect-ratio: 1 / 1;
-  height: 100%;
-}
-
-[data-page-theme="happy-hour"] .hh-spread-cell--portrait {
-  aspect-ratio: 2 / 3;
-  width: 100%;
-  max-height: 320px;
-}
-
-[data-page-theme="happy-hour"] .hh-spread-cell--landscape {
-  aspect-ratio: 4 / 3;
-}
-
+[data-page-theme="happy-hour"] .hh-spread-cell--square,
+[data-page-theme="happy-hour"] .hh-spread-cell--portrait,
+[data-page-theme="happy-hour"] .hh-spread-cell--landscape,
 [data-page-theme="happy-hour"] .hh-spread-cell--hero {
+  aspect-ratio: auto;
+  width: 100%;
+  max-width: none;
+  max-height: none;
   height: 100%;
   min-height: 0;
 }
@@ -333,18 +617,175 @@
   }
 }
 
+/* ——— CTA ——— */
+
 [data-page-theme="happy-hour"] .hh-cta-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(14, 20, 25, 0.78) 0%,
-    rgba(14, 20, 25, 0.86) 45%,
-    rgba(20, 28, 36, 0.92) 100%
-  );
+  background:
+    linear-gradient(
+      180deg,
+      rgba(14, 20, 25, 0.72) 0%,
+      rgba(14, 20, 25, 0.82) 45%,
+      rgba(20, 28, 36, 0.92) 100%
+    ),
+    radial-gradient(ellipse 55% 45% at 50% 20%, rgba(45, 108, 181, 0.22), transparent 70%),
+    radial-gradient(ellipse 40% 35% at 80% 90%, rgba(232, 135, 46, 0.14), transparent 65%);
 }
 
 [data-page-theme="happy-hour"] .hh-cta-backdrop {
-  filter: brightness(0.45) saturate(1.1);
+  filter: brightness(0.48) saturate(1.15);
 }
+
+[data-page-theme="happy-hour"] .hh-cta-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e8872e !important;
+}
+
+[data-page-theme="happy-hour"] .hh-cta-section {
+  max-height: min(42vh, 22rem);
+  min-height: 14rem;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-cell--zoom {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+[data-page-theme="happy-hour"] .hh-spread-cell--zoom:focus-visible {
+  outline-offset: 2px;
+}
+
+/* ——— Dish lightbox (scrim sólido, sem blur) ——— */
+
+[data-page-theme="happy-hour"] .hh-dish-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(0.75rem, env(safe-area-inset-top))
+    max(0.75rem, env(safe-area-inset-right))
+    max(0.75rem, env(safe-area-inset-bottom))
+    max(0.75rem, env(safe-area-inset-left));
+  background: rgba(8, 12, 16, 0.94);
+  cursor: zoom-out;
+  overflow: auto;
+}
+
+[data-page-theme="happy-hour"] .hh-dish-lightbox__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 36rem);
+  max-height: min(92dvh, 100%);
+  outline: none;
+  cursor: default;
+}
+
+[data-page-theme="happy-hour"] .hh-dish-lightbox__title {
+  margin: 0 2.75rem 0.65rem 0;
+  align-self: stretch;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+/* Sempre no canto do viewport — independente do aspect da foto */
+[data-page-theme="happy-hour"] .hh-dish-lightbox__close {
+  position: fixed;
+  top: max(0.65rem, env(safe-area-inset-top));
+  right: max(0.65rem, env(safe-area-inset-right));
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(8, 12, 16, 0.72);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+[data-page-theme="happy-hour"] .hh-dish-lightbox__close:hover {
+  background: rgba(8, 12, 16, 0.9);
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page-theme="happy-hour"] .hh-dish-lightbox__close {
+    transition: none;
+  }
+}
+
+[data-page-theme="happy-hour"] .hh-dish-lightbox__stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+[data-page-theme="happy-hour"] .hh-dish-lightbox__img {
+  display: block;
+  max-width: 100%;
+  /* Reserva espaço p/ título + caption + safe area — retratos 2:3 não comem o chrome */
+  max-height: min(72dvh, calc(100dvh - 7.5rem));
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.25rem;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+}
+
+[data-page-theme="happy-hour"] .hh-dish-lightbox__caption {
+  margin: 0.65rem 0 0;
+  flex-shrink: 0;
+  font-family: var(--font-garamond);
+  font-size: 0.9375rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--foreground-muted);
+  text-align: center;
+}
+
+/* ——— FAQ ——— */
+
+[data-page-theme="happy-hour"] .hh-faq-eyebrow {
+  margin-bottom: 0;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a8fd4 !important;
+}
+
+[data-page-theme="happy-hour"] .hh-faq-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+
+/* ——— Nav slide ——— */
 
 [data-page-theme="happy-hour"] .hh-nav-slide {
   transform: translate3d(0, 0, 0);
@@ -368,6 +809,7 @@
 [data-page-theme="happy-hour"] .hh-nav-eyebrow {
   line-height: 1.2;
   margin-bottom: 0.125rem;
+  color: #5a8fd4 !important;
 }
 
 [data-page-theme="happy-hour"] .hh-nav-brand {
