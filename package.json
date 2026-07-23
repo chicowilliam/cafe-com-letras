@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "optimize:blue-moon": "node scripts/optimize-blue-moon.mjs",
     "optimize:cardapio": "node scripts/optimize-cardapio-images.mjs",
     "extract:cardapio": "node scripts/extract-cardapio-text.mjs",
     "build:cardapio-catalog": "node scripts/build-cardapio-catalog.mjs",
