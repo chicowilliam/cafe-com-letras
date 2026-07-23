@@ -63,8 +63,41 @@
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
 }
 
-[data-page-theme="cafe-da-tarde"] .cdt-section-bridge + .cdt-section-bridge {
-  border-top-color: rgba(255, 230, 200, 0.06);
+/* Fluxo contínuo — sem hairline / sem degrau de superfície */
+[data-page-theme="cafe-da-tarde"] .cdt-flow {
+  position: relative;
+  background: var(--background);
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-flow .cdt-section-bridge,
+[data-page-theme="cafe-da-tarde"] .cdt-flow .cdt-section-bridge + .cdt-section-bridge {
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-flow .cdt-section-bridge + .cdt-section-bridge::before {
+  content: none !important;
+  display: none !important;
+}
+
+[data-page-theme="cafe-da-tarde"] .cdt-spread--tone-a,
+[data-page-theme="cafe-da-tarde"] .cdt-spread--tone-b,
+[data-page-theme="cafe-da-tarde"] .cdt-footnote,
+[data-page-theme="cafe-da-tarde"] .cdt-intro,
+[data-page-theme="cafe-da-tarde"] .cdt-mosaic-section {
+  background-image: none;
+  background-color: transparent;
+}
+
+/* Acento suave no miolo (sem aresta na junção) */
+[data-page-theme="cafe-da-tarde"] .cdt-spread--tone-b {
+  background-image: radial-gradient(
+    ellipse 90% 65% at 50% 50%,
+    rgba(38, 32, 24, 0.45) 0%,
+    transparent 70%
+  );
 }
 
 @media (min-width: 768px) {
