@@ -33,17 +33,19 @@ export const HAPPY_HOUR_PETISCOS: HappyHourMenuItem[] = [
     name: "Pastel aberto de camarão",
     price: "R$ 32",
     description: "Quatro unidades",
-    imageSlug: "petiscos-para-abrir",
+    imageSlug: "pastel-camarao",
   },
   {
     name: "Pastel aberto de queijo provolone com salaminho",
     price: "R$ 32",
     description: "Quatro unidades",
+    imageSlug: "pastel-provolone",
   },
   {
     name: "Batatas rústicas",
     price: "R$ 38",
     description: "Com lâminas de bacon e fonduta de requeijão de raspa",
+    imageSlug: "batatas-rusticas",
   },
   {
     name: "Croquetes de carne",
@@ -52,25 +54,21 @@ export const HAPPY_HOUR_PETISCOS: HappyHourMenuItem[] = [
     imageSlug: "croquetes-de-carne",
   },
   {
-    name: "Choripan",
+    name: "Choripan vegano",
     price: "R$ 37",
-    description: "Acompanha baguete",
+    description: "Versão vegana da casa — acompanha baguete",
+    imageSlug: "choripan",
   },
 ];
 
 export const HAPPY_HOUR_DRINKS: HappyHourMenuItem[] = [
   {
-    name: "Blue Moon Belgian White",
+    name: "Blue Moon",
+    price: "R$ 25",
     description:
-      "Cerveja de trigo belga com notas cítricas — servida com fatia de laranja, do jeito que a Blue Moon pede",
+      "355ml — cerveja de trigo belga com notas cítricas, servida com fatia de laranja",
     badge: "Blue Moon",
     imageSlug: "laranja-no-copo",
-  },
-  {
-    name: "Blue Moon Light Sky",
-    description: "Versão leve e refrescante, com todo o sinal cítrico característico",
-    badge: "Blue Moon",
-    imageSlug: "mesa-blue-moon",
   },
   {
     name: "Chope Pilsen",
@@ -91,6 +89,22 @@ export const HAPPY_HOUR_DRINKS: HappyHourMenuItem[] = [
 
 export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
   {
+    id: "drinks",
+    eyebrow: "Parceria Blue Moon",
+    title: "Chopp & drinks",
+    subtitle:
+      "Blue Moon com fatia de laranja, chopps gelados e coquetelaria do entardecer",
+    itemNames: [
+      "Blue Moon",
+      "Chope Pilsen",
+      "Aperol Spritz",
+      "Negroni",
+    ],
+    imageSlugs: ["laranja-no-copo", "brinde-blue-moon"],
+    variant: "duo",
+    tone: "beer",
+  },
+  {
     id: "abrir",
     eyebrow: "Para abrir",
     title: "Pastéis da casa",
@@ -99,34 +113,18 @@ export const HAPPY_HOUR_SPREADS: HappyHourSpreadConfig[] = [
       "Pastel aberto de camarão",
       "Pastel aberto de queijo provolone com salaminho",
     ],
-    imageSlugs: ["petiscos-para-abrir", "laranja-no-copo", "mesa-blue-moon"],
-    variant: "carousel-card",
+    imageSlugs: ["pastel-camarao", "pastel-provolone"],
+    variant: "duo",
   },
   {
     id: "na-mesa",
     eyebrow: "Na mesa",
     title: "Para compartilhar",
-    subtitle: "Porções fartas para dividir entre amigos na Savassi",
-    itemNames: ["Batatas rústicas", "Croquetes de carne", "Choripan"],
-    imageSlugs: ["croquetes-de-carne", "petiscos-para-abrir", "laranja-no-copo"],
-    variant: "carousel-card",
+    subtitle: "Porções para dividir no terraço da Savassi",
+    itemNames: ["Batatas rústicas", "Croquetes de carne", "Choripan vegano"],
+    imageSlugs: ["batatas-rusticas", "croquetes-de-carne", "choripan"],
+    variant: "grid-asymmetric",
     tone: "default",
-  },
-  {
-    id: "drinks",
-    eyebrow: "Blue Moon",
-    title: "Chopp & drinks",
-    subtitle: "Belgian White com fatia de laranja, chopps gelados e coquetelaria do entardecer",
-    itemNames: [
-      "Blue Moon Belgian White",
-      "Blue Moon Light Sky",
-      "Chope Pilsen",
-      "Aperol Spritz",
-      "Negroni",
-    ],
-    imageSlugs: ["laranja-no-copo", "mesa-blue-moon"],
-    variant: "duo",
-    tone: "beer",
   },
 ];
 
