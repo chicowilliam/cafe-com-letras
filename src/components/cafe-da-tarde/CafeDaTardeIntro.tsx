@@ -12,7 +12,7 @@ type CafeDaTardeIntroProps = {
 
 export function CafeDaTardeIntro({ description, image }: CafeDaTardeIntroProps) {
   return (
-    <section className="cdt-intro cdt-section-bridge relative overflow-hidden bg-background py-10 md:py-14">
+    <section className="cdt-intro cdt-section-bridge relative overflow-hidden py-10 md:py-14">
       <div className="mx-auto grid max-w-4xl items-center gap-8 px-5 md:grid-cols-[1fr_minmax(0,280px)] md:gap-10 md:px-10 lg:grid-cols-[1fr_minmax(0,320px)]">
         <SectionReveal variant="editorial">
           <p className="section-kicker max-w-prose">{description}</p>
