@@ -139,8 +139,8 @@ html[data-exp-hub-theme="noite-dos-dates"] .site-subpage-header--exp-hub {
 }
 
 [data-page-theme="happy-hour"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
-  border-bottom-color: color-mix(in srgb, var(--accent-2) 24%, transparent) !important;
-  background: var(--background) !important;
+  border-bottom-color: color-mix(in srgb, #2d6cb5 32%, transparent) !important;
+  background: #0e1419 !important;
 }
 
 [data-page-theme="noite-dos-dates"] .site-subpage-header:not(.site-subpage-header--exp-hub) {
@@ -155,7 +155,7 @@ html[data-exp-hub-theme="noite-dos-dates"] .site-subpage-header--exp-hub {
 
 [data-page-theme="happy-hour"] .site-subpage-header:not(.site-subpage-header--exp-hub) a:hover,
 [data-page-theme="happy-hour"] .site-subpage-header:not(.site-subpage-header--exp-hub) button:hover {
-  color: var(--accent) !important;
+  color: #e8872e !important;
 }
 
 [data-page-theme="noite-dos-dates"] .site-subpage-header:not(.site-subpage-header--exp-hub) a:hover,
