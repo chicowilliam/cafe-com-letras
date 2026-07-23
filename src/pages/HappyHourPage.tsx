@@ -1,7 +1,11 @@
+import { Fragment } from "react";
 import { HappyHourCta } from "@/components/happy-hour/HappyHourCta";
+import { HappyHourFaq } from "@/components/happy-hour/HappyHourFaq";
 import { HappyHourHero } from "@/components/happy-hour/HappyHourHero";
 import { HappyHourIntro } from "@/components/happy-hour/HappyHourIntro";
 import { HappyHourSpread } from "@/components/happy-hour/HappyHourSpread";
+import { HappyHourSurfacePattern } from "@/components/happy-hour/HappyHourSurfacePattern";
+import { SectionFlourish } from "@/components/SectionFlourish";
 import { ExperiencePageShell } from "@/components/experiencias/ExperiencePageShell";
 import { useReservation } from "@/hooks/useReservation";
 import { getBlueMoonImageBySlug } from "@/lib/blue-moon-images";
@@ -18,39 +22,52 @@ export default function HappyHourPage() {
   const spreads = getHappyHourSpreads();
 
   return (
-    <ExperiencePageShell>
+    <ExperiencePageShell className="happy-hour-page hh-theme-tokens">
       <main className="section-stack">
         <HappyHourHero
           eyebrow={info.eyebrow}
           schedule={info.scheduleLong}
-          subtitle="Chopp gelado, fatia de laranja e petiscos para o entardecer na Savassi."
-          conversionHint="Chopp a partir de R$ 32"
+          subtitle="Parceria Blue Moon no terraço: cerveja de trigo, petiscos da casa e o ritmo do entardecer."
+          conversionHint={info.conversionHint}
           onReserve={openReservation}
         />
 
-        <HappyHourIntro
-          description={info.description}
-          image={getBlueMoonImageBySlug("ambiente-savassi")}
-        />
+        <div className="hh-flow">
+          <HappyHourSurfacePattern />
 
-        {spreads.map((spread, index) => (
-          <HappyHourSpread
-            key={spread.id}
-            index={index}
-            eyebrow={spread.eyebrow}
-            title={spread.title}
-            subtitle={spread.subtitle}
-            items={spread.items}
-            images={spread.images}
-            variant={spread.variant}
-            tone={spread.tone}
-            reverse={index % 2 !== 0}
+          <HappyHourIntro
+            description={info.description}
+            image={getBlueMoonImageBySlug("servindo-blue-moon")}
           />
-        ))}
 
-        <p className="border-t border-hairline/60 bg-surface px-5 py-6 text-center font-garamond text-xs italic text-foreground-muted/70 md:px-10">
-          {HAPPY_HOUR_PRICE_FOOTNOTE}
-        </p>
+          {spreads.map((spread, index) => (
+            <Fragment key={spread.id}>
+              <SectionFlourish tone="happy-hour" />
+              <HappyHourSpread
+                index={index}
+                eyebrow={spread.eyebrow}
+                title={spread.title}
+                subtitle={spread.subtitle}
+                items={spread.items}
+                images={spread.images}
+                variant={spread.variant}
+                tone={spread.tone}
+                reverse={index % 2 !== 0}
+                onReserve={spread.id === "na-mesa" ? openReservation : undefined}
+              />
+            </Fragment>
+          ))}
+
+          <SectionFlourish tone="happy-hour" />
+
+          <p className="hh-footnote hh-section-bridge px-5 py-6 text-center font-garamond text-sm italic leading-relaxed text-foreground-muted md:px-10 md:text-base">
+            {HAPPY_HOUR_PRICE_FOOTNOTE}
+          </p>
+
+          <SectionFlourish tone="happy-hour" />
+
+          <HappyHourFaq />
+        </div>
 
         <HappyHourCta onReserve={openReservation} />
       </main>
