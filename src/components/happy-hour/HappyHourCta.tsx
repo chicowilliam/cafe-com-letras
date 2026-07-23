@@ -24,8 +24,9 @@ export function HappyHourCta({ onReserve }: HappyHourCtaProps) {
 
       <div className="relative z-10 mx-auto max-w-2xl px-5 text-center md:px-10">
         <FadeIn>
-          <p className="hh-cta-title font-garamond text-2xl italic leading-relaxed text-foreground md:text-[2rem]">
-            Garanta sua mesa para o próximo happy hour.
+          <p className="hh-cta-eyebrow">Blue Moon · Savassi</p>
+          <p className="hh-cta-title mt-3 font-garamond text-2xl italic leading-relaxed text-foreground md:text-[2rem]">
+            Guarde mesa no terraço — Blue Moon, petiscos e o fim de tarde da casa.
           </p>
           <button
             type="button"
