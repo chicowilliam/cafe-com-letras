@@ -113,11 +113,11 @@ export function CafeDaTardeSpread({
   reverse = false,
   variant = "grid-2x2",
 }: CafeDaTardeSpreadProps) {
-  const surface = index % 2 === 0 ? "bg-background" : "bg-surface";
+  const surface = index % 2 === 0 ? "cdt-spread--tone-a" : "cdt-spread--tone-b";
 
   return (
     <section
-      className={`cdt-spread cdt-section-bridge border-t border-hairline/60 ${surface} py-12 md:py-16`}
+      className={`cdt-spread cdt-section-bridge relative ${surface} py-12 md:py-16`}
     >
       <div
         className={`mx-auto grid max-w-5xl items-center gap-8 px-5 md:max-w-6xl md:gap-12 md:px-10 lg:gap-14 ${
