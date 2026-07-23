@@ -23,6 +23,100 @@
   --handoff-to: var(--surface);
 }
 
+/* Flourish cursivo — substitui régua horizontal entre seções */
+.section-flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-block: 0.35rem;
+  pointer-events: none;
+  contain: layout paint;
+}
+
+.section-flourish__svg {
+  display: block;
+  width: min(28rem, 55vw);
+  height: auto;
+  max-height: 2.25rem;
+  overflow: visible;
+}
+
+.section-flourish__stroke {
+  fill: none;
+}
+
+.section-flourish__stroke--main {
+  stroke: color-mix(in srgb, var(--accent) 55%, transparent);
+  stroke-opacity: 0.9;
+}
+
+.section-flourish__stroke--echo {
+  stroke: color-mix(in srgb, var(--accent-2) 40%, transparent);
+  stroke-opacity: 0.7;
+}
+
+.section-flourish__stroke--knot {
+  stroke: color-mix(in srgb, var(--accent) 48%, transparent);
+  stroke-opacity: 0.85;
+}
+
+.section-flourish__stroke--moon {
+  display: none;
+  stroke: color-mix(in srgb, var(--accent-2) 55%, transparent);
+}
+
+.section-flourish--happy-hour .section-flourish__stroke--main {
+  stroke: color-mix(in srgb, #e8872e 62%, transparent);
+}
+
+.section-flourish--happy-hour .section-flourish__stroke--echo {
+  stroke: color-mix(in srgb, #2d6cb5 48%, transparent);
+}
+
+.section-flourish--happy-hour .section-flourish__stroke--knot {
+  stroke: color-mix(in srgb, #e8872e 50%, transparent);
+}
+
+.section-flourish--happy-hour .section-flourish__stroke--moon {
+  display: inline;
+  stroke: color-mix(in srgb, #5a8fd4 70%, transparent);
+}
+
+.section-flourish--cafe-da-tarde .section-flourish__stroke--main {
+  stroke: color-mix(in srgb, var(--accent) 58%, transparent);
+}
+
+.section-flourish--cafe-da-tarde .section-flourish__stroke--echo {
+  stroke: color-mix(in srgb, var(--accent-2) 42%, transparent);
+}
+
+.section-handoff-flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(1.75rem, 4.5vh, 2.75rem);
+  margin: 0;
+  background: transparent;
+}
+
+@media (max-width: 767px) {
+  .section-flourish {
+    opacity: 0.72;
+  }
+
+  .section-flourish__svg {
+    width: min(22rem, 72vw);
+    max-height: 1.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-flourish__stroke {
+    transition: none;
+  }
+}
+
 /* Respiro puro — sem linha */
 .section-handoff-breath {
   height: clamp(1.25rem, 3.5vh, 2.5rem);
@@ -41,21 +135,22 @@
 }
 
 .section-handoff-wash::after {
+  /* Sem régua horizontal — só um brilho suave no miolo */
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 22%;
+  bottom: 18%;
   transform: translateX(-50%);
-  width: min(72%, 36rem);
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in srgb, var(--accent) 50%, transparent) 50%,
-    transparent 100%
+  width: min(48%, 22rem);
+  height: 2.5rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--accent) 22%, transparent) 0%,
+    transparent 72%
   );
-  opacity: 0.85;
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 /* Onda orgânica — preenche com a cor da seção seguinte */
@@ -93,13 +188,13 @@
 .section-handoff-chapter::after {
   content: "";
   flex: 1;
-  max-width: 8rem;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--accent) 28%, transparent),
-    transparent
+  max-width: 5rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--accent) 28%, transparent) 0%,
+    transparent 70%
   );
 }
 
@@ -121,17 +216,17 @@
   color: color-mix(in srgb, var(--foreground-muted) 88%, transparent);
 }
 
-/* Faixa de acento — não é hairline */
+/* Faixa de acento — wash vertical suave, sem filete reto */
 .section-handoff-accent-band {
-  height: clamp(0.5rem, 1.4vh, 0.625rem);
+  height: clamp(1.25rem, 3.5vh, 2rem);
   background: linear-gradient(
-    90deg,
+    180deg,
     transparent 0%,
-    color-mix(in srgb, var(--accent) 65%, transparent) 22%,
-    color-mix(in srgb, var(--accent-2) 45%, transparent) 78%,
+    color-mix(in srgb, var(--accent) 28%, transparent) 45%,
+    color-mix(in srgb, var(--accent-2) 18%, transparent) 55%,
     transparent 100%
   );
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 /* Painel que “sobe” — legado; visual unificado via .section-canvas / tokens --section-panel-* */
