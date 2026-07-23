@@ -22,7 +22,7 @@ type CafeDaTardeMosaicProps = {
 
 export function CafeDaTardeMosaic({ cells }: CafeDaTardeMosaicProps) {
   return (
-    <section className="cdt-mosaic-section cdt-section-bridge border-t border-hairline/60 bg-surface py-16 md:py-24">
+    <section className="cdt-mosaic-section cdt-section-bridge relative py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <FadeIn className="mb-8 max-w-2xl md:mb-12">
           <p className="section-eyebrow mb-3">Os detalhes</p>
